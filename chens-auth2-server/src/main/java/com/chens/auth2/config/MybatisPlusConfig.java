@@ -9,10 +9,8 @@ import com.baomidou.mybatisplus.plugins.parser.tenant.TenantSqlParser;
 import com.chens.auth2.handler.MyMetaObjectHandler;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
-import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -30,15 +28,12 @@ import java.util.List;
  * @create 2018/2/12
  */
 @Configuration
-@EnableConfigurationProperties(MybatisProperties.class)
 public class MybatisPlusConfig {
 
     @Autowired
     private Environment environment;
     private RelaxedPropertyResolver propertyResolver;
 
-    @Autowired
-    private DataSource dataSource;
 
     /**
      * mybatis-plus SQL执行效率插件【生产环境可以关闭】
