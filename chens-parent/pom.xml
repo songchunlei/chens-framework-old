@@ -2,25 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.chens</groupId>
-    <artifactId>chens-framework</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>chens-admin-web</module>
-        <module>chens-eureka</module>
-        <module>chens-gateway</module>
-        <module>chens-auth2-server</module>
-    </modules>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.9.RELEASE</version>
         <relativePath />
     </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.chens</groupId>
+    <artifactId>chens-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>../chens-admin-web</module>
+        <module>../chens-eureka</module>
+        <module>../chens-gateway</module>
+        <module>../chens-auth2-server</module>
+    </modules>
 
     <repositories>
         <!--阿里云仓库-->
@@ -39,6 +39,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <springcloud.version>Dalston.SR1</springcloud.version>
+
+        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mybatis-plus.version>2.1.8</mybatis-plus.version>
+        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
+        <druid.version>1.1.6</druid.version>
+
+        <fastjson.version>1.2.44</fastjson.version>
+        <jwt.version>0.7.0</jwt.version>
+
     </properties>
 
     <!-- 统一管理 -->
@@ -48,24 +58,19 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR1</version>
+                <version>${springcloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.33</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>1.0.11</version>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
-                <version>0.7.0</version>
+                <version>${jwt.version}</version>
             </dependency>
             <!-- 日志格式化组件 -->
             <dependency>
@@ -77,23 +82,23 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.1.3</version>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
             </dependency>
             <!--mybatis-plus插件-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>1.0.5</version>
+                <version>${mybatisplus-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <version>2.1.9</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>1.3.1</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <!--mybatis-plus插件 end-->
         </dependencies>
