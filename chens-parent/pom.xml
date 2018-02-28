@@ -20,6 +20,7 @@
         <module>../chens-eureka</module>
         <module>../chens-gateway</module>
         <module>../chens-auth2-server</module>
+        <module>../chens-generator</module>
     </modules>
 
     <repositories>
