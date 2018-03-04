@@ -1,9 +1,10 @@
 package com.chens.admin.web.config;
 
-import com.chens.admin.web.domain.SysPermission;
-import com.chens.admin.web.domain.SysRole;
-import com.chens.admin.web.domain.UserInfo;
-import com.chens.admin.web.service.UserInfoService;
+
+import com.chens.admin.web.entity.SysPermission;
+import com.chens.admin.web.entity.SysRole;
+import com.chens.admin.web.entity.SysUser;
+import com.chens.admin.web.service.IAuthService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,14 +18,14 @@ import org.apache.shiro.util.ByteSource;
 import javax.annotation.Resource;
 public class MyShiroRealm extends AuthorizingRealm {
     @Resource
-    private UserInfoService userInfoService;
+    private IAuthService authService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        UserInfo userInfo  = (UserInfo)principals.getPrimaryPrincipal();
-        for(SysRole role:userInfo.getRoleList()){
-            authorizationInfo.addRole(role.getRole());
+        SysUser userInfo  = (SysUser)principals.getPrimaryPrincipal();
+        for(SysRole role:userInfo.getRoles()){
+            authorizationInfo.addRole(role.getRoleCode());
             for(SysPermission p:role.getPermissions()){
                 authorizationInfo.addStringPermission(p.getPermission());
             }
@@ -42,15 +43,15 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println(token.getCredentials());
         //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        UserInfo userInfo = userInfoService.findByUsername(username);
-        System.out.println("----->>userInfo="+userInfo);
-        if(userInfo == null){
+        SysUser sysUser = authService.findByUsername(username);
+        System.out.println("----->>userInfo="+sysUser);
+        if(sysUser == null){
             return null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                userInfo, //用户名
-                userInfo.getPassword(), //密码
-                ByteSource.Util.bytes(userInfo.getCredentialsSalt()),//salt=username+salt
+                sysUser, //用户名
+                sysUser.getPassword(), //密码
+                ByteSource.Util.bytes(sysUser.getCredentialsSalt()),//salt=username+salt
                 getName()  //realm name
         );
         return authenticationInfo;
