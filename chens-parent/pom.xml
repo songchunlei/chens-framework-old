@@ -21,6 +21,7 @@
         <module>../chens-gateway</module>
         <module>../chens-auth2-server</module>
         <module>../chens-generator</module>
+        <module>../chens-web-core</module>
     </modules>
 
     <repositories>
@@ -47,7 +48,7 @@
         <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <druid.version>1.1.6</druid.version>
 
-        <fastjson.version>1.2.44</fastjson.version>
+        <fastjson.version>1.2.33</fastjson.version>
         <jwt.version>0.7.0</jwt.version>
 
     </properties>
@@ -102,6 +103,12 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <!--mybatis-plus插件 end-->
+            <!--shiro-->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>1.4.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
