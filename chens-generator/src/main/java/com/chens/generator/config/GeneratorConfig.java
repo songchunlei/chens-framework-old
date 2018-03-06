@@ -50,10 +50,13 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     /**
      * 自定义包名
      */
+    //packageConfig.setParent("com.chens.exam.wms")
+    //.setController("controller")
+    //.setEntity("entity");
     protected void packageConfig() {
-        packageConfig.setParent("com.chens.exam.wms")
-                .setController("controller")
-                .setEntity("entity");
+        packageConfig.setParent(null)
+                .setController("com.chens.exam.wms.controller")
+                .setEntity("com.chens.exam.core.entity.wms");
     }
 
 
