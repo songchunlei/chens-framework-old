@@ -1,9 +1,9 @@
 package com.chens.admin.web.config;
 
 
-import com.chens.admin.web.entity.SysPermission;
-import com.chens.admin.web.entity.SysRole;
-import com.chens.admin.web.entity.SysUser;
+import com.chens.core.entity.sys.SysPermission;
+import com.chens.core.entity.sys.SysRole;
+import com.chens.core.entity.sys.SysUser;
 import com.chens.admin.web.service.IAuthService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

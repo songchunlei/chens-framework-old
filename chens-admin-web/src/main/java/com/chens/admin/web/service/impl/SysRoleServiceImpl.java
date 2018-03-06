@@ -1,6 +1,6 @@
 package com.chens.admin.web.service.impl;
 
-import com.chens.admin.web.entity.SysRole;
+import com.chens.core.entity.sys.SysRole;
 import com.chens.admin.web.mapper.SysRoleMapper;
 import com.chens.admin.web.service.ISysRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

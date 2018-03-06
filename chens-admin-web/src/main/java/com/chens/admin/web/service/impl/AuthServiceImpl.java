@@ -1,6 +1,6 @@
 package com.chens.admin.web.service.impl;
 
-import com.chens.admin.web.entity.SysUser;
+import com.chens.core.entity.sys.SysUser;;
 import com.chens.admin.web.service.IAuthService;
 import com.chens.admin.web.service.ISysRoleService;
 import com.chens.admin.web.service.ISysUserService;

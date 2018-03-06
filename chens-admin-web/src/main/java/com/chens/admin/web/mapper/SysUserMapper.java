@@ -1,7 +1,6 @@
 package com.chens.admin.web.mapper;
 
-import com.chens.admin.web.domain.UserInfo;
-import com.chens.admin.web.entity.SysUser;
+import com.chens.core.entity.sys.SysUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

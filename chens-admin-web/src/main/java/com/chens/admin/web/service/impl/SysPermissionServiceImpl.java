@@ -1,6 +1,6 @@
 package com.chens.admin.web.service.impl;
 
-import com.chens.admin.web.entity.SysPermission;
+import com.chens.core.entity.sys.SysPermission;
 import com.chens.admin.web.mapper.SysPermissionMapper;
 import com.chens.admin.web.service.ISysPermissionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

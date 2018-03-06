@@ -1,6 +1,6 @@
 package com.chens.admin.web.service;
 
-import com.chens.admin.web.entity.SysUser;
+import com.chens.core.entity.sys.SysUser;
 
 /**
  * 权限控制

@@ -1,46 +1,74 @@
-package com.chens.admin.web.entity;
+package com.chens.core.entity.sys;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
-
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 /**
  * <p>
- * 用户
+ * 权限
  * </p>
  *
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-@TableName("sys_user")
-public class SysUser implements Serializable {
+@TableName("sys_permission")
+public class SysPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * id
+     */
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
+    /**
+     * 资源名称
+     */
     private String name;
-    private String password;
-    private String salt;
-    private String username;
+    /**
+     * 资源父id
+     */
+    @TableField("parent_id")
+    private Long parentId;
+    /**
+     * 资源类型
+     */
+    @TableField("permission_type")
+    private String permissionType;
+    /**
+     * 链接
+     */
+    private String url;
+    /**
+     * 创建时间
+     */
     @TableField("create_time")
     private Date createTime;
+    /**
+     * 更新时间
+     */
     @TableField("update_time")
     private Date updateTime;
+    /**
+     * 创建人
+     */
     @TableField("create_by")
     private Long createBy;
+    /**
+     * 更新人
+     */
     @TableField("update_by")
     private Long updateBy;
-    @TableField("tenant_id")
-    private Long tenantId;
-    @TableField(exist = false)
-    private List<SysRole> roles;
+    /**
+     * 权限描述
+     */
+    private String permission;
+
 
     public Long getId() {
         return id;
@@ -58,28 +86,28 @@ public class SysUser implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public String getSalt() {
-        return salt;
+    public String getPermissionType() {
+        return permissionType;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setPermissionType(String permissionType) {
+        this.permissionType = permissionType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUrl() {
+        return url;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Date getCreateTime() {
@@ -114,43 +142,27 @@ public class SysUser implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public Long getTenantId() {
-        return tenantId;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
-
-    public List<SysRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
-    }
-
-    /**
-     * 密码盐.
-     * @return
-     */
-    public String getCredentialsSalt(){
-        return this.username+this.salt;
-    }
-    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
 
     @Override
     public String toString() {
-        return "SysUser{" +
+        return "SysPermission{" +
         "id=" + id +
         ", name=" + name +
-        ", password=" + password +
-        ", salt=" + salt +
-        ", username=" + username +
+        ", parentId=" + parentId +
+        ", permissionType=" + permissionType +
+        ", url=" + url +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +
         ", updateBy=" + updateBy +
+        ", permission=" + permission +
         "}";
     }
 }

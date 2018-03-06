@@ -1,31 +1,46 @@
-package com.chens.admin.web.entity;
+package com.chens.core.entity.sys;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
- * 用户-角色
+ * 租户
  * </p>
  *
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-@TableName("sys_user_role")
-public class SysUserRole implements Serializable {
+@TableName("sys_tenant")
+public class SysTenant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 租户ID
+     */
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-    @TableField("user_id")
-    private Long userId;
-    @TableField("role_id")
-    private Long roleId;
+    /**
+     * 租户名称
+     */
+    @TableField("tenant_name")
+    private String tenantName;
+    /**
+     * 租户编码
+     */
+    @TableField("tenant_code")
+    private String tenantCode;
+    /**
+     * 租户描述
+     */
+    @TableField("tenant_desc")
+    private String tenantDesc;
     @TableField("create_time")
     private Date createTime;
     @TableField("update_time")
@@ -36,14 +51,6 @@ public class SysUserRole implements Serializable {
     private Long updateBy;
 
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Long getId() {
         return id;
     }
@@ -52,12 +59,28 @@ public class SysUserRole implements Serializable {
         this.id = id;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getTenantName() {
+        return tenantName;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public String getTenantDesc() {
+        return tenantDesc;
+    }
+
+    public void setTenantDesc(String tenantDesc) {
+        this.tenantDesc = tenantDesc;
     }
 
     public Date getCreateTime() {
@@ -94,10 +117,11 @@ public class SysUserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "SysUserRole{" +
-        "userId=" + userId +
-        ", id=" + id +
-        ", roleId=" + roleId +
+        return "SysTenant{" +
+        "id=" + id +
+        ", tenantName=" + tenantName +
+        ", tenantCode=" + tenantCode +
+        ", tenantDesc=" + tenantDesc +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +

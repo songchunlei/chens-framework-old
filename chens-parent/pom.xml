@@ -16,12 +16,18 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
+        <!--通用核心模块-->
+        <module>../chens-core</module>
+        <!--管理后台模块-->
         <module>../chens-admin-web</module>
+        <!--注册中心-->
         <module>../chens-eureka</module>
+        <!--网关-->
         <module>../chens-gateway</module>
+        <!--auth2授权-->
         <module>../chens-auth2-server</module>
+        <!--代码生成器-->
         <module>../chens-generator</module>
-        <module>../chens-web-core</module>
     </modules>
 
     <repositories>

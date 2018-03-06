@@ -1,6 +1,6 @@
 package com.chens.admin.web.service.impl;
 
-import com.chens.admin.web.entity.SysTenant;
+import com.chens.core.entity.sys.SysTenant;
 import com.chens.admin.web.mapper.SysTenantMapper;
 import com.chens.admin.web.service.ISysTenantService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

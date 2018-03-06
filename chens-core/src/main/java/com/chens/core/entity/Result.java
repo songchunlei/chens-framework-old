@@ -5,15 +5,17 @@ import com.alibaba.fastjson.JSON;
 import java.io.Serializable;
 
 /**
- * 结果集
+ * 反馈结果集
  *
  * @auther songchunlei@qq.com
  * @create 2018/3/5
  */
 public class Result implements Serializable {
-
+    //反馈编码
     private int code;
+    //反馈消息
     private String msg;
+    //反馈数据
     private Object data;
 
     public Result() {

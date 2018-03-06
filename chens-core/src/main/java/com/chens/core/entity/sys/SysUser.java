@@ -1,45 +1,33 @@
-package com.chens.admin.web.entity;
+package com.chens.core.entity.sys;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
- * 租户
+ * 用户
  * </p>
  *
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-@TableName("sys_tenant")
-public class SysTenant implements Serializable {
+@TableName("sys_user")
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 租户ID
-     */
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-    /**
-     * 租户名称
-     */
-    @TableField("tenant_name")
-    private String tenantName;
-    /**
-     * 租户编码
-     */
-    @TableField("tenant_code")
-    private String tenantCode;
-    /**
-     * 租户描述
-     */
-    @TableField("tenant_desc")
-    private String tenantDesc;
+    private String name;
+    private String password;
+    private String salt;
+    private String username;
     @TableField("create_time")
     private Date createTime;
     @TableField("update_time")
@@ -48,7 +36,10 @@ public class SysTenant implements Serializable {
     private Long createBy;
     @TableField("update_by")
     private Long updateBy;
-
+    @TableField("tenant_id")
+    private Long tenantId;
+    @TableField(exist = false)
+    private List<SysRole> roles;
 
     public Long getId() {
         return id;
@@ -58,28 +49,36 @@ public class SysTenant implements Serializable {
         this.id = id;
     }
 
-    public String getTenantName() {
-        return tenantName;
+    public String getName() {
+        return name;
     }
 
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTenantCode() {
-        return tenantCode;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getTenantDesc() {
-        return tenantDesc;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setTenantDesc(String tenantDesc) {
-        this.tenantDesc = tenantDesc;
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getCreateTime() {
@@ -114,13 +113,39 @@ public class SysTenant implements Serializable {
         this.updateBy = updateBy;
     }
 
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * 密码盐.
+     * @return
+     */
+    public String getCredentialsSalt(){
+        return this.username+this.salt;
+    }
+    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
+
     @Override
     public String toString() {
-        return "SysTenant{" +
+        return "SysUser{" +
         "id=" + id +
-        ", tenantName=" + tenantName +
-        ", tenantCode=" + tenantCode +
-        ", tenantDesc=" + tenantDesc +
+        ", name=" + name +
+        ", password=" + password +
+        ", salt=" + salt +
+        ", username=" + username +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +

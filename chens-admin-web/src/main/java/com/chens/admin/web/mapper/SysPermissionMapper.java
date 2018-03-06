@@ -1,7 +1,8 @@
 package com.chens.admin.web.mapper;
 
-import com.chens.admin.web.entity.SysPermission;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.chens.core.entity.sys.SysPermission;
 
 /**
  * <p>
