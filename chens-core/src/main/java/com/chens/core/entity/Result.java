@@ -11,7 +11,11 @@ import java.io.Serializable;
  * @create 2018/3/5
  */
 public class Result implements Serializable {
-    //反馈编码
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5375579517756081365L;
+	//反馈编码
     private int code;
     //反馈消息
     private String msg;
