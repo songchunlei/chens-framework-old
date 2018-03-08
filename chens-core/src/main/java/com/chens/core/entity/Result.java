@@ -10,7 +10,8 @@ import java.io.Serializable;
  * @auther songchunlei@qq.com
  * @create 2018/3/5
  */
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
+
     /**
 	 * 
 	 */
@@ -20,13 +21,16 @@ public class Result implements Serializable {
     //反馈消息
     private String msg;
     //反馈数据
-    private Object data;
+    private T data;
 
     public Result() {
-        super();
     }
 
-    public Result(int code, String msg, Object data) {
+    public Result(T entity) {
+        this.data = entity;
+    }
+
+    public Result(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -52,7 +56,7 @@ public class Result implements Serializable {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

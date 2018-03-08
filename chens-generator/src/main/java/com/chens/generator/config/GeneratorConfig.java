@@ -22,6 +22,8 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
                 .setFileOverride(true)
                 .setOpen(false)
                 .setEnableCache(false)
+                .setBaseResultMap(false)
+                .setBaseColumnList(true)
                 .setIdType(IdType.ID_WORKER);
     }
 
@@ -42,8 +44,8 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     protected void strategyConfig() {
         //strategyConfig.setTablePrefix(new String[]{"xx_"});// 此处可以修改为您的表前缀
         strategyConfig
-                .setTablePrefix(new String[]{"t_"})
-                .setInclude("t_tag")
+                //.setTablePrefix(new String[]{"t_"})
+                //.setInclude("sys_dict","sys_dict_type")
                 .setNaming(NamingStrategy.underline_to_camel);
     }
 
@@ -55,8 +57,11 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     //.setEntity("entity");
     protected void packageConfig() {
         packageConfig.setParent(null)
-                .setController("com.chens.exam.wms.controller")
-                .setEntity("com.chens.exam.core.entity.wms");
+                .setController("com.chens.admin.web.controller")
+                .setMapper("com.chens.admin.web.mapper")
+                .setService("com.chens.admin.web.service")
+                .setServiceImpl("com.chens.admin.web.service.impl")
+                .setEntity("com.chens.core.entity.sys");
     }
 
 
