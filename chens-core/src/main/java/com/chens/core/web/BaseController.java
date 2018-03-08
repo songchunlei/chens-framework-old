@@ -3,11 +3,9 @@ package com.chens.core.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chens.core.entity.Result;
-import com.chens.core.util.ResultHelper;
+import com.chens.core.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.ParameterizedType;
@@ -78,59 +76,13 @@ public class BaseController {
     }
 
     /**
-     * 返回成功处理请求
-     * @param t
-     * @param <T>
-     * @return
-     */
-    public <T> ResponseEntity<T> doOk(T t) {
-        return new ResponseEntity<T>(t, HttpStatus.OK);
-    }
-
-    /**
-     * 错误反馈通用方法
-     * @param code
-     * @param msg
-     * @return
-     */
-    public ResponseEntity<Result> doError(int code,String msg) {
-        return doOk(ResultHelper.getError(code,msg));
-    }
-
-    /**
-     * 错误反馈
-     * @param code
-     * @return
-     */
-    public ResponseEntity<Result> doError(int code) {
-        return doOk(ResultHelper.getError(code));
-    }
-
-    /**
-     * 错误反馈
-     * @param msg
-     * @return
-     */
-    public ResponseEntity<Result> doError(String  msg) {
-        return doOk(ResultHelper.getError(msg));
-    }
-
-    /**
-     * 错误反馈
-     * @return
-     */
-    public ResponseEntity<Result> doError() {
-        return doOk(ResultHelper.getError());
-    }
-
-    /**
      * 成功反馈通用方法
      * @param msg
      * @param obj
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ,Object obj) {
-        return doOk(ResultHelper.getSuccess(msg ,obj));
+        return ResponseHelper.doSuccess(msg ,obj);
     }
 
     /**
@@ -139,7 +91,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ) {
-        return doOk(ResultHelper.getSuccess(msg ));
+        return ResponseHelper.doSuccess(msg);
     }
 
     /**
@@ -148,7 +100,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(Object obj) {
-        return doOk(ResultHelper.getSuccess(obj ));
+        return ResponseHelper.doSuccess(obj);
     }
 
     /**
@@ -156,7 +108,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess() {
-        return doOk(ResultHelper.getSuccess( ));
+        return ResponseHelper.doSuccess( );
     }
 
 }

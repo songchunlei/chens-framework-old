@@ -1,4 +1,4 @@
-package com.chens.admin.web.handler;
+package com.chens.core.handler;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
