@@ -1,5 +1,6 @@
 package com.chens.core.util;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.core.entity.Result;
 
 /**
@@ -8,7 +9,7 @@ import com.chens.core.entity.Result;
  * @auther songchunlei@qq.com
  * @create 2018/3/5
  */
-public final class ResultHelper {
+public final class ResultHelper<T> {
     private static final int SUCCESS_CODE = 1;
     private static final int ERROR_CODE = 0;
     private static final String EMPTY_DATA = "{}";
