@@ -24,10 +24,7 @@ public class Result<T> implements Serializable {
     private T data;
 
     public Result() {
-    }
 
-    public Result(T entity) {
-        this.data = entity;
     }
 
     public Result(int code, String msg, T data) {
