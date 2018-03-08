@@ -3,6 +3,8 @@ package com.chens.admin.web.mapper;
 import com.chens.core.entity.sys.SysRole;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2018-03-04
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
-
+    List<SysRole> findRoleListByUserId(Long userId);
 }
