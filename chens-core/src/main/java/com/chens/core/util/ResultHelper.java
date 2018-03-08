@@ -1,6 +1,5 @@
 package com.chens.core.util;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.core.entity.Result;
 
 /**
@@ -25,7 +24,7 @@ public final class ResultHelper<T> {
      * @param msg
      * @return
      */
-    public static Result getError(int code, String msg) {
+    public static Result<String> getError(int code, String msg) {
         if (msg == null) {
             msg = EMPTY_MSG;
         }
@@ -37,7 +36,7 @@ public final class ResultHelper<T> {
      * @param error
      * @return
      */
-    public static Result getError(String error) {
+    public static Result<String> getError(String error) {
         return getError(ERROR_CODE, error);
     }
 
@@ -46,7 +45,7 @@ public final class ResultHelper<T> {
      * @param code
      * @return
      */
-    public static Result getError(int code) {
+    public static Result<String> getError(int code) {
         return getError(code, EMPTY_MSG);
     }
 
@@ -54,7 +53,7 @@ public final class ResultHelper<T> {
      * 错误反馈
      * @return
      */
-    public static Result getError() {
+    public static Result<String> getError() {
         return getError(ERROR_CODE, EMPTY_MSG);
     }
 
@@ -64,7 +63,7 @@ public final class ResultHelper<T> {
      * @param data
      * @return
      */
-    public static Result getSuccess(String msg, Object data) {
+    public static Result<Object> getSuccess(String msg, Object data) {
         if (msg == null) {
             msg = EMPTY_MSG;
         }
@@ -79,7 +78,7 @@ public final class ResultHelper<T> {
      * @param data
      * @return
      */
-    public static Result getSuccess(Object data) {
+    public static Result<Object> getSuccess(Object data) {
         return getSuccess( EMPTY_MSG,data);
     }
 
@@ -88,7 +87,7 @@ public final class ResultHelper<T> {
      * @param msg
      * @return
      */
-    public static Result getSuccess(String msg) {
+    public static Result<Object> getSuccess(String msg) {
         return getSuccess( msg,EMPTY_DATA);
     }
 
@@ -96,7 +95,7 @@ public final class ResultHelper<T> {
      * 成功反馈
      * @return
      */
-    public static Result getSuccess() {
+    public static Result<Object> getSuccess() {
         return getSuccess( EMPTY_MSG,EMPTY_DATA);
     }
 
