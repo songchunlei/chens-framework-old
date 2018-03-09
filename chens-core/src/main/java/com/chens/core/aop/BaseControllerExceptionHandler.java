@@ -29,6 +29,7 @@ public class BaseControllerExceptionHandler {
     @ResponseBody
     public Result notFount(BaseException e) {
         log.error("业务异常:", e);
+
         return ResultHelper.getError(e.getCode(), e.getMessage());
     }
 
