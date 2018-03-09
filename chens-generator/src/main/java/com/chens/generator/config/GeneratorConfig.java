@@ -46,7 +46,8 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
         strategyConfig
                 //.setTablePrefix(new String[]{"t_"})
                 //.setInclude("sys_dict","sys_dict_type")
-                .setNaming(NamingStrategy.underline_to_camel);
+                .setNaming(NamingStrategy.underline_to_camel)
+                .setLogicDeleteFieldName("is_delete");//逻辑删除字段
     }
 
     /**

@@ -29,6 +29,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     NO_DELETE(302,"删除失败"),
     NO_SAVE(303,"保存失败"),
     FILE_NOT_FOUND(304,"文件未找到"),
+    FILE_READING_ERROR(305,"文件读取错误"),
 
 
     /**
