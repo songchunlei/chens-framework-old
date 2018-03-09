@@ -29,14 +29,14 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         //用户信息需要后期统一修改
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername("wudepeng");
-        userInfo.setTennatId(1l);
+        userInfo.setTenantId(1l);
         
         
         setFieldValByName("createTime", date, metaObject);
         setFieldValByName("updateTime", date, metaObject); 
         setFieldValByName("createBy", userInfo.getUsername(), metaObject);
         setFieldValByName("updateBy", userInfo.getUsername(), metaObject);
-        setFieldValByName("tennatId", userInfo.getTennatId(), metaObject);
+        setFieldValByName("tennatId", userInfo.getTenantId(), metaObject);
         setFieldValByName("isDelete", YesNoEnum.NO.getCode(), metaObject);
         
 	}
