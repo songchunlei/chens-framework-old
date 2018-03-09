@@ -1,8 +1,7 @@
 package com.chens.admin.web.service;
 
-import com.chens.core.vo.Result;
-import com.chens.core.entity.SysUser;
 import com.baomidou.mybatisplus.service.IService;
+import com.chens.core.entity.SysUser;
 
 /**
  * <p>

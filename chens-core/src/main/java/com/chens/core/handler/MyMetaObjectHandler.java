@@ -29,7 +29,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         //用户信息需要后期统一修改
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername("wudepeng");
-        userInfo.setTennatId(10101010123l);
+        userInfo.setTennatId(1l);
         
         
         setFieldValByName("createTime", date, metaObject);

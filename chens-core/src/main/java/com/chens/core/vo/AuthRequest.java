@@ -10,14 +10,12 @@ import java.io.Serializable;
  */
 public class AuthRequest implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private String userName;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4958322063059771295L;
+	private String userName;
     private String password;
-
-    public AuthRequest(){
-
-    }
 
     public AuthRequest(String userName, String password) {
         this.userName = userName;
