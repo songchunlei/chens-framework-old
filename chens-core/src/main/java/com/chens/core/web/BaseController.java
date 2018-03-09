@@ -1,14 +1,19 @@
 package com.chens.core.web;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.util.FileUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -135,6 +140,36 @@ public class BaseController {
             page = new Page<T>(1,10);
         }
         return page;
+    }
+
+    /**
+     * 返回前台文件流
+     *
+     * @author fengshuonan
+     * @date 2017年2月28日 下午2:53:19
+     */
+    protected ResponseEntity<byte[]> renderFile(String fileName, String filePath) {
+        byte[] bytes = FileUtil.toByteArray(filePath);
+        return renderFile(fileName, bytes);
+    }
+
+    /**
+     * 返回前台文件流
+     *
+     * @author fengshuonan
+     * @date 2017年2月28日 下午2:53:19
+     */
+    protected ResponseEntity<byte[]> renderFile(String fileName, byte[] fileBytes) {
+        String dfileName = null;
+        try {
+            dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", dfileName);
+        return new ResponseEntity<byte[]>(fileBytes, headers, HttpStatus.CREATED);
     }
 
 }
