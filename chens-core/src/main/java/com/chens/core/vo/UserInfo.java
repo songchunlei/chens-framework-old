@@ -12,9 +12,20 @@ public class UserInfo implements Serializable {
 	
 	private static final long serialVersionUID = 4018322190219282262L;
 
+	public UserInfo(Long id, Long tennatId, String name, String username) {
+		this.id = id;
+		this.tennatId = tennatId;
+		this.name = name;
+		this.username = username;
+	}
+	public UserInfo()
+	{
+
+	}
+
 	/*
-	 * 用户id
-	 */
+         * 用户id
+         */
     private Long id;
     
     /*

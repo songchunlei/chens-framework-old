@@ -34,9 +34,16 @@ public class AuthController extends BaseController{
         }
         else
         {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+            //throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+            return doSuccess("成功");
         }
     }
+
+    @RequestMapping("/loginout")
+    public ResponseEntity<Result> loginout() {
+            return doSuccess("退出成功");
+    }
+
 
 
 }
