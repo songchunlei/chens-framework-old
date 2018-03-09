@@ -12,9 +12,9 @@ public class UserInfo implements Serializable {
 	
 	private static final long serialVersionUID = 4018322190219282262L;
 
-	public UserInfo(Long id, Long tennatId, String name, String username) {
+	public UserInfo(Long id, Long tenantId, String name, String username) {
 		this.id = id;
-		this.tennatId = tennatId;
+		this.tenantId = tenantId;
 		this.name = name;
 		this.username = username;
 	}
@@ -31,7 +31,7 @@ public class UserInfo implements Serializable {
     /*
      * 租户id
      */
-    private Long tennatId;
+    private Long tenantId;
     
     /*
      * 姓名
@@ -51,14 +51,12 @@ public class UserInfo implements Serializable {
 		this.id = id;
 	}
 
-	public Long getTennatId() {
-		return tennatId;
+	public Long getTenantId() {
+		return tenantId;
 	}
-
-	public void setTennatId(Long tennatId) {
-		this.tennatId = tennatId;
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
 	}
-
 	public String getName() {
 		return name;
 	}
