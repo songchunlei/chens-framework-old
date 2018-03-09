@@ -8,12 +8,7 @@ import org.springframework.context.annotation.Bean;
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.parser.ISqlParser;
-import com.baomidou.mybatisplus.plugins.parser.tenant.TenantHandler;
-import com.baomidou.mybatisplus.plugins.parser.tenant.TenantSqlParser;
 import com.chens.core.handler.MyMetaObjectHandler;
-
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.LongValue;
 
 /**
  * Mybatis-plus配置
@@ -48,7 +43,7 @@ public class BaseMybatisPlusConfig {
          * 这里固定写成住户 1 实际情况你可以从cookie读取，因此数据看不到 【 麻花藤 】 这条记录（ 注意观察 SQL ）<br>
          */
         List<ISqlParser> sqlParserList = new ArrayList<>();
-        TenantSqlParser tenantSqlParser = new TenantSqlParser();
+      /*  TenantSqlParser tenantSqlParser = new TenantSqlParser();
         tenantSqlParser.setTenantHandler(new TenantHandler() {
             @Override
             public Expression getTenantId() {
@@ -63,16 +58,16 @@ public class BaseMybatisPlusConfig {
             @Override
             public boolean doTableFilter(String tableName) {
                 // 这里可以判断是否过滤表
-                /*
+                
                 if ("s_user".equals(tableName)) {
                     return true;
-                }*/
+                }
                 return false;
             }
         });
 
 
-        sqlParserList.add(tenantSqlParser);
+        sqlParserList.add(tenantSqlParser);*/
         page.setSqlParserList(sqlParserList);
 
         /**

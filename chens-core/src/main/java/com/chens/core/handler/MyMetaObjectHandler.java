@@ -36,7 +36,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         setFieldValByName("updateTime", date, metaObject); 
         setFieldValByName("createBy", userInfo.getUsername(), metaObject);
         setFieldValByName("updateBy", userInfo.getUsername(), metaObject);
-        setFieldValByName("tennatId", userInfo.getTenantId(), metaObject);
+        setFieldValByName("tenantId", userInfo.getTenantId(), metaObject);
         setFieldValByName("isDelete", YesNoEnum.NO.getCode(), metaObject);
         
 	}

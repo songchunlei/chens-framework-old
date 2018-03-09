@@ -30,6 +30,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     NO_SAVE(303,"保存失败"),
     FILE_NOT_FOUND(304,"文件未找到"),
     FILE_READING_ERROR(305,"文件读取错误"),
+    VALIDATE_NOPASS(306, "校验不通过"),
 
 
     /**
@@ -37,12 +38,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
      */
     REQUEST_NULL(500, "请求有错误"),
     DATA_REQUEST_NULL(501, "数据传输失败"),
-    SERVER_ERROR(600, "服务器异常"),
-	
-	/**
-	 * 业务校验不通过
-	 */
-    VALIDATE_NOPASS(700, "校验不通过");
+    SERVER_ERROR(600, "服务器异常");
 
     private Integer code;
 
