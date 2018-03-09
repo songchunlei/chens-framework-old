@@ -1,6 +1,6 @@
 package com.chens.admin.web.service;
 
-import com.chens.core.entity.sys.SysDictType;
+import com.chens.core.entity.SysDictType;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

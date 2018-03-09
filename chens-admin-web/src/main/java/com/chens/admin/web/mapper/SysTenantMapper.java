@@ -1,6 +1,6 @@
 package com.chens.admin.web.mapper;
 
-import com.chens.core.entity.sys.SysTenant;
+import com.chens.core.entity.SysTenant;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

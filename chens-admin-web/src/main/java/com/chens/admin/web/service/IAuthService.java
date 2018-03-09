@@ -1,6 +1,6 @@
 package com.chens.admin.web.service;
 
-import com.chens.core.entity.sys.SysUser;
+import com.chens.core.entity.SysUser;
 import com.chens.core.vo.AuthRequest;
 
 /**
@@ -18,7 +18,7 @@ public interface IAuthService {
     SysUser findByUsername(String username);
 
     /**
-     * 校验
+     * 简单密码校验
      * @param authRequest
      * @return
      */

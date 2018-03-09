@@ -1,8 +1,10 @@
 package com.chens.admin.web.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
-import com.chens.core.entity.sys.SysUser;
+import com.chens.core.entity.SysUser;
 import com.chens.admin.web.mapper.SysUserMapper;
 import com.chens.admin.web.service.ISysUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -22,16 +24,16 @@ import java.util.List;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     @Override
-    public Result<SysUser> findByUsername(String username) {
+    public SysUser findByUsername(String username) {
         SysUser query = new SysUser();
         query.setUsername(username);
         List<SysUser> users = this.selectList(new EntityWrapper<>(query));
         if(users!=null && users.size()>0)
         {
             for (SysUser user:users) {
-                return ResultHelper.getSuccess(user);
+                return user;
             }
         }
-        return ResultHelper.getError(ErorrContants.CANNOT_QUERY_MSG);
+        throw new BaseException(BaseExceptionEnum.NO_DATA);
     }
 }
