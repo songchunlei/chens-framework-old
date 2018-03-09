@@ -40,7 +40,7 @@ public class BaseControllerExceptionHandler {
     @ResponseBody
     public Result notFount(RuntimeException e) {
         log.error("运行时异常:", e);
-        return ResultHelper.getError(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+        return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR);
     }
 
 }
