@@ -3,6 +3,9 @@ package com.chens.core.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.baomidou.mybatisplus.mapper.ISqlInjector;
+import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
+import com.chens.core.constants.CommonContants;
 import org.springframework.context.annotation.Bean;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
@@ -62,11 +65,13 @@ public class BaseMybatisPlusConfig {
 
             @Override
             public boolean doTableFilter(String tableName) {
+
+                boolean flg = CommonContants.NO_TENANT_TABLENAME.indexOf("["+tableName+"]")!=-1;
                 // 这里可以判断是否过滤表
-                /*
-                if ("s_user".equals(tableName)) {
+                if (flg) {
                     return true;
-                }*/
+                }
+
                 return false;
             }
         });
@@ -92,7 +97,13 @@ public class BaseMybatisPlusConfig {
 
 
 
-
+    /**
+     * 注入sql注入器
+     */
+    @Bean
+    public ISqlInjector sqlInjector(){
+        return new LogicSqlInjector();
+    }
 
 
 }

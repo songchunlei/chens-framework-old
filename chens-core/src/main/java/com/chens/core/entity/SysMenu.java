@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 菜单
  * </p>
  *
  * @author chunlei.song@live.com123
@@ -20,10 +20,11 @@ public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
     @TableField("parent_id")
     private Long parentId;
-    private String code;
+    private String type;
     private String name;
     /**
      * 访问地址
@@ -32,7 +33,7 @@ public class SysMenu implements Serializable {
     /**
      * 描述
      */
-    private String desc;
+    private String description;
     @TableField("create_time")
     private Date createTime;
     @TableField("update_time")
@@ -41,6 +42,18 @@ public class SysMenu implements Serializable {
     private Long createBy;
     @TableField("update_by")
     private Long updateBy;
+    /**
+     * 排序
+     */
+    private Integer seq;
+    /**
+     * 是否打开 1打开 0不打开
+     */
+    private Integer isopen;
+    /**
+     * 图标
+     */
+    private String icon;
 
 
     public Long getId() {
@@ -59,12 +72,12 @@ public class SysMenu implements Serializable {
         this.parentId = parentId;
     }
 
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -83,12 +96,12 @@ public class SysMenu implements Serializable {
         this.url = url;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreateTime() {
@@ -123,19 +136,46 @@ public class SysMenu implements Serializable {
         this.updateBy = updateBy;
     }
 
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+
+    public Integer getIsopen() {
+        return isopen;
+    }
+
+    public void setIsopen(Integer isopen) {
+        this.isopen = isopen;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public String toString() {
         return "SysMenu{" +
         "id=" + id +
         ", parentId=" + parentId +
-        ", code=" + code +
+        ", type=" + type +
         ", name=" + name +
         ", url=" + url +
-        ", desc=" + desc +
+        ", description=" + description +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +
         ", updateBy=" + updateBy +
+        ", seq=" + seq +
+        ", isopen=" + isopen +
+        ", icon=" + icon +
         "}";
     }
 }

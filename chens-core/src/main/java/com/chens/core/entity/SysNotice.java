@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author chunlei.song@live.com123
+ * @author chunlei.song@live.com
  * @since 2018-03-09
  */
 @TableName("sys_notice")
@@ -47,6 +47,11 @@ public class SysNotice implements Serializable {
      */
     @TableField("update_by")
     private Long updateBy;
+    /**
+     * 租户ID
+     */
+    @TableField("tenant_id")
+    private Long tenantId;
 
 
     public Long getId() {
@@ -113,10 +118,18 @@ public class SysNotice implements Serializable {
         this.updateBy = updateBy;
     }
 
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
     @Override
     public String toString() {
         return "SysNotice{" +
-        "id=" + id +
+        ", id=" + id +
         ", title=" + title +
         ", type=" + type +
         ", content=" + content +
@@ -124,6 +137,7 @@ public class SysNotice implements Serializable {
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +
         ", updateBy=" + updateBy +
+        ", tenantId=" + tenantId +
         "}";
     }
 }

@@ -1,28 +1,26 @@
 package com.chens.core.entity;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableLogic;
+import java.io.Serializable;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author chunlei.song@live.com123
- * @since 2018-03-08
+ * @author chunlei.song@live.com
+ * @since 2018-03-09
  */
 @TableName("sys_dict")
 public class SysDict implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 3133136279450893501L;
-	private Long id;
+    private Long id;
     private String type;
     private String val;
     private String text;
@@ -32,9 +30,15 @@ public class SysDict implements Serializable {
     @TableField("PARENT_ID")
     private Long parentId;
     @TableField("is_delete")
+    @TableLogic
     private String isDelete;
     private String exp1;
     private String exp2;
+    /**
+     * 租户ID
+     */
+    @TableField("tenant_id")
+    private Long tenantId;
 
 
     public Long getId() {
@@ -117,10 +121,18 @@ public class SysDict implements Serializable {
         this.exp2 = exp2;
     }
 
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
     @Override
     public String toString() {
         return "SysDict{" +
-        "id=" + id +
+        ", id=" + id +
         ", type=" + type +
         ", val=" + val +
         ", text=" + text +
@@ -130,6 +142,7 @@ public class SysDict implements Serializable {
         ", isDelete=" + isDelete +
         ", exp1=" + exp1 +
         ", exp2=" + exp2 +
+        ", tenantId=" + tenantId +
         "}";
     }
 }

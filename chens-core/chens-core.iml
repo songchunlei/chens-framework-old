@@ -71,7 +71,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.10" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.33" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.39" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.5.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.5.9.RELEASE" level="project" />
@@ -102,13 +102,17 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:8.5.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.3.13.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.3.13.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus:2.1.8" level="project" />
-    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-support:2.1.8" level="project" />
-    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-core:2.1.8" level="project" />
-    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus:2.1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-support:2.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.4.5" level="project" />
-    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-generate:2.1.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.3.13.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-core:2.1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-generate:2.1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.velocity:velocity-engine-core:2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
+    <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.27-incubating" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.6" level="project" />
   </component>
 </module>
