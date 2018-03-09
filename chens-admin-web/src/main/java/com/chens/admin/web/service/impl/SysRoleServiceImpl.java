@@ -4,6 +4,9 @@ import com.chens.core.entity.sys.SysRole;
 import com.chens.admin.web.mapper.SysRoleMapper;
 import com.chens.admin.web.service.ISysRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.chens.core.entity.sys.SysUser;
+import com.chens.core.entity.sys.SysUserRole;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,11 @@ import java.util.List;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
     @Override
     public List<SysRole> findRoleListByUserId(Long userId) {
-        return null;
+        return sysRoleMapper.findRoleListByUserId(userId);
     }
 }

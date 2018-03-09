@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chens.admin.web.mapper.SysRoleMapper">
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, role_name AS roleName, role_code AS roleCode, create_time AS createTime, create_by AS createBy, update_time AS updateTime, update_by AS updateBy, is_delete AS isDelete
+    </sql>
+
+    <!-- 通过用户ID找角色 -->
+    <select id="findRoleListByUserId" parameterType="java.lang.Long"  resultType="com.chens.core.entity.sys.SysRole">
+        select role.*
+        from sys_role role,sys_user_role userrole
+        where role.id = userrole.role_id
+        and userrole.user_id=#{userId}
+    </select>
+
+
+    <!-- 通过权限ID找角色 -->
+    <select id="selectByPermissionId" resultType="com.chens.core.entity.sys.SysRole">
+        select a.* from s_role a,s_role_resource_rel b where
+        a.id=b.role_id and b.resource_id = #{resourceId}
+    </select>
+
 </mapper>

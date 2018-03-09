@@ -1,5 +1,6 @@
 package com.chens.admin.web.service;
 
+import com.chens.core.vo.Result;
 import com.chens.core.entity.sys.SysUser;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2018-03-04
  */
 public interface ISysUserService extends IService<SysUser> {
-    SysUser findByUsername(String username);
+    Result<SysUser> findByUsername(String username);
 }
