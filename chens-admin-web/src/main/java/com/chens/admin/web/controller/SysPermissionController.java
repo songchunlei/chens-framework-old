@@ -1,6 +1,7 @@
 package com.chens.admin.web.controller;
 
 
+import com.chens.core.web.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Controller;
  * @since 2018-03-04
  */
 @Controller
-@RequestMapping("/Permission")
-public class SysPermissionController {
+@RequestMapping("/permission")
+public class SysPermissionController extends BaseController{
+
+
 
 }
 

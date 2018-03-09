@@ -33,7 +33,6 @@ public class AuthController extends BaseController{
         }
         else
         {
-            //throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
             return doSuccess("成功");
         }
     }
