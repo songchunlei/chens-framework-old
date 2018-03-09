@@ -1,9 +1,12 @@
 package com.chens.admin.web.service.impl;
 
-import com.chens.core.entity.sys.SysUser;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chens.core.entity.SysUser;
 import com.chens.admin.web.service.IAuthService;
 import com.chens.admin.web.service.ISysRoleService;
 import com.chens.admin.web.service.ISysUserService;
+import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -25,5 +28,21 @@ public class AuthServiceImpl implements IAuthService{
         SysUser sysUser = sysUserService.findByUsername(username);
         sysUser.setRoles(sysRoleService.findRoleListByUserId(sysUser.getId()));
         return sysUser;
+    }
+
+    @Override
+    public boolean Validate(AuthRequest authRequest) {
+        SysUser query = new SysUser();
+        query.setUsername(authRequest.getUserName());
+        query.setPassword(authRequest.getPassword());
+        int count = sysUserService.selectCount(new EntityWrapper<>(query));
+        if(count>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.chens.admin.web.mapper;
 
-import com.chens.core.entity.sys.SysUserRole;
+import com.chens.core.entity.SysUserRole;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

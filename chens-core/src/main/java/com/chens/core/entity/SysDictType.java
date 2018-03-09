@@ -1,46 +1,30 @@
-package com.chens.core.entity.sys;
+package com.chens.core.entity;
 
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-
+import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
- * 租户
+ * 
  * </p>
  *
  * @author chunlei.song@live.com123
- * @since 2018-03-04
+ * @since 2018-03-08
  */
-@TableName("sys_tenant")
-public class SysTenant implements Serializable {
+@TableName("sys_dict_type")
+public class SysDictType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 租户ID
-     */
-    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-    /**
-     * 租户名称
-     */
-    @TableField("tenant_name")
-    private String tenantName;
-    /**
-     * 租户编码
-     */
-    @TableField("tenant_code")
-    private String tenantCode;
-    /**
-     * 租户描述
-     */
-    @TableField("tenant_desc")
-    private String tenantDesc;
+    @TableField("type_code")
+    private String typeCode;
+    @TableField("type_name")
+    private String typeName;
     @TableField("create_time")
     private Date createTime;
     @TableField("update_time")
@@ -49,6 +33,8 @@ public class SysTenant implements Serializable {
     private Long createBy;
     @TableField("update_by")
     private Long updateBy;
+    @TableField("tenant_id")
+    private Long tenantId;
 
 
     public Long getId() {
@@ -59,28 +45,20 @@ public class SysTenant implements Serializable {
         this.id = id;
     }
 
-    public String getTenantName() {
-        return tenantName;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
     }
 
-    public String getTenantCode() {
-        return tenantCode;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
-    public String getTenantDesc() {
-        return tenantDesc;
-    }
-
-    public void setTenantDesc(String tenantDesc) {
-        this.tenantDesc = tenantDesc;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public Date getCreateTime() {
@@ -115,17 +93,25 @@ public class SysTenant implements Serializable {
         this.updateBy = updateBy;
     }
 
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
     @Override
     public String toString() {
-        return "SysTenant{" +
+        return "SysDictType{" +
         "id=" + id +
-        ", tenantName=" + tenantName +
-        ", tenantCode=" + tenantCode +
-        ", tenantDesc=" + tenantDesc +
+        ", typeCode=" + typeCode +
+        ", typeName=" + typeName +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +
         ", updateBy=" + updateBy +
+        ", tenantId=" + tenantId +
         "}";
     }
 }

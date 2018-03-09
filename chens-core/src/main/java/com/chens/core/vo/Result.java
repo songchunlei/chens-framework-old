@@ -11,37 +11,27 @@ import java.io.Serializable;
  * @auther songchunlei@qq.com
  * @create 2018/3/5
  */
-public class Result<T> implements Serializable {
+public class Result implements Serializable {
 
 	private static final long serialVersionUID = 5375579517756081365L;
 
-    private final int SUCCESS_CODE = 1;
-    private final String EMPTY_MSG = "";
-
+    private static final String EMPTY_DATA = "{}";
 
 	//反馈编码
-    private int code;
+    private Integer code;
     //反馈消息
     private String msg;
     //反馈数据
-    private T data;
+    private Object data;
 
-    public Result(T data) {
-        this.code = SUCCESS_CODE;
-        this.msg = EMPTY_MSG;
-        this.data = data;
+
+    public Result(){
+
     }
 
-    public Result(String msg) {
-        this.code = SUCCESS_CODE;
-        this.msg = msg;
-        this.data = null;
-    }
-
-    public Result(int code, String msg) {
+    public Result(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
-        this.data = null;
     }
 
     /**
@@ -51,10 +41,10 @@ public class Result<T> implements Serializable {
     public Result(IBaseEnum baseEnum) {
         this.code = baseEnum.getCode();
         this.msg = baseEnum.getMessage();
-        this.data = null;
+        this.data = EMPTY_DATA;
     }
 
-    public Result(int code, String msg, T data) {
+    public Result(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -64,7 +54,7 @@ public class Result<T> implements Serializable {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -80,7 +70,7 @@ public class Result<T> implements Serializable {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 

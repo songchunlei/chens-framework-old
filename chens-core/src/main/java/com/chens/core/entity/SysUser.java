@@ -1,4 +1,4 @@
-package com.chens.core.entity.sys;
+package com.chens.core.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -7,68 +7,39 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
- * 权限
+ * 用户
  * </p>
  *
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-@TableName("sys_permission")
-public class SysPermission implements Serializable {
+@TableName("sys_user")
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-    /**
-     * 资源名称
-     */
     private String name;
-    /**
-     * 资源父id
-     */
-    @TableField("parent_id")
-    private Long parentId;
-    /**
-     * 资源类型
-     */
-    @TableField("permission_type")
-    private String permissionType;
-    /**
-     * 链接
-     */
-    private String url;
-    /**
-     * 创建时间
-     */
+    private String password;
+    private String salt;
+    private String username;
     @TableField("create_time")
     private Date createTime;
-    /**
-     * 更新时间
-     */
     @TableField("update_time")
     private Date updateTime;
-    /**
-     * 创建人
-     */
     @TableField("create_by")
     private Long createBy;
-    /**
-     * 更新人
-     */
     @TableField("update_by")
     private Long updateBy;
-    /**
-     * 权限描述
-     */
-    private String permission;
-
+    @TableField("tenant_id")
+    private Long tenantId;
+    @TableField(exist = false)
+    private List<SysRole> roles;
 
     public Long getId() {
         return id;
@@ -86,28 +57,28 @@ public class SysPermission implements Serializable {
         this.name = name;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPermissionType() {
-        return permissionType;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getCreateTime() {
@@ -142,27 +113,43 @@ public class SysPermission implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public String getPermission() {
-        return permission;
+    public Long getTenantId() {
+        return tenantId;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
     }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * 密码盐.
+     * @return
+     */
+    public String getCredentialsSalt(){
+        return this.username+this.salt;
+    }
+    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
 
     @Override
     public String toString() {
-        return "SysPermission{" +
+        return "SysUser{" +
         "id=" + id +
         ", name=" + name +
-        ", parentId=" + parentId +
-        ", permissionType=" + permissionType +
-        ", url=" + url +
+        ", password=" + password +
+        ", salt=" + salt +
+        ", username=" + username +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createBy=" + createBy +
         ", updateBy=" + updateBy +
-        ", permission=" + permission +
         "}";
     }
 }

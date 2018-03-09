@@ -3,6 +3,7 @@ package com.chens.core.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.util.ResultHelper;
 import com.chens.core.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,9 @@ public class BaseController {
     protected Logger logger;
     protected HttpServletRequest request;
     protected HttpServletResponse response;
+
+    private final String EMPTY_MSG = "";
+
 
     protected BaseController() {
         clazz = getSuperClassGenricType(getClass(), 0);
@@ -75,6 +79,7 @@ public class BaseController {
         return "forward:" + url;
     }
 
+
     /**
      * 成功反馈通用方法
      * @param msg
@@ -82,7 +87,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ,Object obj) {
-        return ResponseHelper.doSuccess(msg ,obj);
+        return ResponseEntity.ok(ResultHelper.getSuccess(msg,obj));
     }
 
     /**
@@ -91,7 +96,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ) {
-        return ResponseHelper.doSuccess(msg);
+        return ResponseEntity.ok(ResultHelper.getSuccess(msg));
     }
 
     /**
@@ -100,7 +105,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(Object obj) {
-        return ResponseHelper.doSuccess(obj);
+        return ResponseEntity.ok(ResultHelper.getSuccess(obj));
     }
 
     /**
@@ -108,7 +113,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess() {
-        return ResponseHelper.doSuccess( );
+        return ResponseEntity.ok(ResultHelper.getSuccess());
     }
 
 }

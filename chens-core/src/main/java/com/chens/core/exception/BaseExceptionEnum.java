@@ -9,6 +9,7 @@ import com.chens.core.enums.IBaseEnum;
 public enum BaseExceptionEnum implements IBaseEnum {
 
 
+
     /**
      * token异常
      */
@@ -19,6 +20,13 @@ public enum BaseExceptionEnum implements IBaseEnum {
      * 登录校验异常
      */
     AUTH_REQUEST_ERROR(200, "账号密码错误"),
+
+    /**
+     * 请求反馈
+     */
+    NO_DATA(300,"查询不到数据"),
+    NO_UPDATE(301,"更新失败"),
+    NO_DELETE(302,"删除失败"),
 
     /**
      * 请求异常

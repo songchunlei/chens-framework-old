@@ -1,6 +1,6 @@
 package com.chens.admin.web.service;
 
-import com.chens.core.entity.sys.SysPermission;
+import com.chens.core.entity.SysPermission;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;

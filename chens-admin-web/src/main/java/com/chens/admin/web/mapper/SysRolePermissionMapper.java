@@ -1,6 +1,6 @@
 package com.chens.admin.web.mapper;
 
-import com.chens.core.entity.sys.SysRolePermission;
+import com.chens.core.entity.SysRolePermission;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

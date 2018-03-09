@@ -1,6 +1,6 @@
 package com.chens.admin.web.service;
 
-import com.chens.core.entity.sys.SysRole;
+import com.chens.core.entity.SysRole;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
