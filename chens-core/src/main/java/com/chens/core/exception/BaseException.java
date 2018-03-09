@@ -10,7 +10,12 @@ import com.chens.core.enums.IBaseEnum;
  */
 public class BaseException  extends RuntimeException {
 
-    private Integer code;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 743865762699909129L;
+
+	private Integer code;
 
     private String message;
 

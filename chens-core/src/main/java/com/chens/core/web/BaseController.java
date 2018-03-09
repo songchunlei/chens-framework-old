@@ -1,16 +1,19 @@
 package com.chens.core.web;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chens.core.util.ResultHelper;
-import com.chens.core.vo.Result;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chens.core.util.ResultHelper;
+import com.chens.core.vo.Result;
 
 /**
  * 基础web包
@@ -25,7 +28,7 @@ public class BaseController {
     protected HttpServletRequest request;
     protected HttpServletResponse response;
 
-    private final String EMPTY_MSG = "";
+//    private final String EMPTY_MSG = "";
 
 
     protected BaseController() {
@@ -114,6 +117,24 @@ public class BaseController {
      */
     public ResponseEntity<Result> doSuccess() {
         return ResponseEntity.ok(ResultHelper.getSuccess());
+    }
+    
+    /**
+     * 自动拼装Page
+     * @param <T>
+     */
+    public <T> Page<T> createPage(HttpServletRequest request,int size) {
+        String current = request.getParameter("currentPage");
+        Page<T> page = new Page<T>();
+        if(StringUtils.isNotEmpty(current))
+        {
+            page = new Page<T>(Integer.parseInt(current),size);
+        }
+        else
+        {
+            page = new Page<T>(1,10);
+        }
+        return page;
     }
 
 }

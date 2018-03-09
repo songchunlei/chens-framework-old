@@ -27,12 +27,21 @@ public enum BaseExceptionEnum implements IBaseEnum {
     NO_DATA(300,"查询不到数据"),
     NO_UPDATE(301,"更新失败"),
     NO_DELETE(302,"删除失败"),
+    NO_SAVE(303,"保存失败"),
+    FILE_NOT_FOUND(304,"文件未找到"),
+
 
     /**
      * 请求异常
      */
     REQUEST_NULL(500, "请求有错误"),
-    SERVER_ERROR(600, "服务器异常");
+    DATA_REQUEST_NULL(501, "数据传输失败"),
+    SERVER_ERROR(600, "服务器异常"),
+	
+	/**
+	 * 业务校验不通过
+	 */
+    VALIDATE_NOPASS(700, "校验不通过");
 
     private Integer code;
 

@@ -1,10 +1,9 @@
 package com.chens.core.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
  * <p>
@@ -17,9 +16,13 @@ import java.io.Serializable;
 @TableName("sys_dict")
 public class SysDict implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
-    private Long id;
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3133136279450893501L;
+	private Long id;
     private String type;
     private String val;
     private String text;
