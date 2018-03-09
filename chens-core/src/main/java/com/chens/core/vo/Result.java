@@ -44,6 +44,12 @@ public class Result<T> implements Serializable {
         this.data = null;
     }
 
+    public Result( String msg,T data) {
+        this.code = SUCCESS_CODE;
+        this.msg = msg;
+        this.data = data;
+    }
+
     /**
      * 枚举转结果集
      * @param baseEnum

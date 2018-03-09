@@ -24,6 +24,9 @@ public class BaseController {
     protected HttpServletRequest request;
     protected HttpServletResponse response;
 
+    private final String EMPTY_MSG = "";
+
+
     protected BaseController() {
         clazz = getSuperClassGenricType(getClass(), 0);
         logger = LoggerFactory.getLogger(clazz);
@@ -75,14 +78,15 @@ public class BaseController {
         return "forward:" + url;
     }
 
+
     /**
      * 成功反馈通用方法
      * @param msg
      * @param obj
      * @return
      */
-    public ResponseEntity<Result> doSuccess(String msg ,Object obj) {
-        return ResponseHelper.doSuccess(msg ,obj);
+    public <T> ResponseEntity<Result> doSuccess(String msg ,T obj) {
+        return ResponseEntity.ok(new Result(msg,obj));
     }
 
     /**
@@ -91,7 +95,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ) {
-        return ResponseHelper.doSuccess(msg);
+        return doSuccess(msg,null);
     }
 
     /**
@@ -99,8 +103,8 @@ public class BaseController {
      * @param obj
      * @return
      */
-    public ResponseEntity<Result> doSuccess(Object obj) {
-        return ResponseHelper.doSuccess(obj);
+    public <T> ResponseEntity<Result> doSuccess(T obj) {
+        return doSuccess(EMPTY_MSG,obj);
     }
 
     /**
@@ -108,7 +112,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess() {
-        return ResponseHelper.doSuccess( );
+        return doSuccess(EMPTY_MSG, null);
     }
 
 }
