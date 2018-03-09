@@ -1,5 +1,6 @@
 package com.chens.core.aop;
 
+import com.chens.core.util.ResultHelper;
 import com.chens.core.vo.Result;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -28,7 +29,7 @@ public class BaseControllerExceptionHandler {
     @ResponseBody
     public Result notFount(BaseException e) {
         log.error("业务异常:", e);
-        return new Result(e.getCode(), e.getMessage());
+        return ResultHelper.getError(e.getCode(), e.getMessage());
     }
 
     /**
@@ -39,7 +40,7 @@ public class BaseControllerExceptionHandler {
     @ResponseBody
     public Result notFount(RuntimeException e) {
         log.error("运行时异常:", e);
-        return new Result(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+        return ResultHelper.getError(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.chens.core.entity.sys;
+package com.chens.core.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;

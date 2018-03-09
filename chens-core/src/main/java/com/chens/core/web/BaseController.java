@@ -3,6 +3,7 @@ package com.chens.core.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.util.ResultHelper;
 import com.chens.core.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,8 +86,8 @@ public class BaseController {
      * @param obj
      * @return
      */
-    public <T> ResponseEntity<Result> doSuccess(String msg ,T obj) {
-        return ResponseEntity.ok(new Result(msg,obj));
+    public ResponseEntity<Result> doSuccess(String msg ,Object obj) {
+        return ResponseEntity.ok(ResultHelper.getSuccess(msg,obj));
     }
 
     /**
@@ -95,7 +96,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess(String msg ) {
-        return doSuccess(msg,null);
+        return ResponseEntity.ok(ResultHelper.getSuccess(msg));
     }
 
     /**
@@ -103,8 +104,8 @@ public class BaseController {
      * @param obj
      * @return
      */
-    public <T> ResponseEntity<Result> doSuccess(T obj) {
-        return doSuccess(EMPTY_MSG,obj);
+    public ResponseEntity<Result> doSuccess(Object obj) {
+        return ResponseEntity.ok(ResultHelper.getSuccess(obj));
     }
 
     /**
@@ -112,7 +113,7 @@ public class BaseController {
      * @return
      */
     public ResponseEntity<Result> doSuccess() {
-        return doSuccess(EMPTY_MSG, null);
+        return ResponseEntity.ok(ResultHelper.getSuccess());
     }
 
 }
