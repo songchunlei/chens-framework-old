@@ -4,7 +4,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, type, content, create_time AS createTime, update_time AS updateTime, create_by AS createBy, update_by AS updateBy
+        id, title, type, content, create_time AS createTime, update_time AS updateTime, create_by AS createBy, update_by AS updateBy, tenant_id AS tenantId
     </sql>
 
 </mapper>

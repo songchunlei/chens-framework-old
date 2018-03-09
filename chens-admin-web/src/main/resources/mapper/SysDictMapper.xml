@@ -4,7 +4,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, type, val, text, seq, DESCRIPTION AS description, PARENT_ID AS parentId, is_delete AS isDelete, exp1, exp2
+        id, type, val, text, seq, DESCRIPTION AS description, PARENT_ID AS parentId, is_delete AS isDelete, exp1, exp2, tenant_id AS tenantId
     </sql>
 
 </mapper>

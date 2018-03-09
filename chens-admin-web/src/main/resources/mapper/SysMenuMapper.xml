@@ -4,12 +4,12 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id AS parentId, code, name, url, desc, create_time AS createTime, update_time AS updateTime, create_by AS createBy, update_by AS updateBy
+        id, parent_id AS parentId, type, name, url, description, create_time AS createTime, update_time AS updateTime, create_by AS createBy, update_by AS updateBy, seq, isopen, icon
     </sql>
 
-    <!-- 通过用户ID找角色 -->
-    <select id="findRoleListByUserId" resultType="com.chens.core.vo.ZTree">
-        select id "id",parent_id  "pId",name as "name",(case when (pId=0 or pId is null) then 'true' 	else 'false' end) "open" from sys_menu
+    <!-- 树 -->
+    <select id="tree" resultType="com.chens.core.vo.ZTree">
+        select id as "id",parent_id as "pId",name as "name",(case when isopen=1 then 'true' else 'false' end) "open" from sys_menu;
     </select>
 
 </mapper>

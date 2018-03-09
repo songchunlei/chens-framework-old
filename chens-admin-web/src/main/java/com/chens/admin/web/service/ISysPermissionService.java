@@ -2,6 +2,7 @@ package com.chens.admin.web.service;
 
 import com.chens.core.entity.SysPermission;
 import com.baomidou.mybatisplus.service.IService;
+import com.chens.core.vo.ZTree;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @return
      */
     List<SysPermission> findPermissionListByRoleId(Long roleId);
+
+    /**
+     * 树
+     * @return
+     */
+    List<ZTree> tree();
 }

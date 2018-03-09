@@ -1,5 +1,6 @@
 package com.chens.admin.web.mapper;
 
+import com.baomidou.mybatisplus.annotations.SqlParser;
 import com.chens.core.entity.SysMenu;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.chens.core.vo.ZTree;
@@ -16,5 +17,6 @@ import java.util.List;
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
+    //取消租户限制
     List<ZTree> tree();
 }

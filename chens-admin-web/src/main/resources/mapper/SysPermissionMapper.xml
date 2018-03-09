@@ -7,6 +7,11 @@
         id, name, parent_id AS parentId, permission_type AS permissionType, url, create_time AS createTime, update_time AS updateTime, create_by AS createBy, update_by AS updateBy, permission
     </sql>
 
+    <!-- 树 -->
+    <select id="tree" resultType="com.chens.core.vo.ZTree">
+        select id as "id",parent_id as "pId",name as "name",(case when parent_id=0 or parent_id=null then 'true' else 'false' end) as "open" from sys_permission
+    </select>
+
 
 
 </mapper>
