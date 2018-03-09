@@ -1,16 +1,16 @@
 package com.chens.admin.web.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.chens.core.entity.SysUser;
 import com.chens.admin.web.service.IAuthService;
 import com.chens.admin.web.service.ISysRoleService;
 import com.chens.admin.web.service.ISysUserService;
+import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.AuthRequest;
-import com.chens.core.vo.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 权限控制实现
