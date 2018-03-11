@@ -53,7 +53,7 @@ public class SysUserController extends BaseController{
     @RequestMapping("/save")
     public ResponseEntity<Result> save(SysUser sysUser) {
         if(sysUser != null){
-             return doSuccess(sysUserService.insertOrUpdate(sysUser));
+             return doSuccess("保存成功",sysUserService.insertOrUpdate(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -67,7 +67,6 @@ public class SysUserController extends BaseController{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
     }
-
 
 
 }
