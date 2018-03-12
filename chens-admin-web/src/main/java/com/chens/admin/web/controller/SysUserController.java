@@ -9,6 +9,7 @@ import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+import com.chens.core.web.BaseWebController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,44 +30,8 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
-public class SysUserController extends BaseController{
+public class SysUserController extends BaseWebController<ISysUserService,SysUser> {
 
-    @Autowired
-    private ISysUserService sysUserService;
-
-
-
-
-    @RequestMapping("/page")
-    public ResponseEntity<Result> page(SysUser sysUser) {
-        if(sysUser != null ){
-            Map<String,Object> resultMap = new HashMap<String,Object>();
-            Page<SysUser> userPage = this.createPage(request,10);
-            resultMap.put("page",sysUserService.selectPage(userPage,new EntityWrapper<SysUser>(sysUser)));
-            return doSuccess(resultMap);
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-
-    }
-
-    @RequestMapping("/save")
-    public ResponseEntity<Result> save(SysUser sysUser) {
-        if(sysUser != null){
-             return doSuccess("保存成功",sysUserService.insertOrUpdate(sysUser));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
-
-    @RequestMapping("/delete")
-    public ResponseEntity<Result> delete(Long id) {
-        if(id!=null){
-            return doSuccess(sysUserService.deleteById(id));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
 
 
 }

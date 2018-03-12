@@ -2,11 +2,8 @@ package com.chens.admin.web.controller;
 
 import com.chens.admin.web.service.ISysMenuService;
 import com.chens.core.entity.SysMenu;
-import com.chens.core.exception.BaseException;
-import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
-import com.chens.core.web.BaseController;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.chens.core.web.BaseWebController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/menu")
-public class SysMenuController extends BaseController{
-
-    @Autowired
-    private ISysMenuService sysMenuService;
+public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu>{
 
     /**
      * 菜单树
@@ -30,34 +24,7 @@ public class SysMenuController extends BaseController{
      */
     @RequestMapping("/tree")
     public ResponseEntity<Result> tree() {
-        return doSuccess(sysMenuService.tree());
+        return doSuccess(service.tree());
     }
 
-    /**
-     * 保存
-     * @param sysMenu
-     * @return
-     */
-    @RequestMapping("/save")
-    public ResponseEntity<Result> save(SysMenu sysMenu) {
-        if(sysMenu != null){
-            return doSuccess(sysMenuService.insertOrUpdate(sysMenu));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
-
-    /**
-     * 删除
-     * @param id
-     * @return
-     */
-    @RequestMapping("/delete")
-    public ResponseEntity<Result> delete(Long id) {
-        if(id!=null){
-            return doSuccess(sysMenuService.deleteById(id));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
 }

@@ -2,9 +2,9 @@ package com.chens.admin.web.controller;
 
 
 import com.chens.admin.web.service.ISysPermissionService;
+import com.chens.core.entity.SysPermission;
 import com.chens.core.vo.Result;
-import com.chens.core.web.BaseController;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.chens.core.web.BaseWebController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,10 +20,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/permission")
-public class SysPermissionController extends BaseController{
-
-    @Autowired
-    private ISysPermissionService sysPermissionService;
+public class SysPermissionController extends BaseWebController<ISysPermissionService,SysPermission>{
 
     /**
      * 菜单树
@@ -31,7 +28,7 @@ public class SysPermissionController extends BaseController{
      */
     @RequestMapping("/tree")
     public ResponseEntity<Result> tree() {
-        return doSuccess(sysPermissionService.tree());
+        return doSuccess(service.tree());
     }
 
 }
