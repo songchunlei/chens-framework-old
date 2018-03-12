@@ -47,7 +47,8 @@ public class BaseControllerExceptionHandler{
         log.error("运行时异常:", e);
         return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR);
     }
-    
+
+
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
@@ -55,8 +56,10 @@ public class BaseControllerExceptionHandler{
         log.error("Feign异常:"+e.getMessage());
         return ResultHelper.getError(e.status(),getMessage(e.getMessage()));
     }
-    
-    
+
+
+
+
     
     
     /**

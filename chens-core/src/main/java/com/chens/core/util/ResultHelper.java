@@ -10,6 +10,7 @@ import com.chens.core.vo.Result;
  * @create 2018/3/5
  */
 public final class ResultHelper {
+    private static final int ERROR_CODE = 1;
     private static final int SUCCESS_CODE = 1;
     private static final String EMPTY_DATA = "{}";
     private static final String EMPTY_MSG = "";
@@ -70,4 +71,7 @@ public final class ResultHelper {
         return new Result(code,msg);
     }
 
+    public static Result getError(String msg){
+        return new Result(ERROR_CODE,msg);
+    }
 }

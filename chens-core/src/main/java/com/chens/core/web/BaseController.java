@@ -7,7 +7,10 @@ import java.lang.reflect.Type;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.FileUtil;
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,6 +126,15 @@ public class BaseController {
     public ResponseEntity<Result> doSuccess() {
         return ResponseEntity.ok(ResultHelper.getSuccess());
     }
+
+    /**
+     * 失败反馈
+     * @return
+     */
+    public ResponseEntity<Result> doError(String msg) {
+        return ResponseEntity.ok(ResultHelper.getError(msg));
+    }
+
     
     /**
      * 自动拼装Page

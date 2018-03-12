@@ -1,0 +1,32 @@
+package ${package.Controller};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Controller;
+import com.chens.core.web.BaseController;
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+
+
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ *
+ * $!{table.comment} 控制器
+ *
+ * @author ${author}
+ * @create ${date}
+ */
+@Controller
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/${table.entityPath}")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName},${entity}> {
+#else
+public class ${table.controllerName} extends BaseController{
+#end
+
+
+}

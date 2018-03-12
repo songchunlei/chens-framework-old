@@ -1,11 +1,7 @@
 package com.chens.core.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import com.chens.core.vo.BaseEntity;
 
 /**
  * <p>
@@ -16,11 +12,9 @@ import java.io.Serializable;
  * @since 2018-03-09
  */
 @TableName("sys_notice")
-public class SysNotice implements Serializable {
+public class SysNotice extends BaseEntity<SysNotice> {
 
     private static final long serialVersionUID = 1L;
-
-    private Long id;
     /**
      * 标题
      */
@@ -33,34 +27,6 @@ public class SysNotice implements Serializable {
      * 内容
      */
     private String content;
-    @TableField("create_time")
-    private Date createTime;
-    @TableField("update_time")
-    private Date updateTime;
-    /**
-     * 创建人
-     */
-    @TableField("create_by")
-    private Long createBy;
-    /**
-     * 更新人
-     */
-    @TableField("update_by")
-    private Long updateBy;
-    /**
-     * 租户ID
-     */
-    @TableField("tenant_id")
-    private Long tenantId;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -84,60 +50,5 @@ public class SysNotice implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Long getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    @Override
-    public String toString() {
-        return "SysNotice{" +
-        ", id=" + id +
-        ", title=" + title +
-        ", type=" + type +
-        ", content=" + content +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", createBy=" + createBy +
-        ", updateBy=" + updateBy +
-        ", tenantId=" + tenantId +
-        "}";
     }
 }

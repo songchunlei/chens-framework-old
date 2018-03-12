@@ -1,11 +1,8 @@
 package com.chens.core.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
+import com.chens.core.vo.BaseEntity;
 
 /**
  * <p>
@@ -16,25 +13,14 @@ import java.io.Serializable;
  * @since 2018-03-04
  */
 @TableName("sys_role_permission")
-public class SysRolePermission implements Serializable {
+public class SysRolePermission extends BaseEntity<SysRolePermission> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
     @TableField("role_id")
     private Long roleId;
     @TableField("permission_id")
     private Long permissionId;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getRoleId() {
         return roleId;
@@ -50,14 +36,5 @@ public class SysRolePermission implements Serializable {
 
     public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
-    }
-
-    @Override
-    public String toString() {
-        return "SysRolePermission{" +
-        "id=" + id +
-        ", roleId=" + roleId +
-        ", permissionId=" + permissionId +
-        "}";
     }
 }
