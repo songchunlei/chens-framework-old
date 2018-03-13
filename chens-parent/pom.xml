@@ -20,17 +20,23 @@
         <module>../chens-core</module>
         <!--管理后台模块-->
         <module>../chens-admin-web</module>
+        <module>../chens-admin-feign</module>
         <!--注册中心-->
         <module>../chens-eureka</module>
+        <!--配置中心-->
+        <module>../chens-config-server</module>
         <!--网关-->
         <module>../chens-gateway</module>
         <!--auth2授权-->
         <module>../chens-auth2-server</module>
         <!--代码生成器-->
         <module>../chens-generator</module>
-        <module>../chens-admin-feign</module>
-        <module>../chens-file</module>
+        <!--文件服务器-->
+        <!--<module>../chens-file</module>-->
+        <!--富文本编辑器-->
         <module>../chens-ueditor</module>
+        <module>../chens-uaa-server</module>
+
     </modules>
 
     <repositories>
@@ -59,6 +65,8 @@
 
         <fastjson.version>1.2.39</fastjson.version>
         <jwt.version>0.7.0</jwt.version>
+
+        <commons-lang3.version>3.5</commons-lang3.version>
 
     </properties>
 
@@ -148,9 +156,19 @@
                 <version>20160212</version>
             </dependency>
             <!--ueditor用到架包 end-->
+            <!-- apache tools  -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>
@@ -168,6 +186,25 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>1.5.9.RELEASE</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.4.13</version>
+                    <configuration>
+                        <imageName>registry.cn-hangzhou.aliyuncs.com/dongnao/${project.artifactId}:${project.version}</imageName>
+                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                        <!-- 以下两行是为了docker push到DockerHub使用的。 -->
+                        <serverId>docker-aliyun-hub</serverId>
+                        <registryUrl>registry.cn-hangzhou.aliyuncs.com/dongnao</registryUrl>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
