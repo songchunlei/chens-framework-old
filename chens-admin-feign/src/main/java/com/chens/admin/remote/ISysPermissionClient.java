@@ -6,5 +6,5 @@ package com.chens.admin.remote;
  * @auther songchunlei@qq.com
  * @create 2018/3/8
  */
-public class ISysPermissionClient {
+public interface ISysPermissionClient {
 }
