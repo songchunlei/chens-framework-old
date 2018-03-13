@@ -44,8 +44,16 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         EntityWrapper<T> wrapper = new EntityWrapper<T>();
         if (spage.getSearch()!=null){
             //字段解析
+            //**注意：这些字段不包含BaseEntity里的字段(id)**
             Field[] fields = spage.getSearch().getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
+
+                //test
+                logger.debug(fields[i].getName());
+                if(fields[i].getName().equals("serialVersionUID"))
+                {
+                    continue;
+                }
                 try {
                     fields[i].setAccessible(true);
                     Object value = fields[i].get(spage.getSearch());
@@ -126,6 +134,22 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         if(id!=null)
         {
             return doSuccess("查询成功",service.selectById(id));
+        }
+        else{
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+    /**
+     * 列表查询
+     * @param t
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseEntity<Result> list(@RequestBody T t) {
+        if(t!=null)
+        {
+            return doSuccess("查询成功",service.selectList(new EntityWrapper<>(t)));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

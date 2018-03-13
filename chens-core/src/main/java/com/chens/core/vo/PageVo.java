@@ -35,6 +35,11 @@ public class PageVo implements Serializable{
         this.isAsc = true;
     }
 
+    public PageVo(int current,int size) {
+        this.current = current;
+        this.size = size;
+    }
+
     public int getCurrent() {
         return current;
     }

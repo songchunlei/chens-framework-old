@@ -1,54 +1,60 @@
 package com.chens.core.entity;
 
+import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
 
 /**
- * <p>
- * 
- * </p>
+ *
+ *  实体
  *
  * @author chunlei.song@live.com
- * @since 2018-03-09
+ * @create 2018-03-12
  */
 @TableName("sys_notice")
 public class SysNotice extends BaseEntity<SysNotice> {
 
     private static final long serialVersionUID = 1L;
+
     /**
      * 标题
      */
-    private String title;
+	private String title;
     /**
      * 类型
      */
-    private Long type;
+	private Long type;
     /**
      * 内容
      */
-    private String content;
+	private String content;
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Long getType() {
-        return type;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setType(Long type) {
-        this.type = type;
-    }
+	public Long getType() {
+		return type;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public void setType(Long type) {
+		this.type = type;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 }
