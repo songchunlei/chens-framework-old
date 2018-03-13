@@ -5,7 +5,7 @@ server:
 #应用名称
 spring:
   application:
-    name: chens-admin
+    name: chens-admin-web
   #数据库连接
   datasource:
     url: jdbc:mysql://chens:3306/qyexam?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
@@ -43,3 +43,16 @@ mybatis-plus:
     cache-enabled: false
     #打印sql语句,调试用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/ #注册中心地址
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 30  # 发呆时间，即服务续约到期时间（缺省为90s）
+
+feign:
+  httpclient:
+    enabled: true

@@ -1,14 +1,18 @@
 package com.chens.admin.web.controller;
 
+import com.chens.core.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chens.admin.web.service.IAuthService;
 import com.chens.core.vo.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -25,7 +29,7 @@ public class AuthController extends BaseController{
     private IAuthService authService;
 
     @RequestMapping("/login")
-    public ResponseEntity<Result> login(AuthRequest authRequest) {
+    public ResponseEntity<Result> login(@RequestBody AuthRequest authRequest) {
         boolean validateFlg = authService.Validate(authRequest);
         if (validateFlg)
         {
@@ -43,5 +47,10 @@ public class AuthController extends BaseController{
     }
 
 
+    @PostMapping("/findByUserNameAndPassword")
+    @ResponseBody
+    public SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest) {
+        return authService.findByUsernameAndPassword(authRequest);
+    }
 
 }

@@ -2,6 +2,8 @@ package com.chens.admin.web.service.impl;
 
 import java.util.List;
 
+import com.chens.core.util.StringUtils;
+import com.chens.core.vo.AuthRequest;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -24,9 +26,24 @@ import com.chens.core.exception.BaseExceptionEnum;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     @Override
-    public SysUser findByUsername(String username) {
+    public SysUser findByUsername(AuthRequest authRequest){
+        if(authRequest==null)
+        {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+
+        if(StringUtils.isEmpty(authRequest.getUserName()))
+        {
+            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_USERNAME);
+        }
+
+        if(StringUtils.isEmpty(authRequest.getPassword()))
+        {
+            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
+        }
         SysUser query = new SysUser();
-        query.setUsername(username);
+        query.setUsername(authRequest.getUserName());
+        query.setPassword(authRequest.getPassword());
         List<SysUser> users = this.selectList(new EntityWrapper<>(query));
         if(users!=null && users.size()>0)
         {

@@ -32,7 +32,5 @@ import java.util.Map;
 @RequestMapping("/user")
 public class SysUserController extends BaseWebController<ISysUserService,SysUser> {
 
-
-
 }
 

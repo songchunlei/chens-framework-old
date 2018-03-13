@@ -29,8 +29,8 @@ public class AuthServiceImpl implements IAuthService{
     private ISysRoleService sysRoleService;
 
     @Override
-    public SysUser findByUsername(String username) {
-        SysUser sysUser = sysUserService.findByUsername(username);
+    public SysUser findByUsernameAndPassword(AuthRequest authRequest) {
+        SysUser sysUser = sysUserService.findByUsername(authRequest);
         sysUser.setRoles(sysRoleService.findRoleListByUserId(sysUser.getId()));
         return sysUser;
     }

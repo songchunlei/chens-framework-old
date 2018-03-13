@@ -4,12 +4,11 @@ import com.chens.core.entity.SysNotice;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
- * <p>
- *  Mapper 接口
- * </p>
  *
- * @author chunlei.song@live.com123
- * @since 2018-03-09
+ *  Mapper 接口
+ *
+ * @author chunlei.song@live.com
+ * @create 2018-03-12
  */
 public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 

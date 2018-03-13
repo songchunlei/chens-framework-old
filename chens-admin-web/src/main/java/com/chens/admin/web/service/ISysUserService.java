@@ -2,6 +2,7 @@ package com.chens.admin.web.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.entity.SysUser;
+import com.chens.core.vo.AuthRequest;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.chens.core.entity.SysUser;
  * @since 2018-03-04
  */
 public interface ISysUserService extends IService<SysUser> {
-    SysUser findByUsername(String username);
+    SysUser findByUsername(AuthRequest authRequest);
 }

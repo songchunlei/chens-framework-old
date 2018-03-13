@@ -12,15 +12,15 @@ import com.chens.core.vo.AuthRequest;
 public interface IAuthService {
     /**
      * 根据账户获取用户-含账号密码，内部使用方法,不要往前端传
-     * @param username
-     * @return
+     * @param authRequest
+     * @return SysUser
      */
-    SysUser findByUsername(String username);
+    SysUser findByUsernameAndPassword(AuthRequest authRequest);
 
     /**
      * 简单密码校验
      * @param authRequest
-     * @return
+     * @return boolean
      */
     boolean Validate(AuthRequest authRequest);
 
