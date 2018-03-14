@@ -1,9 +1,7 @@
-info:
-  name: 用户中心
-  contact: chens-framework
-
 server:
   port: 9001
+  session:
+    timeout: 600
 
 eureka:
   client:
@@ -13,12 +11,6 @@ eureka:
     registryFetchIntervalSeconds: 10
     serviceUrl:
       defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/ #注册中心地址
-  instance:
-    prefer-ip-address: true
-    #lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
-    #lease-expiration-duration-in-seconds: 30  # 发呆时间，即服务续约到期时间（缺省为90s）
-
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
 
 spring:
   application:
@@ -32,3 +24,8 @@ token:
     iss: chens-uaa-server
     # 有效期120分钟
     expm: 120
+feign:
+  hystrix:
+    enabled: false;
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000

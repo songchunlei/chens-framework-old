@@ -7,14 +7,12 @@ import com.chens.core.jwt.JwtTokenProvider;
 import com.chens.core.jwt.UAAClaims;
 import com.chens.core.vo.AuthRequest;
 import com.chens.core.vo.JWTToken;
+import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.UUID;
@@ -39,7 +37,7 @@ public class TokenController extends BaseController{
 
     // 获取一个根据账户和密码获取token
     @PostMapping("/token/getTokenByUserName")
-    public ResponseEntity<?> getTokenByUserName(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Result> getTokenByUserName(@RequestBody AuthRequest authRequest) {
         SysUser sysUser = authClient.findByUserNameAndPassword(authRequest);
         if (sysUser == null) {
             return doError("账号或密码错误");

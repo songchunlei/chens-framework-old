@@ -20,12 +20,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @auther songchunlei@qq.com
  * @create 2018/3/12
  */
+
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})  //uaa端不需要连接数据库，排除数据库自动配置
 @ComponentScan(basePackages={"com.chens"})
 @EnableEurekaClient
-@EnableFeignClients // feign
+@EnableFeignClients(basePackages = { "com.chens*" })
 //@EnableCircuitBreaker //hystrix熔断
-@EnableTransactionManagement // 事务
 public class UAAServerApp {
     public static void main(String[] args) {
         SpringApplication.run(UAAServerApp.class, args);
