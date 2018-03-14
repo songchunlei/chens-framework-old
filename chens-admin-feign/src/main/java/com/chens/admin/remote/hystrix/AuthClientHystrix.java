@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * 熔断降级
+ * 熔断
  *
  * @auther songchunlei@qq.com
- * @create 2018/3/12
+ * @create 2018/3/14
  */
 @Component
-public class AuthClientHystrix implements IAuthClient{
+public class AuthClientHystrix implements IAuthClient {
     private static final Logger logger = LoggerFactory.getLogger(AuthClientHystrix.class);
     @Override
     public SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest) {
-        logger.error("----调用鉴权方法出错-----");
-        throw new BaseException(BaseExceptionEnum.REQUEST_NULL.getCode(), "调用鉴权方法出错");
+        logger.error("----调用鉴权出错-----");
+        throw new BaseException(BaseExceptionEnum.REQUEST_NULL.getCode(), "调用鉴权出错");
     }
 }
