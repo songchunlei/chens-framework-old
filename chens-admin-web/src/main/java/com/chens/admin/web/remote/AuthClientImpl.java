@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2018/3/13
  */
 @RestController
-@RequestMapping(value="/authremote")
 public class AuthClientImpl implements IAuthClient {
 
     @Autowired

@@ -19,7 +19,7 @@ import com.chens.core.web.BaseWebController;
  * @create 2018-03-12
  */
 @Controller
-@RequestMapping("/notice")
+@RequestMapping("/noticeController")
 public class SysNoticeController extends BaseWebController<ISysNoticeService,SysNotice> {
 
 

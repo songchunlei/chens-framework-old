@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @create 2018/3/9
  */
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("/menuController")
 public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu>{
 
     /**

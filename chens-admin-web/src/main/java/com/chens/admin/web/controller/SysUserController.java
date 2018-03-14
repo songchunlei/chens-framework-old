@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2018-03-04
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/userController")
 public class SysUserController extends BaseWebController<ISysUserService,SysUser> {
 
 }

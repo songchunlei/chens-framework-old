@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
  * @since 2018-03-04
  */
 @Controller
-@RequestMapping("/tenant")
+@RequestMapping("/tenantController")
 public class SysTenantController extends BaseWebController<ISysTenantService,SysTenant> {
 
 

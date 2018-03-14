@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @create 2018/3/5
  */
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/authController")
 public class AuthController extends BaseController{
 
     @Autowired

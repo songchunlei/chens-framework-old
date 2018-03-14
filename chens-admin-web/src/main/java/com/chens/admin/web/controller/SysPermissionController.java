@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
  * @since 2018-03-04
  */
 @Controller
-@RequestMapping("/permission")
+@RequestMapping("/permissionController")
 public class SysPermissionController extends BaseWebController<ISysPermissionService,SysPermission>{
 
     /**

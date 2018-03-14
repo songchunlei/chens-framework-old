@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
  * @create 2018-03-12
  */
 @Controller
-@RequestMapping("/dict")
+@RequestMapping("/dictController")
 public class SysDictController extends BaseWebController<ISysDictService,SysDict> {
 
     @PostMapping("/test")

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Controller;
  * @since 2018-03-04
  */
 @Controller
-@RequestMapping("/role")
+@RequestMapping("/roleController")
 public class SysRoleController extends BaseWebController<ISysRoleService,SysRole>{
 
 
