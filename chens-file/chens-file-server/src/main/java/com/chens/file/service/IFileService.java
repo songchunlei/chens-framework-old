@@ -1,4 +1,4 @@
-package com.chens.file;
+package com.chens.file.service;
 
 import com.chens.file.entity.SysFile;
 

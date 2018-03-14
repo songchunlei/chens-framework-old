@@ -1,4 +1,4 @@
-package com.chens.file;
+package com.chens.file.service;
 
 import com.chens.file.entity.SysFile;
 import com.baomidou.mybatisplus.service.IService;
@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFileInfoService extends IService<SysFile> {
 
-
+    boolean isMd5Exist(String fileMd5);
 }

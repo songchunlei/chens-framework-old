@@ -56,6 +56,14 @@ public class SysFile implements Serializable {
     @TableField("tenant_id")
     private Long tenantId;
 
+    public SysFile() {
+    }
+
+    public SysFile(String name, String md5, Date createTime) {
+        this.name = name;
+        this.md5 = md5;
+        this.createTime = createTime;
+    }
 
     public Long getId() {
         return id;

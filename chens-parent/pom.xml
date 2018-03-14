@@ -32,7 +32,7 @@
         <!--代码生成器-->
         <module>../chens-generator</module>
         <!--文件服务器-->
-        <!--<module>../chens-file</module>-->
+        <module>../chens-file</module>
         <!--富文本编辑器-->
         <module>../chens-ueditor</module>
         <module>../chens-uaa-server</module>

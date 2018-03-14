@@ -1,7 +1,7 @@
-package com.chens.file.service.mapper;
+package com.chens.file.mapper;
 
-import com.chens.file.entity.SysFile;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.chens.file.entity.SysFile;
 
 /**
  * <p>

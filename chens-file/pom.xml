@@ -13,8 +13,8 @@
     <artifactId>chens-file</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>chens-file-api</module>
-        <module>chens-file-service</module>
+        <module>chens-file-server</module>
+        <module>chens-file-fastdfs</module>
     </modules>
 
     <dependencies>
