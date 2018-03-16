@@ -19,11 +19,7 @@ public class SysTenant extends BaseEntity<SysTenant> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 租户ID
-     */
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
+
     /**
      * 租户名称
      */
@@ -34,20 +30,31 @@ public class SysTenant extends BaseEntity<SysTenant> {
      */
     @TableField("tenant_code")
     private String tenantCode;
+
+    /**
+     * 营业执照
+     */
+    @TableField("jreg_licens")
+    private String jregLicens;
+
+    /**
+     * 法人账号
+     */
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     /**
      * 租户描述
      */
     @TableField("tenant_desc")
     private String tenantDesc;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTenantName() {
         return tenantName;
@@ -71,5 +78,13 @@ public class SysTenant extends BaseEntity<SysTenant> {
 
     public void setTenantDesc(String tenantDesc) {
         this.tenantDesc = tenantDesc;
+    }
+
+    public String getJregLicens() {
+        return jregLicens;
+    }
+
+    public void setJregLicens(String jregLicens) {
+        this.jregLicens = jregLicens;
     }
 }

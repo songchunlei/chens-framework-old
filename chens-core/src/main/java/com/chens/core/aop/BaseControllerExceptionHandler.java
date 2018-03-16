@@ -1,9 +1,12 @@
 package com.chens.core.aop;
 
+import com.chens.core.util.GetValidateMsg;
+import com.chens.core.util.StringUtils;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,12 +52,30 @@ public class BaseControllerExceptionHandler{
         return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(),e.getMessage());
     }
 
+    /**
+     * 必填报错拦截
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Result handleBindException(MethodArgumentNotValidException e) {
+        String msg = GetValidateMsg.handlerValidateMsg(e.getBindingResult());
+        if(StringUtils.isNotEmpty(msg))
+        {
+            return ResultHelper.getError(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
+        }
+        log.error("必填异常:"+e.getBindingResult());
+        return ResultHelper.getError(e.getMessage());
+    }
+
     @ExceptionHandler(HystrixRuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Result handleRuntimeException(HystrixRuntimeException e) {
         log.error("Hystrix运行时异常:", e);
-        return getMessage(e.getMessage());
+        return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(),e.getMessage());
     }
 
     @ExceptionHandler(FeignException.class)
@@ -62,14 +83,9 @@ public class BaseControllerExceptionHandler{
     @ResponseBody
     public Result handleFeignException(FeignException e) {
         log.error("Feign异常:"+e.getMessage());
-        return ResultHelper.getError(e.getMessage());
+        return getMessage(e.getMessage());
     }
 
-
-
-
-    
-    
     /**
      * exception报错内容： status 500 reading IForderClient#save(Map); content:
 		{"timestamp":1520586889833,"status":500,"error":"Internal Server Error","exception":"com.chens.core.exception.BaseException","message":"已存在相同名称的目录","path":"/forder/save"}

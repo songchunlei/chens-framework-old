@@ -1,21 +1,23 @@
 package com.chens.core.web;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.constants.CommonContants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.GetValidateMsg;
 import com.chens.core.util.StringUtils;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.QueryPageEntity;
 import com.chens.core.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.util.Date;
 
@@ -50,8 +52,13 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             Field[] fields = spage.getSearch().getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
 
+
+                TableField tableFieldName = fields[i].getAnnotation(TableField.class);
+
                 //test
                 logger.debug(fields[i].getName());
+                logger.debug(tableFieldName.value());
+
                 if(fields[i].getName().equals("serialVersionUID"))
                 {
                     continue;
@@ -77,7 +84,12 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PostMapping("create")
-    public ResponseEntity<Result> create(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> create(@RequestBody @Validated T t,BindingResult result) {
+        String msg = GetValidateMsg.handlerValidateMsg(result);
+        if(StringUtils.isNotEmpty(msg))
+        {
+            throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
+        }
         if(t != null){
             t.setCreateBy(1L);//test
             t.setCreateTime(new Date());
@@ -95,7 +107,12 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("update")
-    public ResponseEntity<Result> update(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> update(@RequestBody @Validated T t,BindingResult result) {
+        String msg = GetValidateMsg.handlerValidateMsg(result);
+        if(StringUtils.isNotEmpty(msg))
+        {
+            throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
+        }
         if(t != null){
             t.setUpdateTime(new Date());
             t.setUpdateBy(1L);//test
@@ -111,15 +128,15 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("/save")
-    public ResponseEntity<Result> save(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> save(@RequestBody @Validated T t,BindingResult result) {
         if(t != null){
             if(t.getId()!=null)
             {
-                return update(t);
+                return update(t,result);
             }
             else
             {
-                return create(t);
+                return create(t,result);
             }
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -148,7 +165,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<Result> list(@RequestBody T t) {
+    public ResponseEntity<Result> list(T t) {
         if(t!=null)
         {
             return doSuccess("查询成功",service.selectList(new EntityWrapper<>(t)));

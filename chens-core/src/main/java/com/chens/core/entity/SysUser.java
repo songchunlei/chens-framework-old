@@ -19,13 +19,18 @@ import java.util.List;
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;
-    @NotNull
+    @NotNull(message = "{sysuser.name.null}")
     private String name;
-    @NotNull
+    @NotNull(message = "{sysuser.password.null}")
     private String password;
     private String salt;
-    @NotNull
+    @NotNull(message = "{sysuser.username.null}")
     private String username;
+    @NotNull(message = "{sysuser.phone.null}")
+    private String phone;
+    @NotNull(message = "{sysuser.email.null}")
+    private String email;
+
     @TableField(exist = false)
     private List<SysRole> roles;
 
@@ -67,6 +72,22 @@ public class SysUser extends BaseEntity<SysUser> {
 
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**

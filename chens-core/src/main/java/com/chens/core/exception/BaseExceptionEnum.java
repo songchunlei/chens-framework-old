@@ -41,6 +41,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
      */
     REQUEST_NULL(500, "请求有错误"),
     DATA_REQUEST_ERROR(501, "数据传输失败"),
+    DATA_VALIDATE_ERROR(502, "请求数据校验失败"),
     SERVER_ERROR(600, "服务器异常");
 
     private Integer code;

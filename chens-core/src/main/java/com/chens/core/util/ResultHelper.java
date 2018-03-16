@@ -1,7 +1,13 @@
 package com.chens.core.util;
 
 import com.chens.core.enums.IBaseEnum;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+
+import java.util.List;
 
 /**
  * 结果集工具
@@ -74,4 +80,5 @@ public final class ResultHelper {
     public static Result getError(String msg){
         return new Result(ERROR_CODE,msg);
     }
+
 }
