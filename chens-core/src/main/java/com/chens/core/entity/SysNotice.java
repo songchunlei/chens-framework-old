@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
 
+import javax.validation.constraints.NotNull;
+
 /**
  *
  *  实体
@@ -22,14 +24,17 @@ public class SysNotice extends BaseEntity<SysNotice> {
     /**
      * 标题
      */
+    @NotNull
 	private String title;
     /**
      * 类型
      */
+	@NotNull
 	private Long type;
     /**
      * 内容
      */
+	@NotNull
 	private String content;
 
 

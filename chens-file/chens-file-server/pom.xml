@@ -9,7 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chens-file-api</artifactId>
+    <artifactId>chens-file-server</artifactId>
+
+    <dependencies>
+        <!--database-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--feign集合-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-admin-feign</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

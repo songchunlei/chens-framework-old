@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -18,9 +19,12 @@ import java.util.List;
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;
+    @NotNull
     private String name;
+    @NotNull
     private String password;
     private String salt;
+    @NotNull
     private String username;
     @TableField(exist = false)
     private List<SysRole> roles;

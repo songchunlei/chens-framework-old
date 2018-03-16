@@ -18,15 +18,10 @@
     <modules>
         <!--通用核心模块-->
         <module>../chens-core</module>
-        <!--管理后台模块-->
-        <module>../chens-admin-web</module>
-        <module>../chens-admin-feign</module>
         <!--注册中心-->
         <module>../chens-eureka</module>
         <!--配置中心-->
         <module>../chens-config-server</module>
-        <!--网关-->
-        <module>../chens-gateway</module>
         <!--auth2授权-->
         <module>../chens-auth2-server</module>
         <!--代码生成器-->
@@ -35,7 +30,10 @@
         <module>../chens-file</module>
         <!--富文本编辑器-->
         <module>../chens-ueditor</module>
+        <!--鉴权-->
         <module>../chens-uaa-server</module>
+        <!--管理后台-->
+        <module>../chens-admin</module>
 
     </modules>
 
@@ -67,6 +65,7 @@
         <jwt.version>0.7.0</jwt.version>
 
         <commons-lang3.version>3.5</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
 
     </properties>
 
@@ -163,8 +162,9 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
             </dependency>
 
         </dependencies>

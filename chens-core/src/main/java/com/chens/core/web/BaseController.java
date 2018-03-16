@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.enums.IBaseEnum;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.FileUtil;
@@ -135,23 +136,12 @@ public class BaseController {
         return ResponseEntity.ok(ResultHelper.getError(msg));
     }
 
-    
     /**
-     * 自动拼装Page
-     * @param <T>
+     * 失败反馈
+     * @return
      */
-    public <T> Page<T> createPage(HttpServletRequest request,int size) {
-        String current = request.getParameter("currentPage");
-        Page<T> page = new Page<T>();
-        if(StringUtils.isNotEmpty(current))
-        {
-            page = new Page<T>(Integer.parseInt(current),size);
-        }
-        else
-        {
-            page = new Page<T>(1,10);
-        }
-        return page;
+    public ResponseEntity<Result> doError(IBaseEnum baseEnum) {
+        return ResponseEntity.ok(ResultHelper.getError(baseEnum));
     }
 
     /**
@@ -183,5 +173,6 @@ public class BaseController {
         headers.setContentDispositionFormData("attachment", dfileName);
         return new ResponseEntity<byte[]>(fileBytes, headers, HttpStatus.CREATED);
     }
+
 
 }

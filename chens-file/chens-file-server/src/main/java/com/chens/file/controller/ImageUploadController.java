@@ -50,7 +50,7 @@ public class ImageUploadController extends BaseFileController{
             String ext = name.substring(name.lastIndexOf("."));
             fileName = UUID.randomUUID().toString() + ext;
 
-            saveFile(getRealPath(), fileName, saveFile);
+            saveFile(getFilePath(), fileName, saveFile);
 
             fileInfoService.insert(new SysFile(fileName, createMd5(file).toString(), new Date()));
 

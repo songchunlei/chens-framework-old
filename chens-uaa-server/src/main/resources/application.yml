@@ -26,6 +26,6 @@ token:
     expm: 120
 feign:
   hystrix:
-    enabled: false;
+    enabled: true;
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000

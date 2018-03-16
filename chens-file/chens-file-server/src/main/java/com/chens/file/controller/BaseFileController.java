@@ -1,5 +1,6 @@
 package com.chens.file.controller;
 
+import com.chens.core.web.BaseController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -16,8 +17,8 @@ import java.util.zip.ZipOutputStream;
  * @auther songchunlei@qq.com
  * @create 2018/3/13
  */
-public class BaseFileController {
-    private static final File uploadDirectory = new File(getRealPath());
+public class BaseFileController extends BaseController{
+    private static final File uploadDirectory = new File(getFilePath());
     /**
      * @param savePath
      * @param fileFullName
@@ -81,13 +82,8 @@ public class BaseFileController {
      *
      * @return
      */
-    public static String getRealPath() {
-        String realPath;
-        String path = BaseFileController.class.getResource("/").getFile();
-        int index = path.indexOf("build");
-        realPath = path.substring(0, index) + "/src/main/webapp/upload/";
-        realPath = realPath.replaceFirst("/", "");
-        return realPath;
+    public static String getFilePath() {
+        return "/home/opt/";
     }
 
 
@@ -99,7 +95,7 @@ public class BaseFileController {
      * @throws IOException
      */
     public static java.io.File getFileByPath(String filePath) throws IOException {
-        Path path = Paths.get(getRealPath() + filePath);
+        Path path = Paths.get(getFilePath() + filePath);
         if (Files.exists(path)) {
             return new java.io.File(path.toUri());
         }

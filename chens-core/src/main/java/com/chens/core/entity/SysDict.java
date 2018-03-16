@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.chens.core.vo.BaseEntity;
 
+import javax.validation.constraints.NotNull;
+
 /**
  *
  *  实体
@@ -19,12 +21,17 @@ public class SysDict extends BaseEntity<SysDict> {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
 	private String type;
+	@NotNull
 	private String val;
+	@NotNull
 	private String text;
+	@NotNull
 	private Integer seq;
 	@TableField("DESCRIPTION")
 	private String description;
+	@NotNull
 	@TableField("PARENT_ID")
 	private Long parentId;
 	@TableField("is_delete")

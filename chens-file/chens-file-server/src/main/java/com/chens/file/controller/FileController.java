@@ -22,7 +22,7 @@ import static com.chens.file.util.FileUtil.createMd5;
  */
 @Controller
 @RequestMapping("/FileUpload")
-public class FileController extends BaseFileController{
+public class FileController extends BaseFileController {
     @Autowired
     private IFileInfoService fileInfoService;
 
@@ -31,7 +31,6 @@ public class FileController extends BaseFileController{
         return "FileUpload/Index";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/FileUp", method = RequestMethod.POST)
     public String fileUpload(@RequestParam("id") String id,
                              @RequestParam("name") String name,
@@ -44,7 +43,7 @@ public class FileController extends BaseFileController{
         try {
             String ext = name.substring(name.lastIndexOf("."));
             fileName = UUID.randomUUID().toString() + ext;
-            saveFile(getRealPath(), fileName, file);
+            saveFile(getFilePath(), fileName, file);
         } catch (Exception ex) {
             return "{\"error\":true}";
         }

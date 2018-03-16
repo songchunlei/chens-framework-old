@@ -1,5 +1,6 @@
 package com.chens.core.aop;
 
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -45,16 +46,23 @@ public class BaseControllerExceptionHandler{
     @ResponseBody
     public Result handleRuntimeException(RuntimeException e) {
         log.error("运行时异常:", e);
-        return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR);
+        return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(),e.getMessage());
     }
 
+    @ExceptionHandler(HystrixRuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Result handleRuntimeException(HystrixRuntimeException e) {
+        log.error("Hystrix运行时异常:", e);
+        return getMessage(e.getMessage());
+    }
 
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Result handleFeignException(FeignException e) {
         log.error("Feign异常:"+e.getMessage());
-        return ResultHelper.getError(e.status(),getMessage(e.getMessage()));
+        return ResultHelper.getError(e.getMessage());
     }
 
 
@@ -68,12 +76,14 @@ public class BaseControllerExceptionHandler{
      * @param exceptionMessage
      * @return
      */
-    public String getMessage(String exceptionMessage) {  
+    public Result getMessage(String exceptionMessage) {
     	int start = exceptionMessage.indexOf("{");
     	int end = exceptionMessage.indexOf("}");
     	exceptionMessage = exceptionMessage.substring(start, end+1);
     	JSONObject obj = JSONObject.parseObject(exceptionMessage);
-        return (String)obj.get("message");
+    	Integer errCode = (Integer) obj.get("code");
+    	String errMsg = (String)obj.get("message");
+    	return ResultHelper.getError(errCode,errMsg);
     }
     
     

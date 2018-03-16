@@ -1,7 +1,10 @@
 package com.chens.file.controller;
 
+import com.chens.core.vo.Result;
 import com.chens.file.service.IFileInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,25 +19,26 @@ import static com.chens.file.util.IsAllUploaded.Uploaded;
  * @auther songchunlei@qq.com
  * @create 2018/3/13
  */
-@RestController("/bigFile")
+@Controller
+@RequestMapping("/BigFile")
 public class BigFileController extends BaseFileController {
 
     @Autowired
     private IFileInfoService fileInfoService;
 
     @RequestMapping(value = "/IsMD5Exist", method = RequestMethod.POST)
-    public String bigFileUpload(String fileMd5, String fileName, String fileID) {
+    public ResponseEntity<Result> bigFileUpload(String fileMd5, String fileName, String fileID) {
 
         try {
             boolean md5Exist = fileInfoService.isMd5Exist(fileMd5);
             if (md5Exist) {
-                return "this file is exist";
+                return doSuccess("文件已存在");
             } else {
-                return "this file is not exist";
+                return doSuccess("文件不存在");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "this file is not exist";
+            return doSuccess("文件不存在");
         }
     }
 
@@ -52,9 +56,8 @@ public class BigFileController extends BaseFileController {
      * @param file             文件本身
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/BigFileUp")
-    public String fileUpload(String guid,
+    public ResponseEntity<Result> fileUpload(String guid,
                              String md5value,
                              String chunks,
                              String chunk,
@@ -67,7 +70,7 @@ public class BigFileController extends BaseFileController {
         String fileName;
         try {
             int index;
-            String uploadFolderPath = getRealPath();
+            String uploadFolderPath = getFilePath();
 
             String mergePath = uploadFolderPath + guid + "/";
             String ext = name.substring(name.lastIndexOf("."));
@@ -88,10 +91,10 @@ public class BigFileController extends BaseFileController {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return "{\"error\":true}";
+            return doError("保存失败");
         }
-
-        return "{jsonrpc = \"2.0\",id = id,filePath = \"/Upload/\" + fileFullName}";
+        return doSuccess("保存成功");
+        //return "{jsonrpc = \"2.0\",id = id,filePath = \"/Upload/\" + fileFullName}";
     }
 
 }

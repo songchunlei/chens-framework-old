@@ -2,9 +2,12 @@ package com.chens.uaa.server.controller;
 
 import com.chens.admin.remote.IAuthClient;
 import com.chens.core.entity.SysUser;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.jwt.JwtConfiguration;
 import com.chens.core.jwt.JwtTokenProvider;
 import com.chens.core.jwt.UAAClaims;
+import com.chens.core.util.StringUtils;
 import com.chens.core.vo.AuthRequest;
 import com.chens.core.vo.JWTToken;
 import com.chens.core.vo.Result;
@@ -38,9 +41,20 @@ public class TokenController extends BaseController{
     // 获取一个根据账户和密码获取token
     @PostMapping("/token/getTokenByUserName")
     public ResponseEntity<Result> getTokenByUserName(@RequestBody AuthRequest authRequest) {
+        if(authRequest==null){
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+        if(StringUtils.isEmpty(authRequest.getUserName()))
+        {
+            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_USERNAME);
+        }
+        if(StringUtils.isEmpty(authRequest.getPassword()))
+        {
+            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
+        }
         SysUser sysUser = authClient.findByUserNameAndPassword(authRequest);
         if (sysUser == null) {
-            return doError("账号或密码错误");
+            return doError(BaseExceptionEnum.AUTH_REQUEST_ERROR);
         }
         return doSuccess(new JWTToken(jwtTokenProvider.createToken(parseClaims(sysUser))));
     }
