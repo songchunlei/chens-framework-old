@@ -34,6 +34,8 @@
         <module>../chens-uaa-server</module>
         <!--管理后台-->
         <module>../chens-admin</module>
+        <!--流程引擎-->
+        <module>../chens-workflow</module>
 
     </modules>
 
