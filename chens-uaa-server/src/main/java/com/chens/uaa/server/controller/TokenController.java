@@ -75,8 +75,8 @@ public class TokenController extends BaseController{
         uaaClaims.setId(UUID.randomUUID().toString());
         uaaClaims.setUserName(sysUser.getUsername());
         uaaClaims.setExpiration(new Date(System.currentTimeMillis() + jwtConfiguration.getExpm() * 1000 * 60));
-        //uaaClaims.setEmail(userDomain.getEmail());
-        //uaaClaims.setPhone(userDomain.getPhone());
+        uaaClaims.setEmail(sysUser.getEmail());
+        uaaClaims.setPhone(sysUser.getPhone());
         uaaClaims.setSubject(String.valueOf(sysUser.getId()));
         uaaClaims.setNotBefore(new Date());
         return uaaClaims;

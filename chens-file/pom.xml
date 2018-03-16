@@ -14,7 +14,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>chens-file-server</module>
-        <module>chens-file-fastdfs</module>
     </modules>
 
     <dependencies>

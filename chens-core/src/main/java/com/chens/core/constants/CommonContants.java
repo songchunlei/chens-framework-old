@@ -17,4 +17,16 @@ public final class CommonContants {
     public static final String BASE_ENTITY_CREATE_BY = "create_by";
     public static final String BASE_ENTITY_UPDATE_BY = "update_by";
     public static final String BASE_ENTITY_TENANT_ID = "tenant_id";
+
+    //授权token名称
+    public static final String AUTH_TOKEN_KEY = "auth_token";
+
+    //JWT常量
+    public static final String JWT_TOKEN_SCOPE = "scope";
+    public static final String JWT_TOKEN_GRANTTYPE="grantType";
+    public static final String JWT_TOKEN_USERNAME="userName";
+    public static final String JWT_TOKEN_EMAIL="email";
+    public static final String JWT_TOKEN_PHONE= "phone";
+
+
 }

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.chens.core.vo.BaseEntity;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 租户
@@ -23,6 +25,7 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 租户名称
      */
+    @NotNull
     @TableField("tenant_name")
     private String tenantName;
     /**
@@ -34,21 +37,15 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 营业执照
      */
+    @NotNull
     @TableField("jreg_licens")
     private String jregLicens;
 
     /**
      * 法人账号
      */
+    @NotNull
     private String userName;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     /**
      * 租户描述
@@ -86,5 +83,13 @@ public class SysTenant extends BaseEntity<SysTenant> {
 
     public void setJregLicens(String jregLicens) {
         this.jregLicens = jregLicens;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
