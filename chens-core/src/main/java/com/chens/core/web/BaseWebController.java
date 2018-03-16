@@ -53,12 +53,13 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             for (int i = 0; i < fields.length; i++) {
 
 
-                TableField tableFieldName = fields[i].getAnnotation(TableField.class);
+                //TableField tableFieldName = fields[i].getAnnotation(TableField.class);
 
                 //test
-                logger.debug(fields[i].getName());
-                logger.debug(tableFieldName.value());
+                logger.info(fields[i].getName());
 
+
+                //过滤掉UID
                 if(fields[i].getName().equals("serialVersionUID"))
                 {
                     continue;
@@ -67,7 +68,17 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
                     fields[i].setAccessible(true);
                     Object value = fields[i].get(spage.getSearch());
                     if (null != value && !value.equals("")) {
-                        String fieldname = StringUtils.underscoreName(fields[i].getName());
+                        String fieldname = fields[i].getName();
+                        //当有注解的时候采用注解
+                        if(fields[i].isAnnotationPresent(TableField.class) )
+                        {
+                            TableField tableFieldName = (TableField)fields[i].getAnnotation(TableField.class);
+                            if(tableFieldName!=null)
+                            {
+                                fieldname = tableFieldName.value();
+                            }
+                        }
+                        //fieldname = StringUtils.underscoreName(fields[i].getName());
                         wrapper.like(fieldname,value.toString());
                     }
                     fields[i].setAccessible(false);
