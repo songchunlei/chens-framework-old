@@ -1,8 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.entity.SysTenant;
-import com.chens.admin.web.mapper.SysTenantMapper;
-import com.chens.admin.web.service.ISysTenantService;
+import com.chens.admin.mapper.SysTenantMapper;
+import com.chens.admin.service.ISysTenantService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

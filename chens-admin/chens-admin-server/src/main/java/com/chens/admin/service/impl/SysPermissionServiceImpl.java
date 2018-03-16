@@ -1,8 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.entity.SysPermission;
-import com.chens.admin.web.mapper.SysPermissionMapper;
-import com.chens.admin.web.service.ISysPermissionService;
+import com.chens.admin.mapper.SysPermissionMapper;
+import com.chens.admin.service.ISysPermissionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.vo.ZTree;
 import org.springframework.beans.factory.annotation.Autowired;

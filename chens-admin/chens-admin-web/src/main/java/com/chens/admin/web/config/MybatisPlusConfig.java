@@ -1,4 +1,4 @@
-package com.chens.admin.config;
+package com.chens.admin.web.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,7 +15,7 @@ import com.chens.core.config.BaseMybatisPlusConfig;
  */
 @Configuration
 @EnableConfigurationProperties(MybatisPlusProperties.class)
-@MapperScan("com.chens.admin.web.mapper*")
+@MapperScan("com.chens.admin.mapper*")
 public class MybatisPlusConfig extends BaseMybatisPlusConfig{
 
 

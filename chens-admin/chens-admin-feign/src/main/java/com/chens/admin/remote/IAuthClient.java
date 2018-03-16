@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @auther songchunlei@qq.com
  * @create 2018/3/12
  */
-@FeignClient(path = "authController",value = "chens-admin-web",fallback = AuthClientHystrix.class)
+@FeignClient(path = "auth",value = "chens-admin-web",fallback = AuthClientHystrix.class)
 public interface IAuthClient {
 
     @RequestMapping(value="/findByUserNameAndPassword",method = RequestMethod.POST)

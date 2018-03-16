@@ -2,17 +2,15 @@ package com.chens.admin.service.impl;
 
 import java.util.List;
 
-import com.chens.core.util.StringUtils;
 import com.chens.core.vo.AuthRequest;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.chens.admin.web.mapper.SysUserMapper;
-import com.chens.admin.web.service.ISysUserService;
+import com.chens.admin.mapper.SysUserMapper;
+import com.chens.admin.service.ISysUserService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.exception.BaseExceptionEnum;
 
 /**
  * <p>

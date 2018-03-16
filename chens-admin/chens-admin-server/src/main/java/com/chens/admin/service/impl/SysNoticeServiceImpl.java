@@ -1,8 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.entity.SysNotice;
-import com.chens.admin.web.mapper.SysNoticeMapper;
-import com.chens.admin.web.service.ISysNoticeService;
+import com.chens.admin.mapper.SysNoticeMapper;
+import com.chens.admin.service.ISysNoticeService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

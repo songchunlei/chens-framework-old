@@ -1,8 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.entity.SysMenu;
-import com.chens.admin.web.mapper.SysMenuMapper;
-import com.chens.admin.web.service.ISysMenuService;
+import com.chens.admin.mapper.SysMenuMapper;
+import com.chens.admin.service.ISysMenuService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.vo.ZTree;
 import org.springframework.beans.factory.annotation.Autowired;

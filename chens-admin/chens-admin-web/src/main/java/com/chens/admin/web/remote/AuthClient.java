@@ -1,7 +1,7 @@
-package com.chens.admin.remote;
+package com.chens.admin.web.remote;
 
 import com.chens.admin.remote.IAuthClient;
-import com.chens.admin.web.service.IAuthService;
+import com.chens.admin.service.IAuthService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.vo.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 授权接口实现
+ * 授权服务
  *
  * @auther songchunlei@qq.com
- * @create 2018/3/13
+ * @create 2018/3/16
  */
 @RestController
-public class AuthClientImpl implements IAuthClient {
+@RequestMapping(value="/auth")
+public class AuthClient implements IAuthClient{
 
     @Autowired
     private IAuthService authService;

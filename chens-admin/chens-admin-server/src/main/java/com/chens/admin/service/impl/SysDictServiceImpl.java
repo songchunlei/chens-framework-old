@@ -1,8 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.entity.SysDict;
-import com.chens.admin.web.mapper.SysDictMapper;
-import com.chens.admin.web.service.ISysDictService;
+import com.chens.admin.mapper.SysDictMapper;
+import com.chens.admin.service.ISysDictService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

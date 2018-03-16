@@ -48,27 +48,9 @@ public class AuthController extends BaseController{
         return doSuccess(validateFlg);
     }
 
-    @RequestMapping("/loginout")
+    @RequestMapping("/logout")
     public ResponseEntity<Result> loginout() {
             return doSuccess("退出成功");
-    }
-
-
-    @PostMapping("/findByUserNameAndPassword")
-    @ResponseBody
-    public SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest) {
-        if(authRequest==null){
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-        if(StringUtils.isEmpty(authRequest.getUserName()))
-        {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_USERNAME);
-        }
-        if(StringUtils.isEmpty(authRequest.getPassword()))
-        {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
-        }
-        return authService.findByUsernameAndPassword(authRequest);
     }
 
 }
