@@ -42,7 +42,7 @@ public class SysTenant extends BaseEntity<SysTenant> {
     private String jregLicens;
 
     /**
-     * 法人账号
+     * 代理人账号
      */
     @NotNull
     private String userName;

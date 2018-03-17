@@ -23,7 +23,6 @@ public class SysUser extends BaseEntity<SysUser> {
     private String name;
     @NotNull(message = "{sysuser.password.null}")
     private String password;
-    private String salt;
     @NotNull(message = "{sysuser.username.null}")
     private String username;
     @NotNull(message = "{sysuser.phone.null}")
@@ -48,14 +47,6 @@ public class SysUser extends BaseEntity<SysUser> {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getUsername() {
@@ -89,14 +80,5 @@ public class SysUser extends BaseEntity<SysUser> {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    /**
-     * 密码盐.
-     * @return
-     */
-    public String getCredentialsSalt(){
-        return this.username+this.salt;
-    }
-    //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
 
 }
