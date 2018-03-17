@@ -2,7 +2,6 @@ package com.chens.workflow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -13,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @create 2018/3/17
  */
 @SpringBootApplication
-@ComponentScan("com.chens")
+@ComponentScan(basePackages = { "com.chens.workflow*" })
 @EnableTransactionManagement
 public class WorkFlowApp {
     public static void main(String[] args) {

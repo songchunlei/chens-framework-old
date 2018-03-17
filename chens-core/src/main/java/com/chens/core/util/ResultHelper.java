@@ -16,7 +16,7 @@ import java.util.List;
  * @create 2018/3/5
  */
 public final class ResultHelper {
-    private static final int ERROR_CODE = 1;
+    private static final int ERROR_CODE = 0;
     private static final int SUCCESS_CODE = 1;
     private static final String EMPTY_DATA = "{}";
     private static final String EMPTY_MSG = "";

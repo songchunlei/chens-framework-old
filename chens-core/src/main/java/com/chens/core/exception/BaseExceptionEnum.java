@@ -34,6 +34,8 @@ public enum BaseExceptionEnum implements IBaseEnum {
     FILE_NOT_FOUND(304,"文件未找到"),
     FILE_READING_ERROR(305,"文件读取错误"),
     VALIDATE_NOPASS(306, "校验不通过"),
+    WORKFLOW_START_FAIL(307, "流程发起失败"),
+    WORKFLOW_COMPLETE_FAIL(308, "流程办理失败"),
 
 
     /**
