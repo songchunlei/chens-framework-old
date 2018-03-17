@@ -14,5 +14,18 @@ import com.chens.core.vo.AuthRequest;
  * @since 2018-03-04
  */
 public interface ISysUserService extends IService<SysUser> {
+
+    /**
+     * 根据账号密码获取用户
+     * @param authRequest
+     * @return
+     * @throws BaseException
+     */
     SysUser findByUsername(AuthRequest authRequest) throws BaseException;
+
+    /**
+     * 创建账户
+     * @return
+     */
+    boolean createAccount(SysUser sysUser);
 }

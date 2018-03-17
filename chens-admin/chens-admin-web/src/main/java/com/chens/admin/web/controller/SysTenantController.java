@@ -7,6 +7,7 @@ import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.GetValidateMsg;
 import com.chens.core.util.StringUtils;
+import com.chens.core.vo.RegisterTenant;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseWebController;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,22 @@ import java.util.Date;
 @Controller
 @RequestMapping("/tenantController")
 public class SysTenantController extends BaseWebController<ISysTenantService,SysTenant> {
+
+
+    /**
+     * 注册租户
+     * @param registerTenant
+     * @return
+     */
+    @PostMapping("register")
+    public ResponseEntity<Result> register(@RequestBody @Validated RegisterTenant registerTenant) {
+        if(registerTenant!=null)
+        {
+            return doSuccess("保存成功",service.register(registerTenant));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
 }
 

@@ -39,36 +39,6 @@ public class AuthServiceImpl implements IAuthService{
 
     @Override
     public boolean Validate(AuthRequest authRequest) throws BaseException{
-        /*
-        if(authRequest==null)
-        {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-
-        if(StringUtils.isEmpty(authRequest.getUserName()))
-        {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_USERNAME);
-        }
-
-        if(StringUtils.isEmpty(authRequest.getPassword()))
-        {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
-        }
-
-        SysUser query = new SysUser();
-        query.setUsername(authRequest.getUserName());
-        query.setPassword(authRequest.getPassword());
-        int count = sysUserService.selectCount(new EntityWrapper<>(query));
-
-        if(count>0)
-        {
-            return true;
-        }
-        else
-        {
-            throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
-        }
-        */
         SysUser sysUser = sysUserService.findByUsername(authRequest);
         if(sysUser!=null)
         {
