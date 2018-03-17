@@ -3,6 +3,7 @@ package com.chens.core.entity;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
+import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -28,6 +29,7 @@ public class SysUser extends BaseEntity<SysUser> {
     @NotNull(message = "{sysuser.phone.null}")
     private String phone;
     @NotNull(message = "{sysuser.email.null}")
+    @Email
     private String email;
 
     @TableField(exist = false)

@@ -5,7 +5,7 @@ import java.util.List;
 import com.chens.core.constants.CommonContants;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,7 @@ import com.chens.admin.mapper.SysUserMapper;
 import com.chens.admin.service.ISysUserService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -67,5 +68,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         sysUser.setPassword(encoder.encode(passwod));
         return this.insert(sysUser);
+    }
+
+    @Override
+    @Transactional
+    public String restPwd(Long UserId,boolean isRandom) {
+        String password = CommonContants.DEFAULT_PASSWORD;
+        if(isRandom)
+        {
+            password = ToolUtil.getRandomString(16);
+        }
+        SysUser sysUser = new SysUser();
+        sysUser.setPassword(password);
+        sysUser.setId(UserId);
+        if(this.updateById(sysUser))
+        {
+            return password;
+        }
+        return null;
+    }
+
+    @Override
+    public List<SysUser> getUserListByRoleId(Long roleId) {
+        return null;
     }
 }

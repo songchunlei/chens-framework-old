@@ -3,7 +3,7 @@ package com.chens.admin.web.remote;
 import com.chens.admin.remote.IAuthClient;
 import com.chens.admin.service.IAuthService;
 import com.chens.core.entity.SysUser;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

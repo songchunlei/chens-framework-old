@@ -21,9 +21,6 @@ import java.util.List;
 @Service
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements ISysPermissionService {
 
-    @Autowired
-    private SysPermissionMapper sysPermissionMapper;
-
     @Override
     public List<SysPermission> findPermissionListByRoleId(Long roleId) {
         return null;
@@ -31,6 +28,6 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     public List<ZTree> tree() {
-        return sysPermissionMapper.tree();
+        return baseMapper.tree();
     }
 }

@@ -4,7 +4,7 @@ import com.chens.admin.remote.IAuthClient;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

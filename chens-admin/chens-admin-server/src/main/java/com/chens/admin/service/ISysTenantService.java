@@ -2,7 +2,7 @@ package com.chens.admin.service;
 
 import com.chens.core.entity.SysTenant;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.vo.RegisterTenant;
+import com.chens.core.vo.sys.RegisterTenant;
 
 /**
  * <p>

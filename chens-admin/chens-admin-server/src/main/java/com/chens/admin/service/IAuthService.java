@@ -2,7 +2,7 @@ package com.chens.admin.service;
 
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 
 /**
  * 权限控制

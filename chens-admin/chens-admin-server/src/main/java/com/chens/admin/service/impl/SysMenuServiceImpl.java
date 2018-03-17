@@ -21,11 +21,8 @@ import java.util.List;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
-    @Autowired
-    private SysMenuMapper sysMenuMapper;
-
     @Override
     public List<ZTree> tree() {
-        return sysMenuMapper.tree();
+        return baseMapper.tree();
     }
 }

@@ -3,7 +3,7 @@ package com.chens.admin.remote;
 import com.chens.admin.remote.hystrix.AuthClientHystrix;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -18,32 +18,34 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
+    protected Long id;
+    //private Long id; 不用private是为了让子类继承获取
+
     /**
      * 创建时间
      */
     @TableField("create_time")
-    private Date createTime;
+    protected Date createTime;
     /**
      * 更新时间
      */
     @TableField("update_time")
-    private Date updateTime;
+    protected Date updateTime;
     /**
      * 创建人
      */
     @TableField("create_by")
-    private Long createBy;
+    protected Long createBy;
     /**
      * 更新人
      */
     @TableField("update_by")
-    private Long updateBy;
+    protected Long updateBy;
     /**
      * 租户id
      */
     @TableField("tenant_id")
-    private Long tenantId;
+    protected Long tenantId;
 
     public Long getId() {
         return id;

@@ -1,4 +1,4 @@
-package com.chens.core.vo;
+package com.chens.core.vo.sys;
 
 import com.chens.core.entity.SysTenant;
 import com.chens.core.entity.SysUser;

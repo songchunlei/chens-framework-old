@@ -1,6 +1,5 @@
 package com.chens.admin.web.controller;
 
-import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
@@ -12,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chens.admin.service.IAuthService;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**

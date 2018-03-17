@@ -3,7 +3,9 @@ package com.chens.admin.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,4 +30,19 @@ public interface ISysUserService extends IService<SysUser> {
      * @return
      */
     boolean createAccount(SysUser sysUser);
+
+    /**
+     * 重置密码
+     * @param userId 用户id
+     * @param isRandom 是否用随机密码串
+     * @return
+     */
+    String restPwd(Long userId,boolean isRandom);
+
+    /**
+     * 根据角色id获取角色下的用户
+     * @param roleId
+     * @return
+     */
+    List<SysUser> getUserListByRoleId(Long roleId);
 }
