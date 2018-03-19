@@ -1,6 +1,8 @@
 package com.chens.core.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -15,12 +17,13 @@ public class ZTree implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4252766469774648992L;
-	private Long id;
-    private Long pId;
-    private String name;
-    private String codeType;//分类
-    private boolean open;
-    private boolean checked; 
+	protected Long id;
+    protected Long pId;
+    protected String name;
+    protected String codeType;//分类
+    protected boolean open;
+    protected boolean checked;
+    protected List<ZTree> children = new ArrayList<ZTree>();
     
     public ZTree()
     {
@@ -103,6 +106,17 @@ public class ZTree implements Serializable{
         ZTree newzTreeDto = new ZTree(this.id,this.pId,this.name,this.codeType,this.open);
         return newzTreeDto;
     }
-    
-   
+
+
+    public List<ZTree> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ZTree> children) {
+        this.children = children;
+    }
+
+    public void add(ZTree node){
+        children.add(node);
+    }
 }

@@ -25,7 +25,7 @@ public class SysRole extends BaseEntity<SysRole> {
     @TableField("is_delete")
     private String isDelete;
     @TableField(exist = false)
-    private List<SysPermission> permissions;
+    private List<SysMenu> sysMenus;
 
     public String getRoleName() {
         return roleName;
@@ -51,11 +51,11 @@ public class SysRole extends BaseEntity<SysRole> {
         this.isDelete = isDelete;
     }
 
-    public List<SysPermission> getPermissions() {
-        return permissions;
+    public List<SysMenu> getSysMenus() {
+        return sysMenus;
     }
 
-    public void setPermissions(List<SysPermission> permissions) {
-        this.permissions = permissions;
+    public void setSysMenus(List<SysMenu> sysMenus) {
+        this.sysMenus = sysMenus;
     }
 }

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
 
+import java.util.List;
+
 /**
  * <p>
  * 菜单
@@ -41,6 +43,12 @@ public class SysMenu extends BaseEntity<SysMenu> {
      * 图标
      */
     private String icon;
+
+    /**
+     * 子菜单
+     */
+    @TableField(exist = false)
+    private List<SysMenu> childList;
 
 
     public Long getParentId() {
@@ -107,4 +115,11 @@ public class SysMenu extends BaseEntity<SysMenu> {
         this.icon = icon;
     }
 
+    public List<SysMenu> getChildList() {
+        return childList;
+    }
+
+    public void setChildList(List<SysMenu> childList) {
+        this.childList = childList;
+    }
 }
