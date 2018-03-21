@@ -22,8 +22,6 @@
         <module>../chens-eureka</module>
         <!--配置中心-->
         <module>../chens-config-server</module>
-        <!--auth2授权-->
-        <module>../chens-auth2-server</module>
         <!--代码生成器-->
         <module>../chens-generator</module>
         <!--文件服务器-->
@@ -36,6 +34,9 @@
         <module>../chens-admin</module>
         <!--流程引擎-->
         <module>../chens-workflow</module>
+        <!--excel模块-->
+        <module>../chens-excel</module>
+        <module>../chens-auth</module>
 
     </modules>
 
@@ -53,10 +54,14 @@
     </repositories>
 
     <properties>
+
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+
         <springcloud.version>Dalston.SR1</springcloud.version>
+        <springframework.version>4.3.9.RELEASE</springframework.version>
 
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <mybatis-plus.version>2.1.9</mybatis-plus.version>
@@ -74,6 +79,13 @@
     <!-- 统一管理 -->
     <dependencyManagement>
         <dependencies>
+            <!--web-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
             <!--spring-cloud-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
