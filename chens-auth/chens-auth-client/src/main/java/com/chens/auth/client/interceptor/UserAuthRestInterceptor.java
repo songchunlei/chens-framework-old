@@ -52,7 +52,7 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
             }
         }
         Claims claims =jwtTokenProvider.parseToken(token);
-
+        //未玩，待续
         return super.preHandle(request, response, handler);
     }
 
