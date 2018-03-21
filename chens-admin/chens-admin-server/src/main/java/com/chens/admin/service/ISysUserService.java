@@ -1,5 +1,6 @@
 package com.chens.admin.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
@@ -41,8 +42,9 @@ public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 根据角色id获取角色下的用户
-     * @param roleId
+     * @param page
+     * @param user
      * @return
      */
-    List<SysUser> getUserListByRoleId(Long roleId);
+    List<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user);
 }

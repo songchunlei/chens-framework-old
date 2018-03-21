@@ -14,7 +14,6 @@ import java.util.List;
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-//取消租户限制
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
 

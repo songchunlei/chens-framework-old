@@ -1,8 +1,12 @@
 package com.chens.admin.mapper;
 
 import com.baomidou.mybatisplus.annotations.SqlParser;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.core.entity.SysUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,9 +16,14 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author chunlei.song@live.com123
  * @since 2018-03-04
  */
-//取消租户限制
-@SqlParser(filter = true)
 public interface SysUserMapper extends BaseMapper<SysUser> {
-    /**通过username查找用户信息;*/
-    SysUser findByUsername(String username);
+
+
+    /**
+     * 根据角色id，用户名称查询用户列表
+     * @param page
+     * @param user
+     * @return
+     */
+    List<SysUser> getUserListByRoleId(@Param("page") Page<SysUser> page,@Param("user") SysUser user);
 }

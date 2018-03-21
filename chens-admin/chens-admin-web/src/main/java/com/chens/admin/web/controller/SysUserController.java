@@ -2,20 +2,21 @@ package com.chens.admin.web.controller;
 
 
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.service.ISysUserService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.StringUtils;
+import com.chens.core.vo.QueryPageEntity;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseWebController;
 import feign.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +33,26 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/userController")
 public class SysUserController extends BaseWebController<ISysUserService,SysUser> {
 
+
+    /**
+     * 注册用户
+     * @param sysUser
+     * @return
+     */
+    @PostMapping("register")
+    public ResponseEntity<Result> register(@RequestBody @Validated SysUser sysUser) {
+        if(sysUser!=null)
+        {
+            if(StringUtils.isEmpty(sysUser.getPassword()))
+            {
+                throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
+            }
+            return doSuccess("保存成功",service.createAccount(sysUser));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
     /**
      * 重置密码
      * @param userId 用户id
@@ -45,16 +66,17 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
 
     /**
      * 根据角色id获取角色下的用户
-     * @param roleId
+     * @param spage
      * @return
      */
     @GetMapping("/getUserListByRoleId")
-    public ResponseEntity<Result> getUserListByRoleId(@NotNull Long roleId) {
-        if(roleId!=null){
-            return doSuccess(service.getUserListByRoleId(roleId));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
+    public ResponseEntity<Result> getUserListByRoleId(@RequestBody QueryPageEntity<SysUser> spage) {
+            Page<SysUser> page = this.createPage(spage);
+            if(page!=null) {
+                return doSuccess(service.getUserListByRoleId(page,spage.getSearch()));
+            } else {
+                throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+            }
     }
 }
 
