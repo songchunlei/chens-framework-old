@@ -1,6 +1,6 @@
 package com.chens.core.jwt;
 
-import com.chens.core.constants.CommonContants;
+import com.chens.core.constants.CommonConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.RequiredTypeException;
 import io.jsonwebtoken.impl.JwtMap;
@@ -20,7 +20,7 @@ public class UAAClaims extends JwtMap implements Claims {
 
 	public void setScope(String[] scope) {
 		this.scope = scope;
-		setValue(CommonContants.JWT_TOKEN_SCOPE, this.scope);
+		setValue(CommonConstants.JWT_TOKEN_SCOPE, this.scope);
 	}
 
 	public String getGrantType() {
@@ -29,7 +29,7 @@ public class UAAClaims extends JwtMap implements Claims {
 
 	public void setGrantType(String grantType) {
 		this.grantType = grantType;
-		setValue(CommonContants.JWT_TOKEN_GRANTTYPE, this.grantType);
+		setValue(CommonConstants.JWT_TOKEN_GRANTTYPE, this.grantType);
 	}
 
 	public String getUserName() {
@@ -38,7 +38,7 @@ public class UAAClaims extends JwtMap implements Claims {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-		setValue(CommonContants.JWT_TOKEN_USERNAME, this.userName);
+		setValue(CommonConstants.JWT_TOKEN_USERNAME, this.userName);
 	}
 
 	public String getEmail() {
@@ -47,7 +47,7 @@ public class UAAClaims extends JwtMap implements Claims {
 
 	public void setEmail(String email) {
 		this.email = email;
-		setValue(CommonContants.JWT_TOKEN_EMAIL, this.email);
+		setValue(CommonConstants.JWT_TOKEN_EMAIL, this.email);
 	}
 
 	public String getPhone() {
@@ -56,7 +56,7 @@ public class UAAClaims extends JwtMap implements Claims {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-		setValue(CommonContants.JWT_TOKEN_PHONE, this.phone);
+		setValue(CommonConstants.JWT_TOKEN_PHONE, this.phone);
 	}
 
 	@Override

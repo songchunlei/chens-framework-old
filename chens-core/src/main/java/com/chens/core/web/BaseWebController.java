@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.constants.CommonContants;
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.GetValidateMsg;
@@ -41,7 +41,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         Page<T> page = new Page<T>(spage.getPage().getCurrent(),spage.getPage().getSize());
 
         if (StringUtils.isEmpty(spage.getPage().getOrderByField())) {
-            spage.getPage().setOrderByField(CommonContants.BASE_ENTITY_UPDATE_TIME);
+            spage.getPage().setOrderByField(CommonConstants.BASE_ENTITY_UPDATE_TIME);
         }
         page.setOrderByField(spage.getPage().getOrderByField());
         page.setAsc(spage.getPage().isAsc());

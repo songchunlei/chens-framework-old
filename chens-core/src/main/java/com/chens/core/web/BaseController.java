@@ -7,10 +7,12 @@ import java.lang.reflect.Type;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chens.core.entity.SysUser;
 import com.chens.core.enums.IBaseEnum;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.FileUtil;
+import com.chens.core.vo.QueryPageEntity;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -172,6 +174,22 @@ public class BaseController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", dfileName);
         return new ResponseEntity<byte[]>(fileBytes, headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * 自动拼装分页
+     * @param spage
+     * @param <T>
+     * @return
+     */
+    protected <T> Page<T> createPage(QueryPageEntity<T> spage)
+    {
+        if(spage!= null)
+        {
+
+            return new Page<T>(spage.getPage().getCurrent(),spage.getPage().getSize());
+        }
+        return null;
     }
 
 

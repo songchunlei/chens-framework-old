@@ -22,7 +22,6 @@ public class SysUser extends BaseEntity<SysUser> {
     private static final long serialVersionUID = 1L;
     @NotNull(message = "{sysuser.name.null}")
     private String name;
-    @NotNull(message = "{sysuser.password.null}")
     private String password;
     @NotNull(message = "{sysuser.username.null}")
     private String username;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.mapper.ISqlInjector;
 import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
-import com.chens.core.constants.CommonContants;
+import com.chens.core.constants.CommonConstants;
 import org.springframework.context.annotation.Bean;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
@@ -66,7 +66,7 @@ public class BaseMybatisPlusConfig {
             @Override
             public boolean doTableFilter(String tableName) {
 
-                boolean flg = CommonContants.NO_TENANT_TABLENAME.indexOf("["+tableName+"]")!=-1;
+                boolean flg = CommonConstants.NO_TENANT_TABLENAME.indexOf("["+tableName+"]")!=-1;
                 // 这里可以判断是否过滤表
                 if (flg) {
                     return true;
