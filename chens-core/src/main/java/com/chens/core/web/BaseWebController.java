@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.GetValidateMsg;
@@ -102,10 +103,10 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
         if(t != null){
-            t.setCreateBy(1L);//test
+            t.setCreateBy(BaseContextHandler.getUserId());
             t.setCreateTime(new Date());
             t.setUpdateTime(new Date());
-            t.setUpdateBy(1L);//test
+            t.setUpdateBy(BaseContextHandler.getUserId());//test
             return doSuccess("保存成功",service.insert(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -126,7 +127,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         }
         if(t != null){
             t.setUpdateTime(new Date());
-            t.setUpdateBy(1L);//test
+            t.setUpdateBy(BaseContextHandler.getUserId());
             return doSuccess("保存成功",service.updateById(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
