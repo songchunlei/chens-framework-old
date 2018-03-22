@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * 菜单管理页面
@@ -39,7 +38,7 @@ public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu
      */
     @GetMapping("/getMenuList/{userId}")
     public ResponseEntity<Result> getMenuListByUserId(@PathVariable @NotNull Long userId) {
-        return doSuccess(service.getMenuListByUserId(userId));
+        return doSuccess(service.getMenuTreeListByUserId(userId));
     }
 
 }

@@ -1,13 +1,10 @@
 package com.chens.admin.web.controller;
 
-import com.chens.admin.service.ISysTenantService;
-import com.chens.admin.service.ISysUserService;
-import com.chens.auth.client.util.UserAuthUtil;
+import com.chens.admin.service.*;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
-import com.chens.core.vo.JWTToken;
 import com.chens.core.vo.sys.RegisterTenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.chens.admin.service.IAuthService;
 import com.chens.core.vo.sys.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
-
 
 
 /**
@@ -35,9 +30,6 @@ import com.chens.core.web.BaseController;
 public class AuthController extends BaseController{
 
     @Autowired
-    private UserAuthUtil userAuthUtil;
-
-    @Autowired
     private IAuthService authService;
 
     @Autowired
@@ -45,6 +37,9 @@ public class AuthController extends BaseController{
 
     @Autowired
     private ISysTenantService sysTenantService;
+
+    @Autowired
+    private ISysMenuService sysMenuService;
 
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody AuthRequest authRequest) {
@@ -62,7 +57,7 @@ public class AuthController extends BaseController{
         SysUser sysUser = authService.findByUsernameAndPassword(authRequest);
         if(sysUser!=null)
         {
-            return doSuccess(new JWTToken(userAuthUtil.createToken(sysUser)));
+            return doSuccess(sysMenuService.getMenuTreeMapListByUserId(sysUser));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
