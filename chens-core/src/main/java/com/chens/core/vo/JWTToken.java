@@ -1,7 +1,14 @@
 package com.chens.core.vo;
 
-public class JWTToken {
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+public class JWTToken implements Serializable{
 	private String accessToken;
+	private List<MenuTree> menus;
+	private Map<Long,MenuTree> all;
 
 	public String getAccessToken() {
 		return accessToken;
@@ -15,7 +22,26 @@ public class JWTToken {
 		super();
 		this.accessToken = accessToken;
 	}
-	
-	
 
+	public JWTToken(String accessToken, List<MenuTree> menus,Map<Long,MenuTree> all) {
+		this.accessToken = accessToken;
+		this.menus = menus;
+		this.all = all;
+	}
+
+	public List<MenuTree> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<MenuTree> menus) {
+		this.menus = menus;
+	}
+
+	public Map<Long, MenuTree> getAll() {
+		return all;
+	}
+
+	public void setAll(Map<Long, MenuTree> all) {
+		this.all = all;
+	}
 }

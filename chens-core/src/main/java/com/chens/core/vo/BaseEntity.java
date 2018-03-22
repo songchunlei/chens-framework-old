@@ -2,7 +2,9 @@ package com.chens.core.vo;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -24,27 +26,29 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     /**
      * 创建时间
      */
-    @TableField("create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     protected Date createTime;
     /**
      * 更新时间
      */
-    @TableField("update_time")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     protected Date updateTime;
     /**
      * 创建人
      */
-    @TableField("create_by")
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
     protected Long createBy;
     /**
      * 更新人
      */
-    @TableField("update_by")
+    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     protected Long updateBy;
     /**
      * 租户id
      */
-    @TableField("tenant_id")
+    @TableField(value ="tenant_id", fill = FieldFill.INSERT)
     protected Long tenantId;
 
     public Long getId() {

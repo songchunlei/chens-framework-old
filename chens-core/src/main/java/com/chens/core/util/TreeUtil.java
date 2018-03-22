@@ -2,9 +2,12 @@ package com.chens.core.util;
 
 
 import com.chens.core.vo.ZTree;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 树工具
@@ -27,7 +30,7 @@ public class TreeUtil {
       }
 
       for (T it : treeNodes) {
-        if (it.getpId() == treeNode.getId()) {
+        if (it.getpId().equals(treeNode.getId())) {
           if (treeNode.getChildren() == null) {
             treeNode.setChildren(new ArrayList<ZTree>());
           }
@@ -62,7 +65,7 @@ public class TreeUtil {
    */
   public static <T extends ZTree> T findChildren(T treeNode, List<T> treeNodes) {
     for (T it : treeNodes) {
-      if (treeNode.getId() == it.getpId()) {
+      if (treeNode.getId().equals(it.getpId())) {
         if (treeNode.getChildren() == null) {
           treeNode.setChildren(new ArrayList<ZTree>());
         }
@@ -71,5 +74,19 @@ public class TreeUtil {
     }
     return treeNode;
   }
+
+  public static <T extends ZTree> Map<Long, T > getTreeMap(List<T> treeNodes)
+  {
+    if(CollectionUtils.isEmpty(treeNodes))
+    {
+      return null;
+    }
+    Map<Long, T > map = new HashMap<Long, T>();
+    for (T it : treeNodes) {
+      map.put(it.getId(),it);
+    }
+    return map;
+  }
+
 
 }
