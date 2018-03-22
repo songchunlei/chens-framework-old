@@ -95,7 +95,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @param t
      * @return
      */
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<Result> create(@RequestBody @Validated T t,BindingResult result) {
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
@@ -118,7 +118,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @param t
      * @return
      */
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<Result> update(@RequestBody @Validated T t,BindingResult result) {
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
