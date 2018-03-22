@@ -25,7 +25,7 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 租户名称
      */
-    @NotNull
+    @NotNull(message = "{tenant.name.null}")
     @TableField("tenant_name")
     private String tenantName;
     /**
@@ -37,14 +37,15 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 营业执照
      */
-    @NotNull
+    @NotNull(message = "{tenant.jregLicens.null}")
     @TableField("jreg_licens")
     private String jregLicens;
 
     /**
      * 代理人账号
      */
-    @NotNull
+    @NotNull(message = "{tenant.userName.null}")
+    @TableField("user_name")
     private String userName;
 
     /**
@@ -52,6 +53,11 @@ public class SysTenant extends BaseEntity<SysTenant> {
      */
     @TableField("tenant_desc")
     private String tenantDesc;
+
+    /**
+     * 租户状态
+     */
+    private String status;
 
     public String getTenantName() {
         return tenantName;
@@ -91,5 +97,13 @@ public class SysTenant extends BaseEntity<SysTenant> {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

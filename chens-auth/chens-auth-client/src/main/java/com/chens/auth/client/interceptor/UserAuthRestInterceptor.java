@@ -1,10 +1,11 @@
 package com.chens.auth.client.interceptor;
 
 import com.chens.auth.client.annotation.IgnoreClientToken;
-import com.chens.auth.client.config.UserAuthConfig;
-import com.chens.core.jwt.JwtTokenProvider;
+import com.chens.auth.client.jwt.IJwtInfo;
+import com.chens.auth.client.jwt.JwtTokenProvider;
+import com.chens.auth.client.util.UserAuthUtil;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.util.StringUtils;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -26,7 +27,7 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    private UserAuthConfig userAuthConfig;
+    private UserAuthUtil userAuthUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -41,18 +42,25 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
             return super.preHandle(request, response, handler);
         }
 
-        String token = request.getHeader(userAuthConfig.getTokenHeader());
+        String token = jwtTokenProvider.getToken(request);//request.getHeader(userAuthConfig.getTokenHeader());
         if (StringUtils.isEmpty(token)) {
             if (request.getCookies() != null) {
                 for (Cookie cookie : request.getCookies()) {
-                    if (cookie.getName().equals(userAuthConfig.getTokenHeader())) {
+                    if (cookie.getName().equals(jwtTokenProvider.getUserTokenHeader())) {
                         token = cookie.getValue();
                     }
                 }
             }
         }
-        Claims claims =jwtTokenProvider.parseToken(token);
-        //未玩，待续
+        //解析token
+        IJwtInfo jwtInfo = userAuthUtil.getUserInfo(token);
+
+        //存入缓存
+        BaseContextHandler.setUserName(jwtInfo.getUsername());
+        BaseContextHandler.setName(jwtInfo.getName());
+        BaseContextHandler.setUserId(jwtInfo.getId());
+        BaseContextHandler.setTenantId(jwtInfo.getTenantId());
+
         return super.preHandle(request, response, handler);
     }
 

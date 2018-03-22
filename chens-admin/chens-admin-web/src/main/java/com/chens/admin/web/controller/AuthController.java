@@ -1,11 +1,18 @@
 package com.chens.admin.web.controller;
 
+import com.chens.admin.service.ISysTenantService;
+import com.chens.admin.service.ISysUserService;
+import com.chens.auth.client.util.UserAuthUtil;
+import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
+import com.chens.core.vo.JWTToken;
+import com.chens.core.vo.sys.RegisterTenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +21,7 @@ import com.chens.admin.service.IAuthService;
 import com.chens.core.vo.sys.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+
 
 
 /**
@@ -27,7 +35,16 @@ import com.chens.core.web.BaseController;
 public class AuthController extends BaseController{
 
     @Autowired
+    private UserAuthUtil userAuthUtil;
+
+    @Autowired
     private IAuthService authService;
+
+    @Autowired
+    private ISysUserService sysUserService;
+
+    @Autowired
+    private ISysTenantService sysTenantService;
 
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody AuthRequest authRequest) {
@@ -42,13 +59,67 @@ public class AuthController extends BaseController{
         {
             throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
         }
-        boolean validateFlg = authService.Validate(authRequest);
-        return doSuccess(validateFlg);
+        SysUser sysUser = authService.findByUsernameAndPassword(authRequest);
+        if(sysUser!=null)
+        {
+            return doSuccess(new JWTToken(userAuthUtil.createToken(sysUser)));
+        }
+        throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
 
     @RequestMapping("/logout")
     public ResponseEntity<Result> loginout() {
-            return doSuccess("退出成功");
+        return doSuccess("退出成功");
     }
+
+
+    /**
+     * 注册用户
+     * @param sysUser
+     * @return
+     */
+    @PostMapping("registerUser")
+    public ResponseEntity<Result> registerUser(@RequestBody @Validated SysUser sysUser) {
+        if(sysUser!=null)
+        {
+            if(StringUtils.isEmpty(sysUser.getPassword()))
+            {
+                throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
+            }
+            return doSuccess("保存成功",sysUserService.createAccount(sysUser));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+    /**
+     * 注册租户
+     * @param registerTenant
+     * @return
+     */
+    @PostMapping("register")
+    public ResponseEntity<Result> register(@RequestBody @Validated RegisterTenant registerTenant) {
+        if(registerTenant!=null)
+        {
+
+            return doSuccess("保存成功",sysTenantService.register(registerTenant));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+
+
+    /**
+     * 解析token，测试
+     * @param token
+     * @return
+     */
+    /*
+    @RequestMapping("/token/parse")
+    public ResponseEntity<Result> parseToken(String token) throws Exception {
+        return doSuccess(jwtTokenProvider.parseToken(token)) ;
+    }
+    */
 
 }

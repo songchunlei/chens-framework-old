@@ -35,18 +35,14 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
 
 
     /**
-     * 注册用户
+     * 创建用户
      * @param sysUser
      * @return
      */
-    @PostMapping("register")
+    @PostMapping("createUser")
     public ResponseEntity<Result> register(@RequestBody @Validated SysUser sysUser) {
         if(sysUser!=null)
         {
-            if(StringUtils.isEmpty(sysUser.getPassword()))
-            {
-                throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
-            }
             return doSuccess("保存成功",service.createAccount(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

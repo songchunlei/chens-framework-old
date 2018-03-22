@@ -41,7 +41,7 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantMapper, SysTenant
         Long tenantId = sysTenant.getId();
         //2.创建代理人账户
         SysUser sysUser = registerTenant.getSysUser();
-        sysUser.setId(tenantId);
+        sysUser.setTenantId(tenantId);
         if(!sysUserService.createAccount(sysUser))
         {
             throw new BaseException(BaseExceptionEnum.REGISTER_SYSUSER_ERROR);

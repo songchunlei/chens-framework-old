@@ -1,4 +1,4 @@
-package com.chens.core.jwt;
+package com.chens.auth.client.jwt;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,16 +6,30 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 
-// 自定义的配置加载类，spring启动后，会讲这个类实例化，并将配置文件中与之对应的值注入进来
+/**
+ * 自定义的配置加载类，spring启动后，会讲这个类实例化，并将配置文件中与之对应的值注入进来
+ * @auther songchunlei@qq.com
+ * @create 2018/3/1
+ */
 @Component
 @ConfigurationProperties("token.jwt")
 public class JwtConfiguration {
-	// 计算token用的key
+	/**
+	 * 加密token用的key
+ 	 */
 	private String key;
-	// 在哪里生成的这个token
+	/**
+	 * token来源
+	 */
 	private String iss;
-	/** 有效期：分钟 */
+	/**
+	 * 有效期：分钟
+	 */
 	private int expm;
+	/**
+	 * 用户端token名
+	 */
+	private String userheader;
 	
 	public int getExpm() {
 		return expm;
@@ -38,6 +52,14 @@ public class JwtConfiguration {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public String getUserheader() {
+		return userheader;
+	}
+
+	public void setUserheader(String userheader) {
+		this.userheader = userheader;
 	}
 
 	public SecretKeySpec getSecretKeySpec() {

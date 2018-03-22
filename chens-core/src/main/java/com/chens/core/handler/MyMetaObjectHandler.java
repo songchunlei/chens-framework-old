@@ -1,7 +1,8 @@
 package com.chens.core.handler;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
-import com.chens.core.vo.UserInfo;
+import com.chens.core.constants.CommonConstants;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.enums.YesNoEnum;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.log4j.LogManager;
@@ -26,18 +27,12 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 		logger.info("*****************保存自动填充******************");
         Date date = new Date();
         
-        //用户信息需要后期统一修改
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername("wudepeng");
-        userInfo.setTenantId(1l);
-        
-        
-        setFieldValByName("createTime", date, metaObject);
-        setFieldValByName("updateTime", date, metaObject); 
-        setFieldValByName("createBy", userInfo.getUsername(), metaObject);
-        setFieldValByName("updateBy", userInfo.getUsername(), metaObject);
-        setFieldValByName("tenantId", userInfo.getTenantId(), metaObject);
-        setFieldValByName("isDelete", YesNoEnum.NO.getCode(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_IS_DELETE, YesNoEnum.NO.getCode(), metaObject);
         
 	}
 
@@ -47,12 +42,9 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         logger.info("********************更新自动填充********************");
         //mybatis-plus版本2.0.9+  
         Date date = new Date();
-        //用户信息需要后期统一修改
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername("wdp");
 
-        setFieldValByName("updateTime", date, metaObject);
-        setFieldValByName("updateBy", userInfo.getUsername(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
 
 	}
 

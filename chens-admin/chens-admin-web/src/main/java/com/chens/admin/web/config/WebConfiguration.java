@@ -1,6 +1,8 @@
 package com.chens.admin.web.config;
 
+import com.chens.auth.client.interceptor.UserAuthRestInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -14,6 +16,7 @@ import java.util.Collections;
  * @auther songchunlei@qq.com
  * @create 2018/3/20
  */
+@Configuration
 @Primary
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
@@ -27,7 +30,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         /*
             增加用户权限拦截器
          */
-        //registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
+        registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
         super.addInterceptors(registry);
     }
 
@@ -46,18 +49,15 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      * 配置用户用户token拦截
      * @return
      */
-    /*
     @Bean
     UserAuthRestInterceptor getUserAuthRestInterceptor() {
         return new UserAuthRestInterceptor();
     }
-    */
 
     private ArrayList<String> getExcludeCommonPathPatterns() {
         ArrayList<String> list = new ArrayList<>();
         String[] urls = {
-                "/v2/api-docs",
-                "/swagger-resources/**"
+                "/authController/**"
         };
         Collections.addAll(list, urls);
         return list;

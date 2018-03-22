@@ -1,10 +1,13 @@
 package com.chens.core.vo.sys;
 
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysTenant;
 import com.chens.core.entity.SysUser;
+import com.chens.core.enums.TenantType;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 注册租户
@@ -14,10 +17,12 @@ import java.io.Serializable;
  */
 public class RegisterTenant implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 租户名称
      */
-    @NotNull
+    @NotNull(message = "{tenant.name.null}")
     private String tenantName;
 
     private String tenantDesc;
@@ -25,44 +30,40 @@ public class RegisterTenant implements Serializable {
     /**
      * 营业执照
      */
-    @NotNull
+    @NotNull(message = "{tenant.jregLicens.null}")
     private String jregLicens;
 
     /**
      * 代理人账户（一般是手机或者邮箱）
      */
-    @NotNull
+    @NotNull(message = "{tenant.userName.null}")
     private String userName;
+
+    /**
+     * 代理人姓名
+     */
+    @NotNull(message = "{tenant.user.null}")
+    private String user;
 
     /**
      * 代码人密码
      */
-    @NotNull
+    @NotNull(message = "{tenant.password.null}")
     private String password;
 
     /**
      * 代理人手机
      */
-    @NotNull
+    @NotNull(message = "{tenant.phone.null}")
     private String phone;
 
     /**
      * 代理人邮箱
      */
-    @NotNull
+    @NotNull(message = "{tenant.email.null}")
     private String email;
 
     public RegisterTenant() {
-    }
-
-    public RegisterTenant(String tenantName, String tenantDesc, String jregLicens, String userName,String password, String phone, String email) {
-        this.tenantName = tenantName;
-        this.tenantDesc = tenantDesc;
-        this.jregLicens = jregLicens;
-        this.userName = userName;
-        this.password = password;
-        this.phone = phone;
-        this.email = email;
     }
 
     public String getTenantName() {
@@ -113,21 +114,47 @@ public class RegisterTenant implements Serializable {
         this.tenantDesc = tenantDesc;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public SysTenant getSysTenant(){
         SysTenant sysTenant = new SysTenant();
         sysTenant.setUserName(this.userName);
         sysTenant.setJregLicens(this.jregLicens);
         sysTenant.setTenantDesc(this.tenantDesc);
         sysTenant.setTenantName(this.tenantName);
+        sysTenant.setCreateTime(new Date());
+        sysTenant.setUpdateTime(new Date());
+        sysTenant.setCreateBy(CommonConstants.SYSTEM_USER_ID);
+        sysTenant.setUpdateBy(CommonConstants.SYSTEM_USER_ID);
+        sysTenant.setStatus(TenantType.NEW.getCode());
         return sysTenant;
     }
 
     public SysUser getSysUser(){
         SysUser sysUser = new SysUser();
+        sysUser.setName(this.user);
         sysUser.setUsername(this.userName);
         sysUser.setPassword(this.password);
         sysUser.setPhone(this.phone);
         sysUser.setEmail(this.email);
+        sysUser.setCreateTime(new Date());
+        sysUser.setUpdateTime(new Date());
+        sysUser.setCreateBy(CommonConstants.SYSTEM_USER_ID);
+        sysUser.setUpdateBy(CommonConstants.SYSTEM_USER_ID);
         return sysUser;
     }
 }

@@ -1,4 +1,4 @@
-package com.chens.core.jwt;
+package com.chens.auth.client.jwt;
 
 import com.chens.core.constants.CommonConstants;
 import io.jsonwebtoken.Claims;
@@ -7,12 +7,20 @@ import io.jsonwebtoken.impl.JwtMap;
 
 import java.util.Date;
 
+/**
+ * Claims的抽象类，用于方便实体于Claims的转换
+ * @auther songchunlei@qq.com
+ * @create 2018/3/1
+ */
 public class UAAClaims extends JwtMap implements Claims {
 	private String[] scope;
 	private String grantType = "password";
+	//用户账号
 	private String userName;
-	private String email;
-	private String phone;
+	//租户id
+	private String tenantId;
+	//用户名称
+	private String user;
 
 	public String[] getScope() {
 		return scope;
@@ -41,22 +49,22 @@ public class UAAClaims extends JwtMap implements Claims {
 		setValue(CommonConstants.JWT_TOKEN_USERNAME, this.userName);
 	}
 
-	public String getEmail() {
-		return email;
+	public String getTenantId() {
+		return tenantId;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-		setValue(CommonConstants.JWT_TOKEN_EMAIL, this.email);
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+		setValue(CommonConstants.JWT_TOKEN_TENANTID, this.tenantId);
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getUser() {
+		return user;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-		setValue(CommonConstants.JWT_TOKEN_PHONE, this.phone);
+	public void setUser(String user) {
+		this.user = user;
+		setValue(CommonConstants.JWT_TOKEN_USER, this.user);
 	}
 
 	@Override
@@ -75,6 +83,11 @@ public class UAAClaims extends JwtMap implements Claims {
 		return getString(SUBJECT);
 	}
 
+	/**
+	 * Subject 用于存账户id
+	 * @param sub
+	 * @return
+	 */
 	@Override
 	public Claims setSubject(String sub) {
 		setValue(SUBJECT, sub);

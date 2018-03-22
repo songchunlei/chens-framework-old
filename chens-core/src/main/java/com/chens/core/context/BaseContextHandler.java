@@ -15,9 +15,9 @@ public class BaseContextHandler {
 
     public static ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<Map<String, Object>>();
 
-    public static String getUserId(){
+    public static Long getUserId(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_ID);
-        return returnObjectValue(value);
+        return returnLongValue(value);
     }
 
     public static String getName(){
@@ -36,16 +36,16 @@ public class BaseContextHandler {
         return returnObjectValue(value);
     }
 
-    public static String getTenantId(){
+    public static Long getTenantId(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_TANENTID);
-        return returnObjectValue(value);
+        return returnLongValue(value);
     }
 
-    public static void setUserId(String userId){set(CommonConstants.CONTEXT_KEY_USER_ID,userId);}
+    public static void setUserId(Long userId){set(CommonConstants.CONTEXT_KEY_USER_ID,userId);}
     public static void setName(String name){set(CommonConstants.CONTEXT_KEY_USER_NAME,name);}
     public static void setUserName(String userName){set(CommonConstants.CONTEXT_KEY_USERNAME,userName);}
     public static void setToken(String token){set(CommonConstants.CONTEXT_KEY_USER_TOKEN,token);}
-    public static void setTenantId(String tenantId){set(CommonConstants.CONTEXT_KEY_USER_TANENTID,tenantId);}
+    public static void setTenantId(Long tenantId){set(CommonConstants.CONTEXT_KEY_USER_TANENTID,tenantId);}
 
     public static void set(String key, Object value) {
         Map<String, Object> map = threadLocal.get();
@@ -67,6 +67,10 @@ public class BaseContextHandler {
 
     private static String returnObjectValue(Object value) {
         return value==null?null:value.toString();
+    }
+
+    private static Long returnLongValue(Object value) {
+        return value==null?null:(Long)value;
     }
 
 

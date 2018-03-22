@@ -8,7 +8,7 @@ import com.chens.core.jwt.JwtConfiguration;
 import com.chens.core.jwt.JwtTokenProvider;
 import com.chens.core.jwt.UAAClaims;
 import com.chens.core.util.StringUtils;
-import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.sys.AuthRequest;
 import com.chens.core.vo.JWTToken;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;

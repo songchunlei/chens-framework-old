@@ -55,4 +55,14 @@ eureka:
 
 feign:
   httpclient:
-    enabled: true
+    enabled: false
+
+# jwt相关的配置
+token:
+  jwt:
+    key: a123456789
+    # 发放者
+    iss: chens-admin-web
+    # 有效期120分钟
+    expm: 120
+    userheader: Authorization

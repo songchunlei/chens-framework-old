@@ -1,7 +1,9 @@
 package com.chens.core.enums;
 
 /**
- * Created by songchunlei on 2018/3/19.
+ * 菜单类型
+ * @auther songchunlei
+ * @create 2018/3/22
  */
 public enum MenuType {
 }

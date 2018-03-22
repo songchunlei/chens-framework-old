@@ -30,20 +30,5 @@ import org.springframework.stereotype.Controller;
 public class SysTenantController extends BaseWebController<ISysTenantService,SysTenant> {
 
 
-    /**
-     * 注册租户
-     * @param registerTenant
-     * @return
-     */
-    @PostMapping("register")
-    public ResponseEntity<Result> register(@RequestBody @Validated RegisterTenant registerTenant) {
-        if(registerTenant!=null)
-        {
-            return doSuccess("保存成功",service.register(registerTenant));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
-
 }
 
