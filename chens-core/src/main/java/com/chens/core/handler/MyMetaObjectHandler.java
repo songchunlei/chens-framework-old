@@ -29,9 +29,9 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, 1L, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, 1L, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, 1L, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
         
 	}
 
