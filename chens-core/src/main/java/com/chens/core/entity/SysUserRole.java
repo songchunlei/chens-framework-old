@@ -21,6 +21,16 @@ public class SysUserRole extends BaseEntity<SysUserRole> {
     private Long userId;
     @TableField("role_id")
     private Long roleId;
+    /**
+     * 用户串，逗号隔开
+     */
+    @TableField(exist = false)
+    private String users;
+    /**
+     * 角色串，逗号隔开
+     */
+    @TableField(exist = false)
+    private String roles;
 
     public SysUserRole(Long userId, Long roleId) {
         this.userId = userId;

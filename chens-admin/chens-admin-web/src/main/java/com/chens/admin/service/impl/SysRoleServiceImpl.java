@@ -1,15 +1,13 @@
 package com.chens.admin.service.impl;
 
-import com.chens.admin.mapper.SysUserRoleMapper;
 import com.chens.admin.service.ISysUserRoleService;
-import com.chens.admin.service.ISysUserService;
+import com.chens.admin.web.vo.QueryRolesByUserId;
 import com.chens.core.entity.SysRole;
 import com.chens.admin.mapper.SysRoleMapper;
 import com.chens.admin.service.ISysRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.entity.SysUserRole;
 import com.chens.core.util.StringUtils;
-import com.chens.core.vo.sys.RolesByUserId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,14 +39,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Transactional
     @Override
-    public boolean saveUserRoleList(RolesByUserId rolesByUserId) {
+    public boolean saveUserRoleList(QueryRolesByUserId queryRolesByUserId) {
         List<SysUserRole> sysUserRoles = new ArrayList<>();
-        String sysRoles = rolesByUserId.getSysRoles();
+        String sysRoles = queryRolesByUserId.getSysRoles();
         if (StringUtils.isNotEmpty(sysRoles)) {
             String[] checkeds = sysRoles.split(SYSROLE_SPLIT_VALUE);
             for (String s : checkeds) {
                 if(StringUtils.isNotEmpty(s)){
-                    sysUserRoles.add(new SysUserRole(rolesByUserId.getUserId(),Long.getLong(s)));
+                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),Long.getLong(s)));
                 }
             }
             return sysUserRoleService.insertBatch(sysUserRoles);

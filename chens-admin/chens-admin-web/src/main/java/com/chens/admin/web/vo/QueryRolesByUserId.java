@@ -1,4 +1,4 @@
-package com.chens.core.vo.sys;
+package com.chens.admin.web.vo;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @auther songchunlei@qq.com
  * @create 2018/3/17
  */
-public class RolesByUserId implements Serializable{
+public class QueryRolesByUserId implements Serializable{
 
     //用户id
     private Long userId;
@@ -17,13 +17,13 @@ public class RolesByUserId implements Serializable{
     //以逗号隔开的流程角色串
     private String wfRoles;
 
-    public RolesByUserId(Long userId, String sysRoles, String wfRoles) {
+    public QueryRolesByUserId(Long userId, String sysRoles, String wfRoles) {
         this.userId = userId;
         this.sysRoles = sysRoles;
         this.wfRoles = wfRoles;
     }
 
-    public RolesByUserId() {
+    public QueryRolesByUserId() {
     }
 
     public Long getUserId() {

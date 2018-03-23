@@ -13,11 +13,11 @@ import java.util.Date;
 
 
 /**
- *   自定义填充公共 创建人，创建时间，修改人、修改时间  字段  
+ *   自定义填充公共 创建人，创建时间，修改人、修改时间  字段
  * @author WDP
  *
  */
-@Component
+//@Component 交给BaseMyBatisPlusConfig启动
 public class MyMetaObjectHandler extends MetaObjectHandler {
 	
 	 private Logger logger = LogManager.getLogger(MyMetaObjectHandler.class);
@@ -29,10 +29,9 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_IS_DELETE, YesNoEnum.NO.getCode(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, 1L, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, 1L, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, 1L, metaObject);
         
 	}
 

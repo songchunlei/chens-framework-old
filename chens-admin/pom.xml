@@ -13,7 +13,6 @@
     <artifactId>chens-admin</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>chens-admin-server</module>
         <!--管理后台模块-->
         <module>chens-admin-web</module>
         <module>chens-admin-feign</module>

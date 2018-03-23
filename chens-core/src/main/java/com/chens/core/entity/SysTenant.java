@@ -1,9 +1,7 @@
 package com.chens.core.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;

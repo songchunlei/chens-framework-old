@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.constants.CommonConstants;
-import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.GetValidateMsg;
@@ -20,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
-import java.util.Date;
 
 /**
  * 通用增删改查-抽象方法
@@ -103,10 +101,13 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
         if(t != null){
+            /*
             t.setCreateBy(BaseContextHandler.getUserId());
             t.setCreateTime(new Date());
             t.setUpdateTime(new Date());
-            t.setUpdateBy(BaseContextHandler.getUserId());//test
+            t.setUpdateBy(BaseContextHandler.getUserId());
+            t.setTenantId(BaseContextHandler.getTenantId());
+            */
             return doSuccess("保存成功",service.insert(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -126,8 +127,10 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
         if(t != null){
+            /*
             t.setUpdateTime(new Date());
             t.setUpdateBy(BaseContextHandler.getUserId());
+            */
             return doSuccess("保存成功",service.updateById(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

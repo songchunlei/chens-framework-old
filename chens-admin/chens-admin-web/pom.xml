@@ -14,11 +14,33 @@
 
     <dependencies>
 
-        <!--admin-server集合-->
+        <!--feign集合-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>chens-admin-server</artifactId>
+            <artifactId>chens-admin-feign</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!--auth-client鉴权客户端-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-auth-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--database-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--添加依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖myboot项目的项目如果想要使用devtools，需要重新引入 -->
+            <optional>true</optional>
         </dependency>
 
         <!--shiro-->

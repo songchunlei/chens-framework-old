@@ -1,8 +1,8 @@
 package com.chens.admin.service;
 
+import com.chens.admin.web.vo.QueryRolesByUserId;
 import com.chens.core.entity.SysRole;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.vo.sys.RolesByUserId;
 
 import java.util.List;
 
@@ -23,8 +23,9 @@ public interface ISysRoleService extends IService<SysRole> {
 
     /**
      * 保存用户-角色关系
-     * @param rolesByUserId
+     * @param queryRolesByUserId
      * @return
      */
-    boolean saveUserRoleList(RolesByUserId rolesByUserId);
+    boolean saveUserRoleList(QueryRolesByUserId queryRolesByUserId);
+
 }

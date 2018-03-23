@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -18,10 +19,15 @@ import java.util.List;
 public class SysRole extends BaseEntity<SysRole> {
 
     private static final long serialVersionUID = 1L;
+
     @TableField("role_name")
+    @NotNull
     private String roleName;
+
     @TableField("role_code")
+    @NotNull
     private String roleCode;
+
     @TableField("is_delete")
     private String isDelete;
     @TableField(exist = false)

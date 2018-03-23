@@ -11,5 +11,8 @@ import com.baomidou.mybatisplus.service.IService;
  * @create 2018-03-17
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
+
+
+    boolean AddUsersInRole(Long roleId,String users);
 	
 }
