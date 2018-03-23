@@ -3,11 +3,9 @@ package com.chens.core.handler;
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
-import com.chens.core.enums.YesNoEnum;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 

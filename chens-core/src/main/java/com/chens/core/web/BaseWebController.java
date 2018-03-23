@@ -101,7 +101,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
         if(t != null){
-            /*
+            /* 交给MyMetaObjectHandler
             t.setCreateBy(BaseContextHandler.getUserId());
             t.setCreateTime(new Date());
             t.setUpdateTime(new Date());
@@ -127,7 +127,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
         if(t != null){
-            /*
+            /* 交给MyMetaObjectHandler
             t.setUpdateTime(new Date());
             t.setUpdateBy(BaseContextHandler.getUserId());
             */
