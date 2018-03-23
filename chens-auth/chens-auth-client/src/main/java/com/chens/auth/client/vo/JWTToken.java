@@ -1,5 +1,8 @@
-package com.chens.core.vo;
+package com.chens.auth.client.vo;
 
+
+import com.chens.auth.client.jwt.IJwtInfo;
+import com.chens.core.vo.MenuTree;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +12,7 @@ public class JWTToken implements Serializable{
 	private String accessToken;
 	private List<MenuTree> menus;
 	private Map<Long,MenuTree> all;
+	private IJwtInfo user;
 
 	public String getAccessToken() {
 		return accessToken;
@@ -23,10 +27,11 @@ public class JWTToken implements Serializable{
 		this.accessToken = accessToken;
 	}
 
-	public JWTToken(String accessToken, List<MenuTree> menus,Map<Long,MenuTree> all) {
+	public JWTToken(String accessToken, List<MenuTree> menus,Map<Long,MenuTree> all,IJwtInfo user) {
 		this.accessToken = accessToken;
 		this.menus = menus;
 		this.all = all;
+		this.user = user;
 	}
 
 	public List<MenuTree> getMenus() {
@@ -43,5 +48,13 @@ public class JWTToken implements Serializable{
 
 	public void setAll(Map<Long, MenuTree> all) {
 		this.all = all;
+	}
+
+	public IJwtInfo getUser() {
+		return user;
+	}
+
+	public void setUser(IJwtInfo user) {
+		this.user = user;
 	}
 }

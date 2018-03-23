@@ -12,9 +12,7 @@ import com.chens.admin.web.vo.QueryRolesByUserId;
 import com.chens.core.web.BaseWebController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
@@ -35,15 +33,41 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     @Autowired
     private ISysUserRoleService sysUserRoleService;
 
+    /**
+     * 连带用户-角色关系一起删除
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteWithRel/{id}")
+    public ResponseEntity<Result> deleteWithRel(@PathVariable Long id) {
+        if(id!=null)
+        {
+            return doSuccess("删除成功",service.deleteWithRel(id));
+        }
+        else{
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+    /**
+     * 获取根据用户id角色列表
+     * @param userId
+     * @return
+     */
     @GetMapping("/getRoleListByUserId")
     public ResponseEntity<Result> getRoleListByUserId(Long userId) {
         if(userId!=null){
-            return doSuccess(service.findRoleListByUserId(userId));
+            return doSuccess(service.getRoleListByUserId(userId));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
     }
 
+    /**
+     * 保存用户-角色关系
+     * @param queryRolesByUserId
+     * @return
+     */
     @PostMapping("/saveUserRoleList")
     public ResponseEntity<Result> saveUserRoleList(QueryRolesByUserId queryRolesByUserId) {
         if(queryRolesByUserId !=null){
@@ -53,9 +77,26 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
         }
     }
 
+    /**
+     * 增加用户
+     * @param roleId
+     * @param users
+     * @return
+     */
     @PostMapping("/addUsers")
-    public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") Long roleId,@NotNull(message = "{role.users.null}") String users) {
-            return doSuccess(sysUserRoleService.AddUsersInRole(roleId,users));
+    public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") Long roleId,@NotNull(message = "{role.users.null}") String userIds) {
+        return doSuccess(sysUserRoleService.AddUsersInRole(roleId,userIds));
+    }
+
+    /**
+     * 删除用户
+     * @param roleId
+     * @param users
+     * @return
+     */
+    @DeleteMapping("/deleteUsers")
+    public ResponseEntity<Result> deleteUsers(@NotNull(message = "{role.id.null}") Long roleId,@NotNull(message = "{role.users.null}") String userIds) {
+        return doSuccess(sysUserRoleService.DeleteUsersInRole(roleId,userIds));
     }
 
 }

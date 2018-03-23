@@ -1,5 +1,6 @@
 package com.chens.admin.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chens.admin.service.ISysUserRoleService;
 import com.chens.admin.web.vo.QueryRolesByUserId;
 import com.chens.core.entity.SysRole;
@@ -33,8 +34,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private ISysUserRoleService sysUserRoleService;
 
     @Override
-    public List<SysRole> findRoleListByUserId(Long userId) {
-        return baseMapper.findRoleListByUserId(userId);
+    public List<SysRole> getRoleListByUserId(Long userId) {
+        return baseMapper.getRoleListByUserId(userId);
     }
 
     @Transactional
@@ -53,5 +54,15 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
 
         return false;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteWithRel(Long id) {
+        this.deleteById(id);
+        SysUserRole sysUserRole = new SysUserRole();
+        sysUserRole.setRoleId(id);
+        sysUserRoleService.delete(new EntityWrapper<>(sysUserRole));
+        return true;
     }
 }

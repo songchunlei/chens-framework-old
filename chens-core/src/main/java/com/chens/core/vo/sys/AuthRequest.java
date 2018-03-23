@@ -1,5 +1,6 @@
 package com.chens.core.vo.sys;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,7 +15,9 @@ public class AuthRequest implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4958322063059771295L;
+	@NotNull
 	private String userName;
+    @NotNull
     private String password;
 
     public AuthRequest(){

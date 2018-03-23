@@ -6,6 +6,7 @@ import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import com.chens.core.vo.sys.RegisterTenant;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.chens.core.vo.sys.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -38,11 +40,8 @@ public class AuthController extends BaseController{
     @Autowired
     private ISysTenantService sysTenantService;
 
-    @Autowired
-    private ISysMenuService sysMenuService;
-
     @PostMapping("/login")
-    public ResponseEntity<Result> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Result> login(@RequestBody @Validated  AuthRequest authRequest) throws Exception {
         if(authRequest==null){
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -54,10 +53,9 @@ public class AuthController extends BaseController{
         {
             throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
         }
-        SysUser sysUser = authService.findByUsernameAndPassword(authRequest);
-        if(sysUser!=null)
+        if(authRequest!=null)
         {
-            return doSuccess(sysMenuService.getMenuTreeMapListByUserId(sysUser));
+            return doSuccess(authService.login(authRequest));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -106,15 +104,13 @@ public class AuthController extends BaseController{
 
 
     /**
-     * 解析token，测试
+     * 解析token
      * @param token
      * @return
      */
-    /*
-    @RequestMapping("/token/parse")
-    public ResponseEntity<Result> parseToken(String token) throws Exception {
-        return doSuccess(jwtTokenProvider.parseToken(token)) ;
+    @RequestMapping("/parseToken")
+    public ResponseEntity<Result> parseToken(@RequestParam String token) throws Exception {
+        return doSuccess(authService.parseToken(token)) ;
     }
-    */
 
 }

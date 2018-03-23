@@ -1,5 +1,6 @@
 package com.chens.admin.service;
 
+import com.chens.auth.client.vo.JWTToken;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.vo.sys.AuthRequest;
@@ -24,5 +25,21 @@ public interface IAuthService {
      * @return boolean
      */
     boolean Validate(AuthRequest authRequest) throws BaseException;
+
+    /**
+     * 登录获取JWTToken
+     * @param authRequest
+     * @return
+     * @throws BaseException
+     */
+    JWTToken login(AuthRequest authRequest) throws Exception;
+
+
+    /**
+     * 根据token获取JWTToken
+     * @param token
+     * @return
+     */
+    JWTToken parseToken(String token) throws Exception;
 
 }

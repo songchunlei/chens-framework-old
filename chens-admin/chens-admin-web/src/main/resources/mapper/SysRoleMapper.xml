@@ -8,18 +8,11 @@
     </sql>
 
     <!-- 通过用户ID找角色 -->
-    <select id="findRoleListByUserId" parameterType="java.lang.Long"  resultType="com.chens.core.entity.SysRole">
+    <select id="getRoleListByUserId" parameterType="java.lang.Long"  resultType="com.chens.core.entity.SysRole">
         select role.*
         from sys_role role,sys_user_role userrole
         where role.id = userrole.role_id
         and userrole.user_id=#{userId}
-    </select>
-
-
-    <!-- 通过权限ID找角色 -->
-    <select id="findRoleListByPermissionId" parameterType="java.lang.Long" resultType="com.chens.core.entity.SysRole">
-        select role.* from sys_role role,sys_role_permission rolepermission
-        where role.id=rolepermission.role_id and rolepermission.permission_id = #{permissionId}
     </select>
 
 </mapper>

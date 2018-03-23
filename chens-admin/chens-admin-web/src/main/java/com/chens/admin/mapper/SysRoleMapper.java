@@ -16,8 +16,10 @@ import java.util.List;
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
-
-    List<SysRole> findRoleListByUserId(Long userId);
-
-    List<SysRole> findRoleListByPermissionId(Long userId);
+    /**
+     * 根据用户id获得角色列表
+     * @param userId
+     * @return
+     */
+    List<SysRole> getRoleListByUserId(Long userId);
 }

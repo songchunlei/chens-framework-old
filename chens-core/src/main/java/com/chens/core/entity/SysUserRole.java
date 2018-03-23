@@ -32,6 +32,9 @@ public class SysUserRole extends BaseEntity<SysUserRole> {
     @TableField(exist = false)
     private String roles;
 
+    public SysUserRole() {
+    }
+
     public SysUserRole(Long userId, Long roleId) {
         this.userId = userId;
         this.roleId = roleId;
