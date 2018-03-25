@@ -24,12 +24,12 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 	public void insertFill(MetaObject metaObject) {
 		logger.info("*****************保存自动填充******************");
         Date date = new Date();
-        
+
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
+        //setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
         
 	}
 
