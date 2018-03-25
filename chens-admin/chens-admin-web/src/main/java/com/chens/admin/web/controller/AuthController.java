@@ -1,6 +1,7 @@
 package com.chens.admin.web.controller;
 
 import com.chens.admin.service.*;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -62,7 +63,8 @@ public class AuthController extends BaseController{
 
     @RequestMapping("/logout")
     public ResponseEntity<Result> loginout() {
-        return doSuccess("退出成功");
+
+        return doSuccess(authService.logout());
     }
 
 

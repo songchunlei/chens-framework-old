@@ -34,6 +34,12 @@ public interface IAuthService {
      */
     JWTToken login(AuthRequest authRequest) throws Exception;
 
+    /**
+     * 退出，并使token失效
+     * @return
+     */
+    boolean logout();
+
 
     /**
      * 根据token获取JWTToken

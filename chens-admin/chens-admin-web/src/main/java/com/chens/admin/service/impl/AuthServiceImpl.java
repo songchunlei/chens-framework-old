@@ -6,8 +6,10 @@ import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.auth.vo.IJwtInfo;
 import com.chens.auth.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.entity.SysMenu;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.StringUtils;
 import com.chens.core.util.TreeUtil;
 import com.chens.auth.client.vo.JWTToken;
 import com.chens.core.vo.MenuTree;
@@ -73,6 +75,17 @@ public class AuthServiceImpl implements IAuthService{
             return this.parseToken(sysTokenClient.createTokenByUser(sysUser));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+    }
+
+    @Override
+    @Transactional
+    public boolean logout() {
+        String token = BaseContextHandler.getToken();
+        if(StringUtils.isNotEmpty(token))
+        {
+            sysTokenClient.invalidToken(token);
+        }
+        return true;
     }
 
     @Override
