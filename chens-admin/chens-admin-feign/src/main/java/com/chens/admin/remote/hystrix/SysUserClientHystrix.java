@@ -1,6 +1,6 @@
 package com.chens.admin.remote.hystrix;
 
-import com.chens.admin.remote.IAuthClient;
+import com.chens.admin.remote.ISysUserClient;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @create 2018/3/14
  */
 @Component
-public class AuthClientHystrix implements IAuthClient {
-    private static final Logger logger = LoggerFactory.getLogger(AuthClientHystrix.class);
+public class SysUserClientHystrix implements ISysUserClient {
+    private static final Logger logger = LoggerFactory.getLogger(SysUserClientHystrix.class);
     @Override
-    public SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest) {
+    public SysUser findByUsername(@RequestBody AuthRequest authRequest) {
         logger.error("----调用鉴权出错-----");
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL.getCode(), "调用鉴权出错");
     }

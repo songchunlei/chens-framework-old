@@ -4,6 +4,7 @@ package com.chens.admin.service.impl;
 import com.chens.admin.service.ISysMenuService;
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.auth.vo.IJwtInfo;
+import com.chens.auth.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysMenu;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -20,6 +21,7 @@ import com.chens.admin.service.ISysUserService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.vo.sys.AuthRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -64,9 +66,10 @@ public class AuthServiceImpl implements IAuthService{
     }
 
     @Override
+    @Transactional
     public JWTToken login(AuthRequest authRequest) throws Exception {
-        SysUser sysUser = this.findByUsernameAndPassword(authRequest);
-        if(sysUser!=null) {
+        if(authRequest!=null) {
+            SysUser sysUser = this.findByUsernameAndPassword(authRequest);
             return this.parseToken(sysTokenClient.createTokenByUser(sysUser));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
@@ -75,9 +78,9 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     public JWTToken parseToken(String token) throws Exception {
         //解析jwtInfo
-        IJwtInfo jwtInfo = sysTokenClient.parseToken(token);
+        UserInfo userInfo = sysTokenClient.parseToken(token);
         //获取菜单列表
-        List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(jwtInfo.getId());
+        List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(userInfo.getId());
         //全量打平菜单树
         Map<String, MenuTree> all = new HashMap<String, MenuTree>();
         //菜单嵌套树
@@ -94,7 +97,7 @@ public class AuthServiceImpl implements IAuthService{
         //构建树结构
         List<MenuTree> menus = TreeUtil.buildByRecursive(trees, CommonConstants.BASE_TREE_ROOT);
         //返回JWTToken
-        return new JWTToken(token, menus, all,jwtInfo );
+        return new JWTToken(token, menus, all,userInfo );
     }
 
 

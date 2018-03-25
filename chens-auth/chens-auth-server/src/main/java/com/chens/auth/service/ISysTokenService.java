@@ -4,7 +4,9 @@ import com.chens.auth.entity.SysToken;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.auth.vo.IJwtInfo;
 import com.chens.auth.jwt.UAAClaims;
+import com.chens.auth.vo.UserInfo;
 import com.chens.core.entity.SysUser;
+import com.chens.core.vo.sys.AuthRequest;
 
 /**
  *
@@ -22,6 +24,13 @@ public interface ISysTokenService extends IService<SysToken> {
 	String createToken(UAAClaims uaaClaims);
 
     /**
+     * 创建token-登录请求
+     * @param authRequest
+     * @return
+     */
+	String createToken(AuthRequest authRequest);
+
+    /**
      * 创建token-系统用户
      * @param sysUser
      * @return
@@ -33,7 +42,7 @@ public interface ISysTokenService extends IService<SysToken> {
      * @param token
      * @return
      */
-    IJwtInfo parseToken(String token) throws Exception;
+    UserInfo parseToken(String token) throws Exception;
 
 
     /**

@@ -3,12 +3,11 @@ package com.chens.admin.web.controller;
 
 import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserRoleService;
-import com.chens.admin.web.vo.AddUsersInRole;
 import com.chens.core.entity.SysRole;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
-import com.chens.admin.web.vo.QueryRolesByUserId;
+import com.chens.admin.vo.QueryRolesByUserId;
 import com.chens.core.web.BaseWebController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
 package com.chens.admin.web.config;
 
+import com.chens.admin.constants.FeignName;
 import com.chens.auth.client.interceptor.UserAuthRestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         /*
             增加用户权限拦截器
          */
-        //registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
+        registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
         super.addInterceptors(registry);
     }
 
@@ -57,7 +58,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     private ArrayList<String> getExcludeCommonPathPatterns() {
         ArrayList<String> list = new ArrayList<>();
         String[] urls = {
-                "/authController/**"
+                "/authController/**",
+                "/sysTokenRpc/**",
+                "/"+ FeignName.SYS_USER_RPC+"/findByUsername"
         };
         Collections.addAll(list, urls);
         return list;

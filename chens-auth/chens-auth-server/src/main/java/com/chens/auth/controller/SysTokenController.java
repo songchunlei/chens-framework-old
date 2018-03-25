@@ -19,7 +19,7 @@ import com.chens.core.web.BaseWebController;
  * @create 2018-03-25
  */
 @Controller
-@RequestMapping("/sysToken")
+@RequestMapping("/sysTokenController")
 public class SysTokenController extends BaseWebController<ISysTokenService,SysToken> {
 
 

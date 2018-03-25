@@ -1,9 +1,11 @@
 package com.chens.auth.rpc;
 
-import com.chens.auth.vo.IJwtInfo;
+import com.chens.auth.constants.FeignName;
 import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.service.ISysTokenService;
+import com.chens.auth.vo.UserInfo;
 import com.chens.core.entity.SysUser;
+import com.chens.core.vo.sys.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2018/3/25
  */
 @RestController
-@RequestMapping(value="/sysTokenRpc")
+@RequestMapping(value="/"+ FeignName.SYS_TOKEN_RPC)
 public class SysTokenRpc {
 
     @Autowired
@@ -25,10 +27,21 @@ public class SysTokenRpc {
      * @param uaaClaims
      * @return
      */
-    @RequestMapping(value = "/createToken", method = RequestMethod.POST)
+    @PostMapping("/createToken")
     public @ResponseBody
     String createToken(@RequestBody UAAClaims uaaClaims) {
         return sysTokenService.createToken(uaaClaims);
+    }
+
+    /**
+     * 创建token-根据登录请求
+     * @param authRequest
+     * @return
+     */
+    @PostMapping("/createTokenByAuthRequest")
+    public @ResponseBody
+    String createTokenByAuthRequest(@RequestBody AuthRequest authRequest) {
+        return sysTokenService.createToken(authRequest);
     }
 
     /**
@@ -36,7 +49,7 @@ public class SysTokenRpc {
      * @param sysUser
      * @return
      */
-    @RequestMapping(value = "/createTokenByUser", method = RequestMethod.POST)
+    @PostMapping("/createTokenByUser")
     public @ResponseBody
     String createTokenBySysUser(@RequestBody SysUser sysUser) {
         return sysTokenService.createToken(sysUser);
@@ -47,8 +60,9 @@ public class SysTokenRpc {
      * @param token
      * @return
      */
-    @RequestMapping(value="/parseToken",method = RequestMethod.GET)
-    public @ResponseBody IJwtInfo parseToken(String token) throws Exception {
+    @PostMapping("/parseToken")
+    public @ResponseBody
+    UserInfo parseToken(@RequestBody String token) throws Exception {
         return sysTokenService.parseToken(token);
     }
 
@@ -56,8 +70,8 @@ public class SysTokenRpc {
      * 获取用户鉴权的token-key
       * @return
      */
-    @RequestMapping(value="/getUserHeaderKey",method = RequestMethod.GET)
-    public String getUserHeaderKey(){
+    @PostMapping("/getUserHeaderKey")
+    public @ResponseBody String getUserHeaderKey(){
         return sysTokenService.getUserHeaderKey();
     }
 
@@ -66,8 +80,8 @@ public class SysTokenRpc {
      * @param token
      * @return
      */
-    @RequestMapping(value="/invalidToken",method = RequestMethod.PUT)
-    public boolean invalidToken(String token){
+    @PostMapping("/invalidToken")
+    public @ResponseBody boolean invalidToken(@RequestBody String token){
         return sysTokenService.invalidToken(token);
     }
 
