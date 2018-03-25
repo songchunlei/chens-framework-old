@@ -1,5 +1,20 @@
 package com.chens.core.web;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -12,13 +27,6 @@ import com.chens.core.util.StringUtils;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.QueryPageEntity;
 import com.chens.core.vo.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Field;
 
 /**
  * 通用增删改查-抽象方法
@@ -108,7 +116,8 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             t.setUpdateBy(BaseContextHandler.getUserId());
             t.setTenantId(BaseContextHandler.getTenantId());
             */
-            return doSuccess("保存成功",service.insert(t));
+        	service.insert(t);
+            return doSuccess("保存成功",t.getId());
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -197,7 +206,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Result> delete(@PathVariable String id) {
-        if(id!=null)
+        if(StringUtils.isNotEmpty(id))
         {
             return doSuccess("删除成功",service.deleteById(id));
         }
@@ -205,4 +214,25 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
     }
+    
+    
+    /**
+     * 批量删除
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/batchDelete/{id}")
+    public ResponseEntity<Result> batchDelete(@PathVariable String id) {
+        if(StringUtils.isNotEmpty(id))
+        {
+        	String[] idArray = id.split(",");
+    		List<String> idList = Arrays.asList(idArray);
+            return doSuccess("删除成功",service.deleteBatchIds(idList));
+        }
+        else{
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+    
+    
 }
