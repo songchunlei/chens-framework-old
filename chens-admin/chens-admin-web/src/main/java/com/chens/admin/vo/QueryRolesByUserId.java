@@ -1,4 +1,4 @@
-package com.chens.admin.web.vo;
+package com.chens.admin.vo;
 
 import java.io.Serializable;
 

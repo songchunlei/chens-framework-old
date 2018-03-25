@@ -1,6 +1,7 @@
 package com.chens.auth.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chens.admin.remote.ISysUserClient;
 import com.chens.auth.entity.SysToken;
 import com.chens.auth.exception.UserTokenException;
 import com.chens.auth.exception.UserTokenExceptionEnum;
@@ -15,11 +16,13 @@ import com.chens.auth.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
+import com.chens.core.vo.sys.AuthRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -40,12 +43,18 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     @Autowired
     private JwtConfiguration jwtConfiguration;
 
+    @Autowired
+    private ISysUserClient sysUserClient;
+
     @Override
+    @Transactional
     public String createToken(UAAClaims uaaClaims) {
         if (uaaClaims != null)
         {
             String newToken  = tokenProvider.createToken(uaaClaims);
             SysToken sysToken = new SysToken(newToken,jwtConfiguration.getExpiration(),YesNoEnum.YES.getCode());
+            sysToken.setCreateTime(new Date());
+            sysToken.setUpdateTime(new Date());
             this.insert(sysToken);
             return newToken;
         }
@@ -53,6 +62,13 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     }
 
     @Override
+    @Transactional
+    public String createToken(AuthRequest authRequest) {
+        return this.createToken(sysUserClient.findByUsername(authRequest));
+    }
+
+    @Override
+    @Transactional
     public String createToken(SysUser sysUser) {
         if(sysUser!=null)
         {
@@ -62,7 +78,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     }
 
     @Override
-    public IJwtInfo parseToken(String token) throws Exception {
+    public UserInfo parseToken(String token) throws Exception {
         try {
             //将token编译
             Claims claims = tokenProvider.parseToken(token);
@@ -114,11 +130,11 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         uaaClaims.setNotBefore(new Date());
 
         //系统用户变量
-        uaaClaims.setAudience(String.valueOf(sysUser.getId()));
-        uaaClaims.setSubject(String.valueOf(sysUser.getId()));
+        uaaClaims.setAudience(sysUser.getId());
+        uaaClaims.setSubject(sysUser.getId());
         uaaClaims.setUserName(sysUser.getUsername());
         uaaClaims.setUser(sysUser.getName());
-        uaaClaims.setTenantId(sysUser.getTenantId().toString());
+        uaaClaims.setTenantId(sysUser.getTenantId());
 
         return uaaClaims;
     }

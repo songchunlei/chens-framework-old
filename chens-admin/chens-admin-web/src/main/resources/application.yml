@@ -57,12 +57,26 @@ feign:
   httpclient:
     enabled: false
 
-# jwt相关的配置
-token:
-  jwt:
-    key: a123456789
-    # 发放者
-    iss: chens-admin-web
-    # 有效期120分钟
-    expm: 120
-    userheader: Authorization
+ribbon:
+  # 配置ribbon默认的超时时间
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+  # 是否开启重试
+  OkToRetryOnAllOperations: true
+  # 重试期间，实例切换次数
+  MaxAutoRetriesNextServer: 3
+  # 当前实例重试次数
+  MaxAutoRetries: 0
+
+########hystrix相关配置
+hystrix:
+  command:
+    # 这是默认的配置
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            # 命令执行超时时间 20秒
+            timeoutInMilliseconds: 20000

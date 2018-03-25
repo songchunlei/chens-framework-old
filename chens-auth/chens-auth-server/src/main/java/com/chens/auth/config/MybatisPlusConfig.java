@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  * @create 2018/2/12
  */
 @Configuration
-@EnableConfigurationProperties(MybatisPlusProperties.class)
 @MapperScan("com.chens.auth.mapper*")
 public class MybatisPlusConfig extends BaseMybatisPlusConfig{
 

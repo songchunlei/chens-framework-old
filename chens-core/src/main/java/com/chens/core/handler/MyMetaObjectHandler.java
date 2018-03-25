@@ -20,7 +20,13 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 	
 	 private Logger logger = LogManager.getLogger(MyMetaObjectHandler.class);
 
-	@Override
+
+    @Override
+    public boolean openInsertFill() {
+        return true;
+    }
+
+    @Override
 	public void insertFill(MetaObject metaObject) {
 		logger.info("*****************保存自动填充******************");
         Date date = new Date();

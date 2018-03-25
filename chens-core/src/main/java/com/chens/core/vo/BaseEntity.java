@@ -15,6 +15,8 @@ import java.util.Date;
  * @auther songchunlei@qq.com
  * @create 2018/3/12
  */
+
+
 public class BaseEntity <T extends BaseEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +47,6 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      */
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
-
 
     /**
      * 租户id

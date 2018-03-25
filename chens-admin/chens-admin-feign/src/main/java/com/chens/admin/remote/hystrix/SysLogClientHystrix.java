@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 public class SysLogClientHystrix implements ISysLogClient{
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthClientHystrix.class);
+    private static final Logger logger = LoggerFactory.getLogger(SysUserClientHystrix.class);
 
     @Override
     public boolean create(@RequestBody SysLog sysLog) {

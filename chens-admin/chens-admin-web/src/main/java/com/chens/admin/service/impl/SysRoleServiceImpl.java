@@ -2,7 +2,7 @@ package com.chens.admin.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chens.admin.service.ISysUserRoleService;
-import com.chens.admin.web.vo.QueryRolesByUserId;
+import com.chens.admin.vo.QueryRolesByUserId;
 import com.chens.core.entity.SysRole;
 import com.chens.admin.mapper.SysRoleMapper;
 import com.chens.admin.service.ISysRoleService;
