@@ -1,13 +1,14 @@
 package com.chens.core.vo;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 基础字段
@@ -17,9 +18,9 @@ import java.util.Date;
  */
 public class BaseEntity <T extends BaseEntity> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8203914592066906371L;
 
-    @TableId(value = "id", type = IdType.UUID)
+	@TableId(value = "id", type = IdType.UUID)
     private String id;
     //private Long id; 不用private是为了让子类继承获取
 
@@ -47,11 +48,6 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     private String updateBy;
 
 
-    /**
-     * 租户id
-     */
-    @TableField(exist = false)
-    private String tenantId;
 
     public String getId() {
         return id;
@@ -93,12 +89,4 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
         this.updateBy = updateBy;
     }
 
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
 }
