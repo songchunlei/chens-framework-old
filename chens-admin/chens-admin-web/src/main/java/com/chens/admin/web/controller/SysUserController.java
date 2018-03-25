@@ -56,7 +56,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      * @return
      */
     @PostMapping("/restPwd")
-    public ResponseEntity<Result> restPwd(@RequestParam("userId") Long userId, @RequestParam("isRandom") boolean isRandom) {
+    public ResponseEntity<Result> restPwd(@RequestParam("userId") String userId, @RequestParam("isRandom") boolean isRandom) {
         return doSuccess(service.restPwd(userId,isRandom));
     }
 

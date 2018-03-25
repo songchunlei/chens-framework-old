@@ -39,7 +39,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      * @return
      */
     @DeleteMapping("/deleteWithRel/{id}")
-    public ResponseEntity<Result> deleteWithRel(@PathVariable Long id) {
+    public ResponseEntity<Result> deleteWithRel(@PathVariable String id) {
         if(id!=null)
         {
             return doSuccess("删除成功",service.deleteWithRel(id));
@@ -55,7 +55,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      * @return
      */
     @GetMapping("/getRoleListByUserId")
-    public ResponseEntity<Result> getRoleListByUserId(Long userId) {
+    public ResponseEntity<Result> getRoleListByUserId(String userId) {
         if(userId!=null){
             return doSuccess(service.getRoleListByUserId(userId));
         } else {
@@ -84,7 +84,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      * @return
      */
     @PostMapping("/addUsers")
-    public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") Long roleId,@NotNull(message = "{role.users.null}") String userIds) {
+    public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
         return doSuccess(sysUserRoleService.AddUsersInRole(roleId,userIds));
     }
 
@@ -95,7 +95,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      * @return
      */
     @DeleteMapping("/deleteUsers")
-    public ResponseEntity<Result> deleteUsers(@NotNull(message = "{role.id.null}") Long roleId,@NotNull(message = "{role.users.null}") String userIds) {
+    public ResponseEntity<Result> deleteUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
         return doSuccess(sysUserRoleService.DeleteUsersInRole(roleId,userIds));
     }
 

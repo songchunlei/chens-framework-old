@@ -11,22 +11,22 @@ import java.io.Serializable;
 public class AddUsersInRole implements Serializable{
 
     //角色id
-    private Long roleId;
+    private String roleId;
     //以逗号隔开的用户id串
     private String users;
     //以逗号隔开的系统角色串
 
 
-    public AddUsersInRole(Long roleId, String users) {
+    public AddUsersInRole(String roleId, String users) {
         this.roleId = roleId;
         this.users = users;
     }
 
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 

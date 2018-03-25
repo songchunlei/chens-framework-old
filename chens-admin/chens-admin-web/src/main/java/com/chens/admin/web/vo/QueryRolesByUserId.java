@@ -11,13 +11,13 @@ import java.io.Serializable;
 public class QueryRolesByUserId implements Serializable{
 
     //用户id
-    private Long userId;
+    private String userId;
     //以逗号隔开的系统角色串
     private String sysRoles;
     //以逗号隔开的流程角色串
     private String wfRoles;
 
-    public QueryRolesByUserId(Long userId, String sysRoles, String wfRoles) {
+    public QueryRolesByUserId(String userId, String sysRoles, String wfRoles) {
         this.userId = userId;
         this.sysRoles = sysRoles;
         this.wfRoles = wfRoles;
@@ -26,11 +26,11 @@ public class QueryRolesByUserId implements Serializable{
     public QueryRolesByUserId() {
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

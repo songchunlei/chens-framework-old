@@ -37,7 +37,7 @@ public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu
      * @return
      */
     @GetMapping("/getMenuList/{userId}")
-    public ResponseEntity<Result> getMenuListByUserId(@PathVariable @NotNull Long userId) {
+    public ResponseEntity<Result> getMenuListByUserId(@PathVariable @NotNull String userId) {
         return doSuccess(service.getMenuTreeListByUserId(userId));
     }
 

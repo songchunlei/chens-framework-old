@@ -34,7 +34,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private ISysUserRoleService sysUserRoleService;
 
     @Override
-    public List<SysRole> getRoleListByUserId(Long userId) {
+    public List<SysRole> getRoleListByUserId(String userId) {
         return baseMapper.getRoleListByUserId(userId);
     }
 
@@ -47,7 +47,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             String[] checkeds = sysRoles.split(SYSROLE_SPLIT_VALUE);
             for (String s : checkeds) {
                 if(StringUtils.isNotEmpty(s)){
-                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),Long.getLong(s)));
+                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),s));
                 }
             }
             return sysUserRoleService.insertBatch(sysUserRoles);
@@ -58,7 +58,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Transactional
     @Override
-    public boolean deleteWithRel(Long id) {
+    public boolean deleteWithRel(String id) {
         this.deleteById(id);
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setRoleId(id);
