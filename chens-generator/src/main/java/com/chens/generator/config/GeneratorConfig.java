@@ -29,7 +29,7 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
                 .setEnableCache(false)
                 .setBaseResultMap(false)
                 .setBaseColumnList(true)
-                .setIdType(IdType.ID_WORKER);
+                .setIdType(IdType.UUID);
     }
 
     /**
@@ -50,7 +50,7 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
         //strategyConfig.setTablePrefix(new String[]{"xx_"});// 此处可以修改为您的表前缀
         strategyConfig
                 //.setTablePrefix(new String[]{"t_"})
-                .setInclude("sys_notice","sys_dict")
+                .setInclude("sys_log")
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setSuperControllerClass(BASE_SUPER_CONTROLLER_CLASS_NAME)
                 .setSuperEntityClass(BASE_SUPER_ENTITY_CLASS_NAME)
@@ -65,11 +65,11 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     //.setEntity("entity");
     protected void packageConfig() {
         packageConfig.setParent(null)
-                .setController("com.chens.admin.web.controller")
-                .setMapper("com.chens.admin.web.mapper")
-                .setService("com.chens.admin.web.service")
-                .setServiceImpl("com.chens.admin.web.service.impl")
-                .setEntity("com.chens.core.entity");
+                .setController("com.chens.auth.controller")
+                .setMapper("com.chens.auth.mapper")
+                .setService("com.chens.auth.service")
+                .setServiceImpl("com.chens.auth.service.impl")
+                .setEntity("com.chens.auth.entity");
     }
 
     /**
