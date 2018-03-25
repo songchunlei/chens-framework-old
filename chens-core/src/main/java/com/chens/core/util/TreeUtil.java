@@ -75,13 +75,13 @@ public class TreeUtil {
     return treeNode;
   }
 
-  public static <T extends ZTree> Map<Long, T > getTreeMap(List<T> treeNodes)
+  public static <T extends ZTree> Map<String, T > getTreeMap(List<T> treeNodes)
   {
     if(CollectionUtils.isEmpty(treeNodes))
     {
       return null;
     }
-    Map<Long, T > map = new HashMap<Long, T>();
+    Map<String, T > map = new HashMap<String, T>();
     for (T it : treeNodes) {
       map.put(it.getId(),it);
     }

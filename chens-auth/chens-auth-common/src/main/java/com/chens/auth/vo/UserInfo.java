@@ -1,7 +1,5 @@
-package com.chens.auth.client.vo;
+package com.chens.auth.vo;
 
-
-import com.chens.auth.client.jwt.IJwtInfo;
 
 import java.io.Serializable;
 
@@ -15,11 +13,11 @@ public class UserInfo implements Serializable,IJwtInfo {
 	
 	private static final long serialVersionUID = 4018322190219282262L;
 
-	public UserInfo(Long id, Long tenantId, String name, String username) {
+	public UserInfo(String id, String name, String username, String tenantId) {
 		this.id = id;
-		this.tenantId = tenantId;
 		this.name = name;
 		this.username = username;
+		this.tenantId = tenantId;
 	}
 	public UserInfo()
 	{
@@ -29,12 +27,12 @@ public class UserInfo implements Serializable,IJwtInfo {
 	/*
 	 * 用户id
 	 */
-    private Long id;
+    private String id;
     
     /*
      * 租户id
      */
-    private Long tenantId;
+    private String tenantId;
     
     /*
      * 姓名
@@ -48,10 +46,10 @@ public class UserInfo implements Serializable,IJwtInfo {
 
 
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	public void setTenantId(Long tenantId) {
+	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
 	}
 	public void setName(String name) {
@@ -62,7 +60,7 @@ public class UserInfo implements Serializable,IJwtInfo {
 	}
 
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	@Override
@@ -74,7 +72,7 @@ public class UserInfo implements Serializable,IJwtInfo {
 		return username;
 	}
 	@Override
-	public Long getTenantId() {
+	public String getTenantId() {
 		return tenantId;
 	}
 

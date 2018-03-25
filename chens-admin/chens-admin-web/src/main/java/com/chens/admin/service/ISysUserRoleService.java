@@ -18,7 +18,7 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      * @param userIds
      * @return
      */
-    boolean AddUsersInRole(Long roleId,String userIds);
+    boolean AddUsersInRole(String roleId,String userIds);
 
     /**
      * 删除用户
@@ -26,6 +26,6 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      * @param userIds
      * @return
      */
-    boolean DeleteUsersInRole(Long roleId,String userIds);
+    boolean DeleteUsersInRole(String roleId,String userIds);
 	
 }

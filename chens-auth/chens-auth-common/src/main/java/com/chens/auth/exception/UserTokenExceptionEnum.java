@@ -1,4 +1,4 @@
-package com.chens.auth.client.exception;
+package com.chens.auth.exception;
 
 import com.chens.core.enums.IBaseEnum;
 

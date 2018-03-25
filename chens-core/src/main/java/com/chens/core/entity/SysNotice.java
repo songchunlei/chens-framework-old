@@ -26,7 +26,7 @@ public class SysNotice extends BaseEntity<SysNotice> {
      * 类型
      */
 	@NotNull
-	private Long type;
+	private String type;
     /**
      * 内容
      */
@@ -42,11 +42,11 @@ public class SysNotice extends BaseEntity<SysNotice> {
 		this.title = title;
 	}
 
-	public Long getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Long type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

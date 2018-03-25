@@ -1,6 +1,5 @@
 package com.chens.admin.service.impl;
 
-import com.chens.auth.client.util.UserAuthUtil;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysMenu;
 import com.chens.admin.mapper.SysMenuMapper;
@@ -26,9 +25,6 @@ import java.util.List;
  */
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
-
-    @Autowired
-    private UserAuthUtil userAuthUtil;
 
     @Override
     public List<ZTree> tree() {

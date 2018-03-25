@@ -1,4 +1,4 @@
-package com.chens.auth.client.jwt;
+package com.chens.auth.jwt;
 
 import com.chens.core.constants.CommonConstants;
 import io.jsonwebtoken.Claims;

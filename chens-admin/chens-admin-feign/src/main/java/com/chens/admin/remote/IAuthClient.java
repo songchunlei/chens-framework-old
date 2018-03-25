@@ -19,6 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface IAuthClient {
 
     @RequestMapping(value="/findByUserNameAndPassword",method = RequestMethod.POST)
-    SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest) throws BaseException;
+    SysUser findByUserNameAndPassword(@RequestBody AuthRequest authRequest);
 
 }

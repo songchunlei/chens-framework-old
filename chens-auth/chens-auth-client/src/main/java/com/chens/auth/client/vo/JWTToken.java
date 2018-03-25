@@ -1,7 +1,7 @@
 package com.chens.auth.client.vo;
 
 
-import com.chens.auth.client.jwt.IJwtInfo;
+import com.chens.auth.vo.IJwtInfo;
 import com.chens.core.vo.MenuTree;
 
 import java.io.Serializable;

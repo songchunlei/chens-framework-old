@@ -18,9 +18,9 @@ public class SysUserRole extends BaseEntity<SysUserRole> {
     private static final long serialVersionUID = 1L;
 
     @TableField("user_id")
-    private Long userId;
+    private String userId;
     @TableField("role_id")
-    private Long roleId;
+    private String roleId;
     /**
      * 用户串，逗号隔开
      */
@@ -35,24 +35,24 @@ public class SysUserRole extends BaseEntity<SysUserRole> {
     public SysUserRole() {
     }
 
-    public SysUserRole(Long userId, Long roleId) {
+    public SysUserRole(String userId, String roleId) {
         this.userId = userId;
         this.roleId = roleId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 

@@ -30,7 +30,7 @@ public class SysDict extends BaseEntity<SysDict> {
 	private String description;
 	@NotNull
 	@TableField("PARENT_ID")
-	private Long parentId;
+	private String parentId;
 	@TableField("is_delete")
 	private String isDelete;
 	private String exp1;
@@ -77,11 +77,11 @@ public class SysDict extends BaseEntity<SysDict> {
 		this.description = description;
 	}
 
-	public Long getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Long parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 

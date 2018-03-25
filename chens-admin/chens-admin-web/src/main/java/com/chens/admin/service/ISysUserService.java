@@ -38,7 +38,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param isRandom 是否用随机密码串
      * @return
      */
-    String restPwd(Long userId,boolean isRandom);
+    String restPwd(String userId,boolean isRandom);
 
     /**
      * 根据角色id获取角色下的用户

@@ -73,7 +73,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @Transactional
-    public String restPwd(Long UserId,boolean isRandom) {
+    public String restPwd(String UserId,boolean isRandom) {
         String password = CommonConstants.DEFAULT_PASSWORD;
         if(isRandom)
         {

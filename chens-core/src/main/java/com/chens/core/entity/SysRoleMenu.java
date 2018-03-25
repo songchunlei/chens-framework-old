@@ -20,28 +20,28 @@ public class SysRoleMenu extends BaseEntity<SysRoleMenu> {
 	 * 角色id
 	 */
 	@TableField("role_id")
-	private Long roleId;
+	private String roleId;
 
     /**
      * 菜单权限id
      */
 	@TableField("menu_id")
-	private Long menuId;
+	private String menuId;
 
 
-	public Long getRoleId() {
+	public String getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Long roleId) {
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 
-	public Long getMenuId() {
+	public String getMenuId() {
 		return menuId;
 	}
 
-	public void setMenuId(Long menuId) {
+	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
 

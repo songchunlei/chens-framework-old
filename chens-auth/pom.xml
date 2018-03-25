@@ -14,6 +14,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>chens-auth-client</module>
+        <module>chens-auth-server</module>
+        <module>chens-auth-common</module>
     </modules>
 
 

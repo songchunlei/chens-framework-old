@@ -17,8 +17,8 @@ public class ZTree implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4252766469774648992L;
-	protected Long id;
-    protected Long pId;
+	protected String id;
+    protected String pId;
     protected String name;
     protected String codeType;//分类
     protected boolean open;
@@ -29,7 +29,7 @@ public class ZTree implements Serializable{
     {
     	
     }
-    public ZTree(Long id,Long pId,String name,String codeType,boolean open)
+    public ZTree(String id,String pId,String name,String codeType,boolean open)
     {
     	this.id = id;
     	this.pId = pId;
@@ -37,19 +37,19 @@ public class ZTree implements Serializable{
     	this.codeType = codeType;
     	this.open = open;
     }
-    public Long getId()
+    public String getId()
     {
         return id;
     }
-    public void setId(Long id)
+    public void setId(String id)
     {
         this.id = id;
     }
-    public Long getpId()
+    public String getpId()
     {
         return pId;
     }
-    public void setpId(Long pId)
+    public void setpId(String pId)
     {
         this.pId = pId;
     }

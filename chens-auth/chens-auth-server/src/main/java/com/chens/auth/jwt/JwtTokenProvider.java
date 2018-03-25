@@ -1,9 +1,6 @@
-package com.chens.auth.client.jwt;
+package com.chens.auth.jwt;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chens.auth.client.vo.UserInfo;
-import com.chens.core.constants.CommonConstants;
-import com.chens.core.entity.SysUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.CompressionCodecs;
 import io.jsonwebtoken.Jwts;
@@ -11,8 +8,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.UUID;
 
 /**
  * jwt 工具类

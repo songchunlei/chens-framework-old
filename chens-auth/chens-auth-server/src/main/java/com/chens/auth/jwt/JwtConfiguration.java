@@ -1,10 +1,11 @@
-package com.chens.auth.client.jwt;
+package com.chens.auth.jwt;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Date;
 
 /**
  * 自定义的配置加载类，spring启动后，会讲这个类实例化，并将配置文件中与之对应的值注入进来
@@ -68,4 +69,12 @@ public class JwtConfiguration {
 		return secretKeySpec;
 	}
 
+	/**
+	 * 获取失效时间
+	 * @return
+	 */
+	public Date getExpiration()
+	{
+		return new Date(System.currentTimeMillis() + this.expm * 1000 * 60);
+	}
 }

@@ -30,7 +30,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         /*
             增加用户权限拦截器
          */
-        registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
+        //registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/**").excludePathPatterns(commonPathPatterns.toArray(new String[]{}));
         super.addInterceptors(registry);
     }
 

@@ -20,7 +20,7 @@ public class SysMenu extends BaseEntity<SysMenu> {
     private static final long serialVersionUID = 1L;
 
     @TableField("parent_id")
-    private Long parentId;
+    private String parentId;
     private String type;
     private String name;
     /**
@@ -51,11 +51,11 @@ public class SysMenu extends BaseEntity<SysMenu> {
     private List<SysMenu> childList;
 
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

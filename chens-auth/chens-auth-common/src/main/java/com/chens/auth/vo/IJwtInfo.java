@@ -1,4 +1,4 @@
-package com.chens.auth.client.jwt;
+package com.chens.auth.vo;
 
 /**
  * jwt通用接口类-信息反馈
@@ -12,7 +12,7 @@ public interface IJwtInfo {
      * 用户id
      * @return
      */
-    Long getId();
+    String getId();
 
     /**
      * 用户账号
@@ -30,5 +30,5 @@ public interface IJwtInfo {
      * 租户id
      * @return
      */
-    Long getTenantId();
+    String getTenantId();
 }

@@ -19,8 +19,8 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
     //private Long id; 不用private是为了让子类继承获取
 
     /**
@@ -39,23 +39,23 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      * 创建人
      */
     @TableField(value = "create_by", fill = FieldFill.INSERT)
-    private Long createBy;
+    private String createBy;
     /**
      * 更新人
      */
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
-    private Long updateBy;
+    private String updateBy;
     /**
      * 租户id
      */
     @TableField(value ="tenant_id", fill = FieldFill.INSERT)
-    private Long tenantId;
+    private String tenantId;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -75,28 +75,28 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Long getCreateBy() {
+    public String getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(Long createBy) {
+    public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
-    public Long getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Long updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 
 
-    public Long getTenantId() {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(Long tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 }

@@ -26,13 +26,13 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Transactional
     @Override
-    public boolean AddUsersInRole(Long roleId, String userIds) {
+    public boolean AddUsersInRole(String roleId, String userIds) {
         boolean  flagUserRole = false;
         if (StringUtils.isNotEmpty(userIds)) {
             List<SysUserRole> userRoleList = new ArrayList<>();
             String[] checkedStr = userIds.split(DEFAULT_USERS_SPLIT_FLG);
             for (String s : checkedStr) {
-                SysUserRole r = new SysUserRole(Long.valueOf(s),roleId);
+                SysUserRole r = new SysUserRole(s,roleId);
                 userRoleList.add(r);
             }
             // 将选中角色id进行保存处理
@@ -43,11 +43,11 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Transactional
     @Override
-    public boolean DeleteUsersInRole(Long roleId, String userIds) {
+    public boolean DeleteUsersInRole(String roleId, String userIds) {
         if (StringUtils.isNotEmpty(userIds)) {
             String[] checkedStr = userIds.split(DEFAULT_USERS_SPLIT_FLG);
             for (String s : checkedStr) {
-                SysUserRole r = new SysUserRole(Long.valueOf(s),roleId);
+                SysUserRole r = new SysUserRole(s,roleId);
                 this.delete(new EntityWrapper<>(r));
             }
         }

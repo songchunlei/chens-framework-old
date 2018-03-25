@@ -2,8 +2,8 @@ package com.chens.admin.service.impl;
 
 
 import com.chens.admin.service.ISysMenuService;
-import com.chens.auth.client.jwt.IJwtInfo;
-import com.chens.auth.client.util.UserAuthUtil;
+import com.chens.auth.client.feign.ISysTokenClient;
+import com.chens.auth.vo.IJwtInfo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysMenu;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -38,7 +38,7 @@ public class AuthServiceImpl implements IAuthService{
 
 
     @Autowired
-    private UserAuthUtil userAuthUtil;
+    private ISysTokenClient sysTokenClient;
 
     @Autowired
     private ISysUserService sysUserService;
@@ -67,7 +67,7 @@ public class AuthServiceImpl implements IAuthService{
     public JWTToken login(AuthRequest authRequest) throws Exception {
         SysUser sysUser = this.findByUsernameAndPassword(authRequest);
         if(sysUser!=null) {
-            return this.parseToken(userAuthUtil.createToken(sysUser));
+            return this.parseToken(sysTokenClient.createTokenByUser(sysUser));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -75,7 +75,7 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     public JWTToken parseToken(String token) throws Exception {
         //解析jwtInfo
-        IJwtInfo jwtInfo = userAuthUtil.getUserInfo(token);
+        IJwtInfo jwtInfo = sysTokenClient.parseToken(token);
         //获取菜单列表
         List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(jwtInfo.getId());
         //全量打平菜单树

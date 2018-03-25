@@ -65,7 +65,7 @@ public class MenuTree extends ZTree {
         this.description = description;
     }
 
-    public MenuTree(Long id, Long pId, String name, String codeType, boolean open, String icon, String url, String description) {
+    public MenuTree(String id, String pId, String name, String codeType, boolean open, String icon, String url, String description) {
         super(id, pId, name, codeType, open);
         this.icon = icon;
         this.url = url;

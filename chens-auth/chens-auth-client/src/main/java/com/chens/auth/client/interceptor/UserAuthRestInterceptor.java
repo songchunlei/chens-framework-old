@@ -1,9 +1,8 @@
 package com.chens.auth.client.interceptor;
 
 import com.chens.auth.client.annotation.IgnoreClientToken;
-import com.chens.auth.client.jwt.IJwtInfo;
-import com.chens.auth.client.jwt.JwtTokenProvider;
-import com.chens.auth.client.util.UserAuthUtil;
+import com.chens.auth.client.feign.ISysTokenClient;
+import com.chens.auth.vo.IJwtInfo;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
 
-
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    private UserAuthUtil userAuthUtil;
+    private ISysTokenClient sysTokenClient;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -42,18 +37,18 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
             return super.preHandle(request, response, handler);
         }
 
-        String token = jwtTokenProvider.getToken(request);//request.getHeader(userAuthConfig.getTokenHeader());
+        String token = request.getHeader(sysTokenClient.getUserHeaderKey());
         if (StringUtils.isEmpty(token)) {
             if (request.getCookies() != null) {
                 for (Cookie cookie : request.getCookies()) {
-                    if (cookie.getName().equals(jwtTokenProvider.getUserTokenHeader())) {
+                    if (cookie.getName().equals(sysTokenClient.getUserHeaderKey())) {
                         token = cookie.getValue();
                     }
                 }
             }
         }
         //解析token
-        IJwtInfo jwtInfo = userAuthUtil.getUserInfo(token);
+        IJwtInfo jwtInfo = sysTokenClient.parseToken(token);
 
         //存入缓存
         BaseContextHandler.setUserName(jwtInfo.getUsername());
