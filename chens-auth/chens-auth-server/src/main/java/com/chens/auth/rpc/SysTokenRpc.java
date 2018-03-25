@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2018/3/25
  */
 @RestController
-@RequestMapping(value="/authRpc")
+@RequestMapping(value="/sysTokenRpc")
 public class SysTokenRpc {
 
     @Autowired

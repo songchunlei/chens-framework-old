@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.mapper.ISqlInjector;
 import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
+import com.chens.core.util.StringUtils;
 import net.sf.jsqlparser.expression.StringValue;
 import org.springframework.context.annotation.Bean;
 
@@ -58,7 +59,11 @@ public class BaseMybatisPlusConfig {
             @Override
             public Expression getTenantId() {
                 //从缓存拿租户
-                return new StringValue(BaseContextHandler.getTenantId());
+                if(StringUtils.isNotEmpty(BaseContextHandler.getTenantId()))
+                {
+                    return new StringValue(BaseContextHandler.getTenantId());
+                }
+                return null;
             }
 
             @Override
