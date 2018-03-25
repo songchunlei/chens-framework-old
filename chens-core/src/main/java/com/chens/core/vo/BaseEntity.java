@@ -50,7 +50,7 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     /**
      * 租户id
      */
-    @TableField(exist = false)
+    @TableField(value ="tenant_id", fill = FieldFill.INSERT)
     private String tenantId;
 
     public String getId() {
