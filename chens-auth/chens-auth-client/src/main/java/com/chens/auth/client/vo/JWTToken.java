@@ -11,7 +11,7 @@ import java.util.Map;
 public class JWTToken implements Serializable{
 	private String accessToken;
 	private List<MenuTree> menus;
-	private Map<Long,MenuTree> all;
+	private Map<String,MenuTree> all;
 	private IJwtInfo user;
 
 	public String getAccessToken() {
@@ -27,7 +27,7 @@ public class JWTToken implements Serializable{
 		this.accessToken = accessToken;
 	}
 
-	public JWTToken(String accessToken, List<MenuTree> menus,Map<Long,MenuTree> all,IJwtInfo user) {
+	public JWTToken(String accessToken, List<MenuTree> menus,Map<String,MenuTree> all,IJwtInfo user) {
 		this.accessToken = accessToken;
 		this.menus = menus;
 		this.all = all;
@@ -42,11 +42,11 @@ public class JWTToken implements Serializable{
 		this.menus = menus;
 	}
 
-	public Map<Long, MenuTree> getAll() {
+	public Map<String, MenuTree> getAll() {
 		return all;
 	}
 
-	public void setAll(Map<Long, MenuTree> all) {
+	public void setAll(Map<String, MenuTree> all) {
 		this.all = all;
 	}
 
