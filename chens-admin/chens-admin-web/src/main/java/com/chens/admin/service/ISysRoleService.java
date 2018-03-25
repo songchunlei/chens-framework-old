@@ -19,7 +19,7 @@ public interface ISysRoleService extends IService<SysRole> {
      * 根据用户id查询角色
      * @return
      */
-    List<SysRole> getRoleListByUserId(Long userId);
+    List<SysRole> getRoleListByUserId(String userId);
 
     /**
      * 保存用户-角色关系
@@ -33,6 +33,6 @@ public interface ISysRoleService extends IService<SysRole> {
      * @param id
      * @return
      */
-    boolean deleteWithRel(Long id);
+    boolean deleteWithRel(String id);
 
 }

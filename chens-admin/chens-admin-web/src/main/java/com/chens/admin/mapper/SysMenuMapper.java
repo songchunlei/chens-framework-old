@@ -22,5 +22,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      */
     List<ZTree> tree();
 
-    List<SysMenu> getMenuListByUserId(Long userId);
+    List<SysMenu> getMenuListByUserId(String userId);
 }

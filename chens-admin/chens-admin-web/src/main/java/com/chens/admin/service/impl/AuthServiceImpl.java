@@ -79,7 +79,7 @@ public class AuthServiceImpl implements IAuthService{
         //获取菜单列表
         List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(jwtInfo.getId());
         //全量打平菜单树
-        Map<Long, MenuTree> all = new HashMap<Long, MenuTree>();
+        Map<String, MenuTree> all = new HashMap<String, MenuTree>();
         //菜单嵌套树
         List<MenuTree> trees = new ArrayList<>();
         //循环

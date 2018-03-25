@@ -30,13 +30,13 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @param userId
      * @return
      */
-    List<SysMenu> getMenuListByUserId(Long userId);
+    List<SysMenu> getMenuListByUserId(String userId);
 
     /**
      * 根据用户id获取对应菜单(权限)树
      * @param userId
      * @return
      */
-    List<MenuTree> getMenuTreeListByUserId(Long userId);
+    List<MenuTree> getMenuTreeListByUserId(String userId);
 
 }

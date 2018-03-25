@@ -32,12 +32,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    public List<SysMenu> getMenuListByUserId(Long userId) {
+    public List<SysMenu> getMenuListByUserId(String userId) {
         return baseMapper.getMenuListByUserId(userId);
     }
 
     @Override
-    public List<MenuTree> getMenuTreeListByUserId(Long userId) {
+    public List<MenuTree> getMenuTreeListByUserId(String userId) {
         List<MenuTree> trees = new ArrayList<>();
         List<SysMenu> sysMenus =  this.getMenuListByUserId(userId);
         if(!CollectionUtils.isEmpty(sysMenus))
