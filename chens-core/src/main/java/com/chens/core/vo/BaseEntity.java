@@ -45,10 +45,12 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      */
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
+
+
     /**
      * 租户id
      */
-    @TableField(value ="tenant_id", fill = FieldFill.INSERT)
+    @TableField(exist = false)
     private String tenantId;
 
     public String getId() {
