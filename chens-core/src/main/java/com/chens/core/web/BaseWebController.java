@@ -164,7 +164,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @GetMapping("/info/{id}")
-    public ResponseEntity<Result> getInfo(@PathVariable Long id) {
+    public ResponseEntity<Result> getInfo(@PathVariable String id) {
         if(id!=null)
         {
             return doSuccess("查询成功",service.selectById(id));
@@ -196,7 +196,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Result> delete(@PathVariable Long id) {
+    public ResponseEntity<Result> delete(@PathVariable String id) {
         if(id!=null)
         {
             return doSuccess("删除成功",service.deleteById(id));
