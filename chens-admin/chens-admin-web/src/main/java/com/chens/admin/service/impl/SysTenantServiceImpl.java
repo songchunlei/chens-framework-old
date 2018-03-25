@@ -1,6 +1,7 @@
 package com.chens.admin.service.impl;
 
 import com.chens.admin.service.ISysUserService;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.entity.SysTenant;
 import com.chens.admin.mapper.SysTenantMapper;
 import com.chens.admin.service.ISysTenantService;
@@ -38,10 +39,11 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantMapper, SysTenant
             throw new BaseException(BaseExceptionEnum.REGISTER_SYSTENANT_ERROR);
         }
         //放入租户id
-        String tenantId = sysTenant.getId();
+        //String tenantId = sysTenant.getId();
+        BaseContextHandler.setTenantId(sysTenant.getId());
         //2.创建代理人账户
         SysUser sysUser = registerTenant.getSysUser();
-        sysUser.setTenantId(tenantId);
+        //sysUser.setTenantId(tenantId);
         if(!sysUserService.createAccount(sysUser))
         {
             throw new BaseException(BaseExceptionEnum.REGISTER_SYSUSER_ERROR);
