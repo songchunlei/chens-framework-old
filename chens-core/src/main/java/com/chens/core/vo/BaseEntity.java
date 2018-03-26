@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.chens.core.constants.CommonConstants;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -28,30 +29,30 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = CommonConstants.BASE_COLUMN_CREATE_TIME,fill = FieldFill.INSERT)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
      * 更新时间
      */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_TIME, fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     /**
      * 创建人
      */
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    @TableField(value = CommonConstants.BASE_COLUMN_CREATE_BY, fill = FieldFill.INSERT)
     private String createBy;
     /**
      * 更新人
      */
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_BY, fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
      * 租户id
      */
-    @TableField(value ="tenant_id", fill = FieldFill.INSERT)
+    @TableField(value =CommonConstants.BASE_COLUMN_TENANT_ID)
     private String tenantId;
 
     public String getId() {

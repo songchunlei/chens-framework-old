@@ -4,6 +4,8 @@ import com.chens.auth.client.annotation.IgnoreClientToken;
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.auth.vo.IJwtInfo;
 import com.chens.core.context.BaseContextHandler;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -47,6 +49,12 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
                 }
             }
         }
+
+        if(StringUtils.isEmpty(token))
+        {
+            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
+        }
+
         //解析token
         IJwtInfo jwtInfo = sysTokenClient.parseToken(token);
 

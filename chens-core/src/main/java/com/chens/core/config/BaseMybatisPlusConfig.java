@@ -15,6 +15,7 @@ import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.enums.YesNoEnum;
 import net.sf.jsqlparser.expression.StringValue;
+import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -51,6 +52,9 @@ public abstract class BaseMybatisPlusConfig {
     @Autowired
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+    @Autowired(required = false)
+    private Interceptor[] interceptors;
+
 
     /**
      * mybatis-plus SQL执行效率插件【生产环境可以关闭】
@@ -76,6 +80,12 @@ public abstract class BaseMybatisPlusConfig {
             mybatisPlus.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
         }
         mybatisPlus.setConfiguration(properties.getConfiguration());
+
+        //放入自定义工具
+        if (!ObjectUtils.isEmpty(this.interceptors)) {
+            mybatisPlus.setPlugins(this.interceptors);
+        }
+
 
         if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
             mybatisPlus.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
@@ -108,12 +118,10 @@ public abstract class BaseMybatisPlusConfig {
         globalConfig.setLogicNotDeleteValue(YesNoEnum.NO.getCode());
         //SQL 解析缓存，开启后多租户 @SqlParser 注解生效
         globalConfig.setSqlParserCache(true);
-        //加入自定义注解
+        //加入自定义注解(开启逻辑删除)
         globalConfig.setSqlInjector(this.getSqlInjector());
         //加入公共字段填充
         globalConfig.setMetaObjectHandler(this.getMetaObjectHandler());
-
-
         mybatisPlus.setGlobalConfig(globalConfig);
 
         return mybatisPlus;
@@ -129,7 +137,7 @@ public abstract class BaseMybatisPlusConfig {
         PaginationInterceptor page = new PaginationInterceptor();
         page.setLocalPage(true);// 开启 PageHelper 的支持
 
-        /*
+
         //测试多租户】 SQL 解析处理拦截器<br>
         //这里固定写成住户 1 实际情况你可以从cookie读取，因此数据看不到 【 麻花藤 】 这条记录（ 注意观察 SQL ）<br>
         List<ISqlParser> sqlParserList = new ArrayList<>();
@@ -138,7 +146,7 @@ public abstract class BaseMybatisPlusConfig {
             @Override
             public Expression getTenantId() {
                 //从缓存拿租户
-                if(StringUtils.isNotEmpty(BaseContextHandler.getTenantId()))
+                if(StringUtils.hasLength(BaseContextHandler.getTenantId()))
                 {
                     return new StringValue(BaseContextHandler.getTenantId());
                 }
@@ -147,7 +155,7 @@ public abstract class BaseMybatisPlusConfig {
 
             @Override
             public String getTenantIdColumn() {
-                return "tenant_id";
+                return CommonConstants.BASE_COLUMN_TENANT_ID;
             }
 
             @Override
@@ -166,7 +174,7 @@ public abstract class BaseMybatisPlusConfig {
 
         sqlParserList.add(tenantSqlParser);
         page.setSqlParserList(sqlParserList);
-        */
+
         //可以用 @SqlParser(filter = true) 注解取消某个mapper下方法的租户信息
         return page;
     }

@@ -83,7 +83,7 @@ public class BaseControllerExceptionHandler{
     @ResponseBody
     public Result handleFeignException(FeignException e) {
         log.error("Feign异常:"+e.getMessage());
-        return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(),e.getMessage());
+        return this.getMessage(e.getMessage());
     }
 
     /**

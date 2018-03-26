@@ -9,7 +9,7 @@ package com.chens.core.constants;
 public final class CommonConstants {
 
     //过滤非租户表
-    public static final String NO_TENANT_TABLENAME = "[sys_menu][sys_user][sys_dict_type][sys_permission][sys_role][sys_tenant]";
+    public static final String NO_TENANT_TABLENAME = "[sys_menu][sys_user111][sys_dict_type][sys_permission][sys_role][sys_tenant]";
 
     //菜单根节点
     public static final String BASE_TREE_ROOT="-1";
@@ -21,13 +21,21 @@ public final class CommonConstants {
     //系统操作默认用户id
     public static final String SYSTEM_USER_ID="9999999999";
 
-    //基础字段
+    //基础实体属性
     public static final String BASE_ENTITY_CREATE_TIME = "createTime";
     public static final String BASE_ENTITY_UPDATE_TIME = "updateTime";
     public static final String BASE_ENTITY_CREATE_BY = "createBy";
     public static final String BASE_ENTITY_UPDATE_BY = "updateBy";
     public static final String BASE_ENTITY_TENANT_ID = "tenantId";
     public static final String BASE_ENTITY_IS_DELETE="isDelete";
+
+    //基础字段
+    public static final String BASE_COLUMN_CREATE_TIME = "create_time";
+    public static final String BASE_COLUMN_UPDATE_TIME = "update_time";
+    public static final String BASE_COLUMN_CREATE_BY = "create_by";
+    public static final String BASE_COLUMN_UPDATE_BY = "update_by";
+    public static final String BASE_COLUMN_TENANT_ID = "tenant_id";
+    public static final String BASE_COLUMN_IS_DELETE="is_delete";
 
     //授权token名称
     public static final String AUTH_TOKEN_KEY = "auth_token";

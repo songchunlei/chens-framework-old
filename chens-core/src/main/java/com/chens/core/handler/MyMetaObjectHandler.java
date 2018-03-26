@@ -21,10 +21,6 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 	 private Logger logger = LogManager.getLogger(MyMetaObjectHandler.class);
 
 
-    @Override
-    public boolean openInsertFill() {
-        return true;
-    }
 
     @Override
 	public void insertFill(MetaObject metaObject) {
@@ -39,7 +35,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
 
         Object tenantId = metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID);
-        if(tenantId!=null)
+        if(tenantId==null)
         {
             setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
         }

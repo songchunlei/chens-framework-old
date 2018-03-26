@@ -22,12 +22,8 @@ public class SysToken extends BaseEntity<SysToken> {
 	/**
 	 * 用户id
 	 */
+	@TableField("user_id")
 	private String userId;
-
-	/**
-	 * 服务id
-	 */
-	private String clientId;
 
     /**
      * token
@@ -77,4 +73,11 @@ public class SysToken extends BaseEntity<SysToken> {
 		this.isActive = isActive;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 }
