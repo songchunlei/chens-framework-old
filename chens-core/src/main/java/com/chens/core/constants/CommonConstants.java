@@ -9,7 +9,7 @@ package com.chens.core.constants;
 public final class CommonConstants {
 
     //过滤非租户表
-    public static final String NO_TENANT_TABLENAME = "[sys_menu][sys_user111][sys_dict_type][sys_permission][sys_role][sys_tenant]";
+    public static final String NO_TENANT_TABLENAME = "[sys_menu][sys_user][sys_dict_type][sys_permission][sys_role][sys_tenant]";
 
     //菜单根节点
     public static final String BASE_TREE_ROOT="-1";
