@@ -72,6 +72,10 @@ public class AuthServiceImpl implements IAuthService{
     public JWTToken login(AuthRequest authRequest) throws Exception {
         if(authRequest!=null) {
             SysUser sysUser = this.findByUsernameAndPassword(authRequest);
+            if(sysUser==null)
+            {
+                throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
+            }
             return this.parseToken(sysTokenClient.createTokenByUser(sysUser));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);

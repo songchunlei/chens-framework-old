@@ -40,7 +40,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      * @return
      */
     @PostMapping("createUser")
-    public ResponseEntity<Result> register(@RequestBody @Validated SysUser sysUser) {
+    public ResponseEntity<Result> createUser(@RequestBody @Validated SysUser sysUser) {
         if(sysUser!=null)
         {
             return doSuccess("保存成功",service.createAccount(sysUser));
@@ -55,7 +55,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      * @param isRandom 是否随机
      * @return
      */
-    @PostMapping("/restPwd")
+    @PutMapping("/restPwd")
     public ResponseEntity<Result> restPwd(@RequestParam("userId") String userId, @RequestParam("isRandom") boolean isRandom) {
         return doSuccess(service.restPwd(userId,isRandom));
     }

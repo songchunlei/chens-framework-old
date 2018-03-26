@@ -22,12 +22,12 @@ public final class CommonConstants {
     public static final String SYSTEM_USER_ID="9999999999";
 
     //基础字段
-    public static final String BASE_ENTITY_CREATE_TIME = "create_time";
-    public static final String BASE_ENTITY_UPDATE_TIME = "update_time";
-    public static final String BASE_ENTITY_CREATE_BY = "create_by";
-    public static final String BASE_ENTITY_UPDATE_BY = "update_by";
-    public static final String BASE_ENTITY_TENANT_ID = "tenant_id";
-    public static final String BASE_ENTITY_IS_DELETE="is_delete";
+    public static final String BASE_ENTITY_CREATE_TIME = "createTime";
+    public static final String BASE_ENTITY_UPDATE_TIME = "updateTime";
+    public static final String BASE_ENTITY_CREATE_BY = "createBy";
+    public static final String BASE_ENTITY_UPDATE_BY = "updateBy";
+    public static final String BASE_ENTITY_TENANT_ID = "tenantId";
+    public static final String BASE_ENTITY_IS_DELETE="isDelete";
 
     //授权token名称
     public static final String AUTH_TOKEN_KEY = "auth_token";

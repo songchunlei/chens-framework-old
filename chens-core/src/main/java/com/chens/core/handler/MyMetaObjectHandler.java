@@ -28,21 +28,27 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 
     @Override
 	public void insertFill(MetaObject metaObject) {
-		logger.info("*****************保存自动填充******************");
+		logger.debug("*****************保存自动填充******************");
         Date date = new Date();
+
+
 
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
-        //setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
-        
+
+        Object tenantId = metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID);
+        if(tenantId!=null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
+        }
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		 //更新填充
-        logger.info("********************更新自动填充********************");
+        logger.debug("********************更新自动填充********************");
         //mybatis-plus版本2.0.9+  
         Date date = new Date();
 
