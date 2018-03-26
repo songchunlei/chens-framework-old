@@ -28,14 +28,23 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         Date date = new Date();
 
 
-
-        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
-
-        Object tenantId = metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID);
-        if(tenantId==null)
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_CREATE_TIME)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_TIME, date, metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_TIME)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_CREATE_BY)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, date, metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, date, metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID)==null)
         {
             setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
         }
@@ -47,9 +56,14 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         logger.debug("********************更新自动填充********************");
         //mybatis-plus版本2.0.9+  
         Date date = new Date();
-
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
-        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_TIME)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, date, metaObject);
+        }
 
 	}
 
