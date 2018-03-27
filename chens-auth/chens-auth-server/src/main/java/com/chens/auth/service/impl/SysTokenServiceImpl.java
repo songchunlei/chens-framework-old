@@ -3,11 +3,8 @@ package com.chens.auth.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chens.admin.remote.ISysUserClient;
 import com.chens.auth.entity.SysToken;
-import com.chens.auth.exception.UserTokenException;
-import com.chens.auth.exception.UserTokenExceptionEnum;
 import com.chens.auth.jwt.JwtConfiguration;
 import com.chens.auth.jwt.JwtTokenProvider;
-import com.chens.auth.vo.IJwtInfo;
 import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.mapper.SysTokenMapper;
 import com.chens.auth.service.ISysTokenService;
@@ -16,6 +13,8 @@ import com.chens.auth.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.sys.AuthRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -87,11 +86,11 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
                     ,(String)claims.get(CommonConstants.JWT_TOKEN_USER)
                     , (String)claims.get(CommonConstants.JWT_TOKEN_USERNAME), (String)claims.get(CommonConstants.JWT_TOKEN_TENANTID));
         }catch (ExpiredJwtException ex){
-            throw new UserTokenException(UserTokenExceptionEnum.TOKEN_EXPIRED);
+            throw new BaseException(BaseExceptionEnum.TOKEN_EXPIRED);
         }catch (SignatureException ex){
-            throw new UserTokenException(UserTokenExceptionEnum.TOKEN_ERROR);
+            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
         }catch (IllegalArgumentException ex){
-            throw new UserTokenException(UserTokenExceptionEnum.TOKEN_IS_NULL);
+            throw new BaseException(BaseExceptionEnum.TOKEN_IS_NULL);
         }
     }
 

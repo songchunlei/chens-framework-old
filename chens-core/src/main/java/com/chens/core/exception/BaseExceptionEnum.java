@@ -15,6 +15,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
      */
     TOKEN_EXPIRED(100, "token过期"),
     TOKEN_ERROR(101, "token验证失败"),
+    TOKEN_IS_NULL(102,"token为空"),
 
     /**
      * 登录校验异常

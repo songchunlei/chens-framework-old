@@ -36,6 +36,7 @@
         <module>../chens-workflow</module>
         <!--excel模块-->
         <module>../chens-excel</module>
+        <module>../chens-gateway</module>
     </modules>
 
     <repositories>
@@ -71,6 +72,7 @@
 
         <commons-lang3.version>3.5</commons-lang3.version>
         <commons-collections4.version>4.1</commons-collections4.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
 
     </properties>
 
@@ -173,6 +175,13 @@
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
             </dependency>
+            <!-- apache tools end -->
+            <!--验证码-->
+            <dependency>
+                <groupId>com.github.penggle</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -193,25 +202,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>1.5.9.RELEASE</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.4.13</version>
-                    <configuration>
-                        <imageName>registry.cn-hangzhou.aliyuncs.com/dongnao/${project.artifactId}:${project.version}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                        <!-- 以下两行是为了docker push到DockerHub使用的。 -->
-                        <serverId>docker-aliyun-hub</serverId>
-                        <registryUrl>registry.cn-hangzhou.aliyuncs.com/dongnao</registryUrl>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

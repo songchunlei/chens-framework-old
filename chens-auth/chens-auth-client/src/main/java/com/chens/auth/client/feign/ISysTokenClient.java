@@ -52,7 +52,7 @@ public interface ISysTokenClient {
      * @return
      */
     @RequestMapping(value="/parseToken",method = RequestMethod.POST)
-    UserInfo parseToken(String token);
+    UserInfo parseToken(String token) throws Exception;
 
     /**
      * 获取用户鉴权的token-key
