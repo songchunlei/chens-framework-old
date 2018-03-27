@@ -48,4 +48,4 @@ eureka:
     # 服务端缓存最长时间
     responseCacheUpdateIntervalMs: 30000
   instance:
-    hostname: ${INSTANCE_HOSTNAME}
+    hostname: ${HOSTNAME}
