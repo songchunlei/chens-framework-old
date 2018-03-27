@@ -38,11 +38,11 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         }
         if(metaObject.getValue(CommonConstants.BASE_ENTITY_CREATE_BY)==null)
         {
-            setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, date, metaObject);
+            setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY, BaseContextHandler.getUserId(), metaObject);
         }
         if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY)==null)
         {
-            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, date, metaObject);
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
         }
         if(metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID)==null)
         {
@@ -62,7 +62,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         }
         if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY)==null)
         {
-            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, date, metaObject);
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
         }
 
 	}
