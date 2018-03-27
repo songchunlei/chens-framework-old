@@ -4,7 +4,9 @@ server:
 spring:
   application:
     name: chens-gateway
-
+  devtools:
+    restart:
+      enabled: false #是否开启开发者工具
 eureka:
   client:
  #   register-with-eureka: false #不注册到注册中心，web模块只用于消费服务
@@ -18,8 +20,8 @@ eureka:
 zuul:
   # 代理普通http请求的超时时间
   host:
-    socket-timeout-millis: 5000
-    connect-timeout-millis: 5000
+    socket-timeout-millis: 50000
+    connect-timeout-millis: 50000
     # http连接池大小
     maxTotalConnections: 200
     # 每个host最大连接数
@@ -67,8 +69,8 @@ TokenValidateFilter:
 
 ribbon:
   # 配置ribbon默认的超时时间
-  ConnectTimeout: 5000
-  ReadTimeout: 5000
+  ConnectTimeout: 50000
+  ReadTimeout: 50000
   # 是否开启重试
   OkToRetryOnAllOperations: true
   # 重试期间，实例切换次数

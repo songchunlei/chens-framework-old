@@ -7,27 +7,23 @@ spring:
 ---
 spring:
   profiles: dev
-  cloud:
-    client:
-      hostname: ${HOSTNAME}
-
 server:
   port: 8761
 eureka:
   client:
     # 是否注册到eurekaserver
-    registerWithEureka: true
+    registerWithEureka: false
     # 是否拉取信息
     fetchRegistry: false
     # eureka server地址
     serviceUrl:
-      defaultZone: ${chens_eureka_serviceUrl}
+      defaultZone: ${chens_eureka_serviceUrl:http://127.0.0.1:8761/eureka/}
   server:
     waitTimeInMsWhenSyncEmpty: 0
     # false 关闭自我保护，不管如何都要剔除心跳检测异常的服务
     enableSelfPreservation: false
   instance:
-    hostname: ${HOSTNAME}
+    hostname: ${HOSTNAME:localhost}
 ---
 spring:
   profiles: prod

@@ -104,7 +104,10 @@ public abstract class BaseMybatisPlusConfig {
         //通用全局设置
         GlobalConfiguration globalConfig = new GlobalConfiguration();
         //是否刷新
-        globalConfig.setRefresh(properties.getGlobalConfig().getRefreshMapper());
+        if(properties.getGlobalConfig()!=null)
+        {
+            globalConfig.setRefresh(properties.getGlobalConfig().getRefreshMapper());
+        }
         //数据库类型
         //globalConfig.setDbType(DBType.MYSQL.name());
         //主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";

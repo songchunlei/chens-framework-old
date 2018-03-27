@@ -35,7 +35,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--添加依赖-->
+        <!--神器dev-tools-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

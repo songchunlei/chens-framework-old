@@ -20,23 +20,25 @@
         <module>../chens-core</module>
         <!--注册中心-->
         <module>../chens-eureka</module>
+        <!--鉴权-->
+        <module>../chens-auth</module>
+        <!--管理后台-->
+        <module>../chens-admin</module>
+        <!--网关-->
+        <module>../chens-gateway</module>
         <!--配置中心-->
         <module>../chens-config-server</module>
         <!--代码生成器-->
         <module>../chens-generator</module>
-        <!--鉴权-->
-        <module>../chens-auth</module>
         <!--文件服务器-->
         <module>../chens-file</module>
         <!--富文本编辑器-->
         <module>../chens-ueditor</module>
-        <!--管理后台-->
-        <module>../chens-admin</module>
         <!--流程引擎-->
         <module>../chens-workflow</module>
         <!--excel模块-->
         <module>../chens-excel</module>
-        <module>../chens-gateway</module>
+
     </modules>
 
     <repositories>
