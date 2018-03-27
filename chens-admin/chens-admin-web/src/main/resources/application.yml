@@ -1,6 +1,6 @@
 #项目启动端口
 server:
-  port: 9002
+  port: 9003
 
 #应用名称
 spring:
@@ -32,7 +32,7 @@ mybatis-plus:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/ #注册中心地址
+      defaultZone: ${chens_eureka_serviceUrl:http://127.0.0.1:8761/eureka/}
   instance:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）

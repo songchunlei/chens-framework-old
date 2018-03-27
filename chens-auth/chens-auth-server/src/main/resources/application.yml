@@ -1,6 +1,6 @@
 #项目启动端口
 server:
-  port: 9001
+  port: 9002
 
 #应用名称
 spring:
