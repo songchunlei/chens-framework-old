@@ -76,6 +76,9 @@
         <commons-collections4.version>4.1</commons-collections4.version>
         <kaptcha.version>2.3.2</kaptcha.version>
 
+        <docker.repostory>registry-vpc.cn-shanghai.aliyuncs.com</docker.repostory>
+        <docker.registry.name>chens-admin</docker.registry.name>
+
     </properties>
 
     <!-- 统一管理 -->
@@ -204,6 +207,55 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>1.5.9.RELEASE</version>
+                </plugin>
+                <!-- 打包Docker -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.4.13</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>tag-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <image>${docker.registry.name}/${project.artifactId}:${project.version}</image>
+                                <newName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</newName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>push-image</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                        <!-- 以下两行是为了docker push到DockerHub使用的。 -->
+                        <serverId>docker-aliyun-hub</serverId>
+                        <registryUrl>registry-vpc.cn-shanghai.aliyuncs.com/chens-admin</registryUrl>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

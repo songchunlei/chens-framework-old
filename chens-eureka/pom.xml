@@ -34,30 +34,6 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-
-                    </execution>
-                </executions>
-                <configuration>
-                    <imageName>registry-vpc.cn-shanghai.aliyuncs.com/chens-admin/${project.artifactId}:${project.version}</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <!-- 以下两行是为了docker push到DockerHub使用的。 -->
-                    <serverId>docker-aliyun-hub</serverId>
-                    <registryUrl>registry-vpc.cn-shanghai.aliyuncs.com/chens-admin</registryUrl>
-                </configuration>
             </plugin>
         </plugins>
 
