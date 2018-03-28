@@ -28,8 +28,8 @@ zuul:
     maxPerRouteConnections: 20
   # 开启重试
   retryable: true
-  # 路径前面加一个前缀
-  prefix: /api
+  # 路径前面加一个前缀(目前不加)
+  #prefix: /api
   # 不代理某些服务，有些服务不对外公布，就可以在这里忽略掉
   # 比如sms-interface，我们不对外开放，可以在这里忽略掉，不然zuul从eureka获取到后就可以进行代理
   ignored-services:
