@@ -226,6 +226,9 @@
                             <goals>
                                 <goal>push</goal>
                             </goals>
+                            <configuration>
+                                <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                            </configuration>
                         </execution>
                     </executions>
                     <configuration>
