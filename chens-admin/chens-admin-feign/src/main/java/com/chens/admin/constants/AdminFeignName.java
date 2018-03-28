@@ -6,7 +6,7 @@ package com.chens.admin.constants;
  * @auther songchunlei@qq.com
  * @create 2018/3/25
  */
-public final class FeignName {
+public final class AdminFeignName {
 
     //用户服务
     public static final String SYS_USER_RPC = "sysUserRpc";

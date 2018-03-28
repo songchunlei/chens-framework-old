@@ -99,6 +99,11 @@ public class BaseControllerExceptionHandler{
     	JSONObject obj = JSONObject.parseObject(exceptionMessage);
     	Integer errCode = (Integer) obj.get("code");
     	String errMsg = (String)obj.get("message");
+    	//可能存在msg的情况
+    	if(StringUtils.isEmpty(errMsg))
+        {
+            errMsg = (String)obj.get("msg");
+        }
     	return ResultHelper.getError(errCode,errMsg);
     }
     

@@ -1,6 +1,6 @@
 package com.chens.auth.rpc;
 
-import com.chens.auth.constants.FeignName;
+import com.chens.auth.constants.AuthFeignName;
 import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.service.ISysTokenService;
 import com.chens.auth.vo.UserInfo;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2018/3/25
  */
 @RestController
-@RequestMapping(value="/"+ FeignName.SYS_TOKEN_RPC)
+@RequestMapping(value="/"+ AuthFeignName.SYS_TOKEN_RPC)
 public class SysTokenRpc {
 
     @Autowired

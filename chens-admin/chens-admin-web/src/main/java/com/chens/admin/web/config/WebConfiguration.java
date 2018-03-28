@@ -1,7 +1,8 @@
 package com.chens.admin.web.config;
 
-import com.chens.admin.constants.FeignName;
+import com.chens.admin.constants.AdminFeignName;
 import com.chens.auth.client.interceptor.UserAuthRestInterceptor;
+import com.chens.auth.constants.AuthFeignName;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -60,7 +61,8 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         String[] urls = {
                 "/authController/**",
                 "/sysTokenRpc/**",
-                "/"+ FeignName.SYS_USER_RPC+"/findByUsername"
+                "/"+ AdminFeignName.SYS_USER_RPC+"/findByUsername",
+                "/"+ AuthFeignName.SYS_TOKEN_RPC+"/**"
         };
         Collections.addAll(list, urls);
         return list;

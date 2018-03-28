@@ -1,17 +1,14 @@
 package com.chens.auth.client.feign;
 
 import com.chens.auth.client.feign.hystrix.SysTokenClientHystrix;
-import com.chens.auth.constants.FeignName;
-import com.chens.auth.vo.IJwtInfo;
+import com.chens.auth.constants.AuthFeignName;
 import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.vo.UserInfo;
 import com.chens.core.entity.SysUser;
 import com.chens.core.vo.sys.AuthRequest;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * token服务
@@ -19,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @auther songchunlei@qq.com
  * @create 2018/3/25
  */
-@FeignClient(path = FeignName.SYS_TOKEN_RPC,value = "chens-auth-server",fallback = SysTokenClientHystrix.class)
+@FeignClient(path = AuthFeignName.SYS_TOKEN_RPC,value = "chens-auth-server",fallback = SysTokenClientHystrix.class)
 public interface ISysTokenClient {
 
     /**

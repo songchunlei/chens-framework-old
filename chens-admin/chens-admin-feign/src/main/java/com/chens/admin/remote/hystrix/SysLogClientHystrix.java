@@ -7,6 +7,7 @@ import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @auther songchunlei@qq.com
  * @create 2018/3/24
  */
+@Component
 public class SysLogClientHystrix implements ISysLogClient{
 
     private static final Logger logger = LoggerFactory.getLogger(SysUserClientHystrix.class);

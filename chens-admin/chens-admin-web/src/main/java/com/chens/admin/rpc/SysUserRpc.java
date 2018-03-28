@@ -1,8 +1,7 @@
 package com.chens.admin.rpc;
 
-import com.chens.admin.constants.FeignName;
+import com.chens.admin.constants.AdminFeignName;
 import com.chens.admin.remote.ISysUserClient;
-import com.chens.admin.service.IAuthService;
 import com.chens.admin.service.ISysUserService;
 import com.chens.core.entity.SysUser;
 import com.chens.core.vo.sys.AuthRequest;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2018/3/16
  */
 @RestController
-@RequestMapping(value="/"+ FeignName.SYS_USER_RPC)
+@RequestMapping(value="/"+ AdminFeignName.SYS_USER_RPC)
 public class SysUserRpc implements ISysUserClient{
 
     @Autowired

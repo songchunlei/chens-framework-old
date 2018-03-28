@@ -15,9 +15,11 @@ import com.chens.core.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.StringUtils;
 import com.chens.core.vo.sys.AuthRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
             SysToken sysToken = new SysToken(newToken,jwtConfiguration.getExpiration(),YesNoEnum.YES.getCode());
             sysToken.setCreateTime(new Date());
             sysToken.setUpdateTime(new Date());
+            sysToken.setUserId(uaaClaims.getAudience());
             this.insert(sysToken);
             return newToken;
         }
@@ -78,11 +81,14 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
 
     @Override
     public UserInfo parseToken(String token) throws Exception {
+
+        UserInfo userInfo;
+
         try {
             //将token编译
             Claims claims = tokenProvider.parseToken(token);
             //翻译成UserInfo
-            return new UserInfo(claims.getSubject()
+            userInfo =  new UserInfo(claims.getSubject()
                     ,(String)claims.get(CommonConstants.JWT_TOKEN_USER)
                     , (String)claims.get(CommonConstants.JWT_TOKEN_USERNAME), (String)claims.get(CommonConstants.JWT_TOKEN_TENANTID));
         }catch (ExpiredJwtException ex){
@@ -91,7 +97,20 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
             throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
         }catch (IllegalArgumentException ex){
             throw new BaseException(BaseExceptionEnum.TOKEN_IS_NULL);
+        }catch (MalformedJwtException e)
+        {
+            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
         }
+        //判断token是否激活并存在记录里
+        SysToken sysToken = new SysToken();
+        sysToken.setToken(token);
+        sysToken.setIsActive(YesNoEnum.YES.getCode());
+        int count = this.selectCount(new EntityWrapper<>(sysToken));
+        if(count<=0)
+        {
+            throw new BaseException(BaseExceptionEnum.TOKEN_EXPIRED);
+        }
+        return userInfo;
     }
 
     @Override

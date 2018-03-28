@@ -1,6 +1,6 @@
 package com.chens.admin.rpc;
 
-import com.chens.admin.constants.FeignName;
+import com.chens.admin.constants.AdminFeignName;
 import com.chens.admin.remote.ISysLogClient;
 import com.chens.admin.service.ISysLogService;
 import com.chens.core.entity.SysLog;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2018/3/24
  */
 @RestController
-@RequestMapping(value="/"+ FeignName.SYS_LOG_RPC)
+@RequestMapping(value="/"+ AdminFeignName.SYS_LOG_RPC)
 public class SysLogRpc implements ISysLogClient {
 
     @Autowired
