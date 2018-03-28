@@ -63,6 +63,7 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
         BaseContextHandler.setName(jwtInfo.getName());
         BaseContextHandler.setUserId(jwtInfo.getId());
         BaseContextHandler.setTenantId(jwtInfo.getTenantId());
+        BaseContextHandler.setToken(token);
 
         return super.preHandle(request, response, handler);
     }

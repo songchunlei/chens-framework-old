@@ -29,7 +29,7 @@ public class SysTokenRpc {
      */
     @PostMapping("/createToken")
     public @ResponseBody
-    String createToken(@RequestBody UAAClaims uaaClaims) {
+    UserInfo createToken(@RequestBody UAAClaims uaaClaims) {
         return sysTokenService.createToken(uaaClaims);
     }
 
@@ -40,7 +40,7 @@ public class SysTokenRpc {
      */
     @PostMapping("/createTokenByAuthRequest")
     public @ResponseBody
-    String createTokenByAuthRequest(@RequestBody AuthRequest authRequest) {
+    UserInfo createTokenByAuthRequest(@RequestBody AuthRequest authRequest) {
         return sysTokenService.createToken(authRequest);
     }
 
@@ -51,7 +51,7 @@ public class SysTokenRpc {
      */
     @PostMapping("/createTokenByUser")
     public @ResponseBody
-    String createTokenBySysUser(@RequestBody SysUser sysUser) {
+    UserInfo createTokenBySysUser(@RequestBody SysUser sysUser) {
         return sysTokenService.createToken(sysUser);
     }
 

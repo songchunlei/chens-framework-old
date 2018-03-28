@@ -21,21 +21,21 @@ public interface ISysTokenService extends IService<SysToken> {
      * @param uaaClaims
      * @return
      */
-	String createToken(UAAClaims uaaClaims);
+    UserInfo createToken(UAAClaims uaaClaims);
 
     /**
      * 创建token-登录请求
      * @param authRequest
      * @return
      */
-	String createToken(AuthRequest authRequest);
+    UserInfo createToken(AuthRequest authRequest);
 
     /**
      * 创建token-系统用户
      * @param sysUser
      * @return
      */
-	String createToken(SysUser sysUser);
+    UserInfo createToken(SysUser sysUser);
 
     /**
      * 解析token

@@ -7,6 +7,8 @@ import com.chens.core.constants.CommonConstants;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
 import com.chens.core.vo.sys.AuthRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
+    //protected Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
+
     //spring自带加密工具
     /**
      * spring security中的BCryptPasswordEncoder方法采用SHA-256 +随机盐+密钥对密码进行加密。SHA系列是Hash算法，不是加密算法，使用加密算法意味着可以解密（这个与编码/解码一样），但是采用Hash处理，其过程是不可逆的。
@@ -39,6 +43,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser findByUsername(AuthRequest authRequest) throws BaseException{
+
+        //logger.info("*******SysUserService.findByUsername****************");
+
         SysUser query = new SysUser();
         query.setUsername(authRequest.getUserName());
         List<SysUser> users = this.selectList(new EntityWrapper<>(query));

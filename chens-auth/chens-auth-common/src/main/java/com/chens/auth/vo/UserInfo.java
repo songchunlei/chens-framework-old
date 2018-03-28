@@ -13,11 +13,14 @@ public class UserInfo implements Serializable,IJwtInfo {
 	
 	private static final long serialVersionUID = 4018322190219282262L;
 
-	public UserInfo(String id, String name, String username, String tenantId) {
+	private String token;
+
+	public UserInfo(String id, String name, String username, String tenantId,String token) {
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.tenantId = tenantId;
+		this.token = token;
 	}
 	public UserInfo()
 	{
@@ -76,4 +79,11 @@ public class UserInfo implements Serializable,IJwtInfo {
 		return tenantId;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

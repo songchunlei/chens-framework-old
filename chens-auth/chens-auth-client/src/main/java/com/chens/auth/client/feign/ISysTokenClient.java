@@ -25,7 +25,7 @@ public interface ISysTokenClient {
      * @return
      */
     @RequestMapping(value="/createToken",method = RequestMethod.POST)
-    String createToken(UAAClaims uaaClaims);
+    UserInfo createToken(UAAClaims uaaClaims);
 
     /**
      * 创建token-根据用户
@@ -33,7 +33,7 @@ public interface ISysTokenClient {
      * @return
      */
     @RequestMapping(value="/createTokenByAuthRequest",method = RequestMethod.POST)
-    String createTokenByAuthRequest(AuthRequest authRequest);
+    UserInfo createTokenByAuthRequest(AuthRequest authRequest);
 
     /**
      * 创建token-根据用户
@@ -41,7 +41,7 @@ public interface ISysTokenClient {
      * @return
      */
     @RequestMapping(value="/createTokenByUser",method = RequestMethod.POST)
-    String createTokenByUser(SysUser sysUser);
+    UserInfo createTokenByUser(SysUser sysUser);
 
     /**
      * 解析token成用户

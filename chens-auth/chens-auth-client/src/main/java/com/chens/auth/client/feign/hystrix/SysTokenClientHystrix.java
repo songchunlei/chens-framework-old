@@ -18,17 +18,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class SysTokenClientHystrix implements ISysTokenClient{
     @Override
-    public String createToken(UAAClaims uaaClaims) {
+    public UserInfo createToken(UAAClaims uaaClaims) {
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
     }
 
     @Override
-    public String createTokenByAuthRequest(AuthRequest authRequest) {
+    public UserInfo createTokenByAuthRequest(AuthRequest authRequest) {
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
     }
 
     @Override
-    public String createTokenByUser(SysUser sysUser) {
+    public UserInfo createTokenByUser(SysUser sysUser) {
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
     }
 

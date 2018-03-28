@@ -50,20 +50,19 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         }
 	}
 
-	@Override
+    @Override
+    public boolean openUpdateFill() {
+        return true;
+    }
+
+    @Override
 	public void updateFill(MetaObject metaObject) {
 		 //更新填充
         logger.debug("********************更新自动填充********************");
         //mybatis-plus版本2.0.9+  
         Date date = new Date();
-        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_TIME)==null)
-        {
-            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
-        }
-        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY)==null)
-        {
-            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
-        }
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
 
 	}
 

@@ -13,6 +13,8 @@ import com.chens.core.util.StringUtils;
 import com.chens.core.util.TreeUtil;
 import com.chens.auth.client.vo.JWTToken;
 import com.chens.core.vo.MenuTree;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,7 @@ import java.util.Map;
 @Service
 public class AuthServiceImpl implements IAuthService{
 
+   //protected Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private ISysTokenClient sysTokenClient;
@@ -71,6 +74,7 @@ public class AuthServiceImpl implements IAuthService{
     @Transactional
     public JWTToken login(AuthRequest authRequest) throws Exception {
         if(authRequest!=null) {
+            //logger.info("*******AuthService.login****************");
             SysUser sysUser = this.findByUsernameAndPassword(authRequest);
             if(sysUser==null)
             {
@@ -84,6 +88,7 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     @Transactional
     public boolean logout() {
+        //logger.info("*******AuthService.loginout:****************"+token);
         String token = BaseContextHandler.getToken();
         if(StringUtils.isNotEmpty(token))
         {
@@ -96,6 +101,29 @@ public class AuthServiceImpl implements IAuthService{
     public JWTToken parseToken(String token) throws Exception {
         //解析jwtInfo
         UserInfo userInfo = sysTokenClient.parseToken(token);
+        return this.parseToken(userInfo);
+    }
+
+
+
+
+    @Override
+    public boolean Validate(AuthRequest authRequest){
+        SysUser sysUser = sysUserService.findByUsername(authRequest);
+        if(sysUser!=null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private JWTToken parseToken(UserInfo userInfo) throws Exception {
+
+        //logger.info("*******AuthService.parseToken****************");
+
         //获取菜单列表
         List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(userInfo.getId());
         //全量打平菜单树
@@ -114,21 +142,7 @@ public class AuthServiceImpl implements IAuthService{
         //构建树结构
         List<MenuTree> menus = TreeUtil.buildByRecursive(trees, CommonConstants.BASE_TREE_ROOT);
         //返回JWTToken
-        return new JWTToken(token, menus, all,userInfo );
-    }
-
-
-    @Override
-    public boolean Validate(AuthRequest authRequest){
-        SysUser sysUser = sysUserService.findByUsername(authRequest);
-        if(sysUser!=null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return new JWTToken(userInfo.getToken(), menus, all,userInfo );
     }
 
 }
