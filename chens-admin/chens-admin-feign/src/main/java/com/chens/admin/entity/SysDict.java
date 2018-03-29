@@ -2,6 +2,7 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.core.annotation.UniqueField;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -18,17 +19,18 @@ public class SysDict extends BaseEntity<SysDict> {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull
+    @NotNull(message = "{dict.type.null}")
+	@UniqueField(message = "{dict.type.unique}",serviceClass = "com.chens.admin.validator.UserValidator",methodName ="checkUserNameUnique" )
 	private String type;
-	@NotNull
+	@NotNull(message = "{dict.val.null}")
 	private String val;
-	@NotNull
+	@NotNull(message = "{dict.text.null}")
 	private String text;
-	@NotNull
+	@NotNull(message = "{dict.seq.null}")
 	private Integer seq;
 	@TableField("DESCRIPTION")
 	private String description;
-	@NotNull
+	@NotNull(message = "{dict.parentId.null}")
 	@TableField("PARENT_ID")
 	private String parentId;
 	@TableField("is_delete")

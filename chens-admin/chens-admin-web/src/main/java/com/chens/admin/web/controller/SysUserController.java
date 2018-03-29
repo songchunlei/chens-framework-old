@@ -63,12 +63,13 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      */
     @GetMapping("/getUserListByRoleId")
     public ResponseEntity<Result> getUserListByRoleId(@RequestBody QueryPageEntity<SysUser> spage) {
-            Page<SysUser> page = this.createPage(spage);
-            if(page!=null) {
-                return doSuccess(service.getUserListByRoleId(page,spage.getSearch()));
-            } else {
-                throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-            }
+        Page<SysUser> page = this.createPage(spage);
+        if(page!=null) {
+            return doSuccess(service.getUserListByRoleId(page,spage.getSearch()));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
     }
+
 }
 

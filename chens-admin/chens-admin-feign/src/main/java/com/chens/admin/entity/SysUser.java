@@ -2,7 +2,7 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.chens.core.annotation.UniqueSysUserName;
+import com.chens.core.annotation.UniqueField;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.UserInfo;
 import org.hibernate.validator.constraints.Email;
@@ -22,11 +22,11 @@ import java.util.List;
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;
-
     @NotNull(message = "{sysuser.name.null}")
     private String name;
     private String password;
     @NotNull(message = "{sysuser.username.null}")
+    @UniqueField(message = "{sysuser.username.unique}",serviceClass = "com.chens.admin.validator.UserValidator",methodName ="checkUserNameUnique" )
     private String username;
     @NotNull(message = "{sysuser.phone.null}")
     private String phone;

@@ -1,6 +1,6 @@
 package com.chens.core.annotation;
 
-import com.chens.core.validator.UniqueSysUserNameValidator;
+import com.chens.core.validator.UniqueValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,8 +15,8 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy =UniqueSysUserNameValidator.class )
-public @interface UniqueSysUserName {
+@Constraint(validatedBy =UniqueValidator.class )
+public @interface UniqueField {
 
     String message() default "测试";
     String serviceClass() default "服务名";

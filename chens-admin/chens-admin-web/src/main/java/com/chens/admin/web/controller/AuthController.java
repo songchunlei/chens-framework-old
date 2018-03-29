@@ -54,7 +54,7 @@ public class AuthController extends BaseController{
         }
         if(authRequest!=null)
         {
-            logger.info("login****************");
+            //logger.info("login****************");
             return doSuccess(authService.login(authRequest));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);

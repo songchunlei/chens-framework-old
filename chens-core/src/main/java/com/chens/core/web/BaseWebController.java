@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import com.chens.core.util.EntityWrapperHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -52,47 +53,8 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         }
         page.setOrderByField(spage.getPage().getOrderByField());
         page.setAsc(spage.getPage().isAsc());
-        EntityWrapper<T> wrapper = new EntityWrapper<T>();
-        if (spage.getSearch()!=null){
-            //字段解析
-            //**注意：这些字段不包含BaseEntity里的字段(id)**
-            Field[] fields = spage.getSearch().getClass().getDeclaredFields();
-            for (int i = 0; i < fields.length; i++) {
-
-
-                //TableField tableFieldName = fields[i].getAnnotation(TableField.class);
-
-                //test
-                logger.info(fields[i].getName());
-
-
-                //过滤掉UID
-                if(fields[i].getName().equals("serialVersionUID"))
-                {
-                    continue;
-                }
-                try {
-                    fields[i].setAccessible(true);
-                    Object value = fields[i].get(spage.getSearch());
-                    if (null != value && !value.equals("")) {
-                        String fieldname = fields[i].getName();
-                        //当有注解的时候采用注解
-                        if(fields[i].isAnnotationPresent(TableField.class) )
-                        {
-                            TableField tableFieldName = (TableField)fields[i].getAnnotation(TableField.class);
-                            if(tableFieldName!=null)
-                            {
-                                fieldname = tableFieldName.value();
-                            }
-                        }
-                        //fieldname = StringUtils.underscoreName(fields[i].getName());
-                        wrapper.like(fieldname,value.toString());
-                    }
-                    fields[i].setAccessible(false);
-                } catch (Exception e) {
-                }
-            }
-        }
+        //模糊查询各字段
+        EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),true);
         return  doSuccess(service.selectPage(page,wrapper));
     }
 
@@ -103,11 +65,13 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PostMapping("/create")
     public ResponseEntity<Result> create(@RequestBody @Validated T t,BindingResult result) {
+        /*
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
         {
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }
+        */
         if(t != null){
             /* 交给MyMetaObjectHandler
             t.setCreateBy(BaseContextHandler.getUserId());

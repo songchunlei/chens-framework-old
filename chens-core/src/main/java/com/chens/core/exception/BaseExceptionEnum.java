@@ -29,22 +29,31 @@ public enum BaseExceptionEnum implements IBaseEnum {
      * 请求反馈
      */
     NO_DATA(300,"查询不到数据"),
-    NO_UPDATE(301,"更新失败"),
-    NO_DELETE(302,"删除失败"),
-    NO_SAVE(303,"保存失败"),
-    FILE_NOT_FOUND(304,"文件未找到"),
-    FILE_READING_ERROR(305,"文件读取错误"),
-    VALIDATE_NOPASS(306, "校验不通过"),
-    WORKFLOW_START_FAIL(307, "流程发起失败"),
-    WORKFLOW_COMPLETE_FAIL(308, "流程办理失败"),
+    QUERY_ERROR(301,"查询异常"),
+    NO_UPDATE(302,"更新失败"),
+    NO_DELETE(303,"删除失败"),
+    NO_SAVE(304,"保存失败"),
+    VALIDATE_NOPASS(305, "校验不通过"),
 
+    /**
+     * 文件请求
+     */
+    FILE_NOT_FOUND(401,"文件未找到"),
+    FILE_READING_ERROR(402,"文件读取错误"),
+
+
+    /**
+     * 流程请求
+     */
+    WORKFLOW_START_FAIL(501, "流程发起失败"),
+    WORKFLOW_COMPLETE_FAIL(502, "流程办理失败"),
 
     /**
      * 请求异常
      */
-    REQUEST_NULL(500, "请求有错误"),
-    DATA_REQUEST_ERROR(501, "数据传输失败"),
-    SERVER_ERROR(600, "服务器异常"),
+    REQUEST_NULL(600, "请求有错误"),
+    DATA_REQUEST_ERROR(601, "数据传输失败"),
+    SERVER_ERROR(602, "服务器异常"),
 
     /**
      * 注册异常
