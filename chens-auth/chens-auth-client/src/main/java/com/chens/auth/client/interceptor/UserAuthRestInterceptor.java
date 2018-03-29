@@ -2,11 +2,11 @@ package com.chens.auth.client.interceptor;
 
 import com.chens.auth.client.annotation.IgnoreClientToken;
 import com.chens.auth.client.feign.ISysTokenClient;
-import com.chens.auth.vo.IJwtInfo;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
+import com.chens.core.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -56,13 +56,13 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
         }
 
         //解析token
-        IJwtInfo jwtInfo = sysTokenClient.parseToken(token);
+        UserInfo userInfo = sysTokenClient.parseToken(token);
 
         //存入缓存
-        BaseContextHandler.setUserName(jwtInfo.getUsername());
-        BaseContextHandler.setName(jwtInfo.getName());
-        BaseContextHandler.setUserId(jwtInfo.getId());
-        BaseContextHandler.setTenantId(jwtInfo.getTenantId());
+        BaseContextHandler.setUserName(userInfo.getUsername());
+        BaseContextHandler.setName(userInfo.getName());
+        BaseContextHandler.setUserId(userInfo.getId());
+        BaseContextHandler.setTenantId(userInfo.getTenantId());
         BaseContextHandler.setToken(token);
 
         return super.preHandle(request, response, handler);

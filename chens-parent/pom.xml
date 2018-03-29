@@ -243,7 +243,7 @@
                         </resources>
                         <!-- 以下两行是为了docker push到DockerHub使用的。 -->
                         <serverId>docker-aliyun-hub</serverId>
-                        <registryUrl>registry-vpc.cn-shanghai.aliyuncs.com/chens-admin</registryUrl>
+                        <registryUrl>${docker.repostory}/${docker.registry.name}</registryUrl>
                     </configuration>
                 </plugin>
             </plugins>

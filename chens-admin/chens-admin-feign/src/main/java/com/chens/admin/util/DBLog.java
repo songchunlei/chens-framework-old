@@ -2,7 +2,7 @@ package com.chens.admin.util;
 
 
 import com.chens.admin.remote.ISysLogClient;
-import com.chens.core.entity.SysLog;
+import com.chens.admin.entity.SysLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

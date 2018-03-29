@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.admin.mapper.SysUserMapper;
 import com.chens.admin.service.ISysUserService;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
-    //protected Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
+    protected Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
     //spring自带加密工具
     /**
@@ -99,5 +99,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user) {
         return baseMapper.getUserListByRoleId(page,user);
+    }
+
+    @Override
+    public boolean checkUserNameUnique() {
+        logger.info("*******SysUserService.checkUserNameUnique****************");
+        int count = this.selectCount(new EntityWrapper<>(new SysUser()));
+        int count2 = this.baseMapper.selectCount(new EntityWrapper<>(new SysUser()));
+        return false;
     }
 }

@@ -1,14 +1,13 @@
 package com.chens.admin.service.impl;
 
 import com.chens.core.constants.CommonConstants;
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
 import com.chens.admin.mapper.SysMenuMapper;
 import com.chens.admin.service.ISysMenuService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.util.TreeUtil;
-import com.chens.core.vo.MenuTree;
+import com.chens.admin.vo.MenuTree;
 import com.chens.core.vo.ZTree;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 

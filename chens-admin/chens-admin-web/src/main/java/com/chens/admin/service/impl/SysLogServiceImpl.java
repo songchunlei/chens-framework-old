@@ -1,6 +1,6 @@
 package com.chens.admin.service.impl;
 
-import com.chens.core.entity.SysLog;
+import com.chens.admin.entity.SysLog;
 import com.chens.admin.mapper.SysLogMapper;
 import com.chens.admin.service.ISysLogService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

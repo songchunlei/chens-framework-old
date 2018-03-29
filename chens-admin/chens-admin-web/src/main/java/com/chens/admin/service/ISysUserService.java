@@ -2,9 +2,9 @@ package com.chens.admin.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
 
 import java.util.List;
 
@@ -47,4 +47,9 @@ public interface ISysUserService extends IService<SysUser> {
      * @return
      */
     List<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user);
+
+    /**
+     * 校验唯一性
+     */
+    boolean checkUserNameUnique();
 }

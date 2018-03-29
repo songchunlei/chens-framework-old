@@ -4,21 +4,17 @@ package com.chens.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.service.ISysUserService;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.StringUtils;
 import com.chens.core.vo.QueryPageEntity;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseWebController;
-import feign.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-
-import javax.validation.constraints.NotNull;
 
 
 /**

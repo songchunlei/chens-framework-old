@@ -1,9 +1,9 @@
 package com.chens.admin.service;
 
-import com.chens.auth.client.vo.JWTToken;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.vo.JWTToken;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
 
 /**
  * 权限控制

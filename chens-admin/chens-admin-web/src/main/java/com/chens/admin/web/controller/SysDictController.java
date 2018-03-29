@@ -3,7 +3,7 @@ package com.chens.admin.web.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import com.chens.admin.service.ISysDictService;
-import com.chens.core.entity.SysDict;
+import com.chens.admin.entity.SysDict;
 
 
 import com.chens.core.web.BaseWebController;

@@ -1,8 +1,8 @@
-package com.chens.core.vo.sys;
+package com.chens.admin.vo;
 
 import com.chens.core.constants.CommonConstants;
-import com.chens.core.entity.SysTenant;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysTenant;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.enums.TenantType;
 
 import javax.validation.constraints.NotNull;

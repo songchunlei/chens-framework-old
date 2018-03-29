@@ -2,7 +2,7 @@ package com.chens.admin.remote.hystrix;
 
 
 import com.chens.admin.remote.ISysLogClient;
-import com.chens.core.entity.SysLog;
+import com.chens.admin.entity.SysLog;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import org.slf4j.Logger;

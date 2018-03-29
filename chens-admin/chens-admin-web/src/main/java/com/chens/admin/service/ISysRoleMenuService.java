@@ -1,6 +1,6 @@
 package com.chens.admin.service;
 
-import com.chens.core.entity.SysRoleMenu;
+import com.chens.admin.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

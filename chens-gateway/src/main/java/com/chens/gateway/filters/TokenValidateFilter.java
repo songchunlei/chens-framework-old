@@ -1,12 +1,11 @@
 package com.chens.gateway.filters;
 
 import com.chens.auth.client.feign.ISysTokenClient;
-import com.chens.auth.vo.UserInfo;
+import com.chens.core.vo.UserInfo;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.gateway.exception.BaseException;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

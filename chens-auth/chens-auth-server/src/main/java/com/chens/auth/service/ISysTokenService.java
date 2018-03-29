@@ -1,12 +1,11 @@
 package com.chens.auth.service;
 
+import com.chens.admin.entity.SysUser;
 import com.chens.auth.entity.SysToken;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.auth.vo.IJwtInfo;
 import com.chens.auth.jwt.UAAClaims;
-import com.chens.auth.vo.UserInfo;
-import com.chens.core.entity.SysUser;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.UserInfo;
 
 /**
  *
@@ -32,10 +31,10 @@ public interface ISysTokenService extends IService<SysToken> {
 
     /**
      * 创建token-系统用户
-     * @param sysUser
+     * @param userInfo
      * @return
      */
-    UserInfo createToken(SysUser sysUser);
+    UserInfo createToken(UserInfo userInfo);
 
     /**
      * 解析token

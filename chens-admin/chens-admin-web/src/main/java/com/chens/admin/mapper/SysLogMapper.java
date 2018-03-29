@@ -2,7 +2,7 @@ package com.chens.admin.mapper;
 
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.chens.core.entity.SysLog;
+import com.chens.admin.entity.SysLog;
 
 /**
  *

@@ -3,7 +3,7 @@ package com.chens.admin.rpc;
 import com.chens.admin.constants.AdminFeignName;
 import com.chens.admin.remote.ISysLogClient;
 import com.chens.admin.service.ISysLogService;
-import com.chens.core.entity.SysLog;
+import com.chens.admin.entity.SysLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

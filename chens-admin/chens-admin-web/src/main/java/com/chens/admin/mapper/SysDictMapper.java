@@ -1,6 +1,6 @@
 package com.chens.admin.mapper;
 
-import com.chens.core.entity.SysDict;
+import com.chens.admin.entity.SysDict;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

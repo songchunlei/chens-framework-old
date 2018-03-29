@@ -1,15 +1,14 @@
 package com.chens.admin.service.impl;
 
 import com.chens.admin.service.ISysUserService;
-import com.chens.core.context.BaseContextHandler;
-import com.chens.core.entity.SysTenant;
+import com.chens.admin.entity.SysTenant;
 import com.chens.admin.mapper.SysTenantMapper;
 import com.chens.admin.service.ISysTenantService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.vo.sys.RegisterTenant;
+import com.chens.admin.vo.RegisterTenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

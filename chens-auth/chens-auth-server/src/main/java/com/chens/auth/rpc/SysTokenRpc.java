@@ -3,9 +3,7 @@ package com.chens.auth.rpc;
 import com.chens.auth.constants.AuthFeignName;
 import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.service.ISysTokenService;
-import com.chens.auth.vo.UserInfo;
-import com.chens.core.entity.SysUser;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,26 +32,17 @@ public class SysTokenRpc {
     }
 
     /**
-     * 创建token-根据登录请求
-     * @param authRequest
+     * 创建token-根据用户信息
+     * @param userInfo
      * @return
      */
-    @PostMapping("/createTokenByAuthRequest")
+    @PostMapping("/createTokenByUserInfo")
     public @ResponseBody
-    UserInfo createTokenByAuthRequest(@RequestBody AuthRequest authRequest) {
-        return sysTokenService.createToken(authRequest);
+    UserInfo createTokenByUserInfo(@RequestBody UserInfo userInfo) {
+        return sysTokenService.createToken(userInfo);
     }
 
-    /**
-     * 创建token-根据用户
-     * @param sysUser
-     * @return
-     */
-    @PostMapping("/createTokenByUser")
-    public @ResponseBody
-    UserInfo createTokenBySysUser(@RequestBody SysUser sysUser) {
-        return sysTokenService.createToken(sysUser);
-    }
+
 
     /**
      * 解析token

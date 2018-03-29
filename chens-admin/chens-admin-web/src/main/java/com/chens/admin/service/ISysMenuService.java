@@ -1,10 +1,8 @@
 package com.chens.admin.service;
 
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.entity.SysUser;
-import com.chens.auth.client.vo.JWTToken;
-import com.chens.core.vo.MenuTree;
+import com.chens.admin.vo.MenuTree;
 import com.chens.core.vo.ZTree;
 
 import java.util.List;

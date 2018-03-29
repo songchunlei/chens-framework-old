@@ -3,7 +3,7 @@ package com.chens.admin.web.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import com.chens.admin.service.ISysNoticeService;
-import com.chens.core.entity.SysNotice;
+import com.chens.admin.entity.SysNotice;
 
 
 import com.chens.core.web.BaseWebController;

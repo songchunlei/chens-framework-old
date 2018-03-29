@@ -1,4 +1,4 @@
-package com.chens.auth.vo;
+package com.chens.core.vo;
 
 
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @auther songchunlei@qq.com
  * @create 2018/3/6
  */
-public class UserInfo implements Serializable,IJwtInfo {
+public class UserInfo implements Serializable {
 	
 	private static final long serialVersionUID = 4018322190219282262L;
 
@@ -62,19 +62,19 @@ public class UserInfo implements Serializable,IJwtInfo {
 		this.username = username;
 	}
 
-	@Override
+
 	public String getId() {
 		return id;
 	}
-	@Override
+
 	public String getName() {
 		return name;
 	}
-	@Override
+
 	public String getUsername() {
 		return username;
 	}
-	@Override
+
 	public String getTenantId() {
 		return tenantId;
 	}

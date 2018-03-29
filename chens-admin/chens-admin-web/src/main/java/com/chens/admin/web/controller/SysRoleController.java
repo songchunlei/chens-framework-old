@@ -3,7 +3,7 @@ package com.chens.admin.web.controller;
 
 import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserRoleService;
-import com.chens.core.entity.SysRole;
+import com.chens.admin.entity.SysRole;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;

@@ -1,7 +1,7 @@
 package com.chens.admin.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.chens.core.entity.SysUserRole;
+import com.chens.admin.entity.SysUserRole;
 import com.chens.admin.mapper.SysUserRoleMapper;
 import com.chens.admin.service.ISysUserRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

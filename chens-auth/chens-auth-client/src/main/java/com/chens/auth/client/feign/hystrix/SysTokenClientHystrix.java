@@ -2,16 +2,14 @@ package com.chens.auth.client.feign.hystrix;
 
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.auth.jwt.UAAClaims;
-import com.chens.auth.vo.UserInfo;
-import com.chens.core.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.UserInfo;
 import org.springframework.stereotype.Component;
 
 /**
- * 熔断
- *
+ * 降级熔断
+ * 暂未做降级处理，待优化
  * @auther songchunlei@qq.com
  * @create 2018/3/25
  */
@@ -23,12 +21,7 @@ public class SysTokenClientHystrix implements ISysTokenClient{
     }
 
     @Override
-    public UserInfo createTokenByAuthRequest(AuthRequest authRequest) {
-        throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-    }
-
-    @Override
-    public UserInfo createTokenByUser(SysUser sysUser) {
+    public UserInfo createTokenByUserInfo(UserInfo userInfo) {
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
     }
 

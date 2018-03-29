@@ -10,7 +10,7 @@
 
 
     <!-- 通过用户ID找角色 -->
-    <select id="getUserListByRoleId" parameterType="java.lang.Long"  resultType="com.chens.core.entity.SysRole">
+    <select id="getUserListByRoleId" parameterType="java.lang.Long"  resultType="com.chens.admin.entity.SysRole">
         select user.*
         from sys_user suser,sys_user_role userrole
         where suser.id = userrole.user_id

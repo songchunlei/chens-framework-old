@@ -1,18 +1,24 @@
-package com.chens.auth.client.vo;
+package com.chens.admin.vo;
 
 
 import com.chens.auth.vo.IJwtInfo;
-import com.chens.core.vo.MenuTree;
+import com.chens.core.vo.UserInfo;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Admin-web自定义的JWT封装反馈
+ *
+ * @auther songchunlei@qq.com
+ * @create 2018/3/19
+ */
 public class JWTToken implements Serializable{
 	private String accessToken;
 	private List<MenuTree> menus;
 	private Map<String,MenuTree> all;
-	private IJwtInfo user;
+	private UserInfo user;
 
 	public String getAccessToken() {
 		return accessToken;
@@ -27,7 +33,7 @@ public class JWTToken implements Serializable{
 		this.accessToken = accessToken;
 	}
 
-	public JWTToken(String accessToken, List<MenuTree> menus,Map<String,MenuTree> all,IJwtInfo user) {
+	public JWTToken(String accessToken, List<MenuTree> menus,Map<String,MenuTree> all,UserInfo user) {
 		this.accessToken = accessToken;
 		this.menus = menus;
 		this.all = all;
@@ -50,11 +56,11 @@ public class JWTToken implements Serializable{
 		this.all = all;
 	}
 
-	public IJwtInfo getUser() {
+	public UserInfo getUser() {
 		return user;
 	}
 
-	public void setUser(IJwtInfo user) {
+	public void setUser(UserInfo user) {
 		this.user = user;
 	}
 }

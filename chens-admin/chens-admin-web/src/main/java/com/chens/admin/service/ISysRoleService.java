@@ -1,7 +1,7 @@
 package com.chens.admin.service;
 
 import com.chens.admin.vo.QueryRolesByUserId;
-import com.chens.core.entity.SysRole;
+import com.chens.admin.entity.SysRole;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;

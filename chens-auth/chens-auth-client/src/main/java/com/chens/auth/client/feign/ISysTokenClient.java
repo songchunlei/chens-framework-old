@@ -3,9 +3,7 @@ package com.chens.auth.client.feign;
 import com.chens.auth.client.feign.hystrix.SysTokenClientHystrix;
 import com.chens.auth.constants.AuthFeignName;
 import com.chens.auth.jwt.UAAClaims;
-import com.chens.auth.vo.UserInfo;
-import com.chens.core.entity.SysUser;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.UserInfo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,20 +26,12 @@ public interface ISysTokenClient {
     UserInfo createToken(UAAClaims uaaClaims);
 
     /**
-     * 创建token-根据用户
-     * @param authRequest
+     * 创建token
+     * @param userInfo
      * @return
      */
-    @RequestMapping(value="/createTokenByAuthRequest",method = RequestMethod.POST)
-    UserInfo createTokenByAuthRequest(AuthRequest authRequest);
-
-    /**
-     * 创建token-根据用户
-     * @param sysUser
-     * @return
-     */
-    @RequestMapping(value="/createTokenByUser",method = RequestMethod.POST)
-    UserInfo createTokenByUser(SysUser sysUser);
+    @RequestMapping(value="/createTokenByUserInfo",method = RequestMethod.POST)
+    UserInfo createTokenByUserInfo(UserInfo userInfo);
 
     /**
      * 解析token成用户

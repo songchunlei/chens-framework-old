@@ -13,7 +13,7 @@
     </select>
 
     <!-- 树 -->
-    <select id="getMenuListByUserId" resultType="com.chens.core.entity.SysMenu">
+    <select id="getMenuListByUserId" resultType="com.chens.admin.entity.SysMenu">
         select <include refid="Base_Column_List"/> from sys_menu
         where id in(
             select rm.menu_id from sys_user_role sur,sys_role_menu rm

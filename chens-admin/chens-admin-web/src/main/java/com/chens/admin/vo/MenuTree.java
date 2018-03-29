@@ -1,6 +1,7 @@
-package com.chens.core.vo;
+package com.chens.admin.vo;
 
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
+import com.chens.core.vo.ZTree;
 
 /**
  * 菜单树

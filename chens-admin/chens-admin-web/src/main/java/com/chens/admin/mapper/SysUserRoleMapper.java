@@ -1,7 +1,7 @@
 package com.chens.admin.mapper;
 
 import com.baomidou.mybatisplus.annotations.SqlParser;
-import com.chens.core.entity.SysUserRole;
+import com.chens.admin.entity.SysUserRole;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

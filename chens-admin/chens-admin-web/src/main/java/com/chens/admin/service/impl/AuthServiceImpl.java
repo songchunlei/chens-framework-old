@@ -3,18 +3,15 @@ package com.chens.admin.service.impl;
 
 import com.chens.admin.service.ISysMenuService;
 import com.chens.auth.client.feign.ISysTokenClient;
-import com.chens.auth.vo.IJwtInfo;
-import com.chens.auth.vo.UserInfo;
+import com.chens.core.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.TreeUtil;
-import com.chens.auth.client.vo.JWTToken;
-import com.chens.core.vo.MenuTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.chens.admin.vo.JWTToken;
+import com.chens.admin.vo.MenuTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +19,9 @@ import org.springframework.stereotype.Service;
 import com.chens.admin.service.IAuthService;
 import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserService;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -80,7 +77,7 @@ public class AuthServiceImpl implements IAuthService{
             {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
             }
-            return this.parseToken(sysTokenClient.createTokenByUser(sysUser));
+            return this.parseToken(sysTokenClient.createTokenByUserInfo(sysUser.getUserInfo()));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }

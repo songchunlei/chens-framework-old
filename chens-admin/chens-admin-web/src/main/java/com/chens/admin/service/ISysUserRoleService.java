@@ -1,6 +1,6 @@
 package com.chens.admin.service;
 
-import com.chens.core.entity.SysUserRole;
+import com.chens.admin.entity.SysUserRole;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

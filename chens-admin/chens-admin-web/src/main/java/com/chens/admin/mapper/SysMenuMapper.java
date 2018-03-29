@@ -1,6 +1,6 @@
 package com.chens.admin.mapper;
 
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.chens.core.vo.ZTree;
 

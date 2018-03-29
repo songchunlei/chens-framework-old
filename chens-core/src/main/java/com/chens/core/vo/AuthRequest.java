@@ -1,4 +1,4 @@
-package com.chens.core.vo.sys;
+package com.chens.core.vo;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

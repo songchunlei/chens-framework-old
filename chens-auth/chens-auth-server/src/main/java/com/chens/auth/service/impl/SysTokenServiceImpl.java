@@ -9,20 +9,17 @@ import com.chens.auth.jwt.UAAClaims;
 import com.chens.auth.mapper.SysTokenMapper;
 import com.chens.auth.service.ISysTokenService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.chens.auth.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.StringUtils;
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
+import com.chens.core.vo.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,20 +65,25 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         return null;
     }
 
-    @Override
     @Transactional
-    public UserInfo createToken(AuthRequest authRequest) {
-        return this.createToken(sysUserClient.findByUsername(authRequest));
-    }
-
     @Override
-    @Transactional
-    public UserInfo createToken(SysUser sysUser) {
-        if(sysUser!=null)
-        {
-            return this.createToken(this.parseSysUserToClaims(sysUser));
+    public UserInfo createToken(UserInfo userInfo) {
+        if (userInfo != null) {
+            return this.createToken(this.parseSysUserToClaims(userInfo));
         }
         return null;
+    }
+
+    /**
+     * 涉及admin-web-rpc调用
+     * @param authRequest
+     * @return
+     */
+    @Transactional
+    @Override
+    public UserInfo createToken(AuthRequest authRequest) {
+        SysUser sysUser = sysUserClient.findByUsername(authRequest);
+        return this.createToken(sysUser.getUserInfo());
     }
 
     @Override
@@ -143,13 +145,12 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         return true;
     }
 
-
     /**
      * 转换系统用户至Claim
-     * @param sysUser
+     * @param userInfo
      * @return
      */
-    private UAAClaims parseSysUserToClaims(SysUser sysUser) {
+    private UAAClaims parseSysUserToClaims(UserInfo userInfo) {
 
         //logger.info("*******SysTokenService.parseSysUserToClaims****************");
 
@@ -161,11 +162,11 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         uaaClaims.setNotBefore(new Date());
 
         //系统用户变量
-        uaaClaims.setAudience(sysUser.getId());
-        uaaClaims.setSubject(sysUser.getId());
-        uaaClaims.setUserName(sysUser.getUsername());
-        uaaClaims.setUser(sysUser.getName());
-        uaaClaims.setTenantId(sysUser.getTenantId());
+        uaaClaims.setAudience(userInfo.getId());
+        uaaClaims.setSubject(userInfo.getId());
+        uaaClaims.setUserName(userInfo.getUsername());
+        uaaClaims.setUser(userInfo.getName());
+        uaaClaims.setTenantId(userInfo.getTenantId());
 
         return uaaClaims;
     }

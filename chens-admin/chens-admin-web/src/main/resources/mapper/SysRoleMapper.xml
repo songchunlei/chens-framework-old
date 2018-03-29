@@ -8,7 +8,7 @@
     </sql>
 
     <!-- 通过用户ID找角色 -->
-    <select id="getRoleListByUserId" parameterType="java.lang.Long"  resultType="com.chens.core.entity.SysRole">
+    <select id="getRoleListByUserId" parameterType="java.lang.Long"  resultType="com.chens.admin.entity.SysRole">
         select role.*
         from sys_role role,sys_user_role userrole
         where role.id = userrole.role_id

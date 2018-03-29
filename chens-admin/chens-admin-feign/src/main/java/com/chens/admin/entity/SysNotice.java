@@ -1,4 +1,4 @@
-package com.chens.core.entity;
+package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;

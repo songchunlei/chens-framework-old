@@ -1,6 +1,6 @@
 package com.chens.admin.service.impl;
 
-import com.chens.core.entity.SysNotice;
+import com.chens.admin.entity.SysNotice;
 import com.chens.admin.mapper.SysNoticeMapper;
 import com.chens.admin.service.ISysNoticeService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

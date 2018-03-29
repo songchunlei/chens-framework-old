@@ -1,7 +1,7 @@
 package com.chens.admin.web.controller;
 
 import com.chens.admin.service.ISysMenuService;
-import com.chens.core.entity.SysMenu;
+import com.chens.admin.entity.SysMenu;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseWebController;
 import org.springframework.http.ResponseEntity;

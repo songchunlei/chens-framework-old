@@ -1,13 +1,11 @@
 package com.chens.admin.web.controller;
 
 import com.chens.admin.service.*;
-import com.chens.core.context.BaseContextHandler;
-import com.chens.core.entity.SysUser;
+import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
-import com.chens.core.vo.sys.RegisterTenant;
-import org.apache.ibatis.annotations.Param;
+import com.chens.admin.vo.RegisterTenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.chens.core.vo.sys.AuthRequest;
+import com.chens.core.vo.AuthRequest;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
 import org.springframework.web.bind.annotation.RequestParam;
