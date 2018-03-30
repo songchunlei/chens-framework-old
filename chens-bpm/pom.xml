@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>chens-bpm-core</module>
-        <module>chens-bpm-server</module>
+        <module>chens-bpm-activiti</module>
     </modules>
 
 
