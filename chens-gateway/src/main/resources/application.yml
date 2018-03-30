@@ -29,10 +29,10 @@ zuul:
   # 开启重试
   retryable: true
   # 路径前面加一个前缀(目前不加)
-  #prefix: /api
+  prefix: /api
   # 不代理某些服务，有些服务不对外公布，就可以在这里忽略掉
   # 比如sms-interface，我们不对外开放，可以在这里忽略掉，不然zuul从eureka获取到后就可以进行代理
-  ignored-services:
+  ignored-services: "*"
   # hystrix 隔离策略，默认信号量(因为zuul中大量用到线程变量)。优先级要高过在hystrix中配置；
   ribbonIsolationStrategy: SEMAPHORE
   semaphore:
@@ -42,15 +42,19 @@ zuul:
 ####################这里开始是路由配置###################################
 # 通过配置文件配置的静态路由
 routes:
-  # 指定了一个路由，Id为uaa-token，在做验权的时候需要用到,back目前没发现实际意义，好像就是名字
+  # 指定了一个路由，Id为uaa-token，在做验权的时候需要用到,admin目前没发现实际意义，好像就是名字
   admin:
-    # 指定这个路径会匹配到这个路由。
+    # 指定这个路径会匹配到这个路由。不要和请求地址一样
     path: /admin/**
     # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
     serviceId: chens-admin-web
+  auth:
+    path: /auth/**
+    serviceId: chens-auth-server
   exam:
-    path: /exam-wms/**
+    path: /exam/**
     serviceId: exam-wms
+
 
 
 ####################结束路由配置###################################
@@ -80,6 +84,11 @@ ribbon:
 
 ########hystrix相关配置
 hystrix:
+  threadpool:
+    default:
+      coreSize: 1000 ##并发执行的最大线程数，默认10
+      maxQueueSize: 1000 ##BlockingQueue的最大队列数
+      queueSizeRejectionThreshold: 500 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
   command:
     # 这是默认的配置
     default:

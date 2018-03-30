@@ -1,30 +1,24 @@
-package com.chens.gateway.exception;
+package com.chens.core.exception;
 
 import com.chens.core.enums.IBaseEnum;
 
 /**
- * 基本错误反馈
+ * 授权异常
  *
  * @auther songchunlei@qq.com
- * @create 2018/3/8
+ * @create 2018/3/30
  */
-public class BaseException  extends RuntimeException {
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 743865762699909129L;
-
-	private Integer code;
+public class AuthException extends RuntimeException{
+    private Integer code;
 
     private String message;
 
-    public BaseException(Integer code, String message) {
+    public AuthException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public BaseException(IBaseEnum baseEnum) {
+    public AuthException(IBaseEnum baseEnum) {
         this.code = baseEnum.getCode();
         this.message = baseEnum.getMessage();
     }

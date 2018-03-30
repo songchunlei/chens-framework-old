@@ -2,7 +2,9 @@ package com.chens.auth.client.interceptor;
 
 import com.chens.auth.client.annotation.IgnoreClientToken;
 import com.chens.auth.client.feign.ISysTokenClient;
+import com.chens.auth.client.service.IAuthClientService;
 import com.chens.core.context.BaseContextHandler;
+import com.chens.core.exception.AuthException;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
 
     @Autowired
-    private ISysTokenClient sysTokenClient;
+    private IAuthClientService authClientService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -39,31 +41,8 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
             return super.preHandle(request, response, handler);
         }
 
-        String token = request.getHeader(sysTokenClient.getUserHeaderKey());
-        if (StringUtils.isEmpty(token)) {
-            if (request.getCookies() != null) {
-                for (Cookie cookie : request.getCookies()) {
-                    if (cookie.getName().equals(sysTokenClient.getUserHeaderKey())) {
-                        token = cookie.getValue();
-                    }
-                }
-            }
-        }
-
-        if(StringUtils.isEmpty(token))
-        {
-            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
-        }
-
-        //解析token
-        UserInfo userInfo = sysTokenClient.parseToken(token);
-
-        //存入缓存
-        BaseContextHandler.setUserName(userInfo.getUsername());
-        BaseContextHandler.setName(userInfo.getName());
-        BaseContextHandler.setUserId(userInfo.getId());
-        BaseContextHandler.setTenantId(userInfo.getTenantId());
-        BaseContextHandler.setToken(token);
+        //引用授权服务
+        authClientService.getUserInfo(request);
 
         return super.preHandle(request, response, handler);
     }

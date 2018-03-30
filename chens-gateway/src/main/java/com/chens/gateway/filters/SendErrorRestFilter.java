@@ -20,7 +20,6 @@ public class SendErrorRestFilter extends SendErrorFilter{
 
     @Override
     public boolean shouldFilter() {
-
         return true;
     }
 

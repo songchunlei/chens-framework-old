@@ -5,6 +5,8 @@ import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * Aop代理方法类
@@ -13,6 +15,31 @@ import java.lang.reflect.Field;
  * @create 2018/3/29
  */
 public class AopTargetUtil {
+
+
+    /**
+     * 通过反射,获得定义Class时声明的父类的范型参数的类型
+     *
+     * @param clazz The class to introspect
+     * @param index the Index of the generic declaration,start from 0.
+     */
+    public static Class<?> getSuperClassGenricType(Class<?> clazz, int index)
+            throws IndexOutOfBoundsException {
+        Type genType = clazz.getGenericSuperclass();
+        if (!(genType instanceof ParameterizedType)) {
+            return clazz;
+        }
+
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+        if (index >= params.length || index < 0) {
+            return clazz;
+        }
+        if (!(params[index] instanceof Class)) {
+            return clazz;
+        }
+
+        return (Class<?>) params[index];
+    }
 
     /**
      * 获取 目标对象

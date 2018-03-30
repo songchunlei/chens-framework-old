@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chens.core.enums.IBaseEnum;
+import com.chens.core.util.AopTargetUtil;
 import com.chens.core.util.FileUtil;
 import com.chens.core.vo.QueryPageEntity;
 import org.slf4j.Logger;
@@ -38,33 +39,8 @@ public class BaseController {
 
 
     protected BaseController() {
-        clazz = getSuperClassGenricType(getClass(), 0);
+        clazz = AopTargetUtil.getSuperClassGenricType(getClass(), 0);
         logger = LoggerFactory.getLogger(clazz);
-    }
-
-
-    /**
-     * 通过反射,获得定义Class时声明的父类的范型参数的类型
-     *
-     * @param clazz The class to introspect
-     * @param index the Index of the generic declaration,start from 0.
-     */
-    private Class<?> getSuperClassGenricType(Class<?> clazz, int index)
-            throws IndexOutOfBoundsException {
-        Type genType = clazz.getGenericSuperclass();
-        if (!(genType instanceof ParameterizedType)) {
-            return clazz;
-        }
-
-        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        if (index >= params.length || index < 0) {
-            return clazz;
-        }
-        if (!(params[index] instanceof Class)) {
-            return clazz;
-        }
-
-        return (Class<?>) params[index];
     }
 
     /**

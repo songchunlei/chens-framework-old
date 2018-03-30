@@ -41,7 +41,7 @@ public interface ISysTokenService extends IService<SysToken> {
      * @param token
      * @return
      */
-    UserInfo parseToken(String token) throws Exception;
+    UserInfo parseToken(String token);
 
 
     /**

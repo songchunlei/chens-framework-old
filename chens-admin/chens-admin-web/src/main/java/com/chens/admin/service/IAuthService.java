@@ -24,7 +24,7 @@ public interface IAuthService {
      * @param authRequest
      * @return boolean
      */
-    boolean Validate(AuthRequest authRequest) throws BaseException;
+    boolean validate(AuthRequest authRequest) throws BaseException;
 
     /**
      * 登录获取JWTToken

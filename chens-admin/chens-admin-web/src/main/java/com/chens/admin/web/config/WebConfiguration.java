@@ -65,7 +65,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 "/authController/parseToken",
                 "/sysTokenRpc/**",
                 "/"+ AdminFeignName.SYS_USER_RPC+"/findByUsername",
-                "/"+ AuthFeignName.SYS_TOKEN_RPC+"/**"
+                "/"+AdminFeignName.SYS_DICT_RPC+"/**",
+                "/"+AdminFeignName.SYS_LOG_RPC+"/**",
+                "/"+ AuthFeignName.SYS_TOKEN_RPC+"/**",
         };
         Collections.addAll(list, urls);
         return list;

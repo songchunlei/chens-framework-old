@@ -105,7 +105,7 @@ public class AuthServiceImpl implements IAuthService{
 
 
     @Override
-    public boolean Validate(AuthRequest authRequest){
+    public boolean validate(AuthRequest authRequest){
         SysUser sysUser = sysUserService.findByUsername(authRequest);
         if(sysUser!=null)
         {

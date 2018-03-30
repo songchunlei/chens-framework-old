@@ -12,8 +12,10 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.constants.CommonConstants;
 import com.chens.admin.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
+import com.chens.core.exception.AuthException;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.exception.TimeOutException;
 import com.chens.core.vo.AuthRequest;
 import com.chens.core.vo.UserInfo;
 import io.jsonwebtoken.Claims;
@@ -87,7 +89,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     }
 
     @Override
-    public UserInfo parseToken(String token) throws Exception {
+    public UserInfo parseToken(String token) {
 
         //logger.info("*******SysTokenService.parseToken****************");
 
@@ -100,15 +102,20 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
             userInfo =  new UserInfo(claims.getSubject()
                     ,(String)claims.get(CommonConstants.JWT_TOKEN_USER)
                     , (String)claims.get(CommonConstants.JWT_TOKEN_USERNAME), (String)claims.get(CommonConstants.JWT_TOKEN_TENANTID),token);
-        }catch (ExpiredJwtException ex){
-            throw new BaseException(BaseExceptionEnum.TOKEN_EXPIRED);
-        }catch (SignatureException ex){
-            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
-        }catch (IllegalArgumentException ex){
-            throw new BaseException(BaseExceptionEnum.TOKEN_IS_NULL);
+        }
+        catch (ExpiredJwtException ex){
+            throw new TimeOutException(BaseExceptionEnum.TOKEN_EXPIRED);
+        }
+        catch (SignatureException ex){
+            throw new AuthException(BaseExceptionEnum.TOKEN_ERROR);
+        }
+        catch (IllegalArgumentException ex){
+            throw new AuthException(BaseExceptionEnum.TOKEN_IS_NULL);
         }catch (MalformedJwtException e)
         {
-            throw new BaseException(BaseExceptionEnum.TOKEN_ERROR);
+            throw new AuthException(BaseExceptionEnum.TOKEN_ERROR);
+        } catch (Exception e) {
+            throw new AuthException(BaseExceptionEnum.TOKEN_ERROR);
         }
         //判断token是否激活并存在记录里
         SysToken sysToken = new SysToken();
@@ -117,7 +124,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         int count = this.selectCount(new EntityWrapper<>(sysToken));
         if(count<=0)
         {
-            throw new BaseException(BaseExceptionEnum.TOKEN_EXPIRED);
+            throw new TimeOutException(BaseExceptionEnum.TOKEN_EXPIRED);
         }
         return userInfo;
     }

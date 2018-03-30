@@ -1,5 +1,8 @@
 package com.chens.core.aop;
 
+import com.chens.core.exception.AuthException;
+import com.chens.core.exception.TimeOutException;
+import com.chens.core.util.AopTargetUtil;
 import com.chens.core.util.GetValidateMsg;
 import com.chens.core.util.StringUtils;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
@@ -27,7 +30,35 @@ import feign.FeignException;
  */
 public class BaseControllerExceptionHandler{
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private Class<?> clazz;
+    protected Logger log;
+
+    protected BaseControllerExceptionHandler() {
+        clazz = AopTargetUtil.getSuperClassGenricType(getClass(), 0);
+        log = LoggerFactory.getLogger(clazz);
+    }
+
+    /**
+     * 拦截超时异常
+     */
+    @ExceptionHandler(TimeOutException.class)
+    @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
+    @ResponseBody
+    public Result handleBaseException(TimeOutException e) {
+        log.error("超时异常:", e);
+        return ResultHelper.getError(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 拦截授权异常
+     */
+    @ExceptionHandler(AuthException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public Result handleBaseException(AuthException e) {
+        log.error("授权异常:", e);
+        return ResultHelper.getError(e.getCode(), e.getMessage());
+    }
 
     /**
      * 拦截业务异常

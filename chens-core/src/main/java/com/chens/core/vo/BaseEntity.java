@@ -23,7 +23,7 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.UUID)
-    private String id;
+    protected String id;
     //private Long id; 不用private是为了让子类继承获取
 
     /**
@@ -31,29 +31,29 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      */
     @TableField(value = CommonConstants.BASE_COLUMN_CREATE_TIME,fill = FieldFill.INSERT)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    protected Date createTime;
     /**
      * 更新时间
      */
     @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_TIME, fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    protected Date updateTime;
     /**
      * 创建人
      */
     @TableField(value = CommonConstants.BASE_COLUMN_CREATE_BY, fill = FieldFill.INSERT)
-    private String createBy;
+    protected String createBy;
     /**
      * 更新人
      */
     @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_BY, fill = FieldFill.INSERT_UPDATE)
-    private String updateBy;
+    protected String updateBy;
 
     /**
      * 租户id
      */
     @TableField(value =CommonConstants.BASE_COLUMN_TENANT_ID)
-    private String tenantId;
+    protected String tenantId;
 
     public String getId() {
         return id;

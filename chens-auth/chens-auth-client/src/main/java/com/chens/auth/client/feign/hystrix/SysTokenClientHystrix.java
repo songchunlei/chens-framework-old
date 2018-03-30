@@ -26,7 +26,7 @@ public class SysTokenClientHystrix implements ISysTokenClient{
     }
 
     @Override
-    public UserInfo parseToken(String token) throws Exception {
+    public UserInfo parseToken(String token) {
         throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
     }
 
