@@ -38,6 +38,8 @@
         <module>../chens-workflow</module>
         <!--excel模块-->
         <module>../chens-excel</module>
+        <!--流程引擎-->
+        <module>../chens-bpm</module>
 
     </modules>
 
