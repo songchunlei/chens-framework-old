@@ -1,6 +1,7 @@
 package com.chens.gateway.filters;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chens.core.handler.MyExceptionHandler;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,18 +28,14 @@ public class SendErrorRestFilter extends SendErrorFilter{
     public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
         Throwable throwable = findCauseException(context.getThrowable());
-        // 获取response状态码
-        String status = String.valueOf(context.getResponseStatusCode());
-        // 转成json格式输出
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", status);
-        jsonObject.put("msg", throwable.getMessage());
-
         // 记录日志
         logger.warn("zuul后台有个异常", context.getThrowable());
         // 放进响应body里面
-        context.setResponseBody(jsonObject.toJSONString());
+        context.setResponseBody(MyExceptionHandler.getErrorResponseBody(throwable));
+        //转换返回格式
         context.getResponse().setContentType("text/html;charset=UTF-8");
+        // 获取response状态码
+        context.setResponseStatusCode(context.getResponseStatusCode());
         // 处理了异常以后，就清空
         context.remove("throwable");
         return null;

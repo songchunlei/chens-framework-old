@@ -2,6 +2,7 @@ package com.chens.admin.web.controller;
 
 import com.chens.admin.service.*;
 import com.chens.admin.entity.SysUser;
+import com.chens.auth.client.annotation.IgnoreUserToken;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
@@ -39,6 +40,7 @@ public class AuthController extends BaseController{
     @Autowired
     private ISysTenantService sysTenantService;
 
+    @IgnoreUserToken
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Validated  AuthRequest authRequest) throws Exception {
         if(authRequest==null){
@@ -72,6 +74,7 @@ public class AuthController extends BaseController{
      * @param sysUser
      * @return
      */
+    @IgnoreUserToken
     @PostMapping("registerUser")
     public ResponseEntity<Result> registerUser(@RequestBody @Validated SysUser sysUser) {
         if(sysUser!=null)
@@ -91,6 +94,7 @@ public class AuthController extends BaseController{
      * @param registerTenant
      * @return
      */
+    @IgnoreUserToken
     @PostMapping("register")
     public ResponseEntity<Result> register(@RequestBody @Validated RegisterTenant registerTenant) {
         if(registerTenant!=null)
@@ -109,6 +113,7 @@ public class AuthController extends BaseController{
      * @param token
      * @return
      */
+    @IgnoreUserToken
     @RequestMapping("/parseToken")
     public ResponseEntity<Result> parseToken(@RequestParam String token) throws Exception {
         return doSuccess(authService.parseToken(token)) ;

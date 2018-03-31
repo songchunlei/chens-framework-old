@@ -1,6 +1,5 @@
 package com.chens.core.web;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,14 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.GetValidateMsg;
 import com.chens.core.util.StringUtils;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.QueryPageEntity;
@@ -65,7 +62,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PostMapping("/create")
     public ResponseEntity<Result> create(@RequestBody @Validated T t,BindingResult result) {
-        /*
+        /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
         {
@@ -94,11 +91,12 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PutMapping("/update")
     public ResponseEntity<Result> update(@RequestBody @Validated T t,BindingResult result) {
+       /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
         {
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
-        }
+        }*/
         if(t != null){
             /* 交给MyMetaObjectHandler
             t.setUpdateTime(new Date());

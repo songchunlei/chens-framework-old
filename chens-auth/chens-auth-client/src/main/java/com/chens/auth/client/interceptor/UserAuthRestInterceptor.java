@@ -1,19 +1,11 @@
 package com.chens.auth.client.interceptor;
 
-import com.chens.auth.client.annotation.IgnoreClientToken;
-import com.chens.auth.client.feign.ISysTokenClient;
+import com.chens.auth.client.annotation.IgnoreUserToken;
 import com.chens.auth.client.service.IAuthClientService;
-import com.chens.core.context.BaseContextHandler;
-import com.chens.core.exception.AuthException;
-import com.chens.core.exception.BaseException;
-import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.StringUtils;
-import com.chens.core.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,10 +24,10 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         // 配置该注解，说明不进行服务拦截
-        IgnoreClientToken annotation = handlerMethod.getBeanType().getAnnotation(IgnoreClientToken.class);
+        IgnoreUserToken annotation = handlerMethod.getBeanType().getAnnotation(IgnoreUserToken.class);
         if(annotation==null)
         {
-            annotation = handlerMethod.getMethodAnnotation(IgnoreClientToken.class);
+            annotation = handlerMethod.getMethodAnnotation(IgnoreUserToken.class);
         }
         if(annotation!=null) {
             return super.preHandle(request, response, handler);

@@ -25,6 +25,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     AUTH_REQUEST_NO_PASSWORD(202, "密码为空"),
     AUTH_REQUEST_NO_CODE(203, "验证码为空"),
 
+
     /**
      * 请求反馈
      */
@@ -34,6 +35,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     NO_DELETE(303,"删除失败"),
     NO_SAVE(304,"保存失败"),
     VALIDATE_NOPASS(305, "校验不通过"),
+    TIMEOUT(306, "请求超时"),
 
     /**
      * 文件请求
