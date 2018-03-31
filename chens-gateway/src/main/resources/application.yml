@@ -9,12 +9,15 @@ spring:
       enabled: false #是否开启开发者工具
 eureka:
   client:
- #   register-with-eureka: false #不注册到注册中心，web模块只用于消费服务
+    register-with-eureka: true #不注册到注册中心，web模块只用于消费服务
+    fetchRegistry: true
     registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒，对于api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒
     serviceUrl:
       defaultZone: ${chens_eureka_serviceUrl:http://127.0.0.1:8761/eureka/} #注册中心地址
   instance:
-    prefer-ip-address: true #使用IP地址
+    # 心跳间隔
+        leaseRenewalIntervalInSeconds: 10
+        hostname: ${HOSTNAME:localhost}
 
 ####################这里开始进入ZUUL配置###################################
 zuul:
@@ -29,32 +32,25 @@ zuul:
   # 开启重试
   retryable: true
   # 路径前面加一个前缀(目前不加)
-  prefix: /api
+  #prefix: /api
   # 不代理某些服务，有些服务不对外公布，就可以在这里忽略掉
-  # 比如sms-interface，我们不对外开放，可以在这里忽略掉，不然zuul从eureka获取到后就可以进行代理
-  ignored-services: "*"
+  # 比如sms-interface，我们不对外开放，可以在这里忽略掉，不然zuul从eureka获取到后就可以进行代理,如果是"*"表示全部忽略
+  ignored-services:
   # hystrix 隔离策略，默认信号量(因为zuul中大量用到线程变量)。优先级要高过在hystrix中配置；
   ribbonIsolationStrategy: SEMAPHORE
   semaphore:
     # 信号量模式下，最大并发量。优先级要高过在hystrix中配置；
     maxSemaphores: 100
 
-####################这里开始是路由配置###################################
-# 通过配置文件配置的静态路由
-routes:
-  # 指定了一个路由，Id为uaa-token，在做验权的时候需要用到,admin目前没发现实际意义，好像就是名字
-  admin:
-    # 指定这个路径会匹配到这个路由。不要和请求地址一样
-    path: /admin/**
-    # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
-    serviceId: chens-admin-web
-  auth:
-    path: /auth/**
-    serviceId: chens-auth-server
-  exam:
-    path: /exam/**
-    serviceId: exam-wms
-
+  # 路由配置
+  # 通过配置文件配置的静态路由
+  routes:
+    # 指定了一个路由，Id为auth，在做验权的时候需要用到（这地方配的会被放行，详见自定义配置和TokenValidateFilter.shouldFilter）
+    auth:
+      # 指定这个路径会匹配到这个路由。
+      path: /authController/login
+      # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
+      serviceId: chens-admin-web
 
 
 ####################结束路由配置###################################
@@ -100,12 +96,9 @@ hystrix:
             # 命令执行超时时间 20秒
             timeoutInMilliseconds: 20000
 
-# 以下是自定义的配置，配置的值会被注入到TonyConfigurationBean这个类
-tony:
+#########自定义配置
+chens:
   zuul:
-    # 是否开启默认fallback
-    defaultFallback:
-      enable: false
     tokenFilter:
       noAuthenticationRoutes:
-        - uaa-token
+        - auth

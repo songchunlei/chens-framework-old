@@ -59,11 +59,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     private ArrayList<String> getExcludeCommonPathPatterns() {
         ArrayList<String> list = new ArrayList<>();
         String[] urls = {
-                "/authController/login",
-                "/authController/registerUser",
-                "/authController/register",
-                "/authController/parseToken",
-                "/sysTokenRpc/**",
                 "/"+ AdminFeignName.SYS_USER_RPC+"/findByUsername",
                 "/"+AdminFeignName.SYS_DICT_RPC+"/**",
                 "/"+AdminFeignName.SYS_LOG_RPC+"/**",

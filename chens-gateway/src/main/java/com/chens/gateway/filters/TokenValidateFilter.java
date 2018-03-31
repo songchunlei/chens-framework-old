@@ -10,6 +10,7 @@ import com.chens.core.exception.BaseException;
 import com.chens.core.util.ClientUtil;
 import com.chens.core.vo.UserInfo;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.gateway.configuation.GatewayConfiguration;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class TokenValidateFilter extends ZuulFilter {
     @Autowired
     private IAuthClientService authClientService;
 
+    // 自定义的配置
+    @Autowired
+    GatewayConfiguration gatewayConfiguration;
+
     @Override
     public String filterType() {
         // pre 在发起请求之前会执行这个filter
@@ -44,12 +49,19 @@ public class TokenValidateFilter extends ZuulFilter {
     @Override
     public int filterOrder() {
         // 这个是执行顺序，因为同一个类型的filter可能有多个。 值越小越靠前
-        return 1;
+        return 6;
     }
 
     @Override
     public boolean shouldFilter() {
-        return false;
+
+        //关闭默认全部校验
+        //return true;
+
+        RequestContext ctx = RequestContext.getCurrentContext();
+
+        // 根据routeId，过滤掉不需要做权限校验的请求
+        return !gatewayConfiguration.getNoAuthenticationRoutes().contains(ctx.get("proxy"));
     }
 
     @Override

@@ -1,0 +1,49 @@
+#项目启动端口
+server:
+  port: 9004
+
+#应用名称
+spring:
+  application:
+    name: chens-workflow
+  #数据库连接
+  datasource:
+    url: jdbc:mysql://chens:3306/qyexam?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: abc@123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update      #没有时自动创建表。有时不创建
+#在项目单独作为一个引擎，本身不部署流程的时候，如果resources目录没有“processes”目录，启动项目报错--找不到processes目录。需要在配置文件中添加一下内容：      
+  activiti:
+    check-process-definitions: false    #校验流程文件，默认校验resources下的processes文件夹里的流程文件 
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.chens.core.entity
+  typeEnumsPackage: com.chens.core.enums
+  global-config:
+    #刷新mapper 调试神器
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    #打印sql语句,调试用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${chens_eureka_serviceUrl:http://127.0.0.1:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 30  # 发呆时间，即服务续约到期时间（缺省为90s）
+
+feign:
+  httpclient:
+    enabled: false
