@@ -61,7 +61,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<Result> create(@RequestBody @Validated T t,BindingResult result) {
+    public ResponseEntity<Result> create(@RequestBody @Validated T t) {
         /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
@@ -90,7 +90,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<Result> update(@RequestBody @Validated T t,BindingResult result) {
+    public ResponseEntity<Result> update(@RequestBody @Validated T t) {
        /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
@@ -114,15 +114,15 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("/save")
-    public ResponseEntity<Result> save(@RequestBody @Validated T t,BindingResult result) {
+    public ResponseEntity<Result> save(@RequestBody @Validated T t) {
         if(t != null){
             if(t.getId()!=null)
             {
-                return update(t,result);
+                return update(t);
             }
             else
             {
-                return create(t,result);
+                return create(t);
             }
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
