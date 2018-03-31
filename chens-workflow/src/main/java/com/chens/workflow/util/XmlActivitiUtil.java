@@ -83,7 +83,7 @@ public class XmlActivitiUtil {
             try {
                 SAXReader reader = new SAXReader();
                 //解决报错：Dom4j中文异常处理:Invalid byte 2 of 2-byte UTF-8 sequence
-                reader.setEncoding("GBK");
+                reader.setEncoding("UTF-8");
                 InputStream   inputStream   =  new  ByteArrayInputStream(doc.toString().getBytes());
                 document = reader.read(inputStream);  
             } catch (Exception e) {

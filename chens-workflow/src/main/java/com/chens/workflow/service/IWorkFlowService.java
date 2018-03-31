@@ -1,5 +1,7 @@
 package com.chens.workflow.service;
 
+import java.io.InputStream;
+
 import com.chens.core.entity.workflow.WorkFlowRequestParam;
 import com.chens.core.entity.workflow.WorkFlowReturn;
 
@@ -38,8 +40,21 @@ public interface IWorkFlowService {
      * @param taskkey
      */
     boolean checkUserTaskIsHuiQian(String taskId ,String taskkey);
-
-    boolean start();
-
-    boolean complete();
+    
+    /**
+     * 发起节点校验下一个节点是否是会签节点
+     * @param taskId
+     * @param string
+     * @return 参数描述
+     * boolean 返回类型
+     * @throws 异常说明
+     */
+    public boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field,String value);
+    
+    /**
+     * 获取流程图
+     * @param processInstanceId
+     * @return
+     */
+    public InputStream getResourceDiagramImageInputStream(String processInstanceId);
 }

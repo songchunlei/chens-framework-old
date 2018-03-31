@@ -8,19 +8,17 @@ spring:
     name: chens-workflow
   #数据库连接
   datasource:
-    url: jdbc:mysql://chens:3306/qyexam?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://chens:3306/wf?useSSL=true&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: abc@123456
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update      #没有时自动创建表。有时不创建
 #在项目单独作为一个引擎，本身不部署流程的时候，如果resources目录没有“processes”目录，启动项目报错--找不到processes目录。需要在配置文件中添加一下内容：      
   activiti:
     check-process-definitions: false    #校验流程文件，默认校验resources下的processes文件夹里的流程文件 
+    database-schema-update: true  #没有时自动创建表。有时不创建
 
-#mybatis-plus
+#mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔

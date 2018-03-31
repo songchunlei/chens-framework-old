@@ -9,15 +9,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.ExclusiveGateway;
+import org.activiti.bpmn.model.FlowNode;
+import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +38,7 @@ import com.chens.core.entity.workflow.WorkFlowRequestParam;
 import com.chens.core.entity.workflow.WorkFlowReturn;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.workflow.entity.diagram.HistoryProcessInstanceDiagramCmd;
 import com.chens.workflow.enums.ConditionEnum;
 import com.chens.workflow.enums.WorkFlowEnum;
 import com.chens.workflow.enums.WorkFlowGlobals;
@@ -56,6 +67,10 @@ public class ActivitiService implements IWorkFlowService {
     private RepositoryService repositoryService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    ProcessEngineConfiguration processEngineConfiguration;
+    @Autowired
+    ProcessEngineFactoryBean processEngine;
 	
 	@Override
     @Transactional
@@ -78,16 +93,18 @@ public class ActivitiService implements IWorkFlowService {
              variables.put(name, value);
              variables.put("nextUserId", nextUserId);
              //启动时判断节点是否是会签节点
-  /*           if(this.checkStartNextUserTaskIsHuiQian(processDefinitionKey,name, value)){
+             if(this.checkStartNextUserTaskIsHuiQian(processDefinitionKey,name, value)){
                  variables.put("assigneeUserIdList", list);
              }else{
             	 if(list.size() > 1){
             		 workFlowReturn.setStartSuccess(false);
             		 workFlowReturn.setMessage("单处理人任务节点只能选择一个处理人");
                 	 return workFlowReturn;
+            	 }else{
+            		 variables.put("nextUserId", nextUserId); 
             	 }
-                 variables.put("nextUserId", nextUserId);
-             }*/
+                 
+             }
          }else{
              if(this.checkActivitiIsHuiQian(processDefinitionKey)){
                  variables.put("assigneeUserIdList", list);
@@ -96,8 +113,10 @@ public class ActivitiService implements IWorkFlowService {
             		 workFlowReturn.setStartSuccess(false);
             		 workFlowReturn.setMessage("单处理人任务节点只能选择一个处理人");
                 	 return workFlowReturn;
+            	 }else{
+            		 variables.put("nextUserId", nextUserId);
             	 }
-                 variables.put("nextUserId", nextUserId);
+                
              } 
          }       
         
@@ -159,19 +178,6 @@ public class ActivitiService implements IWorkFlowService {
         String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
         return XmlActivitiUtil.parseXml(xmlString, taskkey);
     }
-	
-	
-    @Override
-    public boolean start() {
-        return false;
-    }
-
-    @Override
-    public boolean complete() {
-        return false;
-    }
-
-
 
 	@Override
 	@Transactional
@@ -205,18 +211,18 @@ public class ActivitiService implements IWorkFlowService {
         String value = workFlowRequestParam.getVariableValue();
         variables.put(name, value);
         //判断下个节点是否是会签节点
-        //暂时写死
-        boolean nextNodeIsHuiQian = false;//this.checkNextUserTaskIsHuiQian(taskId, name,value);
+        boolean nextNodeIsHuiQian = this.checkNextUserTaskIsHuiQian(taskId, name,value);
         if(nextNodeIsHuiQian){
         	//若果当前节点是会签节点 且是第一个来处理的人 直接塞list 若果不是就拼接 原来的 list
         	if(isHuiqian){
         		Object obj = runtimeService.getVariable(task.getExecutionId(), "nrOfCompletedInstances");
         		Object objAll = runtimeService.getVariable(task.getExecutionId(), "nrOfInstances");
-        		int  nrOfCompletedInstances= 0,nrOfInstances = 0;
-        		if(obj!=null){
+        		int nrOfCompletedInstances= 0;
+        		int nrOfInstances = 0;
+        		if(obj != null){
         			nrOfCompletedInstances = (Integer)obj;        			
         		}
-        		if(objAll!=null){
+        		if(objAll != null){
         			nrOfInstances = (Integer)objAll;        			
         		}
         		
@@ -240,7 +246,6 @@ public class ActivitiService implements IWorkFlowService {
         		if(nrOfCompletedInstances == 0){//当前节点为会签  且是第一个处理人
         			runtimeService.setVariable(processInstanceId, WorkFlowEnum.ASSIGNEE_USER_ID_LIST_TEMP.getCode(),list);
         			//这里需要考虑会签节点每次都只选一个人的情况
-        			
         			if(StringUtils.equals(condition, ConditionEnum.EQ.getCode())){
         				//相等
         				if(now == exp){
@@ -267,7 +272,6 @@ public class ActivitiService implements IWorkFlowService {
         			List<String> list2 = new ArrayList<String> ();  
         			list2.addAll(set);
         			//临时解决 只有当完成的会签任务 + 1 = 需要完成的总数时候才去替换数组  需要修改为判断通过率 2017-06-14
-        			
         			if(StringUtils.equals(condition, ConditionEnum.EQ.getCode())){
         				//相等        				
         				if(now == exp){
@@ -321,11 +325,11 @@ public class ActivitiService implements IWorkFlowService {
                 }
             }
             taskService.complete(taskId, variables);    
-            ProcessInstance pi = runtimeService.createProcessInstanceQuery()//
+            ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()//
                             .processInstanceId(processInstanceId)//使用流程实例ID查询
                             .singleResult();		
             //表示已经完成
-            if(pi == null){
+            if(processInstance == null){
             	workFlowReturn.setCompleteSuccess(true);
             	workFlowReturn.setFinish(true);
             	workFlowReturn.setMessage("办理成功");
@@ -353,50 +357,123 @@ public class ActivitiService implements IWorkFlowService {
      * 
      * @author shenbo
      */
-/*    public boolean checkNextUserTaskIsHuiQian(String taskId, String field,String value) {
+    public boolean checkNextUserTaskIsHuiQian(String taskId, String field,String value) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         String processDefinitionId = task.getProcessDefinitionId();
-        ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity)repositoryService.getProcessDefinition(processDefinitionId);
         String processInstanceId = task.getProcessInstanceId();
-        ProcessInstance pi = runtimeService.createProcessInstanceQuery()//
-                    .processInstanceId(processInstanceId).singleResult();
-        String activityId = pi.getActivityId();
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        String activityId = processInstance.getActivityId();
         if(StringUtils.isBlank(activityId)){
-            List<Execution> executions = runtimeService.createExecutionQuery().parentId(pi.getId()).list();
-            if(executions != null && executions.size() > 0){
-                activityId = executions.get(0).getActivityId();
+            List<Execution> executionList = runtimeService.createExecutionQuery().parentId(processInstance.getId()).list();
+            if(CollectionUtils.isNotEmpty(executionList)){
+                activityId = executionList.get(0).getActivityId();
             }
         }
-        ActivityImpl activityImpl = processDefinitionEntity.findActivity(activityId);
-        List<PvmTransition> pvmList = activityImpl.getOutgoingTransitions();
-        String taskkey =  getNextUserTaskNode(pvmList,field,value);
-        
-        return checkUserTaskIsHuiQian(taskId,taskkey);
-    }*/
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId); //获取流程xml模型
+        FlowNode currentFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId); //获取当前节点
+        List<SequenceFlow> outSequenceFlowList = currentFlowNode.getOutgoingFlows();//获取当前节点的出线分支
+        String taskDefinitionKey =  getNextUserTaskNode(outSequenceFlowList,field,value);       
+        return checkUserTaskIsHuiQian(taskId,taskDefinitionKey);
+    }
 	
-	public String getCompletionCondition(String taskId ,String taskkey){
-    	HistoricTaskInstance hti = historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
-        if ("".equals(taskkey)) {
-            taskkey = hti.getTaskDefinitionKey();
+	public String getCompletionCondition(String taskId ,String taskDefinitionKey){
+    	HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
+        if (StringUtils.isBlank(taskDefinitionKey)) {
+        	taskDefinitionKey = historicTaskInstance.getTaskDefinitionKey();
         }
-        String processkey = hti.getProcessDefinitionId();
-        ProcessDefinition pd = repositoryService.getProcessDefinition(processkey);
-        InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
+        String processDefinitionId = historicTaskInstance.getProcessDefinitionId();
+        ProcessDefinition processDefinition = repositoryService.getProcessDefinition(processDefinitionId);
+        InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
         String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
-        return XmlActivitiUtil.getCompletionCondition(xmlString, taskkey);
+        return XmlActivitiUtil.getCompletionCondition(xmlString, taskDefinitionKey);
     }
 
 
 	@Override
-	public boolean checkUserTaskIsHuiQian(String taskId, String taskkey) {
-		HistoricTaskInstance hti = historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
-        if ("".equals(taskkey)) {
-            taskkey = hti.getTaskDefinitionKey();
+	public boolean checkUserTaskIsHuiQian(String taskId, String taskDefinitionKey) {
+		HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(taskId).singleResult();
+        if(StringUtils.isBlank(taskDefinitionKey)) {
+        	taskDefinitionKey = historicTaskInstance.getTaskDefinitionKey();
         }
-        String processkey = hti.getProcessDefinitionId();
-        ProcessDefinition pd = repositoryService.getProcessDefinition(processkey);
-        InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
+        String processDefinitionId = historicTaskInstance.getProcessDefinitionId();
+        ProcessDefinition processDefinition = repositoryService.getProcessDefinition(processDefinitionId);
+        InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
         String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
-        return XmlActivitiUtil.parseXml(xmlString, taskkey);
+        return XmlActivitiUtil.parseXml(xmlString, taskDefinitionKey);
 	}
+	
+	
+	 /**
+     * 
+     * @Description: 获取下一个usertask接线
+     * @param sequenceFlowList
+     * @param field     bpm_advice
+     * @param value 参数描述       
+     * void 返回类型
+     * @throws 异常说明
+     * 
+     * @author shenbo
+     */
+    private String getNextUserTaskNode(List<SequenceFlow> sequenceFlowList, String field, String value) {
+        if(CollectionUtils.isNotEmpty(sequenceFlowList)){
+            for(SequenceFlow flow : sequenceFlowList){
+                if(flow.getTargetFlowElement() instanceof ExclusiveGateway){//判断是否是排他网关
+                   ExclusiveGateway exclusiveGateway = (ExclusiveGateway)flow.getTargetFlowElement();
+                   String taskDefinitionKey =  getNextUserTaskNode(exclusiveGateway.getOutgoingFlows(),field,value);
+                   if(StringUtils.isNotBlank(taskDefinitionKey)){
+                	   return taskDefinitionKey;
+                   }
+                }else{
+                     String condition =  (String)flow.getConditionExpression();
+                     if(StringUtils.isNotBlank(condition)){
+                        String[] cds = condition.split("==");
+                        String pvalue = cds[1];
+                        if(pvalue.indexOf("\"") >= 0){
+                            pvalue = pvalue.substring(1, pvalue.length()-2);
+                        }else{
+                            pvalue = pvalue.substring(0, pvalue.length()-1);
+                        }
+                        //确定连线
+                        if(StringUtils.equals(value,pvalue)){
+                           return flow.getTargetFlowElement().getId();
+                        }
+                    }else{
+                        return flow.getTargetFlowElement().getId();
+                    }
+                }
+            }
+        }
+        return null; 
+    }
+    
+    
+    @Override
+   	public boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field, String value) {
+           ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).orderByProcessDefinitionVersion().desc().list().get(0);       
+           InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
+           String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+           Map<String,String> startEvent =  XmlActivitiUtil.parseStartXml(xmlString);
+           String processDefinitionId = pd.getId();           
+           BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId); //获取流程xml模型
+           FlowNode currentFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(startEvent.get("id")); //获取当前节点
+           List<SequenceFlow> outSequenceFlowList = currentFlowNode.getOutgoingFlows();//获取当前节点的出线分支
+           String taskDefinitionKey =  getNextUserTaskNode(outSequenceFlowList,field,value);           
+           return checkStartUserTaskIsHuiQian(processDefinitionKey,taskDefinitionKey);
+       }
+
+
+
+	@Override
+	public InputStream getResourceDiagramImageInputStream(String processInstanceId) {
+		try {
+            Command<InputStream> cmd = new HistoryProcessInstanceDiagramCmd(processInstanceId);
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine(); 
+	        InputStream imageStream = processEngine.getManagementService().executeCommand(cmd);            
+            return imageStream;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+	}
+
 }
