@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.bpm.mapper.ProcessBussinessRelMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, task_name AS taskName, status, process_definition_id AS processDefinitionId, process_definition_key AS processDefinitionKey, process_definition_name AS processDefinitionName, process_definition_version AS processDefinitionVersion, process_instance_id AS processInstanceId, business_key AS businessKey, table_name AS tableName, start_by AS startBy, start_by_name AS startByName, create_by AS createBy, update_by AS updateBy, update_time AS updateTime, create_time AS createTime, is_delete AS isDelete, current_task_definition_key AS currentTaskDefinitionKey, current_task_definition_name AS currentTaskDefinitionName
+    </sql>
+
+</mapper>
