@@ -1,13 +1,13 @@
 package com.chens.bpm.service;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+//import org.springframework.cloud.netflix.feign.FeignClient;
 
 /**
- * 调用流程引擎接口(是否要坐做成feign请求？)
+ * 调用流程引擎接口(暂时不走feign)
  * @auther songchunlei
  * @create 2018/3/30
  */
-@FeignClient(path = "wfEngine",value = "chens-bpm-service")
+//@FeignClient(path = "wfEngine",value = "chens-bpm-service")
 public interface IWfEngineService {
 
     /**
