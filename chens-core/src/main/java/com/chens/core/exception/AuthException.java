@@ -9,7 +9,10 @@ import com.chens.core.enums.IBaseEnum;
  * @create 2018/3/30
  */
 public class AuthException extends RuntimeException{
-    private Integer code;
+
+	private static final long serialVersionUID = 5368177573684015617L;
+
+	private Integer code;
 
     private String message;
 

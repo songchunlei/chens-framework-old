@@ -1,13 +1,11 @@
 package com.chens.core.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.util.AopTargetUtil;
-import com.chens.core.util.ApplicationContextUtil;
 import com.chens.core.util.EntityWrapperHelper;
 import com.chens.core.vo.BaseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 通用校验框架

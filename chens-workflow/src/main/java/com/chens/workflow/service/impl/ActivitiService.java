@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chens.core.entity.workflow.WorkFlowRequestParam;
 import com.chens.core.entity.workflow.WorkFlowReturn;
 import com.chens.core.exception.BaseException;
@@ -139,9 +140,14 @@ public class ActivitiService implements IWorkFlowService {
         if(processInstance == null){
         	throw new BaseException(BaseExceptionEnum.WORKFLOW_START_FAIL);
         }
+        JSONObject obj = new JSONObject();
+        obj.put("processDefinitionId", processInstance.getProcessDefinitionId());
+        obj.put("processDefinitionName", processInstance.getProcessDefinitionName());
+        obj.put("processDefinitionVersion", processInstance.getProcessDefinitionVersion());
+        obj.put("processInstanceId", processInstance.getId());    
         workFlowReturn.setStartSuccess(true);
         workFlowReturn.setMessage("流程发起成功");
-        workFlowReturn.setData(processInstance.getId());
+        workFlowReturn.setData(obj);
         return workFlowReturn;
 	}
 	

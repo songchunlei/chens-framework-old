@@ -1,12 +1,11 @@
 package com.chens.core.validator;
 
-import com.chens.core.annotation.UniqueField;
-import com.chens.core.util.AopTargetUtil;
-import org.springframework.stereotype.Component;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.reflect.InvocationTargetException;
+
+import com.chens.core.annotation.UniqueField;
 
 /**
  * 唯一性校验

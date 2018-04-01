@@ -3,10 +3,8 @@ package com.chens.core.web;
 import java.util.Arrays;
 import java.util.List;
 
-import com.chens.core.util.EntityWrapperHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +19,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.EntityWrapperHelper;
 import com.chens.core.util.StringUtils;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.QueryPageEntity;

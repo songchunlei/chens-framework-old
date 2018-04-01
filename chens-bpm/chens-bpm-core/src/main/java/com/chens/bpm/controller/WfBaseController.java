@@ -1,15 +1,17 @@
 package com.chens.bpm.controller;
 
-import com.chens.bpm.service.IWfBaseService;
-import com.chens.bpm.vo.WfBaseEntity;
-import com.chens.core.exception.BaseException;
-import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.vo.Result;
-import com.chens.core.web.BaseWebController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import com.chens.bpm.service.IWfBaseService;
+import com.chens.bpm.vo.WorkFlowRequestParam;
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.vo.BaseEntity;
+import com.chens.core.vo.Result;
+import com.chens.core.web.BaseWebController;
 
 /**
  * 流程抽象方法
@@ -17,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @auther songchunlei@qq.com
  * @create 2018/4/1
  */
-public abstract class WfBaseController<S extends IWfBaseService<T>, T extends WfBaseEntity<T>>  extends BaseWebController<S,T> {
+public abstract class WfBaseController<S extends IWfBaseService<T>, T extends BaseEntity<T>>  extends BaseWebController<S,T> {
 
 
-    protected String WF_DEF_KEY = "";
+    protected WorkFlowRequestParam<T> workFlowRequestParam;
 
     /**
      * 自定义初始化
      */
-    protected abstract void init();
+    protected abstract void init(T t);
 
 
     /**
@@ -34,8 +36,7 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
      */
     private void doInit(T t)
     {
-        init();
-        t.setWfDefineKey(WF_DEF_KEY);
+        init(t);
     }
 
     /**
@@ -46,9 +47,8 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
     @PostMapping("/createDraft")
     public ResponseEntity<Result> create(@RequestBody @Validated T t) {
         if(t != null){
-            this.doInit(t);
-            service.createDraft(t);
-            return doSuccess(t.getId());
+        	this.doInit(t);
+            return doSuccess("保存成功",service.createDraft(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -63,7 +63,7 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
     public ResponseEntity<Result> submitDraft(@RequestBody @Validated T t) {
         if(t != null){
             this.doInit(t);
-            return doSuccess(service.submitDraft(t));
+            return doSuccess("提交成功",service.submitDraft(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -77,7 +77,8 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
     @PostMapping("/pass")
     public ResponseEntity<Result> pass(@RequestBody @Validated T t) {
         if(t != null){
-            return doSuccess(service.pass(t));
+        	this.doInit(t);
+            return doSuccess("办理成功",service.pass(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

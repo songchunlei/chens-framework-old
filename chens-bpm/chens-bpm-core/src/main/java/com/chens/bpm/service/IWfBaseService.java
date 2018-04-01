@@ -1,6 +1,7 @@
 package com.chens.bpm.service;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.chens.bpm.vo.WorkFlowRequestParam;
 
 /**
  * 流程引擎服务
@@ -15,21 +16,21 @@ public interface IWfBaseService<T>  extends IService<T> {
      * @param t
      * @return
      */
-    String createDraft(T t);
+    String createDraft(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
-     * 提交
+     * 发起流程
      * @param t
      * @return
      */
-    boolean submitDraft(T t);
+    boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
-     * 审批通过
+     * 提交办理
      * @param t
      * @return
      */
-    boolean pass(T t);
+    boolean pass(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 审批不通过

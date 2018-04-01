@@ -1,11 +1,5 @@
 package com.chens.core.aop;
 
-import com.chens.core.exception.AuthException;
-import com.chens.core.exception.TimeOutException;
-import com.chens.core.handler.MyExceptionHandler;
-import com.chens.core.util.AopTargetUtil;
-import com.chens.core.util.StringUtils;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,11 +8,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.alibaba.fastjson.JSONObject;
+import com.chens.core.exception.AuthException;
 import com.chens.core.exception.BaseException;
-import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.ResultHelper;
+import com.chens.core.exception.TimeOutException;
+import com.chens.core.handler.MyExceptionHandler;
+import com.chens.core.util.AopTargetUtil;
 import com.chens.core.vo.Result;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 
 import feign.FeignException;
 

@@ -1,5 +1,8 @@
 package com.chens.bpm.service;
 
+import com.chens.bpm.vo.WorkFlowRequestParam;
+import com.chens.bpm.vo.WorkFlowReturn;
+
 //import org.springframework.cloud.netflix.feign.FeignClient;
 
 /**
@@ -10,15 +13,44 @@ package com.chens.bpm.service;
 //@FeignClient(path = "wfEngine",value = "chens-bpm-service")
 public interface IWfEngineService {
 
-    /**
-     * 启动流程
+
+	 /**
+     * 发起流程
+     * @param workFlowRequestParam
+     * @return
      */
-    void startWorkflow();
+	WorkFlowReturn startWorkflow(WorkFlowRequestParam<?> workFlowRequestParam);
+	
+    /**
+     * 发起节点校验下一个节点是否是会签节点
+     * @param taskId
+     * @param string
+     * @return 参数描述
+     * boolean 返回类型
+     * @throws 异常说明
+     */
+    boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field,String value);
+  
 
     /**
-     * 完成当前任务
+     * 
+     *@Description: 判断节点是否为会签节点
      */
-    void passTask();
+    boolean checkActivitiIsHuiQian(String processDefinitionKey);
+    
+    /**
+	 * 提交处理任务
+	 * @param workFlowRequestParam
+	 * @return
+	 */
+	WorkFlowReturn completeTask(WorkFlowRequestParam<?> workFlowRequestParam);
+	
+	/**
+     * @Description: 判断用户任务节点是否为会签节点
+     * @param taskId
+     * @param taskkey
+     */
+    boolean checkUserTaskIsHuiQian(String taskId ,String taskkey);
 
     /**
      * 不同意当前任务

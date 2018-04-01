@@ -8,7 +8,7 @@ spring:
     name: chens-workflow
   #数据库连接
   datasource:
-    url: jdbc:mysql://chens:3306/wf?useSSL=true&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://chens:3306/qyexam?useSSL=true&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: abc@123456
     type: com.alibaba.druid.pool.DruidDataSource
