@@ -15,7 +15,13 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
 
     private static final String BASE_SUPER_CONTROLLER_CLASS_NAME ="com.chens.core.web.BaseWebController";
     private static final String BASE_SUPER_ENTITY_CLASS_NAME ="com.chens.core.vo.BaseEntity";
+    private static final String BASE_SUPER_WF_CONTROLLER_CLASS_NAME ="om.chens.bpm.controller.WfBaseController";
+    private static final String BASE_SUPER_WF_ENTITY_CLASS_NAME ="com.chens.bpm.vo.WfBaseEntity";
+    private static final String BASE_SUPER_WF_SERVICE_CLASS_NAME ="com.chens.bpm.service.IWfEngineService";
+    private static final String BASE_SUPER_WF_SERVICEIMPL_CLASS_NAME ="com.chens.bpm.service.impl.WfBaseServiceImpl";
 
+    //是否是参与流程的实体
+    private boolean isWfEntity = false;
 
     /**
      * 全局配置
@@ -52,9 +58,22 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
                 //.setTablePrefix(new String[]{"t_"})
                 .setInclude("sys_log")
                 .setNaming(NamingStrategy.underline_to_camel)
-                .setSuperControllerClass(BASE_SUPER_CONTROLLER_CLASS_NAME)
-                .setSuperEntityClass(BASE_SUPER_ENTITY_CLASS_NAME)
                 .setLogicDeleteFieldName("is_delete");//逻辑删除字段
+
+        if(isWfEntity)
+        {
+            strategyConfig
+                    .setSuperControllerClass(BASE_SUPER_WF_CONTROLLER_CLASS_NAME)
+                    .setSuperEntityClass(BASE_SUPER_WF_ENTITY_CLASS_NAME)
+                    .setSuperServiceClass(BASE_SUPER_WF_SERVICE_CLASS_NAME)
+                    .setSuperServiceImplClass(BASE_SUPER_WF_SERVICEIMPL_CLASS_NAME);
+        }
+        else
+        {
+            strategyConfig
+                    .setSuperControllerClass(BASE_SUPER_CONTROLLER_CLASS_NAME)
+                    .setSuperEntityClass(BASE_SUPER_ENTITY_CLASS_NAME);
+        }
     }
 
     /**
@@ -76,16 +95,20 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
      * 自定义模板配置
      **/
     protected void templateConfig() {
-        /*
+
+        /* 暂时不用改变实体类
+        if(isWfEntity)
+        {
+            templateConfig.setMapper("/templates/entity.java");
+        }
+
+        templateConfig.setMapper("/templates/service.java");
+        templateConfig.setMapper("/templates/serviceImpl.java");
         templateConfig.setMapper("/templates/mapper.java");
-        源码位置
-        private String entity = "/templates/entity.java";
-        private String service = "/templates/service.java";
-        private String serviceImpl = "/templates/serviceImpl.java";
-        private String mapper = "/templates/mapper.java";
-        private String xml = "/templates/mapper.xml";
-        private String controller = "/templates/controller.java";
+        templateConfig.setMapper("/templates/mapper.xml");
+        templateConfig.setMapper("/templates/controller.java");
         */
+
 
     }
 

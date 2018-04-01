@@ -1,0 +1,93 @@
+package ${package.Entity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+
+/**
+ *
+ * $!{table.comment} 实体
+ *
+ * @author ${author}
+ * @create ${date}
+ */
+#if(${table.convert})
+@TableName("${table.name}")
+#end
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}<${entity}> {
+#else
+public class ${entity} implements Serializable {
+#end
+
+    private static final long serialVersionUID = 1L;
+
+#foreach($field in ${table.fields})
+#if("$!field.name" != "id" && "$!field.name" != "create_time" && "$!field.name" != "update_time"
+&& "$!field.name" != "create_by" && "$!field.name" != "update_by" && "$!field.name" != "tenant_id"
+)
+#if(${field.keyFlag})
+#set($keyPropertyName=${field.propertyName})
+#end
+#if("$!field.comment" != "")
+    /**
+     * ${field.comment}
+     */
+#end
+#if(${field.keyFlag})
+#if(${field.keyIdentityFlag})
+	@TableId(value="${field.name}", type= IdType.AUTO)
+#elseif(${field.convert})
+    @TableId("${field.name}")
+#end
+#elseif(${field.convert})
+	@TableField("${field.name}")
+#end
+	private ${field.propertyType} ${field.propertyName};
+#end
+#end
+
+#foreach($field in ${table.fields})
+#if("$!field.name" != "id" && "$!field.name" != "create_time" && "$!field.name" != "update_time"
+	&& "$!field.name" != "create_by" && "$!field.name" != "update_by" && "$!field.name" != "tenant_id")
+#if(${field.propertyType.equals("Boolean")})
+#set($getprefix="is")
+#else
+#set($getprefix="get")
+#end
+
+	public ${field.propertyType} ${getprefix}${field.capitalName}() {
+		return ${field.propertyName};
+	}
+
+#if(${entityBuilderModel})
+	public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+#else
+	public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+#end
+		this.${field.propertyName} = ${field.propertyName};
+#if(${entityBuilderModel})
+		return this;
+#end
+	}
+#end
+#end
+
+#if(${entityColumnConstant})
+#foreach($field in ${table.fields})
+	public static final String ${field.name.toUpperCase()} = "${field.name}";
+
+#end
+#end
+#if(${activeRecord})
+	@Override
+	protected Serializable pkVal() {
+#if(${keyPropertyName})
+		return this.${keyPropertyName};
+#else
+		return this.id;
+#end
+	}
+
+#end
+}
