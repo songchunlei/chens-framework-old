@@ -8,9 +8,9 @@ spring:
     name: chens-file-server
   #数据库连接
   datasource:
-    url: jdbc:mysql://chens:3306/qyexam?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: abc@123456
+    url: jdbc:mysql://${chens_mysql_url:chens}:3306/qyexam?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${chens_mysql_username:root}
+    password: ${chens_mysql_password:abc@123456}
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
 
