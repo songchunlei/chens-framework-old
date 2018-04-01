@@ -1,13 +1,14 @@
 package com.chens.file.controller;
 
+import com.chens.core.exception.BaseException;
+import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.vo.Result;
 import com.chens.file.service.IFileInfoService;
 import com.chens.file.entity.SysFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -21,38 +22,34 @@ import static com.chens.file.util.FileUtil.createMd5;
  * @create 2018/3/13
  */
 @Controller
-@RequestMapping("/FileUpload")
+@RequestMapping("/fileController")
 public class FileController extends BaseFileController {
     @Autowired
     private IFileInfoService fileInfoService;
 
-    @RequestMapping(value = "/Index", method = RequestMethod.GET)
-    public String Index() {
-        return "FileUpload/Index";
-    }
-
-    @RequestMapping(value = "/FileUp", method = RequestMethod.POST)
-    public String fileUpload(@RequestParam("id") String id,
-                             @RequestParam("name") String name,
-                             @RequestParam("type") String type,
-                             @RequestParam("lastModifiedDate") String lastModifiedDate,
-                             @RequestParam("size") int size,
-                             @RequestParam("file") MultipartFile file) {
+    @PostMapping(value = "/upload")
+    public ResponseEntity<Result> fileUpload(@RequestParam("name") String name,
+                                             @RequestParam("type") String type,
+                                             @RequestParam("size") long size,
+                                             @RequestParam("file") MultipartFile file) {
         String fileName;
+        SysFile sysFile;
 
         try {
-            String ext = name.substring(name.lastIndexOf("."));
-            fileName = UUID.randomUUID().toString() + ext;
-            saveFile(getFilePath(), fileName, file);
+            saveFile(getFilePath(), name+"."+type, file);
         } catch (Exception ex) {
-            return "{\"error\":true}";
+            throw new BaseException(BaseExceptionEnum.FILE_READING_ERROR.getCode(),ex.getMessage());
         }
         try {
-            fileInfoService.insert(new SysFile(fileName,createMd5(file).toString(), new Date()));
+            sysFile = new SysFile(name+type,size,createMd5(file).toString());
+            fileInfoService.insert(sysFile);
         } catch (Exception e) {
-            return "{\"error\":true}";
+            throw new BaseException(BaseExceptionEnum.FILE_SAVE_ERROR);
         }
 
-        return "{jsonrpc = \"2.0\",id = id,filePath = \"/Upload/\" + fileFullName}";
+        return doSuccess(sysFile);
     }
+
+
+
 }

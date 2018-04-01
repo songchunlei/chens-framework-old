@@ -65,7 +65,7 @@ public class IsAllUploaded {
 
         if (allUploaded) {
             mergeFile(chunksNumber, ext, guid, uploadFolderPath);
-            fileService.insert(new SysFile(guid + ext, md5, new Date()));
+            fileService.insert(new SysFile(guid + ext, 1L,md5));
         }
     }
 }

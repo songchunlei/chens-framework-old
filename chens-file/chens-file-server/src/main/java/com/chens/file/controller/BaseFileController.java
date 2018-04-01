@@ -83,7 +83,7 @@ public class BaseFileController extends BaseController{
      * @return
      */
     public static String getFilePath() {
-        return "/home/opt/";
+        return "/Users/songchunlei/docker/";
     }
 
 

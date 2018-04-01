@@ -34,7 +34,7 @@ public class ImageUploadController extends BaseFileController{
                              @RequestParam("name") String name,
                              @RequestParam("type") String type,
                              @RequestParam("lastModifiedDate") String lastModifiedDate,
-                             @RequestParam("size") int size,
+                             @RequestParam("size") long size,
                              @RequestParam("file") MultipartFile file) {
         String fileName = "";
 
@@ -52,7 +52,7 @@ public class ImageUploadController extends BaseFileController{
 
             saveFile(getFilePath(), fileName, saveFile);
 
-            fileInfoService.insert(new SysFile(fileName, createMd5(file).toString(), new Date()));
+            fileInfoService.insert(new SysFile(fileName, size,createMd5(file).toString()));
 
         } catch (Exception ex) {
             return "{\"error\":true}";
