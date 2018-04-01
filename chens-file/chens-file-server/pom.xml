@@ -18,10 +18,10 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--feign集合-->
+        <!--通用方法集-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>chens-admin-feign</artifactId>
+            <artifactId>chens-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--auth-client鉴权客户端-->
