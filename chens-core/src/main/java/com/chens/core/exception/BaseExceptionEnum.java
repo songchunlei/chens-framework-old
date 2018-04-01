@@ -42,6 +42,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
      */
     FILE_NOT_FOUND(401,"文件未找到"),
     FILE_READING_ERROR(402,"文件读取错误"),
+    FILE_SAVE_ERROR(402,"文件保存失败"),
 
 
     /**

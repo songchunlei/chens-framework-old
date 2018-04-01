@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.core.vo.BaseEntity;
+
 import java.io.Serializable;
 
 /**
@@ -16,15 +18,10 @@ import java.io.Serializable;
  * @since 2018-03-09
  */
 @TableName("sys_file")
-public class SysFile implements Serializable {
+public class SysFile extends BaseEntity<SysFile> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 文件ID
-     */
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
     /**
      * 文件名
      */
@@ -45,32 +42,14 @@ public class SysFile implements Serializable {
      * 大小
      */
     private Long size;
-    @TableField("create_time")
-    private Date createTime;
-    @TableField("update_time")
-    private Date updateTime;
-    @TableField("create_by")
-    private Long createBy;
-    @TableField("update_by")
-    private Long updateBy;
-    @TableField("tenant_id")
-    private Long tenantId;
 
     public SysFile() {
     }
 
-    public SysFile(String name, String md5, Date createTime) {
+    public SysFile(String name, Long size,String md5) {
         this.name = name;
+        this.size = size;
         this.md5 = md5;
-        this.createTime = createTime;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -113,60 +92,4 @@ public class SysFile implements Serializable {
         this.size = size;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Long getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    @Override
-    public String toString() {
-        return "SysFile{" +
-        "id=" + id +
-        ", name=" + name +
-        ", url=" + url +
-        ", md5=" + md5 +
-        ", tag=" + tag +
-        ", size=" + size +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", createBy=" + createBy +
-        ", updateBy=" + updateBy +
-        ", tenantId=" + tenantId +
-        "}";
-    }
 }

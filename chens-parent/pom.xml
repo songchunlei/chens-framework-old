@@ -34,8 +34,6 @@
         <module>../chens-file</module>
         <!--富文本编辑器-->
         <module>../chens-ueditor</module>
-        <!--流程引擎-->
-        <module>../chens-workflow</module>
         <!--excel模块-->
         <module>../chens-excel</module>
         <!--流程引擎-->
