@@ -37,4 +37,17 @@ public interface IWfBaseService<T>  extends IService<T> {
      * @return
      */
     boolean noPass(T t);
+
+    /**
+     * 发布
+     */
+    boolean publish(T t);
+
+    /**
+     * 取消发布
+     */
+    boolean unPublish(T t);
+
+
+
 }

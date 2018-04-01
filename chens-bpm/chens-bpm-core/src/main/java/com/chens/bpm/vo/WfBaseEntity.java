@@ -24,6 +24,12 @@ public class WfBaseEntity <T extends WfBaseEntity> extends BaseEntity<T>{
     @TableField(value = "wf_inst_id")
     protected String wfInstId;
 
+    /**
+     * 流程定义key
+     */
+    @TableField(value = "wf_define_key")
+    protected String wfDefineKey;
+
 
     public String getStatus() {
         return status;
@@ -39,5 +45,13 @@ public class WfBaseEntity <T extends WfBaseEntity> extends BaseEntity<T>{
 
     public void setWfInstId(String wfInstId) {
         this.wfInstId = wfInstId;
+    }
+
+    public String getWfDefineKey() {
+        return wfDefineKey;
+    }
+
+    public void setWfDefineKey(String wfDefineKey) {
+        this.wfDefineKey = wfDefineKey;
     }
 }

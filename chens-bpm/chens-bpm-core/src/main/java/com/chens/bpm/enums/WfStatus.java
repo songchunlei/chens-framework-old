@@ -7,10 +7,13 @@ package com.chens.bpm.enums;
  * @create 2018/3/30
  */
 public enum WfStatus {
+    DELETED("DELETED","已删除"),
     WAITING("WAITING", "待提交"),
     CHECKING("CHECKING", "审核中"),
     PASS("PASS", "审核通过"),
-    UN_PASS("UN_PASS", "未通过");
+    UN_PASS("UN_PASS", "未通过"),
+    PUBLISHED("PUBLISHED","已发布"),
+    CANCEL_PUBLISHED("CANCEL_PUBLISHED","取消发布");
 
 
     String code;

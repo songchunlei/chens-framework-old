@@ -47,7 +47,6 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends WfBaseEntity<T
         this.insertOrUpdate(t);
         wfEngineService.startWorkflow();
         return true;
-
     }
 
     /**
@@ -78,7 +77,15 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends WfBaseEntity<T
         return this.updateById(t);
     }
 
+    @Override
+    public boolean publish(T t) {
+        return false;
+    }
 
+    @Override
+    public boolean unPublish(T t) {
+        return false;
+    }
 
 
 }
