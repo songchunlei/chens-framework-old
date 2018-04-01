@@ -3,6 +3,7 @@ package com.chens.file.controller;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
+import com.chens.core.web.BaseWebController;
 import com.chens.file.service.IFileInfoService;
 import com.chens.file.entity.SysFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ import static com.chens.file.util.FileUtil.createMd5;
 @Controller
 @RequestMapping("/fileController")
 public class FileController extends BaseFileController {
-    @Autowired
-    private IFileInfoService fileInfoService;
+
 
     @PostMapping(value = "/upload")
     public ResponseEntity<Result> fileUpload(@RequestParam("name") String name,
@@ -42,7 +42,7 @@ public class FileController extends BaseFileController {
         }
         try {
             sysFile = new SysFile(name+type,size,createMd5(file).toString());
-            fileInfoService.insert(sysFile);
+            service.insert(sysFile);
         } catch (Exception e) {
             throw new BaseException(BaseExceptionEnum.FILE_SAVE_ERROR);
         }
