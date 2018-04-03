@@ -2,7 +2,7 @@ package com.chens.bpm.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ import com.chens.core.vo.BaseEntity;
 /**
  * 流程引擎基础服务
  *
- * @auther songchunlei@qq.com
+ * @auther wudepeng
  * @create 2018/3/30
  */
 public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>> extends ServiceImpl<M , T>  implements IWfBaseService<T>{
@@ -38,7 +38,7 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
 
     /**
      * 创建草稿
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     @Override
@@ -59,7 +59,7 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
 
     /**
      * 提交
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     @Override
@@ -120,7 +120,7 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
 
     /**
      * 提交办理
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     @Override

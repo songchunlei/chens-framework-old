@@ -25,7 +25,7 @@ import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.spring.ProcessEngineFactoryBean;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ import com.chens.core.exception.BaseExceptionEnum;
 /**
  * 基于activiti实现流程服务
  *
- * @auther songchunlei@qq.com
+ * @auther wudepeng
  * @create 2018/3/30
  */
 @Service
@@ -183,8 +183,7 @@ public class ActivitiService implements IWfEngineService {
      * @param sequenceFlowList
      * @param field     bpm_advice
      * @param value 参数描述       
-     * void 返回类型
-     * @throws 异常说明
+     * String 返回类型
      * 
      * @author shenbo
      */
@@ -226,7 +225,6 @@ public class ActivitiService implements IWfEngineService {
      * @param processDefinitionKey
      * @return 参数描述
      * boolean 返回类型
-     * @throws 异常说明
      * 
      * @author shenbo
      */
@@ -436,10 +434,10 @@ public class ActivitiService implements IWfEngineService {
      * 校验下一个节点是否是会签节点
      *@Description: 
      * @param taskId
-     * @param string
+     * @param field
+      * @param field
      * @return 参数描述
      * boolean 返回类型
-     * @throws 异常说明
      */
     public boolean checkNextUserTaskIsHuiQian(String taskId, String field,String value) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
