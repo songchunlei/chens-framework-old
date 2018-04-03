@@ -1,5 +1,8 @@
 package com.chens.bpm.controller;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.bpm.vo.WfBaseEntity;
+import com.chens.core.context.BaseContextHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +12,6 @@ import com.chens.bpm.service.IWfBaseService;
 import com.chens.bpm.vo.WorkFlowRequestParam;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseWebController;
 
@@ -19,7 +21,7 @@ import com.chens.core.web.BaseWebController;
  * @auther songchunlei@qq.com
  * @create 2018/4/1
  */
-public abstract class WfBaseController<S extends IWfBaseService<T>, T extends BaseEntity<T>>  extends BaseWebController<S,T> {
+public abstract class WfBaseController<S extends IWfBaseService<T>, T extends WfBaseEntity<T>>  extends BaseWebController<S,T> {
 
 
     protected WorkFlowRequestParam<T> workFlowRequestParam;
@@ -36,6 +38,25 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Ba
      */
     private void doInit(T t)
     {
+        WorkFlowRequestParam workFlowRequestParam = new WorkFlowRequestParam<T>();
+        workFlowRequestParam.setProcessDefinitionKey(t.getProcessDefinitionKey());//流程定义Key
+        workFlowRequestParam.setVariableValue(t.getVariableValue());//前台传过来的下一环节选择
+        workFlowRequestParam.setTaskId(t.getTaskId());//任务id
+        workFlowRequestParam.setNextUserId(t.getNextUserId());//下一处理人
+        workFlowRequestParam.setStartUserId(BaseContextHandler.getUserId());//发起人
+        workFlowRequestParam.setStartUserName(BaseContextHandler.getName());//发起人姓名
+        workFlowRequestParam.setTenantId(BaseContextHandler.getTenantId());//租户
+        //workFlowRequestParam.setTableName("t_source");//表名
+        TableName tableName = t.getClass().getAnnotation(TableName.class);
+        if(tableName!=null)
+        {
+            workFlowRequestParam.setTableName(tableName.value());//从注解获取类名
+        }
+        workFlowRequestParam.setBpmReason(t.getBpmReason());//审批意见
+        workFlowRequestParam.setTaskName(t.getTaskName());
+        workFlowRequestParam.setCurrentTaskDefinitionKey(t.getCurrentTaskDefinitionKey());
+        workFlowRequestParam.setCurrentTaskDefinitionName(t.getCurrentTaskDefinitionName());
+        workFlowRequestParam.setT(t);
         init(t);
     }
 

@@ -17,7 +17,7 @@ public class WorkFlowRequestParam <T> implements Serializable{
     private String startUserId;//发起人id   
     private String startUserName;//发起人姓名
     private String bpmReason;//批示（内容描述）   
-    private final String variableName = "bpm_advice";//变量名称 
+    private String variableName = "bpm_advice";//变量名称
     private String variableValue; //变量值
     //下一个环节处理人 若多个 用逗号分隔  ，目前 要么一个参与人  要么多个参与人（会签）暂不考虑 按角色抢单的模式 
     private String nextUserId;

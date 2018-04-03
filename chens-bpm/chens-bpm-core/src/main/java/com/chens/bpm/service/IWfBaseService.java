@@ -13,21 +13,21 @@ public interface IWfBaseService<T>  extends IService<T> {
 
     /**
      * 创建草稿
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     String createDraft(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 发起流程
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 提交办理
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     boolean pass(WorkFlowRequestParam<T> workFlowRequestParam);

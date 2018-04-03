@@ -23,11 +23,11 @@ public interface IWfEngineService {
 	
     /**
      * 发起节点校验下一个节点是否是会签节点
-     * @param taskId
-     * @param string
+     * @param processDefinitionKey
+     * @param field
+     * @param value
      * @return 参数描述
      * boolean 返回类型
-     * @throws 异常说明
      */
     boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field,String value);
   
