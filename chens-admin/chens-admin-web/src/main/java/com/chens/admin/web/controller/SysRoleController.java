@@ -79,7 +79,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     /**
      * 增加用户
      * @param roleId
-     * @param users
+     * @param userIds
      * @return
      */
     @PostMapping("/addUsers")
@@ -90,7 +90,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     /**
      * 删除用户
      * @param roleId
-     * @param users
+     * @param userIds
      * @return
      */
     @DeleteMapping("/deleteUsers")

@@ -12,12 +12,6 @@
 
     <artifactId>chens-excel</artifactId>
 
-    <properties>
-        <poi.version>3.15</poi.version>
-        <spel.version>4.1.6.RELEASE</spel.version>
-        <reflections.version>0.9.9-RC1</reflections.version>
-    </properties>
-
     <dependencies>
 
         <!--通用方法集-->
@@ -53,14 +47,12 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${poi.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>${reflections.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.reflections</groupId>-->
+            <!--<artifactId>reflections</artifactId>-->
+        <!--</dependency>-->
 
     </dependencies>
 
