@@ -1,6 +1,7 @@
 package com.chens.admin.service.impl;
 
 
+import com.chens.admin.enums.SysMenuEnum;
 import com.chens.admin.service.ISysMenuService;
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.core.vo.UserInfo;
@@ -133,7 +134,16 @@ public class AuthServiceImpl implements IAuthService{
                 MenuTree menuTree = new MenuTree();
                 menuTree.getMenu(menu);
                 trees.add(menuTree);
-                all.put(menu.getId(), menuTree.clone());
+                //当菜单类型为页面时，放入子菜单（不克隆）
+                if(SysMenuEnum.PAGE.getCode().equals(menu.getType()))
+                {
+                    all.put(menu.getCode(),menuTree);
+                }
+                else
+                {
+                    all.put(menu.getCode(),menuTree.clone());
+                }
+
             }
         }
         //构建树结构

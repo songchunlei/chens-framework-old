@@ -13,6 +13,7 @@ public class MenuTree extends ZTree {
     private String icon;
     private String url;
     private String description;
+    private String code;
 
     public String getIcon() {
         return icon;
@@ -46,6 +47,7 @@ public class MenuTree extends ZTree {
         this.url = sysMenu.getUrl();
         this.description = sysMenu.getDescription();
         this.codeType = sysMenu.getType();
+        this.code = sysMenu.getCode();
         if(sysMenu.getIsopen()!=null && sysMenu.getIsopen()==1)
         {
             this.open = true;
@@ -58,6 +60,14 @@ public class MenuTree extends ZTree {
     public MenuTree()
     {
 
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public MenuTree(String icon, String url, String description) {

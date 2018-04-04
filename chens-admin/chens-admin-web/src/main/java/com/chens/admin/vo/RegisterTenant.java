@@ -3,7 +3,7 @@ package com.chens.admin.vo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.admin.entity.SysTenant;
 import com.chens.admin.entity.SysUser;
-import com.chens.core.enums.TenantType;
+import com.chens.admin.enums.TenantType;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

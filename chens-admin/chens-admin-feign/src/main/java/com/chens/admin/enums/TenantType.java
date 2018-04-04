@@ -1,4 +1,4 @@
-package com.chens.core.enums;
+package com.chens.admin.enums;
 
 /**
  * 租户类型

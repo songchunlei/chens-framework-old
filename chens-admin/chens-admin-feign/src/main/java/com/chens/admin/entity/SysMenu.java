@@ -50,6 +50,11 @@ public class SysMenu extends BaseEntity<SysMenu> {
     @TableField(exist = false)
     private List<SysMenu> childList;
 
+    /**
+     * 菜单编码
+     */
+    private String code;
+
 
     public String getParentId() {
         return parentId;
@@ -121,5 +126,13 @@ public class SysMenu extends BaseEntity<SysMenu> {
 
     public void setChildList(List<SysMenu> childList) {
         this.childList = childList;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
