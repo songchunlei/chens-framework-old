@@ -79,22 +79,6 @@ public class MyExceptionHandler {
             return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(), exception.getMessage());
         }
         /**
-         * 熔断抛错
-         */
-        else if(throwable instanceof HystrixRuntimeException)
-        {
-            HystrixRuntimeException exception = (HystrixRuntimeException) throwable;
-            return ResultHelper.getError(BaseExceptionEnum.SERVER_ERROR.getCode(), exception.getMessage());
-        }
-        /**
-         * feign抛错
-         */
-        else if(throwable instanceof FeignException)
-        {
-            FeignException exception = (FeignException) throwable;
-            return getMessage(exception.getMessage());
-        }
-        /**
          * 请求超时
          */
         else if(throwable instanceof TimeoutException)
@@ -133,26 +117,5 @@ public class MyExceptionHandler {
             }
         }
         return errMsg;
-    }
-
-    /**
-     * exception报错内容： status 500 reading IForderClient#save(Map); content:
-     {"timestamp":1520586889833,"status":500,"error":"Internal Server Error","exception":"com.chens.core.exception.BaseException","message":"已存在相同名称的目录","path":"/forder/save"}
-     * @param exceptionMessage
-     * @return
-     */
-    private static Result getMessage(String exceptionMessage) {
-        int start = exceptionMessage.indexOf("{");
-        int end = exceptionMessage.indexOf("}");
-        exceptionMessage = exceptionMessage.substring(start, end+1);
-        JSONObject obj = JSONObject.parseObject(exceptionMessage);
-        Integer errCode = (Integer) obj.get("code");
-        String errMsg = (String)obj.get("message");
-        //可能存在msg的情况
-        if(StringUtils.isEmpty(errMsg))
-        {
-            errMsg = (String)obj.get("msg");
-        }
-        return ResultHelper.getError(errCode,errMsg);
     }
 }

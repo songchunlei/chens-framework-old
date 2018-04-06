@@ -55,8 +55,8 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     protected void strategyConfig() {
         //strategyConfig.setTablePrefix(new String[]{"xx_"});// 此处可以修改为您的表前缀
         strategyConfig
-                //.setTablePrefix(new String[]{"t_"})
-                .setInclude("sys_log")
+                .setTablePrefix(new String[]{"t_"})
+                .setInclude("t_book","t_book_section","t_booksection_question","t_course","t_course_section","t_coursesection_question","t_exam_paper","t_exampaper_question")
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setLogicDeleteFieldName("is_delete");//逻辑删除字段
 
@@ -84,11 +84,11 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
     //.setEntity("entity");
     protected void packageConfig() {
         packageConfig.setParent(null)
-                .setController("com.chens.auth.controller")
-                .setMapper("com.chens.auth.mapper")
-                .setService("com.chens.auth.service")
-                .setServiceImpl("com.chens.auth.service.impl")
-                .setEntity("com.chens.auth.entity");
+                .setController("com.chens.exam.book.controller")
+                .setMapper("com.chens.exam.book.mapper")
+                .setService("com.chens.exam.book.service")
+                .setServiceImpl("com.chens.exam.book.service.impl")
+                .setEntity("com.chens.exam.core.entity.book");
     }
 
     /**

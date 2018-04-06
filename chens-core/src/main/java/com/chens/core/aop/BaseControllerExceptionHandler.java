@@ -91,6 +91,7 @@ public class BaseControllerExceptionHandler{
         return MyExceptionHandler.getErrorResult(e);
     }
 
+    /*
     @ExceptionHandler(HystrixRuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
@@ -99,6 +100,7 @@ public class BaseControllerExceptionHandler{
         return MyExceptionHandler.getErrorResult(e);
     }
 
+
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
@@ -106,5 +108,6 @@ public class BaseControllerExceptionHandler{
         log.error("Feign异常:"+e.getMessage());
         return MyExceptionHandler.getErrorResult(e);
     }
+    */
     
 }
