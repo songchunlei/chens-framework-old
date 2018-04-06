@@ -1,8 +1,6 @@
 package com.chens.bpm.vo;
 
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.chens.core.context.BaseContextHandler;
 import com.chens.core.vo.BaseEntity;
 
 /**
@@ -11,9 +9,12 @@ import com.chens.core.vo.BaseEntity;
  * @auther songchunlei@qq.com
  * @create 2018/4/3
  */
+@SuppressWarnings("rawtypes")
 public class WfBaseEntity <T extends WfBaseEntity> extends BaseEntity<T>{
 
-    @TableField(exist = false)
+	private static final long serialVersionUID = -6893793486319301365L;
+
+	@TableField(exist = false)
     protected String taskId;//任务id
 
     @TableField(exist = false)

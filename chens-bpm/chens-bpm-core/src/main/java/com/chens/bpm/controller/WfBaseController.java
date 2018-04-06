@@ -24,7 +24,7 @@ import com.chens.core.web.BaseWebController;
 public abstract class WfBaseController<S extends IWfBaseService<T>, T extends WfBaseEntity<T>>  extends BaseWebController<S,T> {
 
 
-    protected WorkFlowRequestParam<T> workFlowRequestParam;
+    protected WorkFlowRequestParam<T> workFlowRequestParam = new WorkFlowRequestParam<T>();
 
     /**
      * 自定义初始化
@@ -36,9 +36,10 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
      * 初始化参数
      * @param t
      */
-    private void doInit(T t)
+    protected void doInit(T t)
     {
-        WorkFlowRequestParam workFlowRequestParam = new WorkFlowRequestParam<T>();
+    	init(t);
+//        WorkFlowRequestParam<T> workFlowRequestParam = new WorkFlowRequestParam<T>();
         workFlowRequestParam.setProcessDefinitionKey(t.getProcessDefinitionKey());//流程定义Key
         workFlowRequestParam.setVariableValue(t.getVariableValue());//前台传过来的下一环节选择
         workFlowRequestParam.setTaskId(t.getTaskId());//任务id
@@ -57,7 +58,7 @@ public abstract class WfBaseController<S extends IWfBaseService<T>, T extends Wf
         workFlowRequestParam.setCurrentTaskDefinitionKey(t.getCurrentTaskDefinitionKey());
         workFlowRequestParam.setCurrentTaskDefinitionName(t.getCurrentTaskDefinitionName());
         workFlowRequestParam.setT(t);
-        init(t);
+        
     }
 
     /**

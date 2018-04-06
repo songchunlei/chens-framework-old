@@ -106,7 +106,6 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
 //        		processBussinessRel.setCurrentTaskDefinitionKey(currentTaskDefinitionKey);//当前任务节点key
 //        		processBussinessRel.setCurrentTaskDefinitionName(currentTaskDefinitionName);//当前任务节点名称        		
         		processBussinessRel.setTaskName(workFlowRequestParam.getTaskName());//任务名称
-    	        processBussinessRel.setStatus(WfStatus.WAITING.getCode());//草稿状态
     	        processBussinessRel.setProcessDefinitionKey(workFlowRequestParam.getProcessDefinitionKey());//流程定义key
     	        processBussinessRel.setBusinessKey(t.getId());//业务数据id
     	        processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());//逻辑删除
