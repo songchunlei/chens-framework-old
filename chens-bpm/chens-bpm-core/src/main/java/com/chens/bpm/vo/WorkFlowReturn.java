@@ -81,7 +81,7 @@ public class WorkFlowReturn implements Serializable {
 		this.message = message;
 	}
 
-	public Object getData() {
+	public JSONObject getData() {
 		return data;
 	}
 

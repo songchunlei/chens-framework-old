@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.chens.bpm.constants.BpmConstants;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExclusiveGateway;
 import org.activiti.bpmn.model.FlowNode;
@@ -143,10 +144,10 @@ public class ActivitiService implements IWfEngineService {
         	throw new BaseException(BaseExceptionEnum.WORKFLOW_START_FAIL);
         }
         JSONObject obj = new JSONObject();
-        obj.put("processDefinitionId", processInstance.getProcessDefinitionId());
-        obj.put("processDefinitionName", processInstance.getProcessDefinitionName());
-        obj.put("processDefinitionVersion", processInstance.getProcessDefinitionVersion());
-        obj.put("processInstanceId", processInstance.getId());  
+        obj.put(BpmConstants.KEY_PROCESS_DEFINITION_ID, processInstance.getProcessDefinitionId());
+        obj.put(BpmConstants.KEY_PROCESS_DEFINITION_NAME, processInstance.getProcessDefinitionName());
+        obj.put(BpmConstants.KEY_PROCESS_DEFINITION_VERSION, processInstance.getProcessDefinitionVersion());
+        obj.put(BpmConstants.KEY_PROCESS_INSTANCE_ID, processInstance.getId());
         workFlowReturn.setStartSuccess(true);
         workFlowReturn.setMessage("流程发起成功");
         workFlowReturn.setData(obj);

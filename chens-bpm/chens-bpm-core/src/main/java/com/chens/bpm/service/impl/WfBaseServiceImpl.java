@@ -2,6 +2,7 @@ package com.chens.bpm.service.impl;
 
 import java.util.List;
 
+import com.chens.bpm.constants.BpmConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +105,7 @@ public abstract class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseE
         if(!workFlowReturn.isStartSuccess()){
         	throw new BaseException(BaseExceptionEnum.WORKFLOW_START_FAIL);
         }else{
-        	JSONObject obj = (JSONObject)workFlowReturn.getData();
+        	JSONObject obj = workFlowReturn.getData();
         	ProcessBussinessRel query = new ProcessBussinessRel();
         	query.setBusinessKey(t.getId());
         	query.setIsDelete(YesNoEnum.NO.getCode());
@@ -113,10 +114,10 @@ public abstract class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseE
         	if(CollectionUtils.isNotEmpty(processBussinessRelList)){
         		ProcessBussinessRel processBussinessRel = processBussinessRelList.get(0);
         		processBussinessRel.setStatus(WfStatus.CHECKING.getCode());//审批中
-        		processBussinessRel.setProcessDefinitionId(obj.getString("processDefinitionId"));//流程定义id
-        		processBussinessRel.setProcessDefinitionName(obj.getString("processDefinitionName"));//流程定义名称
-        		processBussinessRel.setProcessDefinitionVersion(obj.getString("processDefinitionVersion"));//流程定义版本
-        		processBussinessRel.setProcessInstanceId(obj.getString("processInstanceId"));//流程实例id
+        		processBussinessRel.setProcessDefinitionId(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_ID));//流程定义id
+        		processBussinessRel.setProcessDefinitionName(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_NAME));//流程定义名称
+        		processBussinessRel.setProcessDefinitionVersion(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_VERSION));//流程定义版本
+        		processBussinessRel.setProcessInstanceId(obj.getString(BpmConstants.KEY_PROCESS_INSTANCE_ID));//流程实例id
         		processBussinessRel.setStartBy(workFlowRequestParam.getStartUserId());//发起人id
         		processBussinessRel.setStartByName(workFlowRequestParam.getStartUserName());//发起人姓名
 //        		processBussinessRel.setCurrentTaskDefinitionKey(currentTaskDefinitionKey);//当前任务节点key
@@ -125,10 +126,10 @@ public abstract class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseE
         	}else{
         		ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
         		processBussinessRel.setStatus(WfStatus.CHECKING.getCode());//审批中
-        		processBussinessRel.setProcessDefinitionId(obj.getString("processDefinitionId"));//流程定义id
-        		processBussinessRel.setProcessDefinitionName(obj.getString("processDefinitionName"));//流程定义名称
-        		processBussinessRel.setProcessDefinitionVersion(obj.getString("processDefinitionVersion"));//流程定义版本
-        		processBussinessRel.setProcessInstanceId(obj.getString("processInstanceId"));//流程实例id
+        		processBussinessRel.setProcessDefinitionId(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_ID));//流程定义id
+        		processBussinessRel.setProcessDefinitionName(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_NAME));//流程定义名称
+        		processBussinessRel.setProcessDefinitionVersion(obj.getString(BpmConstants.KEY_PROCESS_DEFINITION_VERSION));//流程定义版本
+        		processBussinessRel.setProcessInstanceId(obj.getString(BpmConstants.KEY_PROCESS_INSTANCE_ID));//流程实例id
         		processBussinessRel.setStartBy(workFlowRequestParam.getStartUserId());//发起人id
         		processBussinessRel.setStartByName(workFlowRequestParam.getStartUserName());//发起人姓名
 //        		processBussinessRel.setCurrentTaskDefinitionKey(currentTaskDefinitionKey);//当前任务节点key
