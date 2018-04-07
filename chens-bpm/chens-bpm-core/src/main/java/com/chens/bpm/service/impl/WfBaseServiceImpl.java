@@ -29,7 +29,7 @@ import com.chens.core.vo.BaseEntity;
  * @auther wudepeng
  * @create 2018/3/30
  */
-public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>> extends ServiceImpl<M , T>  implements IWfBaseService<T>{
+public abstract class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>> extends ServiceImpl<M , T>  implements IWfBaseService<T>{
 
     @Autowired
     private IWfEngineService wfEngineService;
@@ -57,6 +57,25 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
         return t.getId();
     }
 
+	/**
+	 * 提交前方法
+	 * 注意：如果要保持事务一致性，请throw BaseException()
+	 * @param workFlowRequestParam
+	 * @return
+	 */
+	@Transactional
+	public abstract boolean beforeSubmit(WorkFlowRequestParam<T> workFlowRequestParam);
+
+	/**
+	 * 提交后方法
+	 * 注意：如果要保持事务一致性，请throw BaseException()
+	 * @param workFlowRequestParam
+	 * @return
+	 */
+	@Transactional
+    public abstract boolean afterSubmit(WorkFlowRequestParam<T> workFlowRequestParam);
+
+
     /**
      * 提交
      * @param workFlowRequestParam
@@ -66,11 +85,20 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
     @Transactional
     public boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam) {
     	T t = workFlowRequestParam.getT();
+    	/*
     	if(StringUtils.isNotBlank(t.getId())){
     		this.updateById(t);
     	}else{
     		this.insert(t);
-    	}      
+    	}
+    	*/
+
+		//提交前方法
+    	if(!beforeSubmit(workFlowRequestParam))
+		{
+			return false;
+		}
+
         workFlowRequestParam.setBusinessKey(t.getId());
         WorkFlowReturn workFlowReturn = wfEngineService.startWorkflow(workFlowRequestParam);
         if(!workFlowReturn.isStartSuccess()){
@@ -112,13 +140,20 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
     	        processBussinessRel.setTableName(workFlowRequestParam.getTableName());//业务表名
     	        processBussinessRelService.insert(processBussinessRel);
         	}
+
+			//提交后方法
+			if(!afterSubmit(workFlowRequestParam))
+			{
+				return false;
+			}
+
         	return true;
         }
         
     }
 
     /**
-     * 提交办理
+     * 提交办理（只读审批）
      * @param workFlowRequestParam
      * @return
      */
@@ -148,6 +183,36 @@ public class WfBaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity<T>>
     		return false;
     	}
     }
+
+	/**
+	 * 提交办理（非只读审批）
+	 * @param workFlowRequestParam
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public boolean passWithEdit(WorkFlowRequestParam<T> workFlowRequestParam)
+	{
+		//提交前方法
+		if(!beforeSubmit(workFlowRequestParam))
+		{
+			return false;
+		}
+
+		//流程方法
+		if(!pass(workFlowRequestParam))
+		{
+			return false;
+		}
+
+		//提交后方法
+		if(!afterSubmit(workFlowRequestParam))
+		{
+			return false;
+		}
+
+		return true;
+	}
     
     public void updateProcessBussinessRelService(List<ProcessBussinessRel> processBussinessRelList, String status){
     	if(CollectionUtils.isNotEmpty(processBussinessRelList)){

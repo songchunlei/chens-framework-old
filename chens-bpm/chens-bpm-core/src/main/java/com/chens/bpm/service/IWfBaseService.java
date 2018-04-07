@@ -26,11 +26,18 @@ public interface IWfBaseService<T>  extends IService<T> {
     boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
-     * 提交办理
+     * 提交办理（只读审批）
      * @param workFlowRequestParam
      * @return
      */
     boolean pass(WorkFlowRequestParam<T> workFlowRequestParam);
+
+    /**
+     * 提交办理（非只读审批）
+     * @param workFlowRequestParam
+     * @return
+     */
+    boolean passWithEdit(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 审批不通过

@@ -1,5 +1,7 @@
 package com.chens.bpm.vo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 /**
  * 流程返回参数实体类
@@ -20,7 +22,7 @@ public class WorkFlowReturn implements Serializable {
 	
 	private String message;//消息
 	
-	private Object data;//返回的数据
+	private JSONObject data;//返回的数据
 	
 	
 
@@ -29,7 +31,7 @@ public class WorkFlowReturn implements Serializable {
 	}
 
 
-	public WorkFlowReturn(boolean startSuccess, String message, Object data) {
+	public WorkFlowReturn(boolean startSuccess, String message, JSONObject data) {
 		super();
 		this.startSuccess = startSuccess;
 		this.message = message;
@@ -37,7 +39,7 @@ public class WorkFlowReturn implements Serializable {
 	}
 	
 
-	public WorkFlowReturn(boolean completeSuccess, boolean finish, String message, Object data) {
+	public WorkFlowReturn(boolean completeSuccess, boolean finish, String message, JSONObject data) {
 		super();
 		this.completeSuccess = completeSuccess;
 		this.finish = finish;
@@ -83,7 +85,7 @@ public class WorkFlowReturn implements Serializable {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(JSONObject data) {
 		this.data = data;
 	}
 
