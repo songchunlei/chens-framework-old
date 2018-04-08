@@ -2,6 +2,8 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -23,7 +25,7 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 租户名称
      */
-    @NotNull(message = "{tenant.name.null}")
+    @NotNull(message = "{tenant.name.null}",groups = {InsertValid.class, UpdateValid.class})
     @TableField("tenant_name")
     private String tenantName;
     /**
@@ -35,14 +37,14 @@ public class SysTenant extends BaseEntity<SysTenant> {
     /**
      * 营业执照
      */
-    @NotNull(message = "{tenant.jregLicens.null}")
+    @NotNull(message = "{tenant.jregLicens.null}",groups = {InsertValid.class, UpdateValid.class})
     @TableField("jreg_licens")
     private String jregLicens;
 
     /**
      * 代理人账号
      */
-    @NotNull(message = "{tenant.userName.null}")
+    @NotNull(message = "{tenant.userName.null}",groups = {InsertValid.class})
     @TableField("user_name")
     private String userName;
 

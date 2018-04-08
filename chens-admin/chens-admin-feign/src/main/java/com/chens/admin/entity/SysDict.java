@@ -2,7 +2,8 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.chens.core.annotation.UniqueField;
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -19,18 +20,17 @@ public class SysDict extends BaseEntity<SysDict> {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "{dict.type.null}")
-	@UniqueField(message = "{dict.type.unique}",serviceClass = "com.chens.admin.validator.UserValidator",methodName ="checkUserNameUnique" )
+    @NotNull(message = "{dict.type.null}",groups = {InsertValid.class, UpdateValid.class})
 	private String type;
-	@NotNull(message = "{dict.val.null}")
+	@NotNull(message = "{dict.val.null}",groups = {InsertValid.class, UpdateValid.class})
 	private String val;
-	@NotNull(message = "{dict.text.null}")
+	@NotNull(message = "{dict.text.null}",groups = {InsertValid.class, UpdateValid.class})
 	private String text;
-	@NotNull(message = "{dict.seq.null}")
+	@NotNull(message = "{dict.seq.null}",groups = {InsertValid.class, UpdateValid.class})
 	private Integer seq;
 	@TableField("DESCRIPTION")
 	private String description;
-	@NotNull(message = "{dict.parentId.null}")
+	@NotNull(message = "{dict.parentId.null}",groups = {InsertValid.class, UpdateValid.class})
 	@TableField("PARENT_ID")
 	private String parentId;
 	@TableField("is_delete")

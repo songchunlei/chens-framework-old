@@ -3,6 +3,8 @@ package com.chens.core.web;
 import java.util.Arrays;
 import java.util.List;
 
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.UpdateValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -51,7 +53,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         page.setAsc(spage.getPage().isAsc());
         //模糊查询各字段
         EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),true);
-        return  doSuccess(service.selectPage(page,wrapper));
+        return  doSuccess(CommonConstants.QUERY_SUCCESS,service.selectPage(page,wrapper));
     }
 
     /**
@@ -60,7 +62,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<Result> create(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> create(@RequestBody @Validated(InsertValid.class) T t) {
         /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
@@ -77,7 +79,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
             t.setTenantId(BaseContextHandler.getTenantId());
             */
         	service.insert(t);
-            return doSuccess("保存成功",t.getId());
+            return doSuccess(CommonConstants.SAVE_SUCCESS,t.getId());
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -89,19 +91,19 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<Result> update(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> update(@RequestBody @Validated(UpdateValid.class) T t) {
        /* 交给BaseControllerExceptionHandler统一处理
         String msg = GetValidateMsg.handlerValidateMsg(result);
         if(StringUtils.isNotEmpty(msg))
         {
             throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
         }*/
-        if(t != null){
+        if(t != null ){
             /* 交给MyMetaObjectHandler
             t.setUpdateTime(new Date());
             t.setUpdateBy(BaseContextHandler.getUserId());
             */
-            return doSuccess("保存成功",service.updateById(t));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,service.updateById(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -113,7 +115,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @return
      */
     @PutMapping("/save")
-    public ResponseEntity<Result> save(@RequestBody @Validated T t) {
+    public ResponseEntity<Result> save(@RequestBody T t) {
         if(t != null){
             if(t.getId()!=null)
             {
@@ -137,7 +139,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
     public ResponseEntity<Result> getInfo(@PathVariable String id) {
         if(id!=null)
         {
-            return doSuccess("查询成功",service.selectById(id));
+            return doSuccess(CommonConstants.QUERY_SUCCESS,service.selectById(id));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -153,7 +155,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
     public ResponseEntity<Result> list(T t) {
         if(t!=null)
         {
-            return doSuccess("查询成功",service.selectList(new EntityWrapper<>(t)));
+            return doSuccess(CommonConstants.QUERY_SUCCESS,service.selectList(new EntityWrapper<>(t)));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -169,7 +171,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
     public ResponseEntity<Result> delete(@PathVariable String id) {
         if(StringUtils.isNotEmpty(id))
         {
-            return doSuccess("删除成功",service.deleteById(id));
+            return doSuccess(CommonConstants.DELETE_SUCCESS,service.deleteById(id));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -188,7 +190,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         {
         	String[] idArray = id.split(",");
     		List<String> idList = Arrays.asList(idArray);
-            return doSuccess("删除成功",service.deleteBatchIds(idList));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,service.deleteBatchIds(idList));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

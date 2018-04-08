@@ -21,9 +21,10 @@ public class UserValidator extends BaseValidator<ISysUserService,SysUser>{
         }
     }
 
-    public boolean checkUserNameUnique(String userName) throws Exception {
-        SysUser sysUser = new SysUser();
-        sysUser.setUsername(userName);
-        return this.checkIsNotExist(sysUser);
+    public boolean check(SysUser sysUser) throws Exception {
+        SysUser query = new SysUser();
+        query.setUsername(sysUser.getUsername());
+        query.setId(sysUser.getId());
+        return this.checkIsNotExist(query);
     }
 }

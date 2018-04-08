@@ -2,6 +2,9 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.MyValidator;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +17,12 @@ import javax.validation.constraints.NotNull;
  * @author chunlei.song@live.com123
  * @since 2018-03-08
  */
+@MyValidator(
+        message = "{dict.type.unique}",
+        thisclass = SysDictType.class,
+        serviceClass = "com.chens.admin.validator.DictValidator",
+        methodName = "check",
+        groups = {InsertValid.class, UpdateValid.class})
 @TableName("sys_dict_type")
 public class SysDictType extends BaseEntity<SysDictType> {
 

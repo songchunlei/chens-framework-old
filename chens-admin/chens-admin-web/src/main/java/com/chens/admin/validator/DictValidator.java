@@ -1,7 +1,7 @@
 package com.chens.admin.validator;
 
-import com.chens.admin.entity.SysDict;
-import com.chens.admin.service.ISysDictService;
+import com.chens.admin.entity.SysDictType;
+import com.chens.admin.service.ISysDictTypeService;
 import com.chens.core.util.ApplicationContextUtil;
 import com.chens.core.validator.BaseValidator;
 
@@ -11,19 +11,20 @@ import com.chens.core.validator.BaseValidator;
  * @auther songchunlei@qq.com
  * @create 2018/3/29
  */
-public class DictValidator extends BaseValidator<ISysDictService,SysDict>{
+public class DictValidator extends BaseValidator<ISysDictTypeService,SysDictType>{
 
     //自定义初始化
     public DictValidator() {
         if(service==null)
         {
-            service = ApplicationContextUtil.getBeanByClass(ISysDictService.class);
+            service = ApplicationContextUtil.getBeanByClass(ISysDictTypeService.class);
         }
     }
 
-    public boolean checkUserNameUnique(String type) throws Exception {
-        SysDict sysDict = new SysDict();
-        sysDict.setType(type);
-        return this.checkIsNotExist(sysDict);
+    public boolean check(SysDictType sysDictType) throws Exception {
+        SysDictType query = new SysDictType();
+        query.setTypeCode(sysDictType.getTypeCode());
+        query.setId(sysDictType.getId());
+        return this.checkIsNotExist(sysDictType);
     }
 }

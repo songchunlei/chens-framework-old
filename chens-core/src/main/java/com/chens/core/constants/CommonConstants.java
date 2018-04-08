@@ -58,5 +58,10 @@ public final class CommonConstants {
     public static final String CONTEXT_KEY_USER_TOKEN = "token";
     public static final String CONTEXT_KEY_USER_TANENTID = "tenantId";
 
+    //基本返回消息
+    public static final String SAVE_SUCCESS="保存成功";
+    public static final String DELETE_SUCCESS="删除成功";
+    public static final String QUERY_SUCCESS="查询成功";
+
 
 }

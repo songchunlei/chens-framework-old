@@ -2,6 +2,8 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -20,12 +22,12 @@ public class SysRole extends BaseEntity<SysRole> {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "{role.name.null}",groups = {InsertValid.class, UpdateValid.class})
     @TableField("role_name")
-    @NotNull
     private String roleName;
 
+    @NotNull(message = "{role.code.null}",groups = {InsertValid.class, UpdateValid.class})
     @TableField("role_code")
-    @NotNull
     private String roleCode;
 
     @TableField("is_delete")

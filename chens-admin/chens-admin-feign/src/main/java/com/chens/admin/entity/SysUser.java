@@ -2,10 +2,11 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.chens.core.annotation.UniqueField;
+import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.MyValidator;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.vo.BaseEntity;
 import com.chens.core.vo.UserInfo;
-import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -19,19 +20,23 @@ import java.util.List;
  * @since 2018-03-04
  */
 @TableName("sys_user")
+@MyValidator(
+        message = "{sysuser.username.unique}",
+        thisclass = SysUser.class,
+        serviceClass = "com.chens.admin.validator.UserValidator",
+        methodName = "check",
+        groups = {InsertValid.class, UpdateValid.class})
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;
-    @NotNull(message = "{sysuser.name.null}")
+    @NotNull(message = "{sysuser.name.null}",groups = {InsertValid.class, UpdateValid.class})
     private String name;
     private String password;
-    @NotNull(message = "{sysuser.username.null}")
-    @UniqueField(message = "{sysuser.username.unique}",serviceClass = "com.chens.admin.validator.UserValidator",methodName ="checkUserNameUnique" )
+    @NotNull(message = "{sysuser.username.null}",groups = {InsertValid.class, UpdateValid.class})
     private String username;
-    @NotNull(message = "{sysuser.phone.null}")
+    @NotNull(message = "{sysuser.phone.null}",groups = {InsertValid.class, UpdateValid.class})
     private String phone;
-    @NotNull(message = "{sysuser.email.null}")
-    @Email
+    @NotNull(message = "{sysuser.email.null}",groups = {InsertValid.class, UpdateValid.class})
     private String email;
 
     @TableField(exist = false)
