@@ -30,6 +30,9 @@ public class SysLog extends BaseEntity<SysLog> {
      */
 	private String url;
 
+	public SysLog() {
+	}
+
 	/**
 	 * 初始化
 	 * @param opt
