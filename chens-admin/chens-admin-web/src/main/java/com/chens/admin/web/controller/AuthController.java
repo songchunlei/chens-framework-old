@@ -40,6 +40,12 @@ public class AuthController extends BaseController{
     @Autowired
     private ISysTenantService sysTenantService;
 
+    /**
+     * 登录
+     * @param authRequest
+     * @return
+     * @throws Exception
+     */
     @IgnoreUserToken
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Validated  AuthRequest authRequest) throws Exception {
@@ -62,9 +68,12 @@ public class AuthController extends BaseController{
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
 
+    /**
+     * 退出
+     * @return
+     */
     @RequestMapping("/logout")
-    public ResponseEntity<Result> loginout() {
-
+    public ResponseEntity<Result> logout() {
         return doSuccess(authService.logout());
     }
 
