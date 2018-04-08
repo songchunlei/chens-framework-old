@@ -70,7 +70,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     @PostMapping("/saveUserRoleList")
     public ResponseEntity<Result> saveUserRoleList(QueryRolesByUserId queryRolesByUserId) {
         if(queryRolesByUserId !=null){
-            return doSuccess(service.saveUserRoleList(queryRolesByUserId));
+            return doSuccess(sysUserRoleService.saveUserRoleListByUserId(queryRolesByUserId));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

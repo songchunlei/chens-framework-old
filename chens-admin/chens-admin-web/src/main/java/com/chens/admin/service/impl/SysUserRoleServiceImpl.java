@@ -5,6 +5,7 @@ import com.chens.admin.entity.SysUserRole;
 import com.chens.admin.mapper.SysUserRoleMapper;
 import com.chens.admin.service.ISysUserRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.chens.admin.vo.QueryRolesByUserId;
 import com.chens.core.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,26 @@ import java.util.List;
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
 
     private final String DEFAULT_USERS_SPLIT_FLG=",";
+    private final String DEFAULT_ROLES_SPLIT_FLG=",";
+
+
+    @Transactional
+    @Override
+    public boolean saveUserRoleListByUserId(QueryRolesByUserId queryRolesByUserId) {
+        List<SysUserRole> sysUserRoles = new ArrayList<>();
+        String sysRoles = queryRolesByUserId.getSysRoles();
+        if (StringUtils.isNotEmpty(sysRoles)) {
+            String[] checkedStr = sysRoles.split(DEFAULT_ROLES_SPLIT_FLG);
+            for (String s : checkedStr) {
+                if(StringUtils.isNotEmpty(s)){
+                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),s));
+                }
+            }
+            return this.insertBatch(sysUserRoles);
+        }
+
+        return false;
+    }
 
     @Transactional
     @Override

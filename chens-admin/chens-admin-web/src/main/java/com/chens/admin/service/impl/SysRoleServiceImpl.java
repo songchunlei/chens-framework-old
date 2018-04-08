@@ -38,23 +38,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return baseMapper.getRoleListByUserId(userId);
     }
 
-    @Transactional
-    @Override
-    public boolean saveUserRoleList(QueryRolesByUserId queryRolesByUserId) {
-        List<SysUserRole> sysUserRoles = new ArrayList<>();
-        String sysRoles = queryRolesByUserId.getSysRoles();
-        if (StringUtils.isNotEmpty(sysRoles)) {
-            String[] checkeds = sysRoles.split(SYSROLE_SPLIT_VALUE);
-            for (String s : checkeds) {
-                if(StringUtils.isNotEmpty(s)){
-                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),s));
-                }
-            }
-            return sysUserRoleService.insertBatch(sysUserRoles);
-        }
-
-        return false;
-    }
 
     @Transactional
     @Override

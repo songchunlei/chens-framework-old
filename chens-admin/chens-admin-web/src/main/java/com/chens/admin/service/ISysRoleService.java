@@ -22,13 +22,6 @@ public interface ISysRoleService extends IService<SysRole> {
     List<SysRole> getRoleListByUserId(String userId);
 
     /**
-     * 保存用户-角色关系
-     * @param queryRolesByUserId
-     * @return
-     */
-    boolean saveUserRoleList(QueryRolesByUserId queryRolesByUserId);
-
-    /**
      * 连带用户-角色关系一起删除
      * @param id
      * @return
