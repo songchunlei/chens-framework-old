@@ -1,5 +1,6 @@
 package com.chens.core.validator;
 
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,7 +34,7 @@ public class BaseValidator <S extends IService<T>, T extends BaseEntity<T>> {
         EntityWrapper<T> wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(t, false);
         if (StringUtils.isNotEmpty(id))
         {
-            wrapper.ne("ID",id);
+            wrapper.ne(CommonConstants.BASE_COLUMN_ID,id);
         }
         int count = service.selectCount(wrapper);
         if (count > 0) {

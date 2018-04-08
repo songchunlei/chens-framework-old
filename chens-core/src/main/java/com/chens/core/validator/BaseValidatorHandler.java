@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import com.chens.core.annotation.MyValidator;
 
 /**
- * 唯一性校验
+ * 通用校验-使用
  *
  * @auther songchunlei@qq.com
  * @create 2018/3/28

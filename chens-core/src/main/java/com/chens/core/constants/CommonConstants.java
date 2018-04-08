@@ -30,6 +30,7 @@ public final class CommonConstants {
     public static final String BASE_ENTITY_IS_DELETE="isDelete";
 
     //基础字段
+    public static final String BASE_COLUMN_ID = "id";
     public static final String BASE_COLUMN_CREATE_TIME = "create_time";
     public static final String BASE_COLUMN_UPDATE_TIME = "update_time";
     public static final String BASE_COLUMN_CREATE_BY = "create_by";
