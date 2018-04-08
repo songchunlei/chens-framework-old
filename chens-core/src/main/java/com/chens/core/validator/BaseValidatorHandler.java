@@ -32,10 +32,8 @@ public class BaseValidatorHandler implements ConstraintValidator<MyValidator,Obj
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 
         Class<?> serviceClazz ;
-        //Class<?> clazz ;
         try {
             serviceClazz = Class.forName(serviceClassName);
-            clazz = Class.forName(serviceClassName);
             Object instance = serviceClazz.newInstance();
             return (boolean) serviceClazz.getMethod(methodName,clazz).invoke(instance, value);
         } catch (ClassNotFoundException e) {
