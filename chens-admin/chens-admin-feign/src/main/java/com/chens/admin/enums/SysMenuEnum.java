@@ -7,7 +7,7 @@ package com.chens.admin.enums;
  */
 public enum SysMenuEnum {
 
-    MOUDLE("模块", "MOUDLE"),
+    MODULE("模块", "MODULE"),
     PAGE("页面","PAGE"),
     BUTTON("按钮","BUTTON");
 
