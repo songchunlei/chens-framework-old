@@ -20,10 +20,11 @@ public class EntityWrapperHelper {
      * 根据注解去自动解析EntityWrapper用于查询
      * @param object 查询值
      * @param isLike 是否模糊查询
+     * @param isAnd 是否And查询
      * @param <T>
      * @return
      */
-    public static <T> EntityWrapper<T> getQueryEntityWrapperByEntity(T object,boolean isLike)
+    public static <T> EntityWrapper<T> getQueryEntityWrapperByEntity(T object,boolean isLike,boolean isAnd)
     {
         EntityWrapper<T> wrapper = new EntityWrapper<T>();
         if (object!=null){
@@ -31,6 +32,7 @@ public class EntityWrapperHelper {
             //**注意：这些字段不包含BaseEntity里的字段(id)**
             Field[] fields = object.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
+
                 //过滤掉UID
                 if(fields[i].getName().equals("serialVersionUID"))
                 {
@@ -47,10 +49,20 @@ public class EntityWrapperHelper {
                             TableField tableFieldName = (TableField)fields[i].getAnnotation(TableField.class);
                             if(tableFieldName!=null)
                             {
+                                //当字段为不存在，不分析
+                                if(!tableFieldName.exist())
+                                {
+                                    continue;
+                                }
                                 fieldname = tableFieldName.value();
                             }
                         }
                         //fieldname = StringUtils.underscoreName(fields[i].getName());
+                        //当非and查询，则or查询
+                        if(!isAnd)
+                        {
+                            wrapper.orNew();
+                        }
                         if(isLike)
                         {
                             wrapper.like(fieldname,value.toString());

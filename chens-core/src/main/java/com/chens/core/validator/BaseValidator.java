@@ -31,7 +31,7 @@ public class BaseValidator <S extends IService<T>, T extends BaseEntity<T>> {
         //先置空
         t.setId(null);
         //根据特定字段查询是否存在
-        EntityWrapper<T> wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(t, false);
+        EntityWrapper<T> wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(t, false,true);
         if (StringUtils.isNotEmpty(id))
         {
             wrapper.ne(CommonConstants.BASE_COLUMN_ID,id);

@@ -40,6 +40,9 @@ public class SysUser extends BaseEntity<SysUser> {
     private String email;
 
     @TableField(exist = false)
+    private String roleId;
+
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     public String getName() {
@@ -88,6 +91,15 @@ public class SysUser extends BaseEntity<SysUser> {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public UserInfo getUserInfo()

@@ -18,7 +18,7 @@
         where id in(
             select rm.menu_id from sys_user_role sur,sys_role_menu rm
             where sur.role_id = rm.role_id
-            and sur.user_id=1
+            and sur.user_id=#{userId}
         )
 
     </select>

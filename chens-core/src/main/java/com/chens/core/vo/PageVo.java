@@ -29,10 +29,16 @@ public class PageVo implements Serializable{
      */
     private boolean isAsc;
 
+    /**
+     * 查询类型（是并联查询AND还是串联查询OR）
+     */
+    private boolean isAnd;
+
     public PageVo() {
         this.current = 1;
         this.size = 10;
         this.isAsc = true;
+        this.isAnd = true;
     }
 
     public PageVo(int current,int size) {
@@ -70,5 +76,13 @@ public class PageVo implements Serializable{
 
     public void setAsc(boolean asc) {
         isAsc = asc;
+    }
+
+    public boolean isAnd() {
+        return isAnd;
+    }
+
+    public void setAnd(boolean and) {
+        isAnd = and;
     }
 }

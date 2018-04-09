@@ -10,11 +10,17 @@
 
 
     <!-- 通过用户ID找角色 -->
-    <select id="getUserListByRoleId" parameterType="java.lang.String"  resultType="com.chens.admin.entity.SysRole">
-        select user.*
+    <select id="getUserListByRoleId" parameterType="com.chens.admin.entity.SysUser"  resultType="com.chens.admin.entity.SysUser">
+        select suser.*
         from sys_user suser,sys_user_role userrole
         where suser.id = userrole.user_id
-        and userrole.role_id=#{roleId}
+        and userrole.role_id=#{user.roleId}
+        <if test="user.username!=null and user.username!=''">
+            and (suser.username like concat('%',#{user.username},'%') or suser.name like concat('%',#{user.username},'%'))
+        </if>
+        <if test="user.name!=null and user.name!=''">
+            and (suser.username like concat('%',#{user.name},'%') or suser.name like concat('%',#{user.name},'%'))
+        </if>
     </select>
 
 </mapper>

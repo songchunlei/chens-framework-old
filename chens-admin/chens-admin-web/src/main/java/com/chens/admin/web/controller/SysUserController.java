@@ -61,7 +61,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      * @param spage
      * @return
      */
-    @GetMapping("/getUserListByRoleId")
+    @PostMapping("/getUserListByRoleId")
     public ResponseEntity<Result> getUserListByRoleId(@RequestBody QueryPageEntity<SysUser> spage) {
         Page<SysUser> page = this.createPage(spage);
         if(page!=null) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.UpdateValid;
+import com.chens.core.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -44,15 +45,18 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PostMapping("/pagelist")
     public ResponseEntity<Result> pagelist(@RequestBody QueryPageEntity<T> spage){
-        Page<T> page = new Page<T>(spage.getPage().getCurrent(),spage.getPage().getSize());
+
+        PageVo pageVo = spage.getPage();
+
+        Page<T> page = new Page<T>(pageVo.getCurrent(),pageVo.getSize());
 
         if (StringUtils.isEmpty(spage.getPage().getOrderByField())) {
             spage.getPage().setOrderByField(CommonConstants.BASE_ENTITY_UPDATE_TIME);
         }
         page.setOrderByField(spage.getPage().getOrderByField());
-        page.setAsc(spage.getPage().isAsc());
+        page.setAsc(pageVo.isAsc());
         //模糊查询各字段
-        EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),true);
+        EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),true,pageVo.isAnd());
         return  doSuccess(CommonConstants.QUERY_SUCCESS,service.selectPage(page,wrapper));
     }
 
