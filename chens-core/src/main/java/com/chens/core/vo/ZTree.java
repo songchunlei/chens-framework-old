@@ -102,6 +102,7 @@ public class ZTree implements Serializable{
         }
     }
     
+    @Override
     public ZTree clone(){
         ZTree newzTreeDto = new ZTree(this.id,this.pId,this.name,this.codeType,this.open);
         return newzTreeDto;

@@ -10,11 +10,15 @@ import java.io.Serializable;
  */
 public class AddUsersInRole implements Serializable{
 
-    //角色id
+    /**
+     * 角色id
+     */
     private String roleId;
-    //以逗号隔开的用户id串
+
+    /**
+     * 以逗号隔开的用户id串
+     */
     private String users;
-    //以逗号隔开的系统角色串
 
 
     public AddUsersInRole(String roleId, String users) {

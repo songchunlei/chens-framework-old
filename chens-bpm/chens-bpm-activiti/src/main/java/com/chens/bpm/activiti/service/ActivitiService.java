@@ -158,7 +158,7 @@ public class ActivitiService implements IWfEngineService {
    	public boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field, String value) {
            ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).orderByProcessDefinitionVersion().desc().list().get(0);       
            InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
-           String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+           String xmlString = StreamUtils.inputStreamToString(resourceAsStream);
            Map<String,String> startEvent =  XmlActivitiUtil.parseStartXml(xmlString);
            String processDefinitionId = pd.getId();           
            BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId); //获取流程xml模型
@@ -174,7 +174,7 @@ public class ActivitiService implements IWfEngineService {
     public boolean checkStartUserTaskIsHuiQian(String processDefinitionKey,String taskkey){
         ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).orderByProcessDefinitionVersion().desc().list().get(0);
         InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
-        String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+        String xmlString = StreamUtils.inputStreamToString(resourceAsStream);
         return XmlActivitiUtil.parseXml(xmlString, taskkey);
     }
 	
@@ -233,7 +233,7 @@ public class ActivitiService implements IWfEngineService {
 	public boolean checkActivitiIsHuiQian(String processDefinitionKey) {
         ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).orderByProcessDefinitionVersion().desc().list().get(0);
         InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
-        String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+        String xmlString = StreamUtils.inputStreamToString(resourceAsStream);
         Map<String,String> startEvent =  XmlActivitiUtil.parseStartXml(xmlString);
         Map<String,String> flow = XmlActivitiUtil.parseXml(xmlString,"sequenceFlow","sourceRef",startEvent.get("id"));
         String taskkey = flow.get("targetRef");
@@ -414,7 +414,7 @@ public class ActivitiService implements IWfEngineService {
         String processDefinitionId = historicTaskInstance.getProcessDefinitionId();
         ProcessDefinition processDefinition = repositoryService.getProcessDefinition(processDefinitionId);
         InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
-        String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+        String xmlString = StreamUtils.inputStreamToString(resourceAsStream);
         return XmlActivitiUtil.getCompletionCondition(xmlString, taskDefinitionKey);
     }
 	
@@ -427,7 +427,7 @@ public class ActivitiService implements IWfEngineService {
         String processDefinitionId = historicTaskInstance.getProcessDefinitionId();
         ProcessDefinition processDefinition = repositoryService.getProcessDefinition(processDefinitionId);
         InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), processDefinition.getResourceName());
-        String xmlString = StreamUtils.InputStreamTOString(resourceAsStream);
+        String xmlString = StreamUtils.inputStreamToString(resourceAsStream);
         return XmlActivitiUtil.parseXml(xmlString, taskDefinitionKey);
 	}
 	

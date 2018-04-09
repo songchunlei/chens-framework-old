@@ -22,7 +22,7 @@ public class XmlActivitiUtil {
 	/**
 	 * 通过解析xml文件，判断该节点是否是会签节点
 	 * 
-	 * @param resourceAsStream
+	 * @param doc
 	 * @param taskkey
 	 * @throws Exception
 	 */
@@ -52,8 +52,8 @@ public class XmlActivitiUtil {
 			               Attribute leaderAttr=elementInner.attribute("id");
 			               if(leaderAttr!=null){
 			            	   if(leaderAttr.getValue().equals(taskkey)){
-				            	   Element e_adds = elementInner.element("multiInstanceLoopCharacteristics");
-				            	   if (e_adds != null ) {
+				            	   Element eAdds = elementInner.element("multiInstanceLoopCharacteristics");
+				            	   if (eAdds != null ) {
 				            		   return true;
 				            	   }else{
 				            		   return false;
@@ -72,7 +72,10 @@ public class XmlActivitiUtil {
 	/**
      * 通过解析xml文件生成 开始节点属性
      * 
-     * @param resourceAsStream
+     * @param doc
+	 * @param type
+	 * @param field
+	 * @param value
      * @throws Exception
      */
     public static Map<String,String> parseXml(String doc,String type,String field,String value) {
@@ -115,9 +118,7 @@ public class XmlActivitiUtil {
     
     /**
      * 通过解析xml文件，判断该节点是否是会签节点
-     * 
-     * @param resourceAsStream
-     * @param taskkey
+     * @param doc
      * @throws Exception
      */
     public static Map<String,String> parseStartXml(String doc) {
@@ -244,9 +245,9 @@ public class XmlActivitiUtil {
 			               Attribute leaderAttr=elementInner.attribute("id");
 			               if(leaderAttr!=null){
 			            	   if(leaderAttr.getValue().equals(taskkey)){
-				            	   Element e_adds = elementInner.element("multiInstanceLoopCharacteristics");
-				            	   if(e_adds != null ){
-				            		   Element conditionE = e_adds.element("completionCondition");
+				            	   Element eAdds = elementInner.element("multiInstanceLoopCharacteristics");
+				            	   if(eAdds != null ){
+				            		   Element conditionE = eAdds.element("completionCondition");
 				            		   if(conditionE != null){
 				            			   conditionString = conditionE.getText();
 				            			   break;

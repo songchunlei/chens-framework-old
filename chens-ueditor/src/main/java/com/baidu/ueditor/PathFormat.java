@@ -6,7 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PathFormat {
-	
+
+	private static Pattern PATTERN_PATH = Pattern.compile( "\\{([^\\}]+)\\}",Pattern.CASE_INSENSITIVE);
+
 	private static final String TIME = "time";
 	private static final String FULL_YEAR = "yyyy";
 	private static final String YEAR = "yy";
@@ -21,8 +23,8 @@ public class PathFormat {
 	
 	public static String parse ( String input ) {
 		
-		Pattern pattern = Pattern.compile( "\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE  );
-		Matcher matcher = pattern.matcher(input);
+		//Pattern pattern = Pattern.compile( "\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE  );
+		Matcher matcher = PATTERN_PATH.matcher(input);
 		
 		PathFormat.currentDate = new Date();
 		
@@ -52,8 +54,8 @@ public class PathFormat {
 
 	public static String parse ( String input, String filename ) {
 	
-		Pattern pattern = Pattern.compile( "\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE  );
-		Matcher matcher = pattern.matcher(input);
+		//Pattern pattern = Pattern.compile( "\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE  );
+		Matcher matcher = PATTERN_PATH.matcher(input);
 		String matchStr = null;
 		
 		PathFormat.currentDate = new Date();

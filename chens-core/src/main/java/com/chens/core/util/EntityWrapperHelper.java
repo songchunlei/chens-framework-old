@@ -34,7 +34,7 @@ public class EntityWrapperHelper {
             for (int i = 0; i < fields.length; i++) {
 
                 //过滤掉UID
-                if(fields[i].getName().equals("serialVersionUID"))
+                if("serialVersionUID".equals(fields[i].getName()))
                 {
                     continue;
                 }

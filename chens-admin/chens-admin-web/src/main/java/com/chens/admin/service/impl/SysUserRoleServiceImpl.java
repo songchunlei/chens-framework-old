@@ -47,7 +47,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Transactional
     @Override
-    public boolean AddUsersInRole(String roleId, String userIds) {
+    public boolean addUsersInRole(String roleId, String userIds) {
         boolean  flagUserRole = false;
         if (StringUtils.isNotEmpty(userIds)) {
             List<SysUserRole> userRoleList = new ArrayList<>();
@@ -64,7 +64,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Transactional
     @Override
-    public boolean DeleteUsersInRole(String roleId, String userIds) {
+    public boolean deleteUsersInRole(String roleId, String userIds) {
         if (StringUtils.isNotEmpty(userIds)) {
             String[] checkedStr = userIds.split(DEFAULT_USERS_SPLIT_FLG);
             for (String s : checkedStr) {

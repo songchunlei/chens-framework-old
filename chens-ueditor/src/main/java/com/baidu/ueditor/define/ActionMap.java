@@ -12,7 +12,10 @@ import java.util.HashMap;
 public final class ActionMap {
 
 	public static final Map<String, Integer> mapping;
-	// 获取配置请求
+
+	/**
+	 *获取配置请求
+	 */
 	public static final int CONFIG = 0;
 	public static final int UPLOAD_IMAGE = 1;
 	public static final int UPLOAD_SCRAWL = 2;

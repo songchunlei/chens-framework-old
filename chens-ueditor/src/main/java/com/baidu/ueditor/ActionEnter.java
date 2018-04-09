@@ -93,6 +93,8 @@ public class ActionEnter {
 				int start = this.getStartIndex();
 				state = new FileManager( conf ).listFile( start );
 				break;
+			default:
+				break;
 				
 		}
 		

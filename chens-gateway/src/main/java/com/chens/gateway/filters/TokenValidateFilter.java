@@ -74,7 +74,7 @@ public class TokenValidateFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
 
         //获取用户
-        UserInfo userInfo = this.GetUserInfoByToken(ctx,request);
+        UserInfo userInfo = this.getUserInfoByToken(ctx,request);
 
         //处理权限(待完成)
         checkUserPermission(ctx,userInfo);
@@ -93,7 +93,7 @@ public class TokenValidateFilter extends ZuulFilter {
      * @param request
      * @return
      */
-    private UserInfo GetUserInfoByToken(RequestContext ctx,HttpServletRequest request)
+    private UserInfo getUserInfoByToken(RequestContext ctx,HttpServletRequest request)
     {
 
         // 检验token是否正确

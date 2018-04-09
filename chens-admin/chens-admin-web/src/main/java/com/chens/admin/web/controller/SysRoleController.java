@@ -85,7 +85,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      */
     @PostMapping("/addUsers")
     public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
-        return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserRoleService.AddUsersInRole(roleId,userIds));
+        return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserRoleService.addUsersInRole(roleId,userIds));
     }
 
     /**
@@ -96,7 +96,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      */
     @DeleteMapping("/deleteUsers")
     public ResponseEntity<Result> deleteUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
-        return doSuccess(CommonConstants.DELETE_SUCCESS,sysUserRoleService.DeleteUsersInRole(roleId,userIds));
+        return doSuccess(CommonConstants.DELETE_SUCCESS,sysUserRoleService.deleteUsersInRole(roleId,userIds));
     }
 
 }

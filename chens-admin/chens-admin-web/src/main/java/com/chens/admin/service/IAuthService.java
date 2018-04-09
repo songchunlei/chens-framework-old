@@ -14,8 +14,8 @@ import com.chens.core.vo.AuthRequest;
 public interface IAuthService {
     /**
      * 根据账户获取用户-含账号密码，内部使用方法,不要往前端传
-     * @param authRequest
-     * @return SysUser
+     * @param authRequest 请求方法
+     * @return SysUser 返回系统用户
      */
     SysUser findByUsernameAndPassword(AuthRequest authRequest) throws BaseException;
 

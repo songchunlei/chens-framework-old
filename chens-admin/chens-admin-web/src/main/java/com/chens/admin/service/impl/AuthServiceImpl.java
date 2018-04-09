@@ -69,7 +69,7 @@ public class AuthServiceImpl implements IAuthService{
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public JWTToken login(AuthRequest authRequest) throws Exception {
         if(authRequest!=null) {
             //logger.info("*******AuthService.login****************");
@@ -84,7 +84,7 @@ public class AuthServiceImpl implements IAuthService{
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean logout() {
         //logger.info("*******AuthService.loginout:****************"+token);
         String token = BaseContextHandler.getToken();

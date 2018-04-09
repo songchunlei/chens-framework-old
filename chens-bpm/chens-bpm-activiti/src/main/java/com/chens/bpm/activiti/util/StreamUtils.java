@@ -30,15 +30,16 @@ public class StreamUtils {
 	 * @throws Exception
 	 * 
 	 */
-	public static String InputStreamTOString(InputStream in) {
+	public static String inputStreamToString(InputStream in) {
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] data = new byte[BUFFER_SIZE];
 		String string = null;
 		int count = 0;
 		try {
-			while ((count = in.read(data, 0, BUFFER_SIZE)) != -1)
-				outStream.write(data, 0, count);
+			while ((count = in.read(data, 0, BUFFER_SIZE)) != -1) {
+                outStream.write(data, 0, count);
+            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,14 +61,15 @@ public class StreamUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String InputStreamTOString(InputStream in, String encoding) {
+	public static String inputStreamToString(InputStream in, String encoding) {
 		String string = null;
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] data = new byte[BUFFER_SIZE];
 		int count = -1;
 		try {
-			while ((count = in.read(data, 0, BUFFER_SIZE)) != -1)
-				outStream.write(data, 0, count);
+			while ((count = in.read(data, 0, BUFFER_SIZE)) != -1) {
+                outStream.write(data, 0, count);
+            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,7 +90,7 @@ public class StreamUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static InputStream StringTOInputStream(String in) throws Exception {
+	public static InputStream stringToInputStream(String in) throws Exception {
 
 		ByteArrayInputStream is = new ByteArrayInputStream(in.getBytes("UTF-8"));
 		return is;
@@ -101,10 +103,10 @@ public class StreamUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static byte[] StringTObyte(String in) {
+	public static byte[] stringTobyte(String in) {
 		byte[] bytes = null;
 		try {
-			bytes = InputStreamTOByte(StringTOInputStream(in));
+			bytes = inputStreamToByte(stringToInputStream(in));
 		} catch (IOException e) {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,13 +122,14 @@ public class StreamUtils {
 	 * @return byte[]
 	 * @throws IOException
 	 */
-	public static byte[] InputStreamTOByte(InputStream in) throws IOException {
+	public static byte[] inputStreamToByte(InputStream in) throws IOException {
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] data = new byte[BUFFER_SIZE];
 		int count = -1;
-		while ((count = in.read(data, 0, BUFFER_SIZE)) != -1)
-			outStream.write(data, 0, count);
+		while ((count = in.read(data, 0, BUFFER_SIZE)) != -1) {
+            outStream.write(data, 0, count);
+        }
 
 		data = null;
 		return outStream.toByteArray();
@@ -172,7 +175,7 @@ public class StreamUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return InputStreamTOString(is, "UTF-8");
+		return inputStreamToString(is, "UTF-8");
 	}
 	/**
 	 * 将byte数组转换成String
@@ -185,7 +188,7 @@ public class StreamUtils {
 
 		String is = null;
 		try {
-			is = byteTOString(StringTObyte(in));
+			is = byteTOString(stringTobyte(in));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -212,7 +215,7 @@ public class StreamUtils {
 	/**
 	 * 根据文件路径创建文件输入流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
+	 * @param filepath
 	 * @return
 	 */
 	public static FileInputStream getFileInputStream(String filepath) {
@@ -228,7 +231,7 @@ public class StreamUtils {
 	/**
 	 * 根据文件对象创建文件输入流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
+	 * @param file
 	 * @return
 	 */
 	public static FileInputStream getFileInputStream(File file) {
@@ -261,7 +264,7 @@ public class StreamUtils {
 	/**
 	 * 根据文件路径创建文件输出流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
+	 * @param filepath
 	 * @param append true:文件以追加方式打开,false:则覆盖原文件的内容
 	 * @return
 	 */

@@ -7,11 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.chens.file.util.IsAllUploaded.Uploaded;
+import static com.chens.file.util.IsAllUploaded.uploaded;
 
 /**
  * 大文件服务
@@ -82,7 +80,7 @@ public class BigFileController extends BaseFileController {
                 // 将文件分块保存到临时文件夹里，便于之后的合并文件
                 saveFile(mergePath, fileName, file);
                 // 验证所有分块是否上传成功，成功的话进行合并
-                Uploaded(md5value, guid, chunk, chunks, uploadFolderPath, fileName, ext, fileInfoService);
+                uploaded(md5value, guid, chunk, chunks, uploadFolderPath, fileName, ext, fileInfoService);
             } else {
                 fileName = guid + ext;
                 //上传文件没有分块的话就直接保存

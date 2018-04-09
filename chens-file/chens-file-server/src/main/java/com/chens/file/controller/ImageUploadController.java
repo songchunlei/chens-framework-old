@@ -24,7 +24,7 @@ public class ImageUploadController extends BaseFileController{
     private IFileInfoService fileInfoService;
 
     @RequestMapping(value = "/Index", method = RequestMethod.GET)
-    public String Upload() {
+    public String upload() {
         return "ImageUpload/Upload";
     }
 
@@ -44,8 +44,9 @@ public class ImageUploadController extends BaseFileController{
             saveFile = (MultipartFile) deepClone(file);
             java.io.File tempFile = new java.io.File(UUID.randomUUID().toString());
             file.transferTo(tempFile);
-            if (!isImage(tempFile))
+            if (!isImage(tempFile)) {
                 return "{\"error\":true}";
+            }
 
             String ext = name.substring(name.lastIndexOf("."));
             fileName = UUID.randomUUID().toString() + ext;

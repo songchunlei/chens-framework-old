@@ -48,7 +48,7 @@ public class IsAllUploaded {
      * @param ext         文件后缀名
      * @param fileService fileService
      */
-    public static void Uploaded(@NotNull final String md5,
+    public static void uploaded(@NotNull final String md5,
                                 @NotNull final String guid,
                                 @NotNull final String chunk,
                                 @NotNull final String chunks,
