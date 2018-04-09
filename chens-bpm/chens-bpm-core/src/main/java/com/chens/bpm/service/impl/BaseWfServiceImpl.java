@@ -6,6 +6,7 @@ import com.chens.bpm.constants.BpmConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
@@ -46,14 +47,21 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Transactional
     public String createDraft(WorkFlowRequestParam<T> workFlowRequestParam){
     	T t = workFlowRequestParam.getT();
-        this.insert(t);//保存业务数据        
-        ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();//保存流程业务关联关系表
-        processBussinessRel.setTaskName(workFlowRequestParam.getTaskName());//任务名称
-        processBussinessRel.setStatus(WfStatus.WAITING.getCode());//草稿状态
+		//保存业务数据
+        this.insert(t);
+		//保存流程业务关联关系表
+        ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
+		//任务名称
+        processBussinessRel.setTaskName(workFlowRequestParam.getTaskName());
+		//草稿状态
+        processBussinessRel.setStatus(WfStatus.WAITING.getCode());
         processBussinessRel.setProcessDefinitionKey(workFlowRequestParam.getProcessDefinitionKey());
-        processBussinessRel.setBusinessKey(t.getId());//业务数据id
-        processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());//逻辑删除
-        processBussinessRel.setTableName(workFlowRequestParam.getTableName());//业务表名
+		//业务数据id
+        processBussinessRel.setBusinessKey(t.getId());
+		//逻辑删除
+        processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());
+		//业务表名
+        processBussinessRel.setTableName(workFlowRequestParam.getTableName());
         processBussinessRelService.insert(processBussinessRel);               
         return t.getId();
     }
@@ -83,7 +91,7 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam) {
     	T t = workFlowRequestParam.getT();
     	/*
@@ -159,7 +167,7 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean pass(WorkFlowRequestParam<T> workFlowRequestParam)
     {
         T t = workFlowRequestParam.getT();
@@ -191,7 +199,7 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
 	 * @return
 	 */
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public boolean passWithEdit(WorkFlowRequestParam<T> workFlowRequestParam)
 	{
 		//提交前方法
@@ -229,7 +237,7 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean noPass(T t)
     {
         wfEngineService.unPassTask();
