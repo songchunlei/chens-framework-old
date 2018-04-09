@@ -97,8 +97,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public List<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user) {
-        return baseMapper.getUserListByRoleId(page,user);
+    public Page<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user) {
+        page.setRecords(baseMapper.getUserListByRoleId(page,user));
+        return page;
     }
 
     @Override

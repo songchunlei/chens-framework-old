@@ -4,6 +4,7 @@ package com.chens.admin.web.controller;
 import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserRoleService;
 import com.chens.admin.entity.SysRole;
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
@@ -41,7 +42,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     public ResponseEntity<Result> deleteWithRel(@PathVariable String id) {
         if(id!=null)
         {
-            return doSuccess("删除成功",service.deleteWithRel(id));
+            return doSuccess(CommonConstants.DELETE_SUCCESS,service.deleteWithRel(id));
         }
         else{
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -56,7 +57,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     @GetMapping("/getRoleListByUserId")
     public ResponseEntity<Result> getRoleListByUserId(String userId) {
         if(userId!=null){
-            return doSuccess(service.getRoleListByUserId(userId));
+            return doSuccess(CommonConstants.QUERY_SUCCESS,service.getRoleListByUserId(userId));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -70,7 +71,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     @PostMapping("/saveUserRoleList")
     public ResponseEntity<Result> saveUserRoleList(QueryRolesByUserId queryRolesByUserId) {
         if(queryRolesByUserId !=null){
-            return doSuccess(sysUserRoleService.saveUserRoleListByUserId(queryRolesByUserId));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserRoleService.saveUserRoleListByUserId(queryRolesByUserId));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -84,7 +85,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      */
     @PostMapping("/addUsers")
     public ResponseEntity<Result> addUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
-        return doSuccess(sysUserRoleService.AddUsersInRole(roleId,userIds));
+        return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserRoleService.AddUsersInRole(roleId,userIds));
     }
 
     /**
@@ -95,7 +96,7 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
      */
     @DeleteMapping("/deleteUsers")
     public ResponseEntity<Result> deleteUsers(@NotNull(message = "{role.id.null}") String roleId,@NotNull(message = "{role.users.null}") String userIds) {
-        return doSuccess(sysUserRoleService.DeleteUsersInRole(roleId,userIds));
+        return doSuccess(CommonConstants.DELETE_SUCCESS,sysUserRoleService.DeleteUsersInRole(roleId,userIds));
     }
 
 }

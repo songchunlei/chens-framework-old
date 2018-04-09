@@ -46,7 +46,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user
      * @return
      */
-    List<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user);
+    Page<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user);
 
     /**
      * 校验唯一性

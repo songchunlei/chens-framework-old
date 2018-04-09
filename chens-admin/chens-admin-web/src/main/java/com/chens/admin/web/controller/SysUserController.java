@@ -5,6 +5,7 @@ package com.chens.admin.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.service.ISysUserService;
 import com.chens.admin.entity.SysUser;
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.QueryPageEntity;
@@ -39,7 +40,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
     public ResponseEntity<Result> createUser(@RequestBody @Validated SysUser sysUser) {
         if(sysUser!=null)
         {
-            return doSuccess("保存成功",service.createAccount(sysUser));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,service.createAccount(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -53,7 +54,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      */
     @PutMapping("/restPwd")
     public ResponseEntity<Result> restPwd(@RequestParam("userId") String userId, @RequestParam("isRandom") boolean isRandom) {
-        return doSuccess(service.restPwd(userId,isRandom));
+        return doSuccess(CommonConstants.SAVE_SUCCESS,service.restPwd(userId,isRandom));
     }
 
     /**
@@ -65,7 +66,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
     public ResponseEntity<Result> getUserListByRoleId(@RequestBody QueryPageEntity<SysUser> spage) {
         Page<SysUser> page = this.createPage(spage);
         if(page!=null) {
-            return doSuccess(service.getUserListByRoleId(page,spage.getSearch()));
+            return doSuccess(CommonConstants.QUERY_SUCCESS,service.getUserListByRoleId(page,spage.getSearch()));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

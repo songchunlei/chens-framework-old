@@ -3,6 +3,7 @@ package com.chens.admin.web.controller;
 import com.chens.admin.service.*;
 import com.chens.admin.entity.SysUser;
 import com.chens.auth.client.annotation.IgnoreUserToken;
+import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
@@ -63,7 +64,7 @@ public class AuthController extends BaseController{
         if(authRequest!=null)
         {
             //logger.info("login****************");
-            return doSuccess(authService.login(authRequest));
+            return doSuccess(CommonConstants.QUERY_SUCCESS,authService.login(authRequest));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -74,7 +75,7 @@ public class AuthController extends BaseController{
      */
     @RequestMapping("/logout")
     public ResponseEntity<Result> logout() {
-        return doSuccess(authService.logout());
+        return doSuccess(CommonConstants.DELETE_SUCCESS,authService.logout());
     }
 
 
@@ -92,7 +93,7 @@ public class AuthController extends BaseController{
             {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
             }
-            return doSuccess("保存成功",sysUserService.createAccount(sysUser));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserService.createAccount(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -109,7 +110,7 @@ public class AuthController extends BaseController{
         if(registerTenant!=null)
         {
 
-            return doSuccess("保存成功",sysTenantService.register(registerTenant));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,sysTenantService.register(registerTenant));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
@@ -125,7 +126,7 @@ public class AuthController extends BaseController{
     @IgnoreUserToken
     @RequestMapping("/parseToken")
     public ResponseEntity<Result> parseToken(@RequestParam String token) throws Exception {
-        return doSuccess(authService.parseToken(token)) ;
+        return doSuccess(CommonConstants.QUERY_SUCCESS,authService.parseToken(token)) ;
     }
 
 }
