@@ -20,6 +20,7 @@ public class DefaultFieldResolver extends AbstractResolver<ExcelColum> {
 		this.excelColum = excelColum;
 	}
 
+	@Override
 	public Object process() {
 		String columnName = excelColum.value();
 		int indexOfColumn = head.indexOf(columnName);

@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -145,7 +146,7 @@ public class PoiImporter {
 				Object value; // 单元格内容
 				if (cell == null) {
 					value = null;
-				} else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC && HSSFDateUtil.isCellDateFormatted(cell)) {
+				} else if (cell.getCellTypeEnum().equals(CellType.NUMERIC) && HSSFDateUtil.isCellDateFormatted(cell)) {
 					value = cell.getDateCellValue();
 				} else {
 					value = getCellValueText(cell, row, sheet, sheet.getWorkbook());
@@ -167,8 +168,9 @@ public class PoiImporter {
 	 */
 	private static String getCellValueText(XSSFCell cell, XSSFRow row, XSSFSheet sheet, XSSFWorkbook wb) {
 		String cv = "";
-		switch (cell.getCellType()) {
-		case XSSFCell.CELL_TYPE_NUMERIC:
+		CellType cellType =cell.getCellTypeEnum();
+		if(cellType.equals(CellType.NUMERIC))
+		{
 			DecimalFormat df = new DecimalFormat();
 			df.setParseIntegerOnly(true);
 			double value = cell.getNumericCellValue();
@@ -186,14 +188,17 @@ public class PoiImporter {
 					cv = value + "";
 				}
 			}
-			break;
-		case XSSFCell.CELL_TYPE_STRING:
+		}
+		else if (cellType.equals(CellType.STRING))
+		{
 			cv = cell.getRichStringCellValue().getString().trim();
-			break;
-		case XSSFCell.CELL_TYPE_BLANK:
-//			logger.info("case CELL_TYPE_BLANK");
-			break;
-		case XSSFCell.CELL_TYPE_FORMULA:
+		}
+		else if (cellType.equals(CellType.BLANK))
+		{
+			//			logger.info("case CELL_TYPE_BLANK");
+		}
+		else if (cellType.equals(CellType.FORMULA))
+		{
 			try {
 				XSSFFormulaEvaluator evaluator = new XSSFFormulaEvaluator(wb);
 				cv = evaluator.evaluate(cell).getStringValue();
@@ -201,10 +206,10 @@ public class PoiImporter {
 			} catch (Exception e) {
 				logger.error(Log.op("PoiImporter#getCellValueText").msg("解析出错！").toString(), e);
 			}
-			break;
-		default:
-			logger.warn(Log.op("PoiImporter#getCellValueText").msg("未知的单元格类型[{0}]", cell.getCellType()).toString());
-			break;
+		}
+		else
+		{
+			logger.warn(Log.op("PoiImporter#getCellValueText").msg("未知的单元格类型[{0}]", cell.getCellTypeEnum()).toString());
 		}
 		return cv;
 	}

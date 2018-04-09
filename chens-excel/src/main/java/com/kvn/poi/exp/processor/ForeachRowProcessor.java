@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -65,7 +66,7 @@ public class ForeachRowProcessor implements RowProcessor {
 					continue;
 				}
 				String cellValue = cell.getRichStringCellValue().getString().trim();
-				if (cellValue.equals("")) {
+				if ("".equals(cellValue)) {
 					continue;
 				}
 				String value = cellValue;
@@ -104,7 +105,7 @@ public class ForeachRowProcessor implements RowProcessor {
 	 * @param cell
 	 * @param ls
 	 * @param tpRow
-	 * @param parser
+	 * @param peContext
 	 */
 	private static void setMutiData(XSSFCell cell, List<?> ls, MutiRowModel tpRow, PoiExporterContext peContext) {
 		XSSFSheet sheet = cell.getSheet();
@@ -192,7 +193,7 @@ public class ForeachRowProcessor implements RowProcessor {
 	public int support(XSSFRow row) {
 		for (int k = 0; k <= row.getLastCellNum(); k++) {
 			XSSFCell cell = row.getCell(k);
-			if (null != cell && cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+			if (null != cell && cell.getCellTypeEnum().equals(CellType.STRING)) {
 				String content = cell.getStringCellValue().trim();
 				Pattern prePattern = Pattern.compile(Constants.POI_FOREACH_START_REGEXP);
 				Matcher matcher = prePattern.matcher(content);

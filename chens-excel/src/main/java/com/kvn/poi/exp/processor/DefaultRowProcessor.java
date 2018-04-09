@@ -3,6 +3,7 @@ package com.kvn.poi.exp.processor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.slf4j.Logger;
@@ -36,7 +37,8 @@ public class DefaultRowProcessor implements RowProcessor {
 	public int dealRow(XSSFRow currentRow, PoiExporterContext peContext) {
 		for (int i = 0; i < currentRow.getLastCellNum(); i++) {
 			XSSFCell cell = currentRow.getCell(i);
-			if (null != cell && cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+			//if (null != cell && cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+			if (null != cell && cell.getCellTypeEnum().equals(CellType.STRING)) {
 				String cellContent = cell.getStringCellValue();
 				String resolvedContent = resolve(cellContent, peContext);
 				cell.setCellValue(resolvedContent);
@@ -50,8 +52,8 @@ public class DefaultRowProcessor implements RowProcessor {
 	 * 将带有${key}和${vo.key}的内容进行替换
 	 * 
 	 * @param cellContent
-	 * @param rootObjectMap
-	 * @param parser
+	 * @param cellContent
+	 * @param peContext
 	 * @return
 	 */
 	public static String resolve(String cellContent, PoiExporterContext peContext) {
@@ -72,7 +74,7 @@ public class DefaultRowProcessor implements RowProcessor {
 				vo = vo.substring(0, vo.length()-1);
 				Object rootObjectItem = peContext.getRootObjectMap().get(vo);
 				String expression = matcher.replaceFirst("#$1$3"); // 转换成EL
-				String resolvedKey = peContext.getSpelExpParser().parseExpression(expression, new TemplateParserContext()).getValue(peContext.EVAL_CONTEXT, rootObjectItem, String.class);
+				String resolvedKey = peContext.getSpelExpParser().parseExpression(expression, new TemplateParserContext()).getValue(PoiExporterContext.EVAL_CONTEXT, rootObjectItem, String.class);
 				resolvedContent = resolvedKey; // 替换内容
 			}
 		} catch (EvaluationException | ParseException e) {
