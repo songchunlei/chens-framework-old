@@ -81,7 +81,7 @@
         <docker.repostory>registry-vpc.cn-shanghai.aliyuncs.com</docker.repostory>
         <docker.registry.name>chens-admin</docker.registry.name>
 
-        <poi.version>3.15</poi.version>
+        <poi.version>3.17</poi.version>
         <reflections.version>0.9.9-RC1</reflections.version>
 
     </properties>

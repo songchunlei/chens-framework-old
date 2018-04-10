@@ -44,6 +44,14 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         {
             setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
         }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_CREATE_BY_NAME)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_CREATE_BY_NAME, BaseContextHandler.getName(), metaObject);
+        }
+        if(metaObject.getValue(CommonConstants.BASE_ENTITY_UPDATE_BY_NAME)==null)
+        {
+            setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY_NAME, BaseContextHandler.getName(), metaObject);
+        }
         if(metaObject.getValue(CommonConstants.BASE_ENTITY_TENANT_ID)==null)
         {
             setFieldValByName(CommonConstants.BASE_ENTITY_TENANT_ID, BaseContextHandler.getTenantId(), metaObject);
@@ -63,6 +71,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         Date date = new Date();
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_TIME, date, metaObject);
         setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY, BaseContextHandler.getUserId(), metaObject);
+        setFieldValByName(CommonConstants.BASE_ENTITY_UPDATE_BY_NAME, BaseContextHandler.getName(), metaObject);
 
 	}
 

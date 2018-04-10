@@ -25,7 +25,6 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
 
 	@TableId(value = "id", type = IdType.UUID)
     protected String id;
-    //private Long id; 不用private是为了让子类继承获取
 
     /**
      * 创建时间
@@ -44,11 +43,24 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      */
     @TableField(value = CommonConstants.BASE_COLUMN_CREATE_BY, fill = FieldFill.INSERT)
     protected String createBy;
+
+    /**
+     * 创建人姓名
+     */
+    @TableField(value = CommonConstants.BASE_COLUMN_CREATE_BY_NAME, fill = FieldFill.INSERT)
+    protected String createByName;
+
     /**
      * 更新人
      */
     @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_BY, fill = FieldFill.INSERT_UPDATE)
     protected String updateBy;
+
+    /**
+     * 更新人
+     */
+    @TableField(value = CommonConstants.BASE_COLUMN_UPDATE_BY_NAME, fill = FieldFill.INSERT_UPDATE)
+    protected String updateByName;
 
     /**
      * 租户id
@@ -107,6 +119,19 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
         this.tenantId = tenantId;
     }
 
+    public String getCreateByName() {
+        return createByName;
+    }
 
-	
+    public void setCreateByName(String createByName) {
+        this.createByName = createByName;
+    }
+
+    public String getUpdateByName() {
+        return updateByName;
+    }
+
+    public void setUpdateByName(String updateByName) {
+        this.updateByName = updateByName;
+    }
 }

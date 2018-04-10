@@ -15,27 +15,46 @@ public class BaseContextHandler {
 
     public static ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<Map<String, Object>>();
 
+    /**
+     * 当前用户Id
+     * @return
+     */
     public static String getUserId(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_ID);
         return returnObjectValue(value);
     }
 
+    /**
+     * 当前用户姓名
+     * @return
+     */
     public static String getName(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_NAME);
         return returnObjectValue(value);
     }
 
-
+    /**
+     * 当前用户账户
+     * @return
+     */
     public static String getUserName(){
         Object value = get(CommonConstants.CONTEXT_KEY_USERNAME);
         return returnObjectValue(value);
     }
 
+    /**
+     * 当前token
+     * @return
+     */
     public static String getToken(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_TOKEN);
         return returnObjectValue(value);
     }
 
+    /**
+     * 当前租户id
+     * @return
+     */
     public static String getTenantId(){
         Object value = get(CommonConstants.CONTEXT_KEY_USER_TANENTID);
         return returnObjectValue(value);
