@@ -44,7 +44,7 @@ public interface IWfBaseService<T>  extends IService<T> {
      * @param t
      * @return
      */
-    boolean noPass(T t);
+    boolean noPass(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 发布
@@ -55,7 +55,7 @@ public interface IWfBaseService<T>  extends IService<T> {
      * 取消发布
      */
     boolean unPublish(T t);
-
+    
 
 
 }

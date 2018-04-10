@@ -2,17 +2,15 @@ package com.chens.bpm.service.impl;
 
 import java.util.List;
 
-import com.chens.bpm.constants.BpmConstants;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.chens.bpm.constants.BpmConstants;
 import com.chens.bpm.entity.ProcessBussinessRel;
 import com.chens.bpm.enums.WfStatus;
 import com.chens.bpm.service.IProcessBussinessRelService;
@@ -238,10 +236,22 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseE
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean noPass(T t)
-    {
-        wfEngineService.unPassTask();
-        return this.updateById(t);
+    public boolean noPass(WorkFlowRequestParam<T> workFlowRequestParam){
+        T t = workFlowRequestParam.getT();
+        workFlowRequestParam.setBusinessKey(t.getId());
+    	WorkFlowReturn workFlowReturn = wfEngineService.completeTask(workFlowRequestParam);
+    	if(workFlowReturn.isCompleteSuccess()){
+    		ProcessBussinessRel query = new ProcessBussinessRel();
+        	query.setBusinessKey(t.getId());
+        	query.setIsDelete(YesNoEnum.NO.getCode());
+        	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(query);
+        	List<ProcessBussinessRel> processBussinessRelList = processBussinessRelService.selectList(ew);
+    		//流程已结束，更新状态为未通过
+    		this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.UN_PASS.getCode());    			
+    		return true;
+    	}else{
+    		return false;
+    	}
     }
 
     @Override

@@ -459,4 +459,21 @@ public class ActivitiService implements IWfEngineService {
         return checkUserTaskIsHuiQian(taskId,taskDefinitionKey);
     }
 
+	@Override
+	public String getProcessStarterByTaskId(String taskId) {
+	   Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+       if(task == null){
+        	return null;
+       }
+       String processInstanceId = task.getProcessInstanceId();
+       ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+               .processInstanceId(processInstanceId)//使用流程实例ID查询
+               .singleResult();
+       if(processInstance == null){
+    	   return null;
+       }else{
+    	   return processInstance.getStartUserId();
+       }
+	}
+
 }
