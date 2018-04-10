@@ -56,4 +56,11 @@ public interface IWfEngineService {
      * 不同意当前任务
      */
     void unPassTask();
+    
+    /**
+     * 通过任务Id获取流程的发起人
+     * @param taskId
+     * @return
+     */
+    String getProcessStarterByTaskId(String taskId);
 }
