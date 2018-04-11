@@ -11,8 +11,9 @@ public final class CommonConstants {
     //过滤非租户表
     public static final String NO_TENANT_TABLENAME = "[sys_menu][sys_user][sys_dict_type][sys_permission][sys_role][sys_tenant][sys_token][sys_log]";
 
-    //菜单根节点
+    //根节点
     public static final String BASE_TREE_ROOT="-1";
+    public static final String BASE_TREE_ROOT_NAME="根节点";
 
     //默认密码
     public static final String DEFAULT_PASSWORD = "12345678";
