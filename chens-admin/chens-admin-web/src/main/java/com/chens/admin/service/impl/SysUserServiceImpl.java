@@ -3,7 +3,9 @@ package com.chens.admin.service.impl;
 import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.chens.admin.exception.AdminExceptionEnum;
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
 import com.chens.core.vo.AuthRequest;
@@ -98,8 +100,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Page<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user) {
+        if(StringUtils.isEmpty(user.getRoleId()))
+        {
+            throw new BaseException(AdminExceptionEnum.ROLE_ID_IS_NULL);
+        }
         page.setRecords(baseMapper.getUserListByRoleId(page,user));
         return page;
+    }
+
+    @Override
+    public Page<SysUser> getUserListByTenantId(Page<SysUser> page, SysUser user) {
+        if(StringUtils.isEmpty(user.getTenantId()))
+        {
+            throw new BaseException(AdminExceptionEnum.TENANT_ID_IS_NULL);
+        }
+        SysUser query = new SysUser();
+        query.setTenantId(user.getTenantId());
+        return this.selectPage(page,new EntityWrapper<>(query));
     }
 
     @Override

@@ -155,7 +155,6 @@ public class BaseController {
     {
         if(spage!= null)
         {
-
             return new Page<T>(spage.getPage().getCurrent(),spage.getPage().getSize());
         }
         return null;

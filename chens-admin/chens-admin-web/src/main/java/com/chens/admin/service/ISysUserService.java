@@ -49,6 +49,14 @@ public interface ISysUserService extends IService<SysUser> {
     Page<SysUser> getUserListByRoleId(Page<SysUser> page, SysUser user);
 
     /**
+     * 根据租户id获取角色下的用户
+     * @param page
+     * @param user
+     * @return
+     */
+    Page<SysUser> getUserListByTenantId(Page<SysUser> page, SysUser user);
+
+    /**
      * 校验唯一性
      */
     boolean checkUserNameUnique();

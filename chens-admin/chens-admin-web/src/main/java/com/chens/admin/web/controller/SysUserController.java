@@ -65,8 +65,23 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
     @PostMapping("/getUserListByRoleId")
     public ResponseEntity<Result> getUserListByRoleId(@RequestBody QueryPageEntity<SysUser> spage) {
         Page<SysUser> page = this.createPage(spage);
-        if(page!=null) {
+        if(page!=null && spage.getSearch()!=null) {
             return doSuccess(CommonConstants.QUERY_SUCCESS,service.getUserListByRoleId(page,spage.getSearch()));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+    /**
+     * 根据租户id获取角色下的用户
+     * @param spage
+     * @return
+     */
+    @PostMapping("/getUserListByTenantId")
+    public ResponseEntity<Result> getUserListByTenantId(@RequestBody QueryPageEntity<SysUser> spage) {
+        Page<SysUser> page = this.createPage(spage);
+        if(page!=null && spage.getSearch()!=null) {
+            return doSuccess(CommonConstants.QUERY_SUCCESS,service.getUserListByTenantId(page,spage.getSearch()));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
