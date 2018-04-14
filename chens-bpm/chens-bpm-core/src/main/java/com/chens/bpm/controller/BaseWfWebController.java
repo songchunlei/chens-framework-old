@@ -1,18 +1,18 @@
 package com.chens.bpm.controller;
 
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.chens.bpm.vo.WfBaseEntity;
-import com.chens.core.context.BaseContextHandler;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.bpm.service.IProcessBussinessRelService;
 import com.chens.bpm.service.IWfBaseService;
 import com.chens.bpm.service.IWfEngineService;
+import com.chens.bpm.vo.WfBaseEntity;
 import com.chens.bpm.vo.WorkFlowRequestParam;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
@@ -31,6 +31,8 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     
     @Autowired
     protected IWfEngineService wfEngineService;
+    @Autowired
+    protected IProcessBussinessRelService processBussinessRelService;
 
     /**
      * 自定义初始化
@@ -50,9 +52,9 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
         workFlowRequestParam.setVariableValue(t.getVariableValue());//前台传过来的下一环节选择
         workFlowRequestParam.setTaskId(t.getTaskId());//任务id
         workFlowRequestParam.setNextUserId(t.getNextUserId());//下一处理人
-        workFlowRequestParam.setStartUserId("wudepeng");//发起人
+        workFlowRequestParam.setStartUserId(BaseContextHandler.getUserId());//发起人
         workFlowRequestParam.setStartUserName(BaseContextHandler.getName());//发起人姓名
-        workFlowRequestParam.setTenantId("111");//租户
+        workFlowRequestParam.setTenantId(BaseContextHandler.getTenantId());//租户
         //workFlowRequestParam.setTableName("t_source");//表名
         TableName tableName = t.getClass().getAnnotation(TableName.class);
         if(tableName!=null)
@@ -184,5 +186,6 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
     }
+
 
 }
