@@ -1,13 +1,7 @@
 package com.chens.file.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
-
-import java.io.Serializable;
 
 /**
  * <p>

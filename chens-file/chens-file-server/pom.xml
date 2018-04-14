@@ -12,17 +12,17 @@
     <artifactId>chens-file-server</artifactId>
 
     <dependencies>
+        <!--文件客户端依赖-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-file-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--database-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <!--通用方法集-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>chens-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <!--auth-client鉴权客户端-->
         <dependency>

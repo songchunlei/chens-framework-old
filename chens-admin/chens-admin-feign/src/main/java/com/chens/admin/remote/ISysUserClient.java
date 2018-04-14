@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * 用户查询接口
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/8
  */
-@FeignClient(path = AdminFeignName.SYS_USER_RPC,value = "chens-admin-web",fallback = SysUserClientHystrix.class)
+@FeignClient(path = AdminFeignName.SYS_USER_RPC,value = AdminFeignName.CHENS_ADMIN_WEB_SERVER_NAME,fallback = SysUserClientHystrix.class)
 public interface ISysUserClient {
 
     @RequestMapping(value="/findByUsername",method = RequestMethod.POST)

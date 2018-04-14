@@ -1,5 +1,6 @@
 package com.chens.gateway;
 
+import com.chens.admin.util.DBLog;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -21,6 +22,9 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableZuulProxy
 public class GatewayApp {
     public static void main(String[] args){
+        //启动DBLog日志服务
+        DBLog.getInstance().start();
+        //启动gateway服务
         new SpringApplicationBuilder(GatewayApp.class).web(true).run(args);
     }
 }

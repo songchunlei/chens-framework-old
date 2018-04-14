@@ -57,7 +57,8 @@ public class DBLog extends Thread {
 
     @Override
     public void run() {
-        List<SysLog> bufferedLogList = new ArrayList<SysLog>(); // 缓冲队列
+        // 缓冲队列
+        List<SysLog> bufferedLogList = new ArrayList<SysLog>();
         while (true) {
             try {
                 bufferedLogList.add(logInfoQueue.take());

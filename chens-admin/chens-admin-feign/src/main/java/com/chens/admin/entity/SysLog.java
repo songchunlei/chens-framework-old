@@ -2,6 +2,7 @@ package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
+import com.chens.core.vo.UserInfo;
 
 import java.util.Date;
 
@@ -35,24 +36,23 @@ public class SysLog extends BaseEntity<SysLog> {
 
 	/**
 	 * 初始化
-	 * @param opt
-	 * @param host
-	 * @param url
-	 * @param createTime
-	 * @param createBy
-	 * @param updateTime
-	 * @param updateBy
-	 * @param tenantId
+	 * @param opt 操作方式
+	 * @param host host
+	 * @param url 请求地址
+	 * @param userInfo 用户信息
 	 */
-	public SysLog(String opt, String host, String url,Date createTime,String createBy,Date updateTime,String updateBy,String tenantId) {
+	public SysLog(String opt, String host, String url, UserInfo userInfo) {
+		Date now = new Date();
 		this.opt = opt;
 		this.host = host;
 		this.url = url;
-		this.createTime = createTime;
-		this.createBy = createBy;
-		this.updateTime = updateTime;
-		this.updateBy = updateBy;
-		this.tenantId = tenantId;
+		this.createBy = userInfo.getId();
+		this.createByName = userInfo.getName();
+		this.createTime = now;
+		this.updateBy = userInfo.getId();
+		this.updateByName = userInfo.getName();
+		this.updateTime = now;
+		this.tenantId = userInfo.getTenantId();
 	}
 
 

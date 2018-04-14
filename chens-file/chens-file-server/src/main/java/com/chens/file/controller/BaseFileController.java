@@ -1,6 +1,5 @@
 package com.chens.file.controller;
 
-import com.chens.core.web.BaseController;
 import com.chens.core.web.BaseWebController;
 import com.chens.file.entity.SysFile;
 import com.chens.file.service.IFileInfoService;
@@ -17,7 +16,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * 基础文件服务
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/13
  */
 public class BaseFileController extends BaseWebController<IFileInfoService,SysFile> {

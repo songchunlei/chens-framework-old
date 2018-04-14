@@ -66,21 +66,23 @@ public class TokenValidateFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-
-       // zuul中，将当前请求的上下文信息存在线程变量中。取出来
+        // zuul中，将当前请求的上下文信息存在线程变量中。取出来
         RequestContext ctx = RequestContext.getCurrentContext();
 
         // 从上下文中获取httprequest对象
         HttpServletRequest request = ctx.getRequest();
 
+        //访问地址
+        final String requestUri = request.getRequestURI();
+
         //获取用户
         UserInfo userInfo = this.getUserInfoByToken(ctx,request);
 
         //处理权限(待完成)
-        checkUserPermission(ctx,userInfo);
+        checkUserPermission(ctx,requestUri,userInfo);
 
         //记录日志
-        writeToLog(ctx,userInfo);
+        writeToLog(ctx,requestUri,userInfo);
 
 
         return null;
@@ -114,7 +116,7 @@ public class TokenValidateFilter extends ZuulFilter {
      * @param ctx
      * @param userInfo
      */
-    private void checkUserPermission(RequestContext ctx,UserInfo userInfo)
+    private void checkUserPermission(RequestContext ctx,String requestUri,UserInfo userInfo)
     {
 
     }
@@ -124,11 +126,11 @@ public class TokenValidateFilter extends ZuulFilter {
      * @param ctx
      * @param userInfo
      */
-    private void writeToLog(RequestContext ctx,UserInfo userInfo)
+    private void writeToLog(RequestContext ctx,String requestUri,UserInfo userInfo)
     {
         String host = ClientUtil.getClientIp(ctx.getRequest());
         Date now = new Date();
-        SysLog sysLog = new SysLog("opt", host, "url",now,userInfo.getId(),now,userInfo.getId(),userInfo.getTenantId());
+        SysLog sysLog = new SysLog("test", host, requestUri,userInfo);
         DBLog.getInstance().setSysLogClient(sysLogClient).offerQueue(sysLog);
     }
 
