@@ -54,7 +54,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     /**
      * 请求异常
      */
-    REQUEST_NULL(600, "请求有错误"),
+    REQUEST_NULL(600, "请求有错误或请求数据为空"),
     DATA_REQUEST_ERROR(601, "数据传输失败"),
     SERVER_ERROR(602, "服务器异常"),
 
