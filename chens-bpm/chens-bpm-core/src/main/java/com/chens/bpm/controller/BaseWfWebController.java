@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.bpm.service.IProcessBussinessRelService;
 import com.chens.bpm.service.IWfBaseService;
 import com.chens.bpm.service.IWfEngineService;
-import com.chens.bpm.vo.WfBaseEntity;
+import com.chens.bpm.vo.BaseWfEntity;
 import com.chens.bpm.vo.WorkFlowRequestParam;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
@@ -24,7 +24,7 @@ import com.chens.core.web.BaseWebController;
  * @auther songchunlei@qq.com
  * @create 2018/4/1
  */
-public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends WfBaseEntity<T>>  extends BaseWebController<S,T> {
+public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends BaseWfEntity<T>>  extends BaseWebController<S,T> {
 
 
     protected WorkFlowRequestParam<T> workFlowRequestParam = new WorkFlowRequestParam<T>();
