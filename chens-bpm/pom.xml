@@ -15,7 +15,16 @@
     <modules>
         <module>chens-bpm-core</module>
         <module>chens-bpm-activiti</module>
+        <module>chens-bpm-web</module>
     </modules>
 
+    <dependencies>
+        <!--通用方法集-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
