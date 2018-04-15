@@ -19,9 +19,9 @@
         <!--通用核心模块-->
         <module>../chens-core</module>
         <!--缓存-->
-        <module>../chens-cache</module>
+        <!--<module>../chens-cache</module>-->
         <!--TCC分布式事务-->
-        <module>../chens-tcc</module>
+        <!--<module>../chens-tcc</module>-->
         <!--excel模块-->
         <module>../chens-excel</module>
         <!--富文本编辑器-->
