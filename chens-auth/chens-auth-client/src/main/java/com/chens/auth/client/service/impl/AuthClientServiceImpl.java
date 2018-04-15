@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 授权客户端服务
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/30
  */
 @Service

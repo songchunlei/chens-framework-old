@@ -18,7 +18,7 @@ import java.util.Collections;
  */
 @Configuration
 @Primary
-public class WebConfiguration extends WebMvcConfigurerAdapter {
+public class FileWebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

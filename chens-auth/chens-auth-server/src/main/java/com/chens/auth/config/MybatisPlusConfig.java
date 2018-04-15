@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Mybatis-plus配置
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/2/12
  */
 @Configuration
-@MapperScan("com.chens.auth.mapper*")
+@MapperScan(basePackages = {"com.chens.**.mapper"})
 public class MybatisPlusConfig extends BaseMybatisPlusConfig{
 
 

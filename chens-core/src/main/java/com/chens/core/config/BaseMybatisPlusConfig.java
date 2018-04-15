@@ -53,7 +53,6 @@ public abstract class BaseMybatisPlusConfig {
     @Autowired(required = false)
     private Interceptor[] interceptors;
 
-
     /**
      * mybatis-plus SQL执行效率插件【生产环境可以关闭】
      * @return
@@ -71,6 +70,7 @@ public abstract class BaseMybatisPlusConfig {
 
         MybatisSqlSessionFactoryBean mybatisPlus = new MybatisSqlSessionFactoryBean();
         mybatisPlus.setDataSource(dataSource);
+
         //mybatisPlus.setVfs(SpringBootVFS.class);
 
         //填充页面配置
@@ -84,6 +84,10 @@ public abstract class BaseMybatisPlusConfig {
             mybatisPlus.setPlugins(this.interceptors);
         }
 
+        //默认初始化
+        this.properties.setMapperLocations(new String[]{"classpath:/mapper/*Mapper.xml"});
+        mybatisPlus.setTypeAliasesPackage("com.chens.**.entity");
+        mybatisPlus.setTypeEnumsPackage("com.chens.**.enums");
 
         if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
             mybatisPlus.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
@@ -136,11 +140,9 @@ public abstract class BaseMybatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor page = new PaginationInterceptor();
-        page.setLocalPage(true);// 开启 PageHelper 的支持
-
-
+        // 开启 PageHelper 的支持
+        page.setLocalPage(true);
         //测试多租户】 SQL 解析处理拦截器<br>
-        //这里固定写成住户 1 实际情况你可以从cookie读取，因此数据看不到 【 麻花藤 】 这条记录（ 注意观察 SQL ）<br>
         List<ISqlParser> sqlParserList = new ArrayList<>();
         TenantSqlParser tenantSqlParser = new TenantSqlParser();
         tenantSqlParser.setTenantHandler(new TenantHandler() {

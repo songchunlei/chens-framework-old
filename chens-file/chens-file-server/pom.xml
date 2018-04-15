@@ -11,45 +11,4 @@
 
     <artifactId>chens-file-server</artifactId>
 
-    <dependencies>
-        <!--文件客户端依赖-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>chens-file-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!--database-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!--auth-client鉴权客户端-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>chens-auth-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-    </build>
-
 </project>

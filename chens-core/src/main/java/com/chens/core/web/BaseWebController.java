@@ -45,11 +45,11 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PostMapping("/pagelist")
     public ResponseEntity<Result> pagelist(@RequestBody QueryPageEntity<T> spage){
-
+        //获取页面参数
         PageVo pageVo = spage.getPage();
-
-        Page<T> page = new Page<T>(pageVo.getCurrent(),pageVo.getSize());
-
+        //创建查询条件
+        Page<T> page = this.createPage(spage);
+        //设置默认排序
         if (StringUtils.isEmpty(spage.getPage().getOrderByField())) {
             spage.getPage().setOrderByField(CommonConstants.BASE_ENTITY_UPDATE_TIME);
         }
@@ -67,21 +67,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PostMapping("/create")
     public ResponseEntity<Result> create(@RequestBody @Validated(InsertValid.class) T t) {
-        /* 交给BaseControllerExceptionHandler统一处理
-        String msg = GetValidateMsg.handlerValidateMsg(result);
-        if(StringUtils.isNotEmpty(msg))
-        {
-            throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
-        }
-        */
         if(t != null){
-            /* 交给MyMetaObjectHandler
-            t.setCreateBy(BaseContextHandler.getUserId());
-            t.setCreateTime(new Date());
-            t.setUpdateTime(new Date());
-            t.setUpdateBy(BaseContextHandler.getUserId());
-            t.setTenantId(BaseContextHandler.getTenantId());
-            */
         	service.insert(t);
             return doSuccess(CommonConstants.SAVE_SUCCESS,t.getId());
         } else {
@@ -96,17 +82,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      */
     @PutMapping("/update")
     public ResponseEntity<Result> update(@RequestBody @Validated(UpdateValid.class) T t) {
-       /* 交给BaseControllerExceptionHandler统一处理
-        String msg = GetValidateMsg.handlerValidateMsg(result);
-        if(StringUtils.isNotEmpty(msg))
-        {
-            throw new BaseException(BaseExceptionEnum.VALIDATE_NOPASS.getCode(),msg);
-        }*/
         if(t != null ){
-            /* 交给MyMetaObjectHandler
-            t.setUpdateTime(new Date());
-            t.setUpdateBy(BaseContextHandler.getUserId());
-            */
             return doSuccess(CommonConstants.SAVE_SUCCESS,service.updateById(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

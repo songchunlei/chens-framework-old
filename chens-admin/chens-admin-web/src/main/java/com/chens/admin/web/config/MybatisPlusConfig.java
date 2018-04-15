@@ -12,8 +12,7 @@ import com.chens.core.config.BaseMybatisPlusConfig;
  * @create 2018/2/12
  */
 @Configuration
-@MapperScan("com.chens.admin.mapper*")
+@MapperScan(basePackages = {"com.chens.**.mapper"})
 public class MybatisPlusConfig extends BaseMybatisPlusConfig{
-
 
 }

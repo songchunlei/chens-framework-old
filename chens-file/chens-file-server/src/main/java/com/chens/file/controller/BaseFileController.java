@@ -1,5 +1,6 @@
 package com.chens.file.controller;
 
+import com.chens.core.web.BaseController;
 import com.chens.core.web.BaseWebController;
 import com.chens.file.entity.SysFile;
 import com.chens.file.service.IFileInfoService;
@@ -19,7 +20,7 @@ import java.util.zip.ZipOutputStream;
  * @author songchunlei@qq.com
  * @create 2018/3/13
  */
-public class BaseFileController extends BaseWebController<IFileInfoService,SysFile> {
+public class BaseFileController extends BaseController {
     private static final File uploadDirectory = new File(getFilePath());
     /**
      * @param savePath
@@ -85,7 +86,7 @@ public class BaseFileController extends BaseWebController<IFileInfoService,SysFi
      * @return
      */
     public static String getFilePath() {
-        return "/root/opt";
+        return "/Users/songchunlei/Desktop/file/remote";
     }
 
 

@@ -19,13 +19,15 @@ import static com.chens.file.util.FileUtil.createMd5;
 /**
  * 文件服务
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/13
  */
 @Controller
 @RequestMapping("/fileController")
 public class FileController extends BaseFileController {
 
+    @Autowired
+    private IFileInfoService fileInfoService;
 
     @PostMapping(value = "/upload")
     public ResponseEntity<Result> fileUpload(@RequestParam("name") String name,
@@ -42,7 +44,7 @@ public class FileController extends BaseFileController {
         }
         try {
             sysFile = new SysFile(name+type,size,createMd5(file).toString());
-            service.insert(sysFile);
+            fileInfoService.insert(sysFile);
         } catch (Exception e) {
             throw new BaseException(BaseExceptionEnum.FILE_SAVE_ERROR);
         }
