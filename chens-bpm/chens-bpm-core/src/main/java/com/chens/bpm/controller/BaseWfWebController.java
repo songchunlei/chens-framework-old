@@ -36,6 +36,7 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
 
     /**
      * 自定义初始化
+     * @param t
      */
     protected abstract void init(T t);
 
@@ -48,20 +49,29 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     {
     	init(t);
 //        WorkFlowRequestParam<T> workFlowRequestParam = new WorkFlowRequestParam<T>();
-        workFlowRequestParam.setProcessDefinitionKey(t.getProcessDefinitionKey());//流程定义Key
-        workFlowRequestParam.setVariableValue(t.getVariableValue());//前台传过来的下一环节选择
-        workFlowRequestParam.setTaskId(t.getTaskId());//任务id
-        workFlowRequestParam.setNextUserId(t.getNextUserId());//下一处理人
-        workFlowRequestParam.setStartUserId(BaseContextHandler.getUserId());//发起人
-        workFlowRequestParam.setStartUserName(BaseContextHandler.getName());//发起人姓名
-        workFlowRequestParam.setTenantId(BaseContextHandler.getTenantId());//租户
+        //流程定义Key
+        workFlowRequestParam.setProcessDefinitionKey(t.getProcessDefinitionKey());
+        //前台传过来的下一环节选择
+        workFlowRequestParam.setVariableValue(t.getVariableValue());
+        //任务id
+        workFlowRequestParam.setTaskId(t.getTaskId());
+        //下一处理人
+        workFlowRequestParam.setNextUserId(t.getNextUserId());
+        //发起人
+        workFlowRequestParam.setStartUserId(BaseContextHandler.getUserId());
+        //发起人姓名
+        workFlowRequestParam.setStartUserName(BaseContextHandler.getName());
+        //租户
+        workFlowRequestParam.setTenantId(BaseContextHandler.getTenantId());
         //workFlowRequestParam.setTableName("t_source");//表名
         TableName tableName = t.getClass().getAnnotation(TableName.class);
         if(tableName!=null)
         {
-            workFlowRequestParam.setTableName(tableName.value());//从注解获取类名
+            //从注解获取类名
+            workFlowRequestParam.setTableName(tableName.value());
         }
-        workFlowRequestParam.setBpmReason(t.getBpmReason());//审批意见
+        //审批意见
+        workFlowRequestParam.setBpmReason(t.getBpmReason());
         workFlowRequestParam.setTaskName(t.getTaskName());
         workFlowRequestParam.setCurrentTaskDefinitionKey(t.getCurrentTaskDefinitionKey());
         workFlowRequestParam.setCurrentTaskDefinitionName(t.getCurrentTaskDefinitionName());
@@ -109,8 +119,10 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     public ResponseEntity<Result> pass(@RequestBody @Validated T t) {
         if(t != null){
         	this.doInit(t);
-        	workFlowRequestParam.setNextUserId("admin");//通过是直接结束，写死
-        	workFlowRequestParam.setVariableValue("pass");//现在只有一个审批节点通过就直接结束流程，直接写死，如果有多个节点，则这里需要从前台传过来
+            //通过是直接结束，写死
+        	workFlowRequestParam.setNextUserId("admin");
+            //现在只有一个审批节点通过就直接结束流程，直接写死，如果有多个节点，则这里需要从前台传过来
+        	workFlowRequestParam.setVariableValue("pass");
             return doSuccess("办理成功",service.pass(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -180,7 +192,8 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     public ResponseEntity<Result> passWithEdit(@RequestBody @Validated T t) {
         if(t != null){
         	this.doInit(t);
-        	workFlowRequestParam.setVariableValue("approveNode");//现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
+            //现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
+        	workFlowRequestParam.setVariableValue("approveNode");
             return doSuccess("办理成功",service.passWithEdit(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);

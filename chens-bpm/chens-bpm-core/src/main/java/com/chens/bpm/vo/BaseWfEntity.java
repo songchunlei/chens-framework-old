@@ -6,40 +6,66 @@ import com.chens.core.vo.BaseEntity;
 /**
  * 流程引擎基本虚拟字段
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/4/3
  */
-@SuppressWarnings("rawtypes")
 public class BaseWfEntity<T extends BaseWfEntity> extends BaseEntity<T>{
 
 	private static final long serialVersionUID = -6893793486319301365L;
 
+    /**
+     * 任务id
+     */
 	@TableField(exist = false)
-    protected String taskId;//任务id
+    protected String taskId;
 
+    /**
+     * 下一环节处理人
+     */
     @TableField(exist = false)
-    protected String nextUserId;//下一环节处理人
+    protected String nextUserId;
 
+    /**
+     * 下一节点选择
+     */
     @TableField(exist = false)
-    protected String variableValue;//下一节点选择
+    protected String variableValue;
 
+    /**
+     * 表名
+     */
     @TableField(exist = false)
-    protected String tableName;//表名
+    protected String tableName;
 
+    /**
+     * 流程意见
+     */
     @TableField(exist = false)
-    protected String bpmReason;//流程意见
+    protected String bpmReason;
 
+    /**
+     * 任务名称
+     */
     @TableField(exist = false)
-    protected String taskName;//任务名称
+    protected String taskName;
 
+    /**
+     * 任务节点key
+     */
     @TableField(exist = false)
-    protected String currentTaskDefinitionKey;//任务节点key
+    protected String currentTaskDefinitionKey;
 
+    /**
+     * 任务节点名称
+     */
     @TableField(exist = false)
-    protected String currentTaskDefinitionName;//任务节点名称
+    protected String currentTaskDefinitionName;
 
+    /**
+     * 流程key
+     */
     @TableField(exist = false)
-    protected String processDefinitionKey;//流程key
+    protected String processDefinitionKey;
 
     public String getTaskId() {
         return taskId;
