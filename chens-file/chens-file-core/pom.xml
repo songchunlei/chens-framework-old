@@ -9,14 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chens-file-server</artifactId>
+    <artifactId>chens-file-core</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>chens-file-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 
 </project>

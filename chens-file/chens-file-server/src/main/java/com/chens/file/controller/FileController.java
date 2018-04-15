@@ -3,7 +3,6 @@ package com.chens.file.controller;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.Result;
-import com.chens.core.web.BaseWebController;
 import com.chens.file.service.IFileInfoService;
 import com.chens.file.entity.SysFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-import java.util.UUID;
 import static com.chens.file.util.FileUtil.createMd5;
 
 /**

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.file.vo.mapper.AbstractFolderMapper">
+
+		<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id,tenant_id AS tenantId, type AS type, name AS name, parent_id AS parentId, remark, create_time AS createTime, create_by AS createBy, update_by AS updateBy, update_time AS updateTime, is_delete AS isDelete
+	</sql>
+
+</mapper>

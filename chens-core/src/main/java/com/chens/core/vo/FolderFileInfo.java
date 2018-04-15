@@ -28,6 +28,11 @@ public class FolderFileInfo implements Serializable{
     private String type;
 
     /**
+     * 目录等级
+     */
+    private Integer lvl;
+
+    /**
      * 最后更新时间
      */
     private Date updateTime;
@@ -57,6 +62,14 @@ public class FolderFileInfo implements Serializable{
         this.updateTime = updateTime;
     }
 
+    public FolderFileInfo(String id,String type,Integer lvl,  String name, Date updateTime) {
+        this.id = id;
+        this.lvl = lvl;
+        this.type = type;
+        this.name = name;
+        this.updateTime = updateTime;
+    }
+
     public String getId() {
         return id;
     }
@@ -71,6 +84,14 @@ public class FolderFileInfo implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(Integer lvl) {
+        this.lvl = lvl;
     }
 
     public Date getUpdateTime() {

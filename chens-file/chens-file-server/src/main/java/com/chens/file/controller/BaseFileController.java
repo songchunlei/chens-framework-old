@@ -1,9 +1,6 @@
 package com.chens.file.controller;
 
 import com.chens.core.web.BaseController;
-import com.chens.core.web.BaseWebController;
-import com.chens.file.entity.SysFile;
-import com.chens.file.service.IFileInfoService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;

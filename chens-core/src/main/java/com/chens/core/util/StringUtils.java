@@ -15,6 +15,8 @@
  */
 package com.chens.core.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -206,5 +208,19 @@ public class StringUtils {
             }
         }
         return result.toString();
+    }
+
+    /**
+     * id字符串转id List
+     * @param idStr
+     * @return
+     */
+    public static List<String> string2List(String idStr) {
+        String[] idArray = idStr.split(",");
+        List<String> idList = new ArrayList<String>();
+        for(int i = 0; i < idArray.length; i++){
+            idList.add(idArray[i]);
+        }
+        return idList;
     }
 }

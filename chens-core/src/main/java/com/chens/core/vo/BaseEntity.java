@@ -13,12 +13,9 @@ import java.util.Date;
 /**
  * 基础字段
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/12
  */
-
-
-@SuppressWarnings("rawtypes")
 public class BaseEntity <T extends BaseEntity> implements Serializable {
 
 	private static final long serialVersionUID = -8484423417623201516L;

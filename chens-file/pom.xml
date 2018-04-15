@@ -15,6 +15,7 @@
     <modules>
         <module>chens-file-server</module>
         <module>chens-file-web</module>
+        <module>chens-file-core</module>
     </modules>
 
     <dependencies>
