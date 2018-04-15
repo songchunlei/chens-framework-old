@@ -22,12 +22,6 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
         </dependency>
-        <!--database-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <!--activiti 要求用jpa方式-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

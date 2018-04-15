@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chens.bpm.activiti.mapper.ActivitiMapper;
 import com.chens.bpm.constants.BpmConstants;
+import com.chens.bpm.vo.*;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExclusiveGateway;
 import org.activiti.bpmn.model.FlowNode;
@@ -39,8 +42,6 @@ import com.chens.bpm.enums.WfStatus;
 import com.chens.bpm.enums.WorkFlowEnum;
 import com.chens.bpm.enums.WorkFlowGlobals;
 import com.chens.bpm.service.IWfEngineService;
-import com.chens.bpm.vo.WorkFlowRequestParam;
-import com.chens.bpm.vo.WorkFlowReturn;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 
@@ -52,7 +53,9 @@ import com.chens.core.exception.BaseExceptionEnum;
  */
 @Service
 public class ActivitiService implements IWfEngineService {
-	
+
+    @Autowired
+    private ActivitiMapper activitiMapper;
 	@Autowired
     private TaskService taskService;
     @Autowired
@@ -302,8 +305,9 @@ public class ActivitiService implements IWfEngineService {
         		}
         		conditionExp = conditionExp.substring(index, conditionExp.length()-1).trim();      		
         		float exp = Float.parseFloat(conditionExp);        		
-        		float now = (float)(nrOfCompletedInstances + 1)/nrOfInstances;       		
-        		if(nrOfCompletedInstances == 0){//当前节点为会签  且是第一个处理人
+        		float now = (float)(nrOfCompletedInstances + 1)/nrOfInstances;
+                //当前节点为会签  且是第一个处理人
+        		if(nrOfCompletedInstances == 0){
         			runtimeService.setVariable(processInstanceId, WorkFlowEnum.ASSIGNEE_USER_ID_LIST_TEMP.getCode(),list);
         			//这里需要考虑会签节点每次都只选一个人的情况
         			if(StringUtils.equals(condition, ConditionEnum.EQ.getCode())){
@@ -384,9 +388,10 @@ public class ActivitiService implements IWfEngineService {
                     }
                 }
             }
-            taskService.complete(taskId, variables);    
-            ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()//
-                            .processInstanceId(processInstanceId)//使用流程实例ID查询
+            taskService.complete(taskId, variables);
+            //使用流程实例ID查询
+            ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                            .processInstanceId(processInstanceId)
                             .singleResult();		
             //表示已经完成
             if(processInstance == null){
@@ -452,9 +457,12 @@ public class ActivitiService implements IWfEngineService {
                 activityId = executionList.get(0).getActivityId();
             }
         }
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId); //获取流程xml模型
-        FlowNode currentFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId); //获取当前节点
-        List<SequenceFlow> outSequenceFlowList = currentFlowNode.getOutgoingFlows();//获取当前节点的出线分支
+        //获取流程xml模型
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        //获取当前节点
+        FlowNode currentFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId);
+        //获取当前节点的出线分支
+        List<SequenceFlow> outSequenceFlowList = currentFlowNode.getOutgoingFlows();
         String taskDefinitionKey =  getNextUserTaskNode(outSequenceFlowList,field,value);       
         return checkUserTaskIsHuiQian(taskId,taskDefinitionKey);
     }
@@ -466,8 +474,9 @@ public class ActivitiService implements IWfEngineService {
         	return null;
        }
        String processInstanceId = task.getProcessInstanceId();
+       //使用流程实例ID查询
        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
-               .processInstanceId(processInstanceId)//使用流程实例ID查询
+               .processInstanceId(processInstanceId)
                .singleResult();
        if(processInstance == null){
     	   return null;
@@ -475,5 +484,24 @@ public class ActivitiService implements IWfEngineService {
     	   return processInstance.getStartUserId();
        }
 	}
+
+    @Override
+    public Page<MyTodoTask> getMyTodoTaskPage(Page<MyTodoTask> page, MyTodoTask myTodoTask) {
+        page.setRecords(activitiMapper.getMyTodoTaskPage(page, myTodoTask));
+        return page;
+    }
+
+    @Override
+    public Page<MyDoneTask> getMyDoneTaskPage(Page<MyDoneTask> page, MyDoneTask myDoneTask) {
+        page.setRecords(activitiMapper.getMyDoneTaskPage(page, myDoneTask));
+        return page;
+    }
+
+    @Override
+    public Page<MyStartProcessInstance> getMyStartProcessInstancePage(Page<MyStartProcessInstance> page,
+                                                                      MyStartProcessInstance myStartProcessInstance) {
+        page.setRecords(activitiMapper.getMyStartProcessInstancePage(page, myStartProcessInstance));
+        return page;
+    }
 
 }

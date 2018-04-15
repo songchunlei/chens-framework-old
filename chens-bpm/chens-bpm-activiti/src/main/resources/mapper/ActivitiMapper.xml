@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.bpm.activiti.mapper.ActivitiMapper">
+    
+    <select id="getMyTodoTaskPage" resultType="com.chens.bpm.vo.MyTodoTask">
+		select task.ID_ as taskId, task.TASK_DEF_KEY_ as taskDefinitionKey, task.NAME_ as taskDefinitionName, 
+			task.PROC_INST_ID_ as processInstanceId, task.ASSIGNEE_ as assignee, task.CREATE_TIME_ as createTime, 
+			rel.process_definition_id as processDefinitionId, rel.process_definition_name as processDefinitionName,
+			rel.process_definition_key as processDefinitionKey, rel.process_definition_version as processDefinitionVersion, 
+			rel.task_name as taskName, rel.business_key as businessKey, rel.status, rel.table_name as tableName, 
+			rel.start_by as startBy, rel.start_by_name as startByName, rel.tenant_id as tenantId                                         
+		from  t_process_bussiness_rel rel, act_ru_task task
+		where task.PROC_INST_ID_ = rel.process_instance_id and task.ASSIGNEE_ = #{assignee}
+		<if test="processDefinitionKey != null and processDefinitionKey != ''">
+			  and rel.process_definition_key = #{processDefinitionKey}
+		</if>
+		order by createTime asc
+ 	</select>
+ 	
+ 	 <select id="getMyDoneTaskPage" resultType="com.chens.bpm.vo.MyDoneTask">
+ 	 	select hit.ID_ as taskId, hit.TASK_DEF_KEY_ as taskDefinitionKey, hit.NAME_ as taskDefinitionName, 
+			hit.PROC_INST_ID_ as processInstanceId, hit.ASSIGNEE_ as assignee, hit.START_TIME_ as createTime, hit.END_TIME_ as endTime,
+			rel.process_definition_id as processDefinitionId, rel.process_definition_name as processDefinitionName,
+			rel.process_definition_key as processDefinitionKey, rel.process_definition_version as processDefinitionVersion, 
+			rel.task_name as taskName, rel.business_key as businessKey, rel.status, rel.table_name as tableName, 
+			rel.start_by as startBy, rel.start_by_name as startByName, rel.tenant_id as tenantId, t2.currentAssigneeName,
+			t2.currentTaskDefinitionKey, t2.currentTaskDefinitionName
+			from t_process_bussiness_rel rel, act_hi_taskinst hit
+			LEFT JOIN (select cur1.processInstanceId, cur1.currentAssigneeName, cur2.currentTaskDefinitionKey, cur3.currentTaskDefinitionName from (select t1.processInstanceId, group_concat(t1.name) as currentAssigneeName
+					from (select su.name, rt.PROC_INST_ID_ as processInstanceId from t_process_bussiness_rel pbr, act_ru_task rt, act_hi_taskinst ht, sys_user su
+					where rt.PROC_INST_ID_ = ht.PROC_INST_ID_ and pbr.process_instance_id = rt.PROC_INST_ID_ and rt.ASSIGNEE_ = su.id and ht.ASSIGNEE_ = #{assignee}) t1
+					GROUP BY t1.processInstanceId) cur1, (select task1.PROC_INST_ID_ as processInstanceId, task1.TASK_DEF_KEY_ as currentTaskDefinitionKey from t_process_bussiness_rel pr1, act_ru_task task1
+			where pr1.process_instance_id = task1.PROC_INST_ID_ GROUP BY task1.PROC_INST_ID_) cur2, (select task2.PROC_INST_ID_ as processInstanceId, task2.NAME_ as currentTaskDefinitionName from t_process_bussiness_rel pr2, act_ru_task task2
+			where pr2.process_instance_id = task2.PROC_INST_ID_ GROUP BY task2.PROC_INST_ID_) cur3 where cur1.processInstanceId = cur2.processInstanceId and cur1.processInstanceId = cur3.processInstanceId) t2
+			on hit.PROC_INST_ID_ = t2.processInstanceId
+			where rel.process_instance_id = hit.PROC_INST_ID_
+			and hit.END_TIME_ is not null
+			and hit.ASSIGNEE_ = #{assignee}
+			<if test="processDefinitionKey != null and processDefinitionKey != ''">
+				  and rel.process_definition_key = #{processDefinitionKey}
+			</if>
+			order by endTime desc
+ 	 </select>
+ 	 
+ 	  <select id="getMyStartProcessInstancePage" resultType="com.chens.bpm.vo.MyStartProcessInstance">
+		select hit.ID_ as processInstanceId, hit.START_TIME_ as createTime, hit.END_TIME_ as endTime, hit.DURATION_ as duraton,
+			rel.process_definition_id as processDefinitionId, rel.process_definition_name as processDefinitionName,
+			rel.process_definition_key as processDefinitionKey, rel.process_definition_version as processDefinitionVersion, 
+			rel.task_name as taskName, rel.business_key as businessKey, rel.status, rel.table_name as tableName, 
+			rel.start_by as startBy, rel.start_by_name as startByName, rel.tenant_id as tenantId, t2.currentAssigneeName,
+			t2.currentTaskDefinitionKey, t2.currentTaskDefinitionName
+		from t_process_bussiness_rel rel, act_hi_procinst hit
+		LEFT JOIN (select cur1.processInstanceId, cur1.currentAssigneeName, cur2.currentTaskDefinitionKey, cur3.currentTaskDefinitionName from (select t1.processInstanceId, group_concat(t1.name) as currentAssigneeName
+				from (select su.name, rt.PROC_INST_ID_ as processInstanceId from t_process_bussiness_rel pbr, act_ru_task rt, sys_user su
+				where pbr.process_instance_id = rt.PROC_INST_ID_ and rt.ASSIGNEE_ = su.id) t1
+				GROUP BY t1.processInstanceId) cur1, (select task1.PROC_INST_ID_ as processInstanceId, task1.TASK_DEF_KEY_ as currentTaskDefinitionKey from t_process_bussiness_rel pr1, act_ru_task task1
+		where pr1.process_instance_id = task1.PROC_INST_ID_ GROUP BY task1.PROC_INST_ID_) cur2, (select task2.PROC_INST_ID_ as processInstanceId, task2.NAME_ as currentTaskDefinitionName from t_process_bussiness_rel pr2, act_ru_task task2
+		where pr2.process_instance_id = task2.PROC_INST_ID_ GROUP BY task2.PROC_INST_ID_) cur3 where cur1.processInstanceId = cur2.processInstanceId and cur1.processInstanceId = cur3.processInstanceId) t2
+		on hit.ID_ = t2.processInstanceId
+		where rel.process_instance_id = hit.ID_
+			and hit.START_USER_ID_ = #{startBy}
+		<if test="processDefinitionKey != null and processDefinitionKey != ''">
+			  and rel.process_definition_key = #{processDefinitionKey}
+		</if>
+		order by endTime desc
+ 	 </select>
+    
+
+</mapper>

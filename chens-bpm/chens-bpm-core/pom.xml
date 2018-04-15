@@ -13,13 +13,6 @@
 
 
     <dependencies>
-        <!--通用方法集-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>chens-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!--spring-cloud-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

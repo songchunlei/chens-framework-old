@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>chens-bpm</artifactId>
+        <groupId>com.chens</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>chens-bpm-web</artifactId>
+
+    <dependencies>
+        <!--activiti流程实现-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-bpm-activiti</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--授权-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-auth-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!--database-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--xml-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

@@ -1,16 +1,13 @@
 package com.chens.bpm.service;
 
-import com.chens.bpm.vo.WorkFlowRequestParam;
-import com.chens.bpm.vo.WorkFlowReturn;
-
-//import org.springframework.cloud.netflix.feign.FeignClient;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.chens.bpm.vo.*;
 
 /**
  * 调用流程引擎接口(暂时不走feign)
  * @auther songchunlei
  * @create 2018/3/30
  */
-//@FeignClient(path = "wfEngine",value = "chens-bpm-service")
 public interface IWfEngineService {
 
 
@@ -63,4 +60,30 @@ public interface IWfEngineService {
      * @return
      */
     String getProcessStarterByTaskId(String taskId);
+
+
+    /**
+     * 我的待办分页
+     * @param page
+     * @param myTodoTask
+     * @return
+     */
+    Page<MyTodoTask> getMyTodoTaskPage(Page<MyTodoTask> page, MyTodoTask myTodoTask);
+
+    /**
+     * 我的已办分页
+     * @param page
+     * @param myDoneTask
+     * @return
+     */
+    Page<MyDoneTask> getMyDoneTaskPage(Page<MyDoneTask> page, MyDoneTask myDoneTask);
+
+
+    /**
+     * 我的申请/我发起的流程分页
+     * @param page
+     * @param myStartProcessInstance
+     * @return
+     */
+    Page<MyStartProcessInstance> getMyStartProcessInstancePage(Page<MyStartProcessInstance> page, MyStartProcessInstance myStartProcessInstance);
 }

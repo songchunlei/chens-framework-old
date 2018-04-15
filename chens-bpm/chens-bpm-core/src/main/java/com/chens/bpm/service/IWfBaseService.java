@@ -41,18 +41,22 @@ public interface IWfBaseService<T>  extends IService<T> {
 
     /**
      * 审批不通过
-     * @param t
+     * @param workFlowRequestParam
      * @return
      */
     boolean noPass(WorkFlowRequestParam<T> workFlowRequestParam);
 
     /**
      * 发布
+     * @param t
+     * @return
      */
     boolean publish(T t);
 
     /**
      * 取消发布
+     * @param t
+     * @return
      */
     boolean unPublish(T t);
     
