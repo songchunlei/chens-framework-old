@@ -47,8 +47,23 @@ zuul:
   routes:
     # 指定了一个路由，Id为auth，在做验权的时候需要用到（这地方配的会被放行，详见自定义配置和TokenValidateFilter.shouldFilter）
     auth:
-      # 指定这个路径会匹配到这个路由。
+      # 登录。
       path: /authController/login
+      # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
+      serviceId: chens-admin-web
+    logout:
+      # 退出。
+      path: /authController/logout
+      # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
+      serviceId: chens-admin-web
+    register:
+      # 注册。
+      path: /authController/register
+      # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
+      serviceId: chens-admin-web
+    parseToken:
+      # 解析token。
+      path: /authController/register
       # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
       serviceId: chens-admin-web
 
@@ -102,3 +117,5 @@ chens:
     tokenFilter:
       noAuthenticationRoutes:
         - auth
+        - register
+        - parseToken
