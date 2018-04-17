@@ -47,6 +47,7 @@ public class IsAllUploaded {
      * @param ext         文件后缀名
      * @param fileService fileService
      */
+    /*
     public static void uploaded(@NotNull final String md5,
                                 @NotNull final String guid,
                                 @NotNull final String chunk,
@@ -67,6 +68,7 @@ public class IsAllUploaded {
             fileService.insert(new SysFile(guid + ext, 1L,md5));
         }
     }
+    */
 }
 
 

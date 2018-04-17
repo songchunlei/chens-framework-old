@@ -1,7 +1,9 @@
 package com.chens.file.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.vo.BaseEntity;
+import com.chens.file.vo.FileData;
 
 /**
  * <p>
@@ -16,6 +18,11 @@ public class SysFile extends BaseEntity<SysFile> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 文件名
+     */
+    @TableField("original_name")
+    private String originalName;
     /**
      * 文件名
      */
@@ -36,14 +43,52 @@ public class SysFile extends BaseEntity<SysFile> {
      * 大小
      */
     private Long size;
+    /**
+     * 文件组
+     */
+    @TableField("group_id")
+    private String groupId;
 
     public SysFile() {
     }
 
-    public SysFile(String name, Long size,String md5) {
+    /**
+     * 保存文件
+     * @param originalName
+     * @param name
+     * @param url
+     * @param md5
+     * @param tag
+     * @param size
+     */
+    public SysFile(String originalName, String name, String url, String md5, String tag, Long size) {
+        this.originalName = originalName;
         this.name = name;
-        this.size = size;
+        this.url = url;
         this.md5 = md5;
+        this.tag = tag;
+        this.size = size;
+    }
+
+    /**
+     * 根据文件数据初始化新文件信息
+     * @param fileData
+     */
+    public SysFile(FileData fileData,String url) {
+        this.originalName = fileData.getOrgName();
+        this.name = fileData.getName();
+        this.url = url;
+        this.md5 = fileData.getMd5();
+        this.size = fileData.getSize();
+        this.groupId = fileData.getGroupId();
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
     public String getName() {
@@ -84,6 +129,14 @@ public class SysFile extends BaseEntity<SysFile> {
 
     public void setSize(Long size) {
         this.size = size;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
 }

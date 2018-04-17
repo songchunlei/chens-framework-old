@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ch.qos.logback.core.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.core.enums.IBaseEnum;
 import com.chens.core.util.AopTargetUtil;
-import com.chens.core.util.FileUtil;
 import com.chens.core.util.ResultHelper;
 import com.chens.core.vo.QueryPageEntity;
 import com.chens.core.vo.Result;
@@ -23,7 +23,7 @@ import com.chens.core.vo.Result;
 /**
  * 基础web包
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/5
  */
 public class BaseController {
@@ -113,17 +113,6 @@ public class BaseController {
      */
     public ResponseEntity<Result> doError(IBaseEnum baseEnum) {
         return ResponseEntity.ok(ResultHelper.getError(baseEnum));
-    }
-
-    /**
-     * 返回前台文件流
-     *
-     * @author fengshuonan
-     * @date 2017年2月28日 下午2:53:19
-     */
-    protected ResponseEntity<byte[]> renderFile(String fileName, String filePath) {
-        byte[] bytes = FileUtil.toByteArray(filePath);
-        return renderFile(fileName, bytes);
     }
 
     /**

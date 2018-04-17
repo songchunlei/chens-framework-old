@@ -1,7 +1,7 @@
 package com.chens.file.vo.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.chens.core.vo.FolderFileInfo;
+import com.chens.file.vo.FolderFileInfo;
 import com.chens.file.vo.AbstractFolder;
 
 

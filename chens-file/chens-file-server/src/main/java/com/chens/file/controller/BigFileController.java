@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.chens.file.util.IsAllUploaded.uploaded;
-
 /**
  * 大文件服务
  *
@@ -54,6 +52,7 @@ public class BigFileController extends BaseFileController {
      * @param file             文件本身
      * @return
      */
+    /*
     @RequestMapping(value = "/BigFileUp")
     public ResponseEntity<Result> fileUpload(String guid,
                              String md5value,
@@ -94,5 +93,5 @@ public class BigFileController extends BaseFileController {
         return doSuccess("保存成功");
         //return "{jsonrpc = \"2.0\",id = id,filePath = \"/Upload/\" + fileFullName}";
     }
-
+    */
 }

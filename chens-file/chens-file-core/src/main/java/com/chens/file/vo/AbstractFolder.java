@@ -5,7 +5,6 @@ import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.UpdateValid;
 import com.chens.core.enums.FileType;
 import com.chens.core.vo.BaseEntity;
-import com.chens.core.vo.FolderFileInfo;
 
 import javax.validation.constraints.NotNull;
 

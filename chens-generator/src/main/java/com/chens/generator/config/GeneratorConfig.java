@@ -56,7 +56,7 @@ public class GeneratorConfig extends AbstractGeneratorConfig{
         //strategyConfig.setTablePrefix(new String[]{"xx_"});// 此处可以修改为您的表前缀
         strategyConfig
                 .setTablePrefix(new String[]{"t_"})
-                .setInclude("t_book","t_book_section","t_booksection_question","t_course","t_course_section","t_coursesection_question","t_exam_paper","t_exampaper_question")
+                .setInclude("t_tag_class")
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setLogicDeleteFieldName("is_delete");//逻辑删除字段
 

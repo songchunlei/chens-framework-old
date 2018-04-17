@@ -3,7 +3,7 @@ package com.chens.file.vo;
 /**
  * 待上传文件信息
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/13
  */
 public class FileInfo {

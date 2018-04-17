@@ -64,6 +64,12 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
      */
     @TableField(value =CommonConstants.BASE_COLUMN_TENANT_ID)
     protected String tenantId;
+
+    /**
+     * 多个id用英文逗号拼接，用于批量操作场景
+     */
+    @TableField(exist = false)
+    private String idStr;
     
 
 
@@ -131,4 +137,13 @@ public class BaseEntity <T extends BaseEntity> implements Serializable {
     public void setUpdateByName(String updateByName) {
         this.updateByName = updateByName;
     }
+
+    public String getIdStr() {
+        return idStr;
+    }
+
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
+    }
+
 }

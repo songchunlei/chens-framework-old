@@ -1,5 +1,11 @@
 package com.chens.file.util;
 
+
+import com.chens.core.util.StringUtils;
+import com.chens.core.util.UUIDUtil;
+import com.chens.file.exception.FileException;
+import com.chens.file.exception.FileExceptionEnum;
+import com.chens.file.vo.FileData;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,6 +14,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 文件服务常用工具类
@@ -20,6 +27,12 @@ public class FileUtil {
     private static final Logger logger = Logger.getLogger(FileUtil.class);
     private static final int BUFFER_SIZE = 16 * 1024;
 
+    /**
+     * 判断是否为图片
+     * @param tempFile
+     * @return
+     * @throws Exception
+     */
     public static boolean isImage(File tempFile)
             throws Exception {
         ImageInputStream is= ImageIO.createImageInputStream(tempFile);
@@ -36,13 +49,28 @@ public class FileUtil {
         return fileName.substring(pos);
     }
 
-    public static StringBuilder createMd5(final MultipartFile file)
-            throws Exception {
+    /**
+     * 根据文件创建md5
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static StringBuilder createMd5(final MultipartFile file) {
         StringBuilder sb = new StringBuilder();
         //生成MD5实例
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        InputStream inputStream = file.getInputStream();
-        int available = inputStream.available();
+        InputStream inputStream = null;
+        MessageDigest md5 = null;
+        int available = 0;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            inputStream = file.getInputStream();
+            inputStream.available();
+        } catch (IOException e) {
+            throw new FileException(FileExceptionEnum.FILE_READING_ERROR.getCode(),e.getMessage());
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new FileException(FileExceptionEnum.FILE_MD5_ERROR.getCode(),e.getMessage());
+        }
         byte[] bytes = new byte[available];
         md5.update(bytes);
         for (byte by : md5.digest()) {
@@ -50,6 +78,27 @@ public class FileUtil {
             sb.append(String.format("%02X", by));
         }
         return sb;
+    }
+
+    /**
+     * 根据文件创建文件数据
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static FileData getFileData(final MultipartFile file,String groupId)  {
+        String orgName = file.getOriginalFilename();
+        String UUIDStr = UUIDUtil.getUUID();
+        //新建文件模拟groupId
+        if (StringUtils.isEmpty(groupId))
+        {
+            groupId = UUIDStr;
+        }
+        try {
+            return new FileData(groupId,UUIDStr, orgName, getExtention(file.getOriginalFilename()), file.getSize(), createMd5(file).toString(),file.getBytes());
+        } catch (IOException e) {
+            throw new FileException(FileExceptionEnum.FILE_READING_ERROR.getCode(),e.getMessage());
+        }
     }
 
     /**
@@ -187,7 +236,7 @@ public class FileUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw e;
+            throw new FileException(FileExceptionEnum.FILE_SAVE_ERROR.getCode(),e.getMessage());
         } finally {
             outputStream.close();
             inputStream.close();

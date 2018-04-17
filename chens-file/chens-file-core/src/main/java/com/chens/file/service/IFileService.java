@@ -1,7 +1,7 @@
 package com.chens.file.service;
 
+import com.chens.file.entity.SysFile;
 import com.chens.file.vo.FileData;
-import com.chens.file.vo.FileInfo;
 
 /**
  * 文件操作服务，保存，读取等
@@ -11,7 +11,27 @@ import com.chens.file.vo.FileInfo;
  */
 public interface IFileService {
 
+    /**
+     * 上传
+     * @param fileData
+     * @return
+     */
+    SysFile upload(FileData fileData);
 
-    FileInfo saveByFileInfo(FileData fileData);
+    /**
+     * 下载
+     * @param name
+     * @return
+     */
+    byte[] download(String name);
+
+    /**
+     * 删除文件
+     * @param name
+     * @return
+     */
+    boolean deleteByName(String name);
+
+
 
 }

@@ -1,15 +1,15 @@
-package com.chens.core.util;
+package com.chens.file.util;
 
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.enums.FileType;
-import com.chens.core.vo.FolderFileInfo;
+import com.chens.file.vo.FolderFileInfo;
 
 import java.util.Date;
 
 /**
  * 文件夹工具
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/4/11
  */
 public final class FolderUtil {

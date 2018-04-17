@@ -7,6 +7,8 @@ import com.chens.file.mapper.SysFileMapper;
 import com.chens.file.service.IFileInfoService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  文件信息查询服务实现类
@@ -31,5 +33,10 @@ public class SysFileServiceImpl extends ServiceImpl<SysFileMapper, SysFile> impl
             return true;
         }
         return false ;
+    }
+
+    @Override
+    public List<SysFile> getFilesByGroupId(String groupId) {
+        return null;
     }
 }

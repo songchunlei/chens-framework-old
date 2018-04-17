@@ -5,7 +5,7 @@ import com.chens.core.enums.IBaseEnum;
 /**
  * 基本错误反馈
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/8
  */
 public class BaseException  extends RuntimeException {

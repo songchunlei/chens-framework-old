@@ -2,7 +2,10 @@ package com.chens.file.controller;
 
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.util.UUIDUtil;
 import com.chens.core.vo.Result;
+import com.chens.file.exception.FileException;
+import com.chens.file.exception.FileExceptionEnum;
 import com.chens.file.service.IFileInfoService;
 import com.chens.file.entity.SysFile;
 import com.chens.file.util.FileUtil;
@@ -40,13 +43,13 @@ public class FileController extends BaseFileController {
         try {
             saveFile(getFilePath(), name+"."+type, file);
         } catch (Exception ex) {
-            throw new BaseException(BaseExceptionEnum.FILE_READING_ERROR.getCode(),ex.getMessage());
+            throw new FileException(FileExceptionEnum.FILE_READING_ERROR.getCode(),ex.getMessage());
         }
         try {
-            sysFile = new SysFile(name+type,size,createMd5(file).toString());
+            sysFile = new SysFile(name, UUIDUtil.getUUID(), getFilePath(), createMd5(file).toString(), null, size);
             fileInfoService.insert(sysFile);
         } catch (Exception e) {
-            throw new BaseException(BaseExceptionEnum.FILE_SAVE_ERROR);
+            throw new FileException(FileExceptionEnum.FILE_SAVE_ERROR);
         }
 
         return doSuccess(sysFile);

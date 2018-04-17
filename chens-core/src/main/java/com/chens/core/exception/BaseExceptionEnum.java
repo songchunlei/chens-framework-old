@@ -37,13 +37,6 @@ public enum BaseExceptionEnum implements IBaseEnum {
     VALIDATE_NOPASS(305, "校验不通过"),
     TIMEOUT(306, "请求超时"),
 
-    /**
-     * 文件请求
-     */
-    FILE_NOT_FOUND(401,"文件未找到"),
-    FILE_READING_ERROR(402,"文件读取错误"),
-    FILE_SAVE_ERROR(402,"文件保存失败"),
-
 
     /**
      * 流程请求

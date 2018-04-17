@@ -1,14 +1,13 @@
 package com.chens.file.vo.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.service.IService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.core.util.FolderUtil;
+import com.chens.file.util.FolderUtil;
 import com.chens.core.util.StringUtils;
-import com.chens.core.vo.FolderFileInfo;
+import com.chens.file.vo.FolderFileInfo;
 import com.chens.file.constants.FileConstants;
 import com.chens.file.exception.FileExceptionEnum;
 import com.chens.file.vo.AbstractFolder;

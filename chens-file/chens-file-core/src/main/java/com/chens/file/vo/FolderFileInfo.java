@@ -1,4 +1,4 @@
-package com.chens.core.vo;
+package com.chens.file.vo;
 
 import java.io.Serializable;
 import java.util.Date;
