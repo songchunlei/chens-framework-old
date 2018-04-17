@@ -6,17 +6,17 @@ import com.chens.bpm.vo.WorkFlowRequestParam;
 /**
  * 流程引擎服务
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/30
  */
 public interface IWfBaseService<T>  extends IService<T> {
 
     /**
      * 创建草稿
-     * @param workFlowRequestParam
+     * @param t
      * @return
      */
-    String createDraft(WorkFlowRequestParam<T> workFlowRequestParam);
+    String createDraft(T t);
 
     /**
      * 发起流程

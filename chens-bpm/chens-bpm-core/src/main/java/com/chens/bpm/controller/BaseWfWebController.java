@@ -3,10 +3,13 @@ package com.chens.bpm.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.chens.bpm.enums.WfStatus;
+import com.chens.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -94,7 +97,7 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     public ResponseEntity<Result> create(@RequestBody @Validated T t) {
         if(t != null){
         	this.doInit(t);
-            return doSuccess("保存成功",service.createDraft(workFlowRequestParam));
+            return doSuccess("保存成功",service.createDraft(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
