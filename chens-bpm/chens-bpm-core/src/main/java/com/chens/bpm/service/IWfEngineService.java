@@ -1,7 +1,13 @@
 package com.chens.bpm.service;
 
+import java.util.Map;
+
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chens.bpm.vo.*;
+import com.chens.bpm.vo.MyDoneTask;
+import com.chens.bpm.vo.MyStartProcessInstance;
+import com.chens.bpm.vo.MyTodoTask;
+import com.chens.bpm.vo.WorkFlowRequestParam;
+import com.chens.bpm.vo.WorkFlowReturn;
 
 /**
  * 调用流程引擎接口(暂时不走feign)
@@ -86,4 +92,7 @@ public interface IWfEngineService {
      * @return
      */
     Page<MyStartProcessInstance> getMyStartProcessInstancePage(Page<MyStartProcessInstance> page, MyStartProcessInstance myStartProcessInstance);
+    
+    
+    Map<String, Object> getTaskInfoByTaskId(String taskId);
 }

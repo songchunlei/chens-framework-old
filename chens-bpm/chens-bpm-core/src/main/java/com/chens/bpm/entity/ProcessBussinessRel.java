@@ -85,6 +85,12 @@ public class ProcessBussinessRel extends BaseEntity<ProcessBussinessRel> {
      */
 	@TableField("current_task_definition_name")
 	private String currentTaskDefinitionName;
+	
+	/**
+	 * 任务taskid
+	 */
+	@TableField(exist = false)
+	private String taskId;
 
 	
 
@@ -200,4 +206,11 @@ public class ProcessBussinessRel extends BaseEntity<ProcessBussinessRel> {
 		this.currentTaskDefinitionName = currentTaskDefinitionName;
 	}
 
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
 }

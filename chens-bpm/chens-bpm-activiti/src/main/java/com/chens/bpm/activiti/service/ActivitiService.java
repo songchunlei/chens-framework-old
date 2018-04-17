@@ -504,4 +504,18 @@ public class ActivitiService implements IWfEngineService {
         return page;
     }
 
+	@Override
+	public Map<String, Object> getTaskInfoByTaskId(String taskId) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+		 if(task == null){
+			 return null; 
+		 }else{
+			 map.put("taskDefinitionKey", task.getTaskDefinitionKey());
+			 map.put("taskDefinitionName", task.getName());
+			 return map;
+		 }
+		
+	}
+
 }

@@ -1,5 +1,8 @@
 package com.chens.bpm.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -7,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chens.bpm.entity.ProcessBussinessRel;
 import com.chens.bpm.service.IProcessBussinessRelService;
 import com.chens.bpm.service.IWfBaseService;
 import com.chens.bpm.service.IWfEngineService;
@@ -195,6 +200,37 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
             //现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
         	workFlowRequestParam.setVariableValue("approveNode");
             return doSuccess("办理成功",service.passWithEdit(workFlowRequestParam));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+    
+    
+    /**
+     * 获取审批表单
+     * @param t
+     * @return
+     */
+    @PostMapping("/getApproveFormData")
+    public ResponseEntity<Result> getApproveFormData(@RequestBody @Validated T t) {
+        if(t != null){
+        	Map<String, Object> map = new HashMap<String, Object>();
+        	//获取流程信息
+        	ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
+        	processBussinessRel.setBusinessKey(t.getId());
+        	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(processBussinessRel);
+        	processBussinessRel = processBussinessRelService.selectOne(ew);
+        	if(processBussinessRel != null){
+        		processBussinessRel.setTaskId(t.getTaskId());
+        		Map<String, Object> taskInfoMap = wfEngineService.getTaskInfoByTaskId(t.getTaskId());
+        		processBussinessRel.setCurrentTaskDefinitionKey((String)taskInfoMap.get("taskDefinitionKey"));
+        		processBussinessRel.setCurrentTaskDefinitionName((String)taskInfoMap.get("taskDefinitionName"));
+        		map.put("processInfo", processBussinessRel);
+        	}
+        	//获取表单详情
+        	t = service.selectById(t.getId());
+        	map.put("businessData", t);
+            return doSuccess("查询成功",map);
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
