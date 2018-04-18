@@ -15,22 +15,22 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   devtools:
     restart:
-      enabled: true #是否开启开发者工具
+      enabled: false #是否开启开发者工具
 
 #mybatis-plus
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  #mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.chens.core.entity
-  typeEnumsPackage: com.chens.core.enums
-  global-config:
+  #typeAliasesPackage: com.chens.core.entity
+  #typeEnumsPackage: com.chens.core.enums
+  #global-config:
     #刷新mapper 调试神器
-    refresh-mapper: true
+    #refresh-mapper: true
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
     #打印sql语句,调试用
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
   client:
