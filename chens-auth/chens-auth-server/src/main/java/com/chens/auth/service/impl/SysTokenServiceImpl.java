@@ -57,7 +57,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         if (uaaClaims != null)
         {
             String newToken  = tokenProvider.createToken(uaaClaims);
-            SysToken sysToken = new SysToken(newToken,jwtConfiguration.getExpiration(),YesNoEnum.YES.getCode());
+            SysToken sysToken = new SysToken(newToken,jwtConfiguration.getExpiration(),YesNoEnum.NO.getCode());
             sysToken.setCreateTime(new Date());
             sysToken.setUpdateTime(new Date());
             sysToken.setUserId(uaaClaims.getAudience());
