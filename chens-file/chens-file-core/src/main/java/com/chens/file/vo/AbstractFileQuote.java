@@ -131,20 +131,4 @@ public abstract class AbstractFileQuote<T extends AbstractFileQuote> extends Bas
 		this.isDelete = isDelete;
 	}
 
-	public String getUpdateByName() {
-		return updateByName;
-	}
-
-	public void setUpdateByName(String updateByName) {
-		this.updateByName = updateByName;
-	}
-
-	public String getCreateByName() {
-		return createByName;
-	}
-
-	public void setCreateByName(String createByName) {
-		this.createByName = createByName;
-	}
-
 }
