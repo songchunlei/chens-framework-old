@@ -49,7 +49,8 @@ public class ${entity} implements Serializable {
 
 #foreach($field in ${table.fields})
 #if("$!field.name" != "id" && "$!field.name" != "create_time" && "$!field.name" != "update_time"
-	&& "$!field.name" != "create_by" && "$!field.name" != "update_by" && "$!field.name" != "tenant_id")
+	&& "$!field.name" != "create_by" && "$!field.name" != "update_by" && "$!field.name" != "tenant_id"
+	&& "$!field.name" != "create_by_name" && "$!field.name" != "update_by_name")
 #if(${field.propertyType.equals("Boolean")})
 #set($getprefix="is")
 #else
