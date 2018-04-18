@@ -59,11 +59,6 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 	}
 
     @Override
-    public boolean openUpdateFill() {
-        return true;
-    }
-
-    @Override
 	public void updateFill(MetaObject metaObject) {
 		 //更新填充
         logger.debug("********************更新自动填充********************");

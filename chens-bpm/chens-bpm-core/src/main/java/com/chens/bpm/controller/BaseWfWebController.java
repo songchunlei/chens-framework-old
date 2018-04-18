@@ -84,20 +84,19 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
         workFlowRequestParam.setCurrentTaskDefinitionKey(t.getCurrentTaskDefinitionKey());
         workFlowRequestParam.setCurrentTaskDefinitionName(t.getCurrentTaskDefinitionName());
         workFlowRequestParam.setT(t);
-        
     }
 
     /**
-     * 创建草稿
+     * 保存
      * @param t
      * @return
      */
     @Override
-    @PostMapping("/createDraft")
-    public ResponseEntity<Result> create(@RequestBody @Validated T t) {
+    @PostMapping("/save")
+    public ResponseEntity<Result> save(@RequestBody @Validated T t) {
         if(t != null){
         	this.doInit(t);
-            return doSuccess("保存成功",service.createDraft(t));
+            return doSuccess("保存成功",service.saveDraft(t));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

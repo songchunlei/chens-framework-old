@@ -94,7 +94,7 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
      * @param t
      * @return
      */
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<Result> save(@RequestBody T t) {
         if(t != null){
             if(t.getId()!=null)

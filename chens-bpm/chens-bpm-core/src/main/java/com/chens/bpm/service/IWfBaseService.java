@@ -16,7 +16,7 @@ public interface IWfBaseService<T>  extends IService<T> {
      * @param t
      * @return
      */
-    String createDraft(T t);
+    String saveDraft(T t);
 
     /**
      * 发起流程
