@@ -5,7 +5,10 @@ package com.chens.admin.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.service.ISysUserService;
 import com.chens.admin.entity.SysUser;
+import com.chens.admin.vo.RestPwd;
+import com.chens.core.annotation.InsertValid;
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.vo.QueryPageEntity;
@@ -36,10 +39,13 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
      * @param sysUser
      * @return
      */
-    @PostMapping("createUser")
-    public ResponseEntity<Result> createUser(@RequestBody @Validated SysUser sysUser) {
+    @Override
+    @PostMapping("/create")
+    public ResponseEntity<Result> create(@RequestBody @Validated(InsertValid.class) SysUser sysUser)  {
         if(sysUser!=null)
         {
+            //业务创建用户要指定租户
+            sysUser.setTenantId(BaseContextHandler.getTenantId());
             return doSuccess(CommonConstants.SAVE_SUCCESS,service.createAccount(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
@@ -48,13 +54,12 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
 
     /**
      * 重置密码
-     * @param userId 用户id
-     * @param isRandom 是否随机
+     * @param restPwd
      * @return
      */
     @PutMapping("/restPwd")
-    public ResponseEntity<Result> restPwd(@RequestParam("userId") String userId, @RequestParam("isRandom") boolean isRandom) {
-        return doSuccess(CommonConstants.SAVE_SUCCESS,service.restPwd(userId,isRandom));
+    public ResponseEntity<Result> restPwd(@RequestBody @Validated RestPwd restPwd) {
+        return doSuccess(CommonConstants.SAVE_SUCCESS,service.restPwd(restPwd));
     }
 
     /**

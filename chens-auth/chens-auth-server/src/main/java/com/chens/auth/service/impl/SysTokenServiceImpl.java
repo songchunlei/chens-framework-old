@@ -120,7 +120,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         //判断token是否激活并存在记录里
         SysToken sysToken = new SysToken();
         sysToken.setToken(token);
-        sysToken.setIsActive(YesNoEnum.YES.getCode());
+        sysToken.setIsDelete(YesNoEnum.NO.getCode());
         int count = this.selectCount(new EntityWrapper<>(sysToken));
         if(count<=0)
         {
@@ -145,7 +145,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
 
         if(sysToken!=null)
         {
-            sysToken.setIsActive(YesNoEnum.NO.getCode());
+            sysToken.setIsDelete(YesNoEnum.YES.getCode());
             sysToken.setInvalidTime(new Date());
             this.updateById(sysToken);
         }

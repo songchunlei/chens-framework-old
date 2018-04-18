@@ -37,16 +37,16 @@ public class SysToken extends BaseEntity<SysToken> {
     /**
      * 是否有效
      */
-	@TableField("is_active")
-	private String isActive;
+	@TableField("is_delete")
+	private String isDelete;
 
 	public SysToken() {
 	}
 
-	public SysToken(String token, Date invalidTime, String isActive) {
+	public SysToken(String token, Date invalidTime, String isDelete) {
 		this.token = token;
 		this.invalidTime = invalidTime;
-		this.isActive = isActive;
+		this.isDelete = isDelete;
 	}
 
 	public String getToken() {
@@ -65,12 +65,12 @@ public class SysToken extends BaseEntity<SysToken> {
 		this.invalidTime = invalidTime;
 	}
 
-	public String getIsActive() {
-		return isActive;
+	public String getIsDelete() {
+		return isDelete;
 	}
 
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 
 	public String getUserId() {

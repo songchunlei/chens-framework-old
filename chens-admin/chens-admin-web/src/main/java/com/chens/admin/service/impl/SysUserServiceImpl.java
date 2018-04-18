@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.exception.AdminExceptionEnum;
+import com.chens.admin.vo.RestPwd;
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.enums.YesNoEnum;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
@@ -77,20 +79,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             passwod = CommonConstants.DEFAULT_PASSWORD;
         }
         sysUser.setPassword(encoder.encode(passwod));
+        sysUser.setIsDelete(YesNoEnum.NO.getCode());
         return this.insert(sysUser);
     }
 
     @Override
     @Transactional
-    public String restPwd(String userId,boolean isRandom) {
+    public String restPwd(RestPwd restPwd) {
         String password = CommonConstants.DEFAULT_PASSWORD;
-        if(isRandom)
+        if(restPwd.isRandom())
         {
             password = ToolUtil.getRandomString(16);
         }
         SysUser sysUser = new SysUser();
         sysUser.setPassword(password);
-        sysUser.setId(userId);
+        sysUser.setId(restPwd.getUserId());
         if(this.updateById(sysUser))
         {
             return password;
@@ -117,13 +120,5 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser query = new SysUser();
         query.setTenantId(user.getTenantId());
         return this.selectPage(page,new EntityWrapper<>(query));
-    }
-
-    @Override
-    public boolean checkUserNameUnique() {
-        logger.info("*******SysUserService.checkUserNameUnique****************");
-        int count = this.selectCount(new EntityWrapper<>(new SysUser()));
-        int count2 = this.baseMapper.selectCount(new EntityWrapper<>(new SysUser()));
-        return false;
     }
 }

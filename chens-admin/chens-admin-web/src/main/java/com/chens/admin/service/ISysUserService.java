@@ -3,6 +3,7 @@ package com.chens.admin.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.admin.entity.SysUser;
+import com.chens.admin.vo.RestPwd;
 import com.chens.core.exception.BaseException;
 import com.chens.core.vo.AuthRequest;
 
@@ -28,17 +29,17 @@ public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 创建账户
+     * @param sysUser
      * @return
      */
     boolean createAccount(SysUser sysUser);
 
     /**
      * 重置密码
-     * @param userId 用户id
-     * @param isRandom 是否用随机密码串
+     * @param restPwd 用户id 是否用随机密码串
      * @return
      */
-    String restPwd(String userId,boolean isRandom);
+    String restPwd(RestPwd restPwd);
 
     /**
      * 根据角色id获取角色下的用户
@@ -55,9 +56,4 @@ public interface ISysUserService extends IService<SysUser> {
      * @return
      */
     Page<SysUser> getUserListByTenantId(Page<SysUser> page, SysUser user);
-
-    /**
-     * 校验唯一性
-     */
-    boolean checkUserNameUnique();
 }

@@ -27,9 +27,10 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantMapper, SysTenant
     @Autowired
     private ISysUserService sysUserService;
 
-    @Transactional
+
     @Override
-    public boolean register(RegisterTenant registerTenant) throws BaseException{
+    @Transactional(rollbackFor = Exception.class)
+    public boolean register(RegisterTenant registerTenant) {
 
         //1.创建租户
         SysTenant sysTenant = registerTenant.getSysTenant();

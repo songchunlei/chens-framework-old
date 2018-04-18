@@ -1,7 +1,9 @@
 package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.MyValidator;
 import com.chens.core.annotation.UpdateValid;
@@ -44,6 +46,10 @@ public class SysUser extends BaseEntity<SysUser> {
 
     @TableField(exist = false)
     private List<SysRole> roles;
+
+    @TableLogic
+    @TableField(value = "is_delete", fill = FieldFill.INSERT)
+    private String isDelete;
 
     public String getName() {
         return name;
@@ -100,6 +106,14 @@ public class SysUser extends BaseEntity<SysUser> {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete;
     }
 
     public UserInfo getUserInfo()
