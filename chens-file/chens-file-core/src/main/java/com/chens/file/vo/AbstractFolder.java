@@ -64,25 +64,12 @@ public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntit
 	@TableField("is_delete")
     private String isDelete;
 
-	/**
-	 * 多个id用英文逗号拼接，用于批量操作场景
-	 */
-	@TableField(exist = false)
-	private String idStr;
-
 	public String getType() {
 		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getIdStr() {
-		return idStr;
-	}
-	public void setIdStr(String idStr) {
-		this.idStr = idStr;
 	}
 
 	public String getName() {

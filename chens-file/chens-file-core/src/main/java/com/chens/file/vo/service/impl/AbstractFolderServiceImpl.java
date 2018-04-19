@@ -78,7 +78,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
 
 
         //3. 获取当前文件夹下的文件,各服务自己定义
-        forderFileInfo.setFiles(getFileInfoListByFolderId(id));
+        forderFileInfo.setChildren(getFileInfoListByFolderId(id));
 
         //4.返回
         return forderFileInfo;

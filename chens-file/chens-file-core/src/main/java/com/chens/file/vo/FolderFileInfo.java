@@ -43,11 +43,6 @@ public class FolderFileInfo implements Serializable{
     private FolderFileInfo parent;
 
     /**
-     * 文件夹下的文件
-     */
-    private List<FolderFileInfo> files;
-
-    /**
      * 文件夹下的子文件夹
      */
     private List<FolderFileInfo> children;
@@ -108,14 +103,6 @@ public class FolderFileInfo implements Serializable{
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public List<FolderFileInfo> getFiles() {
-        return files;
-    }
-
-    public void setFiles(List<FolderFileInfo> files) {
-        this.files = files;
     }
 
     public FolderFileInfo getParent() {
