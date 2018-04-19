@@ -1,6 +1,7 @@
 package com.chens.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.UpdateValid;
@@ -31,7 +32,9 @@ public class SysRole extends BaseEntity<SysRole> {
     private String roleCode;
 
     @TableField("is_delete")
+    @TableLogic
     private String isDelete;
+
     @TableField(exist = false)
     private List<SysMenu> sysMenus;
 

@@ -110,6 +110,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             //2.替换新角色
             sysUserRoleService.addRolesInUser(new RolesInUserVo(userId,sysUser.getRoles(),null));
         }
+        if(StringUtils.isNotEmpty(sysUser.getPassword()))
+        {
+            sysUser.setPassword(encoder.encode(sysUser.getPassword()));
+        }
         return super.updateById(sysUser);
     }
 
