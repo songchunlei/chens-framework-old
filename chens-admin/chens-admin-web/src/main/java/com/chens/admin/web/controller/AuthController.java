@@ -93,7 +93,7 @@ public class AuthController extends BaseController{
             {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_NO_PASSWORD);
             }
-            return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserService.createAccount(sysUser));
+            return doSuccess(CommonConstants.SAVE_SUCCESS,sysUserService.insert(sysUser));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

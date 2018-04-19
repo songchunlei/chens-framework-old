@@ -5,10 +5,12 @@ import com.chens.admin.entity.SysUserRole;
 import com.chens.admin.mapper.SysUserRoleMapper;
 import com.chens.admin.service.ISysUserRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.chens.admin.vo.QueryRolesByUserId;
+import com.chens.admin.vo.RolesInUserVo;
+import com.chens.admin.vo.UsersInRoleVo;
 import com.chens.core.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +29,16 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
     private final String DEFAULT_ROLES_SPLIT_FLG=",";
 
 
-    @Transactional
+
     @Override
-    public boolean saveUserRoleListByUserId(QueryRolesByUserId queryRolesByUserId) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addRolesInUser(RolesInUserVo rolesInUserVo) {
         List<SysUserRole> sysUserRoles = new ArrayList<>();
-        String sysRoles = queryRolesByUserId.getSysRoles();
-        if (StringUtils.isNotEmpty(sysRoles)) {
-            String[] checkedStr = sysRoles.split(DEFAULT_ROLES_SPLIT_FLG);
-            for (String s : checkedStr) {
+        List<String> sysRoles = rolesInUserVo.getSysRoles();
+        if (!CollectionUtils.isEmpty(sysRoles)) {
+            for (String s : sysRoles) {
                 if(StringUtils.isNotEmpty(s)){
-                    sysUserRoles.add(new SysUserRole(queryRolesByUserId.getUserId(),s));
+                    sysUserRoles.add(new SysUserRole(rolesInUserVo.getUserId(),s));
                 }
             }
             return this.insertBatch(sysUserRoles);
@@ -45,30 +47,30 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         return false;
     }
 
-    @Transactional
     @Override
-    public boolean addUsersInRole(String roleId, String userIds) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addUsersInRole(UsersInRoleVo usersInRoleVo) {
         boolean  flagUserRole = false;
-        if (StringUtils.isNotEmpty(userIds)) {
-            List<SysUserRole> userRoleList = new ArrayList<>();
-            String[] checkedStr = userIds.split(DEFAULT_USERS_SPLIT_FLG);
-            for (String s : checkedStr) {
-                SysUserRole r = new SysUserRole(s,roleId);
-                userRoleList.add(r);
+        List<SysUserRole> sysUserRoles = new ArrayList<>();
+        List<String> users =  usersInRoleVo.getUsers();
+        if (!CollectionUtils.isEmpty(users)) {
+            for (String user : users) {
+                SysUserRole r = new SysUserRole(user,usersInRoleVo.getRoleId());
+                sysUserRoles.add(r);
             }
             // 将选中角色id进行保存处理
-            flagUserRole = this.insertBatch(userRoleList);
+            flagUserRole = this.insertBatch(sysUserRoles);
         }
         return flagUserRole;
     }
 
-    @Transactional
     @Override
-    public boolean deleteUsersInRole(String roleId, String userIds) {
-        if (StringUtils.isNotEmpty(userIds)) {
-            String[] checkedStr = userIds.split(DEFAULT_USERS_SPLIT_FLG);
-            for (String s : checkedStr) {
-                SysUserRole r = new SysUserRole(s,roleId);
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteUsersInRole(UsersInRoleVo usersInRoleVo) {
+        List<String> users =  usersInRoleVo.getUsers();
+        if (!CollectionUtils.isEmpty(users)) {
+            for (String user : users) {
+                SysUserRole r = new SysUserRole(user,usersInRoleVo.getRoleId());
                 this.delete(new EntityWrapper<>(r));
             }
         }

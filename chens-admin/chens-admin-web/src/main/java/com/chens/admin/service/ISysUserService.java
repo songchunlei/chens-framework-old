@@ -28,13 +28,6 @@ public interface ISysUserService extends IService<SysUser> {
     SysUser findByUsername(AuthRequest authRequest) throws BaseException;
 
     /**
-     * 创建账户
-     * @param sysUser
-     * @return
-     */
-    boolean createAccount(SysUser sysUser);
-
-    /**
      * 重置密码
      * @param restPwd 用户id 是否用随机密码串
      * @return

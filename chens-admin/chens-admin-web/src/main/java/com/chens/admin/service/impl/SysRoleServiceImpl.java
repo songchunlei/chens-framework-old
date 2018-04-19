@@ -2,18 +2,15 @@ package com.chens.admin.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chens.admin.service.ISysUserRoleService;
-import com.chens.admin.vo.QueryRolesByUserId;
 import com.chens.admin.entity.SysRole;
 import com.chens.admin.mapper.SysRoleMapper;
 import com.chens.admin.service.ISysRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.admin.entity.SysUserRole;
-import com.chens.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

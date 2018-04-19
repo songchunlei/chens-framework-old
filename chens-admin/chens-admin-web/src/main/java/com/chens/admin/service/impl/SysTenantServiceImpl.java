@@ -38,13 +38,14 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantMapper, SysTenant
         {
             throw new BaseException(BaseExceptionEnum.REGISTER_SYSTENANT_ERROR);
         }
-        //放入租户id
+
+        //2.租户id
         String tenantId = sysTenant.getId();
-        //BaseContextHandler.setTenantId(sysTenant.getId());
-        //2.创建代理人账户
+
+        //3.创建代理人账户
         SysUser sysUser = registerTenant.getSysUser();
         sysUser.setTenantId(tenantId);
-        if(!sysUserService.createAccount(sysUser))
+        if(!sysUserService.insert(sysUser))
         {
             throw new BaseException(BaseExceptionEnum.REGISTER_SYSUSER_ERROR);
         }

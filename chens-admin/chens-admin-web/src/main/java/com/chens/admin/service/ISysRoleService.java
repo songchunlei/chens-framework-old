@@ -1,6 +1,5 @@
 package com.chens.admin.service;
 
-import com.chens.admin.vo.QueryRolesByUserId;
 import com.chens.admin.entity.SysRole;
 import com.baomidou.mybatisplus.service.IService;
 

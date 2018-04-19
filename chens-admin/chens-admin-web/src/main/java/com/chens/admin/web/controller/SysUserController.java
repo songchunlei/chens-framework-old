@@ -7,6 +7,7 @@ import com.chens.admin.service.ISysUserService;
 import com.chens.admin.entity.SysUser;
 import com.chens.admin.vo.RestPwd;
 import com.chens.core.annotation.InsertValid;
+import com.chens.core.annotation.UpdateValid;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.exception.BaseException;
@@ -46,7 +47,7 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
         {
             //业务创建用户要指定租户
             sysUser.setTenantId(BaseContextHandler.getTenantId());
-            return doSuccess(CommonConstants.SAVE_SUCCESS,service.createAccount(sysUser));
+            return super.create(sysUser);
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

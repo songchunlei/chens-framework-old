@@ -1,27 +1,33 @@
 package com.chens.admin.vo;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 角色增加用户
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/23
  */
-public class AddUsersInRole implements Serializable{
+public class UsersInRoleVo implements Serializable{
 
     /**
      * 角色id
      */
+    @NotNull(message = "{role.id.null}")
     private String roleId;
 
     /**
      * 以逗号隔开的用户id串
      */
-    private String users;
+    private List<String> users;
 
 
-    public AddUsersInRole(String roleId, String users) {
+    public UsersInRoleVo() {
+    }
+
+    public UsersInRoleVo(String roleId, List<String> users) {
         this.roleId = roleId;
         this.users = users;
     }
@@ -34,11 +40,11 @@ public class AddUsersInRole implements Serializable{
         this.roleId = roleId;
     }
 
-    public String getUsers() {
+    public List<String> getUsers() {
         return users;
     }
 
-    public void setUsers(String users) {
+    public void setUsers(List<String> users) {
         this.users = users;
     }
 }

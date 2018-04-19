@@ -31,21 +31,43 @@ import java.util.List;
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;
+    /**
+     * 用户姓名
+     */
     @NotNull(message = "{sysuser.name.null}",groups = {InsertValid.class, UpdateValid.class})
     private String name;
+    /**
+     * 密码
+     */
     private String password;
     @NotNull(message = "{sysuser.username.null}",groups = {InsertValid.class, UpdateValid.class})
+    /**
+     * 账号
+     */
     private String username;
     @NotNull(message = "{sysuser.phone.null}",groups = {InsertValid.class, UpdateValid.class})
+    /**
+     * 手机
+     */
     private String phone;
     @NotNull(message = "{sysuser.email.null}",groups = {InsertValid.class, UpdateValid.class})
+
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 系统角色id
+     */
+    @TableField(exist = false)
+    private List<String> roles;
+
+    /**
+     * 角色id（用于查询角色下用户）
+     */
     @TableField(exist = false)
     private String roleId;
-
-    @TableField(exist = false)
-    private List<SysRole> roles;
 
     @TableLogic
     @TableField(value = "is_delete", fill = FieldFill.INSERT)
@@ -75,11 +97,11 @@ public class SysUser extends BaseEntity<SysUser> {
         this.username = username;
     }
 
-    public List<SysRole> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<SysRole> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
@@ -100,20 +122,20 @@ public class SysUser extends BaseEntity<SysUser> {
     }
 
 
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
     public String getIsDelete() {
         return isDelete;
     }
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public UserInfo getUserInfo()
