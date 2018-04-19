@@ -1,6 +1,8 @@
 package com.chens.admin.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.chens.admin.entity.SysRoleMenu;
+import com.chens.admin.service.ISysRoleMenuService;
 import com.chens.admin.service.ISysUserRoleService;
 import com.chens.admin.entity.SysRole;
 import com.chens.admin.mapper.SysRoleMapper;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,11 +27,11 @@ import java.util.List;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
-    //split分割符号
-    private final String SYSROLE_SPLIT_VALUE = ",";
-
     @Autowired
     private ISysUserRoleService sysUserRoleService;
+
+    @Autowired
+    private ISysRoleMenuService sysRoleMenuService;
 
     @Override
     public List<SysRole> getRoleListByUserId(String userId) {
@@ -36,13 +39,24 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
 
-    @Transactional
+    /**
+     * 重构角色删除逻辑，连带删除
+     * @param id
+     * @return
+     */
     @Override
-    public boolean deleteWithRel(String id) {
-        this.deleteById(id);
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteById(Serializable id) {
+        //1.删除用户-关联关系
         SysUserRole sysUserRole = new SysUserRole();
-        sysUserRole.setRoleId(id);
+        sysUserRole.setRoleId((String)id);
         sysUserRoleService.delete(new EntityWrapper<>(sysUserRole));
-        return true;
+        //2.删除角色-菜单关系
+        SysRoleMenu sysRoleMenu = new SysRoleMenu();
+        sysRoleMenu.setRoleId((String)id);
+        sysRoleMenuService.delete(new EntityWrapper<>(sysRoleMenu));
+        //3.删除角色
+        return super.deleteById(id);
     }
+
 }

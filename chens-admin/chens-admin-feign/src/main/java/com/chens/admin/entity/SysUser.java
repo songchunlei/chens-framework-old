@@ -70,7 +70,7 @@ public class SysUser extends BaseEntity<SysUser> {
     private String roleId;
 
     @TableLogic
-    @TableField(value = "is_delete", fill = FieldFill.INSERT)
+    @TableField(value = "is_delete")
     private String isDelete;
 
     public String getName() {

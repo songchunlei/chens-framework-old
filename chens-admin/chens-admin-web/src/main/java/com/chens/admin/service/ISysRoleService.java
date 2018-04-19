@@ -20,11 +20,4 @@ public interface ISysRoleService extends IService<SysRole> {
      */
     List<SysRole> getRoleListByUserId(String userId);
 
-    /**
-     * 连带用户-角色关系一起删除
-     * @param id
-     * @return
-     */
-    boolean deleteWithRel(String id);
-
 }

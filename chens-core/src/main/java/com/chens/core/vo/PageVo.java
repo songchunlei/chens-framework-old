@@ -15,11 +15,11 @@ public class PageVo implements Serializable{
     /**
      * 当前页数
      */
-    private int current;
+    private int current=1;
     /**
      * 每页数量
      */
-    private int size;
+    private int size=10;
     /**
      * 排序
      */
@@ -27,18 +27,15 @@ public class PageVo implements Serializable{
     /**
      * 是否升序
      */
-    private boolean isAsc;
+    private boolean isAsc=true;
 
     /**
      * 查询类型（是并联查询AND还是串联查询OR）
      */
-    private boolean isAnd;
+    private boolean isAnd=false;
 
     public PageVo() {
-        this.current = 1;
-        this.size = 10;
-        this.isAsc = true;
-        this.isAnd = true;
+
     }
 
     public PageVo(int current,int size) {

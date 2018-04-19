@@ -33,22 +33,6 @@ public class SysRoleController extends BaseWebController<ISysRoleService,SysRole
     private ISysUserRoleService sysUserRoleService;
 
     /**
-     * 连带用户-角色关系一起删除
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/deleteWithRel/{id}")
-    public ResponseEntity<Result> deleteWithRel(@PathVariable String id) {
-        if(id!=null)
-        {
-            return doSuccess(CommonConstants.DELETE_SUCCESS,service.deleteWithRel(id));
-        }
-        else{
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
-
-    /**
      * 获取根据用户id角色列表
      * @param userId
      * @return
