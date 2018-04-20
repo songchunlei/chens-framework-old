@@ -30,8 +30,6 @@ public class BaseController {
 
     private Class<?> clazz;
     protected Logger logger;
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
 
 //    private final String EMPTY_MSG = "";
 
@@ -39,13 +37,6 @@ public class BaseController {
     protected BaseController() {
         clazz = AopTargetUtil.getSuperClassGenricType(getClass(), 0);
         logger = LoggerFactory.getLogger(clazz);
-    }
-
-    /**
-     * 获取工程根目录真实路径
-     */
-    public String getRealPath() {
-        return request.getSession().getServletContext().getRealPath("/");
     }
 
     /**

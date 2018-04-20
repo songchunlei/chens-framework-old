@@ -1,5 +1,7 @@
 package com.chens.file.vo;
 
+import com.chens.file.entity.SysFile;
+
 import java.io.Serializable;
 
 /**
@@ -54,6 +56,15 @@ public class FileData implements Serializable{
         this.name = name;
         this.orgName = orgName;
         this.type = type;
+        this.size = size;
+        this.data = data;
+    }
+
+    public FileData(SysFile sysFile, byte[] data) {
+        this.groupId = sysFile.getGroupId();
+        this.name = sysFile.getName();
+        this.orgName = sysFile.getOriginalName();
+        this.type = sysFile.getType();
         this.size = size;
         this.data = data;
     }

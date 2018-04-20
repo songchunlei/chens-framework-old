@@ -15,6 +15,16 @@ public final class CommonConstants {
             "[sys_role][sys_tenant][sys_token][sys_log][sys_user_role][sys_role_menu]";
 
     /**
+     * utf-8
+     */
+    public static final String CHARACTER_UTF8 = "UTF-8";
+
+    /**
+     * ISO8859-1
+     */
+    public static final String CHARACTER_ISO88591= "ISO8859-1";
+
+    /**
      * 根节点
      */
     public static final String BASE_TREE_ROOT="-1";

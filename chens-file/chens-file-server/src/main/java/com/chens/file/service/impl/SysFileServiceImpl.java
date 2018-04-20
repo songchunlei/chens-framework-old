@@ -37,6 +37,17 @@ public class SysFileServiceImpl extends ServiceImpl<SysFileMapper, SysFile> impl
 
     @Override
     public List<SysFile> getFilesByGroupId(String groupId) {
-        return null;
+        SysFile sysFile = new SysFile();
+        sysFile.setGroupId(groupId);
+        EntityWrapper<SysFile> sysFileEntityWrapper = new EntityWrapper<>(sysFile);
+        return this.selectList(sysFileEntityWrapper);
+    }
+
+    @Override
+    public SysFile loadByName(String name) {
+        SysFile sysFile = new SysFile();
+        sysFile.setName(name);
+        EntityWrapper<SysFile> sysFileEntityWrapper = new EntityWrapper<>(sysFile);
+        return this.selectOne(sysFileEntityWrapper);
     }
 }

@@ -28,6 +28,11 @@ public class FolderFileInfo implements Serializable{
     private String type;
 
     /**
+     * 下载链接
+     */
+    private String url;
+
+    /**
      * 目录等级
      */
     private Integer lvl;
@@ -50,14 +55,15 @@ public class FolderFileInfo implements Serializable{
     public FolderFileInfo() {
     }
 
-    public FolderFileInfo(String id, String type, String name, Date updateTime) {
+    public FolderFileInfo(String id, String type, String name,String url,  Date updateTime) {
         this.id = id;
         this.type = type;
         this.name = name;
+        this.url = url;
         this.updateTime = updateTime;
     }
 
-    public FolderFileInfo(String id,String type,Integer lvl,  String name, Date updateTime) {
+    public FolderFileInfo(String id,String type,Integer lvl,  String name,Date updateTime) {
         this.id = id;
         this.lvl = lvl;
         this.type = type;
@@ -119,5 +125,13 @@ public class FolderFileInfo implements Serializable{
 
     public void setChildren(List<FolderFileInfo> children) {
         this.children = children;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

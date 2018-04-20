@@ -23,7 +23,7 @@ public interface IFileService {
      * @param name
      * @return
      */
-    byte[] download(String name);
+    FileData download(String name);
 
     /**
      * 删除文件

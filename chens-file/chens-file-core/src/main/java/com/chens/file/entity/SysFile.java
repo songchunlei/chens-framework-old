@@ -40,6 +40,10 @@ public class SysFile extends BaseEntity<SysFile> {
      */
     private String tag;
     /**
+     * 类型
+     */
+    private String type;
+    /**
      * 大小
      */
     private Long size;
@@ -48,6 +52,11 @@ public class SysFile extends BaseEntity<SysFile> {
      */
     @TableField("group_id")
     private String groupId;
+    /**
+     * 是否删除
+     */
+    @TableField("is_delete")
+    private String isDelete;
 
     public SysFile() {
     }
@@ -80,6 +89,7 @@ public class SysFile extends BaseEntity<SysFile> {
         this.url = url;
         this.md5 = fileData.getMd5();
         this.size = fileData.getSize();
+        this.type = fileData.getType();
         this.groupId = fileData.getGroupId();
     }
 
@@ -123,6 +133,14 @@ public class SysFile extends BaseEntity<SysFile> {
         this.tag = tag;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Long getSize() {
         return size;
     }
@@ -139,4 +157,11 @@ public class SysFile extends BaseEntity<SysFile> {
         this.groupId = groupId;
     }
 
+    public String getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete;
+    }
 }

@@ -28,4 +28,11 @@ public interface IFileInfoService extends IService<SysFile> {
      * @return
      */
     List<SysFile> getFilesByGroupId(String groupId);
+
+    /**
+     * 根据文件名找文件信息
+     * @param name
+     * @return
+     */
+    SysFile loadByName(String name);
 }

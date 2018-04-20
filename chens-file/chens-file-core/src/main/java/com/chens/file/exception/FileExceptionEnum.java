@@ -11,10 +11,11 @@ import com.chens.core.enums.IBaseEnum;
 public enum FileExceptionEnum implements IBaseEnum {
 
 
-    FILE_MD5_ERROR(401,"创建md5失败"),
-    FILE_READING_ERROR(402,"文件读取错误"),
-    FILE_SAVE_ERROR(403,"文件保存失败"),
-    FOLDER_PARENT_ID_IS_NULL(404,"父文件夹id为空");
+    FOLDER_PARENT_ID_IS_NULL(401,"父文件夹id为空"),
+    FILE_MD5_ERROR(402,"创建md5失败"),
+    FILE_READING_ERROR(403,"文件读取错误"),
+    FILE_SAVE_ERROR(404,"文件保存失败"),
+    FILE_IS_NOT_FOUND(405,"文件找不到");
 
 
     private Integer code;

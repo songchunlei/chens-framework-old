@@ -9,8 +9,8 @@ import com.chens.file.service.IFileService;
 import com.chens.file.util.FileUtil;
 import com.chens.file.vo.FileData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 
@@ -41,12 +41,37 @@ public class FileServiceImpl implements IFileService {
     }
 
     @Override
-    public byte[] download(String name) {
-        return new byte[0];
+    public FileData download(String name) {
+        FileData fileData;
+        SysFile sysFile = fileInfoService.loadByName(name);
+
+        if (sysFile == null) {
+            throw new FileException(FileExceptionEnum.FILE_IS_NOT_FOUND);
+        }
+        else
+        {
+            fileData = new FileData(sysFile,this.loadDataByFileInfo(sysFile.getUrl()));
+        }
+        return fileData;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteByName(String name) {
+        SysFile sysFile = fileInfoService.loadByName(name);
+        if(sysFile!=null)
+        {
+            //删除文件信息
+            fileInfoService.deleteById(sysFile.getId());
+            // 删除文件
+            File file = new File(sysFile.getUrl());
+            file.delete();
+        }
+        else
+        {
+            throw new FileException(FileExceptionEnum.FILE_IS_NOT_FOUND);
+        }
+
         return false;
     }
 
@@ -70,6 +95,12 @@ public class FileServiceImpl implements IFileService {
         return sysFile;
     }
 
+    /**
+     * 根据文件信息保存文件
+     * @param data
+     * @param fileData
+     * @return
+     */
     private String saveByFileInfo(byte[] data, FileData fileData) {
         try (InputStream in = new ByteArrayInputStream(data)) {
             return this.saveByFileInfo(in, fileData);
@@ -78,7 +109,12 @@ public class FileServiceImpl implements IFileService {
         }
     }
 
-
+    /**
+     * 根据文件信息保存文件
+     * @param in
+     * @param fileData
+     * @return
+     */
     private String saveByFileInfo(InputStream in, FileData fileData) {
         String dir = ROOT_DIR + "/" + filePathGenerator.getPath();
         String filePath = dir + "/" + fileData.getName() + fileData.getType();
@@ -91,6 +127,34 @@ public class FileServiceImpl implements IFileService {
         return filePath;
     }
 
+    /**
+     * 加载文件
+     * @param url
+     * @return
+     */
+    private byte[] loadDataByFileInfo(String url) {
+        try (InputStream in = loadByFileInfo(url);
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            FileUtil.copy(in, out);
+            out.flush();
+            return out.toByteArray();
+        } catch (IOException e) {
+            throw new FileException(FileExceptionEnum.FILE_READING_ERROR);
+        }
+    }
+
+    /**
+     * 加载文件
+     * @param url
+     * @return
+     */
+    private InputStream loadByFileInfo(String url) {
+        try {
+            return new FileInputStream(url);
+        } catch (FileNotFoundException e) {
+            throw new FileException(FileExceptionEnum.FILE_READING_ERROR);
+        }
+    }
 
 
 }

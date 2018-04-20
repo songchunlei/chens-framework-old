@@ -18,6 +18,12 @@
             <artifactId>chens-auth-client</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--文件服务-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-file-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
