@@ -54,12 +54,12 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
                 throw new BaseException(BaseExceptionEnum.NO_DATA);
             }
             //获取当前文件夹信息
-            forderFileInfo = t.getForderFileInfo();
+            forderFileInfo = t.getFolderFileInfo();
             //当前文件夹是父文件夹时，不往上找一层
             T parent = this.selectById(t.getParentId());
             if (parent != null)
             {
-                forderFileInfo.setParent(parent.getForderFileInfo());
+                forderFileInfo.setParent(parent.getFolderFileInfo());
             }
         }
 
@@ -70,7 +70,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         List<FolderFileInfo> childFolders = new ArrayList<>();
         for (T temp:childFolderTemps)
         {
-            childFolders.add(temp.getForderFileInfo());
+            childFolders.add(temp.getFolderFileInfo());
         }
 
 

@@ -29,7 +29,7 @@ import com.chens.core.web.BaseWebController;
 /**
  * 流程抽象方法
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/4/1
  */
 public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends BaseWfEntity<T>>  extends BaseWebController<S,T> {

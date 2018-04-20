@@ -18,6 +18,6 @@ public final class FolderUtil {
     }
 
     public static FolderFileInfo getRootForder(String name) {
-        return new FolderFileInfo(CommonConstants.BASE_TREE_ROOT, FileType.FOLDER.getCode(), 1,name,new Date());
+        return new FolderFileInfo(CommonConstants.BASE_TREE_ROOT,null, FileType.FOLDER.getCode(), 1,name,new Date());
     }
 }

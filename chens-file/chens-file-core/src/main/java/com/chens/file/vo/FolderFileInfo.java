@@ -18,6 +18,11 @@ public class FolderFileInfo implements Serializable{
     private String id;
 
     /**
+     * 父文件夹id
+     */
+    private String parentId;
+
+    /**
      * 文件名
      */
     private String name;
@@ -55,7 +60,15 @@ public class FolderFileInfo implements Serializable{
     public FolderFileInfo() {
     }
 
-    public FolderFileInfo(String id, String type, String name,String url,  Date updateTime) {
+    /**
+     * 文件
+     * @param id
+     * @param type
+     * @param name
+     * @param url
+     * @param updateTime
+     */
+    public FolderFileInfo(String id,String type, String name,String url,  Date updateTime) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -63,8 +76,18 @@ public class FolderFileInfo implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public FolderFileInfo(String id,String type,Integer lvl,  String name,Date updateTime) {
+    /**
+     * 文件夹
+     * @param id
+     * @param parentId
+     * @param type
+     * @param lvl
+     * @param name
+     * @param updateTime
+     */
+    public FolderFileInfo(String id,String parentId,String type,Integer lvl,  String name,Date updateTime) {
         this.id = id;
+        this.parentId = parentId;
         this.lvl = lvl;
         this.type = type;
         this.name = name;
@@ -77,6 +100,14 @@ public class FolderFileInfo implements Serializable{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {

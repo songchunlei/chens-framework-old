@@ -11,10 +11,7 @@ import com.chens.file.util.FileUtil;
 import com.chens.file.vo.FileData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,10 +72,9 @@ public abstract class BaseFileController extends BaseController {
     }
 
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Result> deleteFile(String name) {
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<Result> deleteFile(@PathVariable String name) {
         return doSuccess(FileConstants.DELETE_SUCCESS,fileService.deleteByName(name));
-
     }
 
 }

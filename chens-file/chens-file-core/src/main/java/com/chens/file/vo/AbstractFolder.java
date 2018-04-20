@@ -115,8 +115,8 @@ public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntit
 		this.cascadeId = cascadeId;
 	}
 
-	public FolderFileInfo getForderFileInfo()
+	public FolderFileInfo getFolderFileInfo()
 	{
-		return new FolderFileInfo(this.getId(), FileType.FOLDER.getCode(),this.getLvl(),this.getName(), this.getUpdateTime());
+		return new FolderFileInfo(this.getId(),this.getParentId(), FileType.FOLDER.getCode(),this.getLvl(),this.getName(), this.getUpdateTime());
 	}
 }
