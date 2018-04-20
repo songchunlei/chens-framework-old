@@ -14,44 +14,98 @@ public class MyStartProcessInstance implements Serializable {
 
 
 	private static final long serialVersionUID = 1904470331012027160L;
-	
-	private String processInstanceId;//流程实例id
-	
-	private String processDefinitionId;//流程定义id
-	
-	private String processDefinitionKey;//流程定义key
-	
-	private String processDefinitionName;//流程定义名称
-	
-	private int processDefinitionVersion;//流程版本
-	
-	private String taskName;//任务名称
-	
-	private String businessKey;//业务数据id
-	
-	private String status;//流程状态
-	
-	private String tableName;//所属业务表
-	
-	private String startBy;//流程发起人id
-	
-	private String startByName;//流程发起人姓名
 
-	private String tenantId;//租户id
-	
+	/**
+	 * 流程实例id
+	 */
+	private String processInstanceId;
+
+	/**
+	 * 流程定义id
+	 */
+	private String processDefinitionId;
+
+	/**
+	 * 流程定义key
+	 */
+	private String processDefinitionKey;
+
+	/**
+	 * 流程定义名称
+	 */
+	private String processDefinitionName;
+
+	/**
+	 * 流程版本
+	 */
+	private int processDefinitionVersion;
+
+	/**
+	 * 任务名称
+	 */
+	private String taskName;
+
+	/**
+	 * 业务数据id
+	 */
+	private String businessKey;
+
+	/**
+	 * 流程状态
+	 */
+	private String status;
+
+	/**
+	 * 所属业务表
+	 */
+	private String tableName;
+
+	/**
+	 * 流程发起人id
+	 */
+	private String startBy;
+
+	/**
+	 * 流程发起人姓名
+	 */
+	private String startByName;
+
+	/**
+	 * 租户id
+	 */
+	private String tenantId;
+
+	/**
+	 * 任务发起时间
+	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date createTime;//任务发起时间 
-	
+	private Date createTime;
+
+	/**
+	 * 任务结束时间
+	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date endTime;//任务结束时间 
-	
-	private String currentAssigneeName;//当前任务处理人
-	
-	private String currentTaskDefinitionKey;//任务节点key
-	
-	private String currentTaskDefinitionName;//任务节点名称
-	
-	private long duraton;//花费时间
+	private Date endTime;
+
+	/**
+	 * 当前任务处理人
+	 */
+	private String currentAssigneeName;
+
+	/**
+	 * 任务节点key
+	 */
+	private String currentTaskDefinitionKey;
+
+	/**
+	 * 任务节点名称
+	 */
+	private String currentTaskDefinitionName;
+
+	/**
+	 * 花费时间
+	 */
+	private long duraton;
 
 	public String getProcessInstanceId() {
 		return processInstanceId;

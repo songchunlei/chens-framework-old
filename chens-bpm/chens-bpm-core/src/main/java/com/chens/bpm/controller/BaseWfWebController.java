@@ -138,6 +138,24 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
 
 
     /**
+     * 可编辑提交审批  主要用于驳回至发起人修改后重新提交
+     * @param t
+     * @return
+     */
+    @PostMapping("/passWithEdit")
+    public ResponseEntity<Result> passWithEdit(@RequestBody @Validated T t) {
+        if(t != null){
+            this.doInit(t);
+            //现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
+            workFlowRequestParam.setVariableValue("approveNode");
+            return doSuccess("办理成功",service.passWithEdit(workFlowRequestParam));
+        } else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+    }
+
+
+    /**
      * 审批不通过驳回
      * @param t
      * @return
@@ -166,7 +184,7 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
      * @param t
      * @return
      */
-    @PostMapping("/publish")
+    @PutMapping("/publish")
     public ResponseEntity<Result> publish(@RequestBody @Validated T t) {
         if(t != null){
             return doSuccess(service.publish(t));
@@ -180,28 +198,10 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
      * @param t
      * @return
      */
-    @PostMapping("/unPublish")
+    @PutMapping("/unPublish")
     public ResponseEntity<Result> unPublish(@RequestBody @Validated T t) {
         if(t != null){
             return doSuccess(service.unPublish(t));
-        } else {
-            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
-        }
-    }
-
-    
-    /**
-     * 可编辑提交审批  主要用于驳回至发起人修改后重新提交
-     * @param t
-     * @return
-     */
-    @PostMapping("/passWithEdit")
-    public ResponseEntity<Result> passWithEdit(@RequestBody @Validated T t) {
-        if(t != null){
-        	this.doInit(t);
-            //现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
-        	workFlowRequestParam.setVariableValue("approveNode");
-            return doSuccess("办理成功",service.passWithEdit(workFlowRequestParam));
         } else {
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }

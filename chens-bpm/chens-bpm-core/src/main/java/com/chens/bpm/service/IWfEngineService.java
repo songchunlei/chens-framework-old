@@ -33,11 +33,12 @@ public interface IWfEngineService {
      * boolean 返回类型
      */
     boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field,String value);
-  
+
 
     /**
-     * 
-     *@Description: 判断节点是否为会签节点
+     * 判断节点是否为会签节点
+     * @param processDefinitionKey
+     * @return
      */
     boolean checkActivitiIsHuiQian(String processDefinitionKey);
     
@@ -92,7 +93,12 @@ public interface IWfEngineService {
      * @return
      */
     Page<MyStartProcessInstance> getMyStartProcessInstancePage(Page<MyStartProcessInstance> page, MyStartProcessInstance myStartProcessInstance);
-    
-    
+
+
+    /**
+     * 根据任务id获取任务信息
+     * @param taskId
+     * @return
+     */
     Map<String, Object> getTaskInfoByTaskId(String taskId);
 }

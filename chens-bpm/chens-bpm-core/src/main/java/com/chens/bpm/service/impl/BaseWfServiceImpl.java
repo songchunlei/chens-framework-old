@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.bpm.vo.BaseWfEntity;
+import com.chens.core.context.BaseContextHandler;
 import com.chens.core.util.StringUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,10 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 			processBussinessRel.setBusinessKey(t.getId());
 			//逻辑删除
 			processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());
+			//发起人
+			processBussinessRel.setStartBy(BaseContextHandler.getUserId());
+			//发起人姓名
+			processBussinessRel.setStartByName(BaseContextHandler.getName());
 			//业务表名
 			TableName tableName = t.getClass().getAnnotation(TableName.class);
 			if(tableName!=null)

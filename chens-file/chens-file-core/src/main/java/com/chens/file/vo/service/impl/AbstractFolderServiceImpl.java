@@ -13,6 +13,7 @@ import com.chens.file.exception.FileExceptionEnum;
 import com.chens.file.vo.AbstractFolder;
 import com.chens.file.vo.mapper.AbstractFolderMapper;
 import com.chens.file.vo.service.IAbstractFolderService;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,22 +66,25 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         //2. 获取当前文件夹下的文件夹
         EntityWrapper<T> wrapper = new EntityWrapper<T>();
         wrapper.eq(FileConstants.FOLDER_COLUMN_PARENT_ID,id);
-        List<T> childForderTemps = this.selectList(wrapper);
-        List<FolderFileInfo> childForders = new ArrayList<>();
-        for (T temp:childForderTemps)
+        List<T> childFolderTemps = this.selectList(wrapper);
+        List<FolderFileInfo> childFolders = new ArrayList<>();
+        for (T temp:childFolderTemps)
         {
-            childForders.add(temp.getForderFileInfo());
-        }
-        if(childForders!=null && childForders.size()>0)
-        {
-            forderFileInfo.setChildren(childForders);
+            childFolders.add(temp.getForderFileInfo());
         }
 
 
         //3. 获取当前文件夹下的文件,各服务自己定义
-        forderFileInfo.setChildren(getFileInfoListByFolderId(id));
+        List<FolderFileInfo> files = getFileInfoListByFolderId(id);
+        if(!CollectionUtils.isEmpty(files))
+        {
+            childFolders.addAll(files);
+        }
 
-        //4.返回
+        //4.放入文件/文件夹
+        forderFileInfo.setChildren(childFolders);
+
+        //5.返回
         return forderFileInfo;
     }
 

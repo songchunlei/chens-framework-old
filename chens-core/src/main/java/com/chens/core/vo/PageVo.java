@@ -27,7 +27,7 @@ public class PageVo implements Serializable{
     /**
      * 是否升序
      */
-    private boolean isAsc=true;
+    private boolean isAsc=false;
 
     /**
      * 查询类型（是并联查询AND还是串联查询OR）

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author songchunlei@qq.com
  * @create 2018/4/3
  */
-public abstract class AbstractForderController<S extends IAbstractFolderService<T>, T extends AbstractFolder<T>> extends BaseWebController<S,T> {
+public abstract class AbstractFolderController<S extends IAbstractFolderService<T>, T extends AbstractFolder<T>> extends BaseWebController<S,T> {
 
     /**
      * 新增
