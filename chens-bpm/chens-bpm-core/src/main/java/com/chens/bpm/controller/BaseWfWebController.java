@@ -3,8 +3,7 @@ package com.chens.bpm.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.chens.bpm.enums.WfStatus;
-import com.chens.core.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -80,7 +79,7 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
         }
         //审批意见
         workFlowRequestParam.setBpmReason(t.getBpmReason());
-        workFlowRequestParam.setTaskName(t.getTaskName());
+//        workFlowRequestParam.setTaskName(t.getTaskName());
         workFlowRequestParam.setCurrentTaskDefinitionKey(t.getCurrentTaskDefinitionKey());
         workFlowRequestParam.setCurrentTaskDefinitionName(t.getCurrentTaskDefinitionName());
         workFlowRequestParam.setT(t);
@@ -95,6 +94,11 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     @PostMapping("/save")
     public ResponseEntity<Result> save(@RequestBody @Validated T t) {
         if(t != null){
+        	//校验当前操作人是不是数据创建人
+        	//校验当前操作人是不是数据创建人
+        	if(!checkUser(t)){
+        		return doError("只能提交本人创建的数据！");
+        	}        	
         	this.doInit(t);
             return doSuccess("保存成功",service.saveDraft(t));
         } else {
@@ -110,6 +114,10 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     @PostMapping("/submitDraft")
     public ResponseEntity<Result> submitDraft(@RequestBody @Validated T t) {
         if(t != null){
+        	//校验当前操作人是不是数据创建人
+        	if(!checkUser(t)){
+        		return doError("只能提交本人创建的数据！");
+        	}
             this.doInit(t);
             return doSuccess("提交成功",service.submitDraft(workFlowRequestParam));
         } else {
@@ -125,6 +133,9 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     @PostMapping("/pass")
     public ResponseEntity<Result> pass(@RequestBody @Validated T t) {
         if(t != null){
+        	if(!checkAssignee(t)){
+        		return doError("您非当前任务处理人员，无权审批！");
+        	}      	
         	this.doInit(t);
             //通过是直接结束，写死
         	workFlowRequestParam.setNextUserId("admin");
@@ -145,6 +156,9 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     @PostMapping("/passWithEdit")
     public ResponseEntity<Result> passWithEdit(@RequestBody @Validated T t) {
         if(t != null){
+        	if(!checkAssignee(t)){
+        		return doError("您非当前任务处理人员，无权审批！");
+        	}
             this.doInit(t);
             //现在只有一个环节，所以发起人提交还是提交这个节点，暂时写死
             workFlowRequestParam.setVariableValue("approveNode");
@@ -163,6 +177,9 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     @PostMapping("/noPass")
     public ResponseEntity<Result> noPass(@RequestBody @Validated T t) {
         if(t != null){
+        	if(!checkAssignee(t)){
+        		return doError("您非当前任务处理人员，无权审批！");
+        	}
         	this.doInit(t);
         	//现在只有一个审批环节， 审批不通过直接驳货至发起人节点， VariableValue统一传startNode,  发起人节点的用户Id去当前流程的发起人
         	String nextUserId = wfEngineService.getProcessStarterByTaskId(workFlowRequestParam.getTaskId());
@@ -237,6 +254,35 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
             throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
         }
     }
+    
+    public boolean checkUser(T t){
+    	if(StringUtils.isNotBlank(t.getId())){
+    		t = service.selectById(t.getId());
+    		if(!StringUtils.equals(t.getCreateBy(), BaseContextHandler.getUserId())){
+    			return false;
+    		}else{
+    			return true;
+    		}
+    	}else{
+    		return true;
+    	}
+    }
+    
+    public boolean checkAssignee(T t){
+    	 Map<String, Object> taskInfoMap = wfEngineService.getTaskInfoByTaskId(t.getTaskId());
+    	 if(taskInfoMap == null){
+    		 return false;
+    	 }else{
+    		 if(StringUtils.equals((String)taskInfoMap.get("assignee"), BaseContextHandler.getUserId())){
+    			 return true;
+    		 }else{
+    			 return false;
+    		 }
+    	 }
+    }
+    
+    
+   
 
 
 }

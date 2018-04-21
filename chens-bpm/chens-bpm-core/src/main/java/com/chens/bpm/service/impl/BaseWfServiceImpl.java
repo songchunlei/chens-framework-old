@@ -58,12 +58,12 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
     public String saveDraft(T t){
     	//T t = workFlowRequestParam.getT();
 		//保存业务数据
-		if(StringUtils.isEmpty(t.getId()))
-		{
+		if(StringUtils.isEmpty(t.getId())){
+			saveEntity(t);
 			//保存流程业务关联关系表
 			ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
 			//任务名称
-			processBussinessRel.setTaskName(BpmConstants.PROCESS_START_TASK_NAME);
+			processBussinessRel.setTaskName(t.getTaskName());
 			//草稿状态
 			processBussinessRel.setStatus(WfStatus.WAITING.getCode());
 			processBussinessRel.setProcessDefinitionKey(t.getProcessDefinitionKey());
@@ -83,8 +83,20 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 				processBussinessRel.setTableName(tableName.value());
 			}
 			processBussinessRelService.insert(processBussinessRel);
+		}else{
+			String taskName = t.getTaskName();
+			saveEntity(t);
+			ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
+			processBussinessRel.setBusinessKey(t.getId());
+			EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(processBussinessRel);
+			processBussinessRel = processBussinessRelService.selectOne(ew);
+			if(processBussinessRel != null){
+				processBussinessRel.setTaskName(taskName);
+				processBussinessRelService.updateById(processBussinessRel);
+			}
+			
 		}
-		saveEntity(t);
+		
         return t.getId();
     }
 

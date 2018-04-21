@@ -513,6 +513,7 @@ public class ActivitiService implements IWfEngineService {
 		 }else{
 			 map.put("taskDefinitionKey", task.getTaskDefinitionKey());
 			 map.put("taskDefinitionName", task.getName());
+			 map.put("assignee", task.getAssignee());
 			 return map;
 		 }
 		
