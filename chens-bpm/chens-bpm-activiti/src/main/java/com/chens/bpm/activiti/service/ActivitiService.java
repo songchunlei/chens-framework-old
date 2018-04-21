@@ -48,7 +48,7 @@ import com.chens.core.exception.BaseExceptionEnum;
 /**
  * 基于activiti实现流程服务
  *
- * @auther wudepeng
+ * @author wudepeng
  * @create 2018/3/30
  */
 @Service
@@ -89,7 +89,8 @@ public class ActivitiService implements IWfEngineService {
          if(variables == null){
              variables = new HashMap<String, Object>();
          }
-         String nextUserId = workFlowRequestParam.getNextUserId();//下一个环节处理人 若无默认为流程发起人
+         //下一个环节处理人 若无默认为流程发起人
+         String nextUserId = workFlowRequestParam.getNextUserId();
          if (StringUtils.isBlank(nextUserId)) {
              nextUserId = workFlowRequestParam.getStartUserId();
          }

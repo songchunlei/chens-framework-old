@@ -85,7 +85,7 @@ public abstract class BaseMybatisPlusConfig {
         }
 
         //默认初始化
-        this.properties.setMapperLocations(new String[]{"classpath:/mapper/*Mapper.xml"});
+        this.properties.setMapperLocations(new String[]{"classpath*:/mapper/*Mapper.xml"});
         mybatisPlus.setTypeAliasesPackage("com.chens.**.entity");
         mybatisPlus.setTypeEnumsPackage("com.chens.**.enums");
 
