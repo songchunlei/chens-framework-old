@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.file.enums.IBaseFolderTypeEnum;
 import com.chens.file.exception.FileException;
 import com.chens.file.util.FolderUtil;
 import com.chens.core.util.StringUtils;
