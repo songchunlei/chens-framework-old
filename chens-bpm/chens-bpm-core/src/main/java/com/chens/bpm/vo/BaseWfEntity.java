@@ -14,6 +14,11 @@ public class BaseWfEntity<T extends BaseWfEntity> extends BaseEntity<T>{
 	private static final long serialVersionUID = -6893793486319301365L;
 
     /**
+     * 状态
+     */
+	protected String status;
+
+    /**
      * 任务id
      */
 	@TableField(exist = false)
@@ -66,6 +71,14 @@ public class BaseWfEntity<T extends BaseWfEntity> extends BaseEntity<T>{
      */
     @TableField(exist = false)
     protected String processDefinitionKey;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getTaskId() {
         return taskId;

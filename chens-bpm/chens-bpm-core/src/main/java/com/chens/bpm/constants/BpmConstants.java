@@ -28,8 +28,4 @@ public final class BpmConstants {
      */
     public static final String KEY_PROCESS_INSTANCE_ID="processInstanceId";
 
-    /**
-     * 发起流程节点描述
-     */
-    public static final String PROCESS_START_TASK_NAME="发起审批";
 }

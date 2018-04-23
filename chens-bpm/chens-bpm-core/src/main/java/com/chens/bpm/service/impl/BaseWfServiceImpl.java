@@ -3,6 +3,8 @@ package com.chens.bpm.service.impl;
 import java.util.List;
 
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.chens.bpm.exception.BpmException;
+import com.chens.bpm.exception.BpmExceptionEnum;
 import com.chens.bpm.vo.BaseWfEntity;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.util.StringUtils;
@@ -59,6 +61,9 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
     	//T t = workFlowRequestParam.getT();
 		//保存业务数据
 		if(StringUtils.isEmpty(t.getId())){
+			//默认状态为待提交
+			t.setStatus(WfStatus.WAITING.getCode());
+			//调用自定义保存方法
 			saveEntity(t);
 			//保存流程业务关联关系表
 			ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
@@ -141,7 +146,9 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 			return false;
 		}
 
-		//保存业务实体
+		//提交状态变更为审批中
+		t.setStatus(WfStatus.CHECKING.getCode());
+		//调用保存业务实体
 		saveEntity(t);
 
         workFlowRequestParam.setBusinessKey(t.getId());
@@ -217,7 +224,7 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
     }
 
     /**
-     * 提交办理（只读审批）
+     * 审批通过（只读审批）
      * @param workFlowRequestParam
      * @return
      */
@@ -237,10 +244,16 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
     		if(workFlowReturn.isFinish()){
     			//流程已结束，更新状态
     			this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.PASS.getCode());
+    			//更新业务
+    			t.setStatus(WfStatus.PASS.getCode());
+    			this.updateById(t);
     			return true;
     		}else{
     			//流程已结束，更新状态
-    			this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.CHECKING.getCode());    			
+    			this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.CHECKING.getCode());
+				//更新业务
+				t.setStatus(WfStatus.CHECKING.getCode());
+				this.updateById(t);
     			return true;
     		}
     	}else{
@@ -277,12 +290,28 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 
 		return true;
 	}
-    
+
+	/**
+	 * 更新流程关联关系
+	 * @param processBussinessRelList
+	 * @param status
+	 */
     public void updateProcessBussinessRelService(List<ProcessBussinessRel> processBussinessRelList, String status){
     	if(CollectionUtils.isNotEmpty(processBussinessRelList)){
 			ProcessBussinessRel processBussinessRel = processBussinessRelList.get(0);
+
+			//状态是审批中/审批不通过，才能审批
+			boolean isCanPass = (WfStatus.CHECKING.getCode().equals(processBussinessRel.getStatus()) || WfStatus.UN_PASS.getCode().equals(processBussinessRel.getStatus()))
+					&& (WfStatus.CHECKING.getCode().equals(status) || WfStatus.UN_PASS.getCode().equals(status) || WfStatus.PASS.getCode().equals(status));
+
+			if(!isCanPass)
+			{
+				throw new BpmException(BpmExceptionEnum.CAN_NOT_PASS);
+			}
+
 			processBussinessRel.setStatus(status);
 			processBussinessRelService.updateById(processBussinessRel);
+
 		}
     }
 
@@ -304,7 +333,10 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
         	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(query);
         	List<ProcessBussinessRel> processBussinessRelList = processBussinessRelService.selectList(ew);
     		//流程已结束，更新状态为未通过
-    		this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.UN_PASS.getCode());    			
+    		this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.UN_PASS.getCode());
+    		//更新业务表单
+			t.setStatus(WfStatus.UN_PASS.getCode());
+			this.updateById(t);
     		return true;
     	}else{
     		return false;
@@ -313,12 +345,42 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 
     @Override
     public boolean publish(T t) {
-        return false;
+		if(StringUtils.isNotEmpty(t.getId()))
+		{
+			throw new BaseException(BaseExceptionEnum.DATA_REQUEST_ERROR);
+		}
+    	t = this.selectById(t.getId());
+		if(t==null)
+		{
+			throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+		}
+		//未审批通过，不能发布
+		if(!WfStatus.PASS.getCode().equals(t.getStatus()))
+		{
+			throw new BpmException(BpmExceptionEnum.STATUS_IS_NOT_PASS);
+		}
+    	t.setStatus(WfStatus.PUBLISHED.getCode());
+        return this.updateById(t);
     }
 
     @Override
     public boolean unPublish(T t) {
-        return false;
+		if(StringUtils.isNotEmpty(t.getId()))
+		{
+			throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+		}
+		t = this.selectById(t.getId());
+		if(t==null)
+		{
+			throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+		}
+		//状态不是已发布，不能被取消
+		if(!WfStatus.PUBLISHED.getCode().equals(t.getStatus()))
+		{
+			throw new BpmException(BpmExceptionEnum.STATUS_IS_NOT_PUBLISH);
+		}
+		t.setStatus(WfStatus.CANCEL_PUBLISHED.getCode());
+        return this.updateById(t);
     }
 
 
