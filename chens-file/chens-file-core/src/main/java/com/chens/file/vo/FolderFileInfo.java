@@ -57,6 +57,11 @@ public class FolderFileInfo implements Serializable{
      */
     private List<FolderFileInfo> children;
 
+    /**
+     * 路径
+     */
+    private List<FolderFileInfo> tree;
+
     public FolderFileInfo() {
     }
 
@@ -164,5 +169,13 @@ public class FolderFileInfo implements Serializable{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<FolderFileInfo> getTree() {
+        return tree;
+    }
+
+    public void setTree(List<FolderFileInfo> tree) {
+        this.tree = tree;
     }
 }

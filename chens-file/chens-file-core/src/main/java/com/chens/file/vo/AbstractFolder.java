@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
  */
 public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntity<T> {
 
-
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1815815883025805854L;
 
@@ -65,7 +64,7 @@ public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntit
     private String isDelete;
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(String type) {

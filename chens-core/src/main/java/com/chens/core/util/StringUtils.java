@@ -213,13 +213,40 @@ public class StringUtils {
     /**
      * id字符串转id List
      * @param idStr
-     * @return
+     * @param regex 区隔符
+     * @return List<String>
      */
-    public static List<String> string2List(String idStr) {
-        String[] idArray = idStr.split(",");
+    public static List<String> string2List(String idStr,String regex) {
+        if(isEmpty(regex))
+        {
+            regex = ",";
+        }
+        String[] idArray = idStr.split(regex);
         List<String> idList = new ArrayList<String>();
         for(int i = 0; i < idArray.length; i++){
             idList.add(idArray[i]);
+        }
+        return idList;
+    }
+
+    /**
+     * 特殊id字符串转id List
+     * 如 .0000.0000.0000转list为 [.0000,.0000.0000,.0000.0000.0000]
+     * @param idStr
+     * @param regex 区隔符
+     * @return List<String>
+     */
+    public static List<String> string2ListSpc(String idStr,String regex) {
+        if(isEmpty(regex))
+        {
+            regex = ",";
+        }
+        String[] idArray = idStr.split(regex);
+        List<String> idList = new ArrayList<String>();
+        String strTemp = "";
+        for(int i = 0; i < idArray.length; i++){
+            strTemp = strTemp+regex+idArray[i];
+            idList.add(strTemp);
         }
         return idList;
     }
