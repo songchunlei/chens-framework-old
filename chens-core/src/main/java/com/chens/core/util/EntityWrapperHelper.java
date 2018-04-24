@@ -42,7 +42,7 @@ public class EntityWrapperHelper {
                     fields[i].setAccessible(true);
                     Object value = fields[i].get(object);
                     if (null != value && !value.equals("")) {
-                        String fieldname = fields[i].getName();
+                        String fieldName = fields[i].getName();
                         //当有注解的时候采用注解
                         if(fields[i].isAnnotationPresent(TableField.class) )
                         {
@@ -54,7 +54,7 @@ public class EntityWrapperHelper {
                                 {
                                     continue;
                                 }
-                                fieldname = tableFieldName.value();
+                                fieldName = tableFieldName.value();
                             }
                         }
                         //fieldname = StringUtils.underscoreName(fields[i].getName());
@@ -65,11 +65,11 @@ public class EntityWrapperHelper {
                         }
                         if(isLike)
                         {
-                            wrapper.like(fieldname,value.toString());
+                            wrapper.like(fieldName,value.toString());
                         }
                         else
                         {
-                            wrapper.eq(fieldname,value.toString());
+                            wrapper.eq(fieldName,value.toString());
                         }
 
                     }

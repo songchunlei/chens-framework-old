@@ -1,9 +1,11 @@
 package com.chens.file.vo;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.UpdateValid;
 import com.chens.core.enums.FileType;
+import com.chens.core.enums.YesNoEnum;
 import com.chens.core.vo.BaseEntity;
 
 import javax.validation.constraints.NotNull;
@@ -61,7 +63,8 @@ public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntit
      * 是否删除
      */
 	@TableField("is_delete")
-    private String isDelete;
+	@TableLogic
+    private String isDelete= YesNoEnum.NO.getCode();
 
 	public String getType() {
 		return this.type;
