@@ -46,6 +46,11 @@ public class FileConstants {
     public static final String FOLDER_FILE_COLUMN_CASCADE_ID = "cascade_id";
 
     /**
+     * 文件夹等级字段
+     */
+    public static final String FOLDER_FILE_COLUMN_LVL = "lvl";
+
+    /**
      * 上传成功
      */
     public static final String UPLOAD_SUCCESS="上传成功";

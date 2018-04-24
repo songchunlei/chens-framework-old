@@ -241,12 +241,16 @@ public class StringUtils {
         {
             regex = ",";
         }
-        String[] idArray = idStr.split(regex);
+        String[] idArray = idStr.split("\\"+regex);
         List<String> idList = new ArrayList<String>();
         String strTemp = "";
         for(int i = 0; i < idArray.length; i++){
-            strTemp = strTemp+regex+idArray[i];
-            idList.add(strTemp);
+            if(isNotEmpty(idArray[i]))
+            {
+                strTemp = strTemp+regex+idArray[i];
+                idList.add(strTemp);
+            }
+
         }
         return idList;
     }

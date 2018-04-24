@@ -55,7 +55,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         //根文件夹
         FolderFileInfo rootFolder = FolderUtil.getRootForder(CommonConstants.BASE_TREE_ROOT_NAME);
 
-        //路径
+        //路径(默认放入根目录)
         List<FolderFileInfo> trees = new ArrayList<>();
         trees.add(rootFolder);
 
@@ -64,9 +64,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         if(CommonConstants.BASE_TREE_ROOT.equals(id))
         {
             //当id为根目录，初始化
-            folderFileInfo = rootFolder;
-            //放入路径
-            trees.add(folderFileInfo);
+            folderFileInfo = FolderUtil.getRootForder(CommonConstants.BASE_TREE_ROOT_NAME);
         }
         else
         {
@@ -78,47 +76,67 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
 
             //获取当前文件夹信息
             folderFileInfo = t.getFolderFileInfo();
-            //当前文件夹是父文件夹时，不往上找一层
-            T parent = this.selectById(t.getParentId());
-            if (parent != null)
+            if(CommonConstants.BASE_TREE_ROOT.equals(t.getParentId()))
             {
-                folderFileInfo.setParent(parent.getFolderFileInfo());
-                //当lvl大于2查找路径，当等于2父路径就是上一个路径
-                if(parent.getLvl()>2)
+                //当父节点是根节点，则不查询
+                folderFileInfo.setParent(rootFolder);
+            }
+            else
+            {
+                T parent = this.selectById(t.getParentId());
+                FolderFileInfo parentFolderFile = parent.getFolderFileInfo();
+                if (parent != null)
                 {
-                    //父节点语意id，格式为 .0000.0000.0000
-                    String parentCascadeId = parent.getCascadeId();
-                    List<String> cascadeIdList =  StringUtils.string2ListSpc(parentCascadeId,FileConstants.FOLD_CASCADE_FORMAT_REGEX);
-                    if(!CollectionUtils.isEmpty(cascadeIdList))
+                    folderFileInfo.setParent(parentFolderFile);
+                    //当lvl大于2查找路径，当等于2父路径就是上一个路径
+                    if(parent.getLvl()>2)
                     {
-                        //获取路过的文件夹
-                        EntityWrapper<T> wrapper = new EntityWrapper<>();
-                        wrapper.eq(FileConstants.FOLDER_COLUMN_TYPE,initType());
-                        wrapper.andNew();
-                        for (String cascadeIdTemp:cascadeIdList)
-                        {
-                            if(StringUtils.isNotEmpty(cascadeIdTemp))
-                            {
-                                wrapper.or(FileConstants.FOLDER_FILE_COLUMN_CASCADE_ID,cascadeIdTemp);
-                            }
-                        }
-                        List<T> allParentFolder = this.selectList(wrapper);
+                        //父节点语意id，格式为 .0000.0000.0000
+                        String parentCascadeId = parent.getCascadeId();
+                        List<String> cascadeIdList =  StringUtils.string2ListSpc(parentCascadeId,FileConstants.FOLD_CASCADE_FORMAT_REGEX);
                         if(!CollectionUtils.isEmpty(cascadeIdList))
                         {
-                            for (T temp :allParentFolder) {
-                                trees.add(temp.getFolderFileInfo());
+                            //获取路过的文件夹
+                            EntityWrapper<T> wrapper = new EntityWrapper<>();
+                            wrapper.orderBy(FileConstants.FOLDER_FILE_COLUMN_LVL+" ASC");
+                            wrapper.eq(FileConstants.FOLDER_COLUMN_TYPE,initType());
+                            wrapper.andNew();
+                            int i = 0;
+                            for (String cascadeIdTemp:cascadeIdList)
+                            {
+                                if(StringUtils.isNotEmpty(cascadeIdTemp))
+                                {
+                                    if(i!=0)
+                                    {
+                                        wrapper.or();
+                                    }
+                                    wrapper.eq(FileConstants.FOLDER_FILE_COLUMN_CASCADE_ID,cascadeIdTemp);
+                                }
+                                i++;
+                            }
+                            List<T> allParentFolder = this.selectList(wrapper);
+                            if(!CollectionUtils.isEmpty(cascadeIdList))
+                            {
+                                for (T temp :allParentFolder) {
+                                    trees.add(temp.getFolderFileInfo());
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    trees.add(parent.getFolderFileInfo());
+                    else
+                    {
+                        //当lvl=2，则只有根目录+父文件夹路径
+                        trees.add(parentFolderFile);
+                    }
                 }
             }
-            //2.放入路径
-            folderFileInfo.setTree(trees);
+
+            //放入当前文件夹--> 路径
+            trees.add(t.getFolderFileInfo());
         }
+
+        //2.放入路径
+        folderFileInfo.setTree(trees);
 
         //3. 获取当前文件夹下的文件夹
         EntityWrapper<T> wrapper = new EntityWrapper<>();
