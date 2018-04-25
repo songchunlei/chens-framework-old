@@ -1,15 +1,11 @@
 package com.chens.ueditor.servlet;
 
 import com.baidu.ueditor.ActionEnter;
-import com.chens.ueditor.controller.UeditorController;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,7 +65,7 @@ public class UEditorServlet extends HttpServlet {
 
 
     public UEditorServlet() {
-        String path  = UeditorController.class.getClassLoader().getResource("config.json").getPath();
+        String path  = UEditorServlet.class.getClassLoader().getResource("config.json").getPath();
         logger.info("path->"+path);
         File file =  new File(path);
         if(file.getParentFile().isDirectory()) {
