@@ -18,6 +18,11 @@ public class FileData implements Serializable{
     private String groupId;
 
     /**
+     * 希望保存的位置
+     */
+    private String savePath;
+
+    /**
      * 文件原始名称
      */
     private String orgName;
@@ -51,8 +56,39 @@ public class FileData implements Serializable{
 
     }
 
+    /**
+     * 新建文件数据集合
+     * @param groupId 文件组id
+     * @param name 虚拟名称
+     * @param orgName 原始名称
+     * @param type 类型
+     * @param size 大小
+     * @param md5 md5
+     * @param data 数据
+     */
     public FileData(String groupId,String name, String orgName, String type, Long size, String md5,byte[] data) {
         this.groupId = groupId;
+        this.name = name;
+        this.orgName = orgName;
+        this.type = type;
+        this.size = size;
+        this.data = data;
+    }
+
+    /**
+     * 新建文件数据集合
+     * @param groupId 文件组id
+     * @param savePath 指定保存位置
+     * @param name 虚拟名称
+     * @param orgName 原始名称
+     * @param type 类型
+     * @param size 大小
+     * @param md5 md5
+     * @param data 数据
+     */
+    public FileData(String groupId,String savePath,String name, String orgName, String type, Long size, String md5,byte[] data) {
+        this.groupId = groupId;
+        this.savePath = savePath;
         this.name = name;
         this.orgName = orgName;
         this.type = type;
@@ -75,6 +111,14 @@ public class FileData implements Serializable{
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public String getSavePath() {
+        return savePath;
+    }
+
+    public void setSavePath(String savePath) {
+        this.savePath = savePath;
     }
 
     public String getOrgName() {

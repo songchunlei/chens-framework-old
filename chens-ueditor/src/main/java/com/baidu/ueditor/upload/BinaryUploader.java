@@ -70,11 +70,12 @@ public class BinaryUploader {
 
 			savePath = PathFormat.parse(savePath, originFileName);
 
-			String physicalPath = (String) conf.get("rootPath") + savePath;
+			//不用保存在当前路径下，用nginx代理显示图片
+			//String physicalPath = (String) conf.get("rootPath") + savePath;
 
 			InputStream is = fileStream.openStream();
 			State storageState = StorageManager.saveFileByInputStream(is,
-					physicalPath, maxSize);
+					savePath, maxSize);
 			is.close();
 
 			if (storageState.isSuccess()) {

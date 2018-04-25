@@ -10,13 +10,18 @@ public final class ConfigConstants {
 
 
     /**
-     * 自定义上传方式
+     * 是否是租户模式
      */
-    public static final String UPLOAD_TYPE = "uploadType";
+    public static final String UPLOAD_IS_TENANT = "isTenant";
 
     /**
-     * 走框架自定义的一般上传方式
+     * 是否是租户模式-是
      */
-    public static final String UPLOAD_TYPE_COMMON = "common";
+    public static final String UPLOAD_IS_TENANT_TRUE = "true";
+
+    /**
+     * 是否是租户模式-否
+     */
+    public static final String UPLOAD_IS_TENANT_FALSE = "false";
 
 }

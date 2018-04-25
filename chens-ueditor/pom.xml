@@ -19,6 +19,12 @@
             <artifactId>chens-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--框架文件服务-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-file-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>

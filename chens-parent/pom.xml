@@ -18,20 +18,20 @@
     <modules>
         <!--通用核心模块-->
         <module>../chens-core</module>
+        <!--代码生成器-->
+        <module>../chens-generator</module>
         <!--缓存-->
         <!--<module>../chens-cache</module>-->
         <!--TCC分布式事务-->
         <!--<module>../chens-tcc</module>-->
+        <!--文件服务器-->
+        <module>../chens-file</module>
         <!--excel模块-->
         <module>../chens-excel</module>
         <!--富文本编辑器-->
         <module>../chens-ueditor</module>
-        <!--文件服务器-->
-        <module>../chens-file</module>
         <!--流程引擎-->
         <module>../chens-bpm</module>
-        <!--代码生成器-->
-        <module>../chens-generator</module>
         <!--注册中心-->
         <module>../chens-eureka</module>
         <!--配置中心-->

@@ -1,5 +1,8 @@
 package com.baidu.ueditor;
 
+import com.chens.core.context.BaseContextHandler;
+import com.chens.core.util.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -18,6 +21,10 @@ public class PathFormat {
 	private static final String MINUTE = "ii";
 	private static final String SECOND = "ss";
 	private static final String RAND = "rand";
+	/**
+	 * 增加租户id
+	 */
+	private static final String TENANT_ID = "tenantId";
 	
 	private static Date currentDate = null;
 	
@@ -52,7 +59,7 @@ public class PathFormat {
 		
 	}
 
-	public static String parse ( String input, String filename ) {
+	public static String parse (String input, String filename) {
 	
 		//Pattern pattern = Pattern.compile( "\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE  );
 		Matcher matcher = PATTERN_PATH.matcher(input);
@@ -102,6 +109,9 @@ public class PathFormat {
 			return PathFormat.getSecond();
 		} else if ( pattern.indexOf( PathFormat.RAND ) != -1 ) {
 			return PathFormat.getRandom( pattern );
+		} else if ( pattern.indexOf( PathFormat.TENANT_ID ) != -1 ) {
+			//租户id
+			return StringUtils.isEmpty(BaseContextHandler.getTenantId())?"all":BaseContextHandler.getTenantId();
 		}
 		
 		return pattern;

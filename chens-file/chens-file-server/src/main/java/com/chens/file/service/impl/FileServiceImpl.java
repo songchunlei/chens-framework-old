@@ -1,5 +1,7 @@
 package com.chens.file.service.impl;
 
+import com.chens.core.context.BaseContextHandler;
+import com.chens.core.util.StringUtils;
 import com.chens.file.entity.SysFile;
 import com.chens.file.exception.FileException;
 import com.chens.file.exception.FileExceptionEnum;
@@ -26,18 +28,40 @@ public class FileServiceImpl implements IFileService {
     @Autowired
     private IFileInfoService fileInfoService;
 
+    /**
+     * 默认保存地址
+     */
     private String ROOT_DIR = "/opt/upload";
 
     private IFilePathGenerator filePathGenerator = new DatePathGenerator();
 
     @Override
     public SysFile upload(FileData fileData) {
-        SysFile sysFile;
         try (ByteArrayInputStream in = new ByteArrayInputStream(fileData.getData())) {
             return this.saveFile(in, fileData);
         } catch (IOException e) {
             throw new FileException(FileExceptionEnum.FILE_SAVE_ERROR.getCode(),e.getMessage());
         }
+    }
+
+    /**
+     * 保存文件，并保存文件记录
+     * @param in
+     * @param data
+     * @return
+     */
+    private SysFile saveFile(InputStream in,FileData data) {
+        SysFile sysFile = null;
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            FileUtil.copy(in, out);
+            out.flush();
+            String realPath = this.saveByFileInfo(out.toByteArray(), data);
+            sysFile = new SysFile(data,realPath);
+            fileInfoService.insert(sysFile);
+        } catch (Exception e) {
+            throw new FileException(FileExceptionEnum.FILE_SAVE_ERROR.getCode(),e.getMessage());
+        }
+        return sysFile;
     }
 
     @Override
@@ -76,26 +100,6 @@ public class FileServiceImpl implements IFileService {
     }
 
     /**
-     * 保存文件，并保存文件记录
-     * @param in
-     * @param data
-     * @return
-     */
-    private SysFile saveFile(InputStream in,FileData data) {
-        SysFile sysFile = null;
-        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            FileUtil.copy(in, out);
-            out.flush();
-            String realPath = this.saveByFileInfo(out.toByteArray(), data);
-            sysFile = new SysFile(data,realPath);
-            fileInfoService.insert(sysFile);
-        } catch (Exception e) {
-            throw new FileException(FileExceptionEnum.FILE_SAVE_ERROR.getCode(),e.getMessage());
-        }
-        return sysFile;
-    }
-
-    /**
      * 根据文件信息保存文件
      * @param data
      * @param fileData
@@ -116,7 +120,18 @@ public class FileServiceImpl implements IFileService {
      * @return
      */
     private String saveByFileInfo(InputStream in, FileData fileData) {
-        String dir = ROOT_DIR + "/" + filePathGenerator.getPath();
+        //确定保存位置，默认为随机时间位置
+        String dir = ROOT_DIR+ "/" + filePathGenerator.getPath();
+        //如果存在指定保存位置，则保存指定位置
+        if(StringUtils.isNotEmpty(fileData.getSavePath()))
+        {
+            dir = fileData.getSavePath();
+        }
+        //如果有租户存在，增加租户id模块，方便查询
+        if(StringUtils.isNotEmpty(BaseContextHandler.getTenantId()))
+        {
+            dir = dir+"/"+ BaseContextHandler.getTenantId();
+        }
         String filePath = dir + "/" + fileData.getName() + fileData.getType();
         FileUtil.mkDirs(filePath);
         try (FileOutputStream fout = new FileOutputStream(filePath)) {
