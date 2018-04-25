@@ -1,6 +1,7 @@
 package com.chens.ueditor.controller;
 
 import com.baidu.ueditor.ActionEnter;
+import com.chens.core.web.BaseController;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -9,46 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 通用服务
- *
- * @auther songchunlei@qq.com
+ * 通用服务(由于spring-cloud的拦截，暂时用servlet的方式接收配置)
+ * 参考 https://github.com/codingapi/ueditor.git
+ * @author songchunlei@qq.com
  * @create 2018/3/11
  */
+@Deprecated
 @Controller
-public class UeditorController {
-
-    @Autowired
-    private Environment environment;
-
-    @RequestMapping("/")
-    private String showPage(){
-        return "index";
-    }
-
-    @RequestMapping(value="/config")
-    public void config(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("application/json");
-        String rootPath = request.getSession().getServletContext().getRealPath("/");
-        try {
-            String exec = new ActionEnter(request, rootPath).exec();
-            PrintWriter writer = response.getWriter();
-            writer.write(exec);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-    /*
-    参考 https://github.com/codingapi/ueditor.git
-    private Logger logger = LoggerFactory.getLogger(UeditorController.class);
+public class UeditorController extends BaseController{
 
     private String rootPath;
 
@@ -71,7 +45,6 @@ public class UeditorController {
         }
     }
 
-
     private String getProjectPath(){
         if(null==projectPath) {
             String val = environment.getProperty("server.context-path", "");
@@ -87,11 +60,10 @@ public class UeditorController {
         return projectPath;
     }
 
-    @RequestMapping("/exec")
-    public void exec(HttpServletRequest request, HttpServletResponse response, PrintWriter out){
+    @RequestMapping("/config")
+    public void exec(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws JSONException {
         response.setHeader("Content-Type" , "text/html");
         logger.info("rootPath->"+rootPath+",staticPath->"+staticPath+",projectPath->"+getProjectPath());
         out.write( new ActionEnter( request, rootPath,staticPath,getProjectPath()).exec());
     }
-    */
 }

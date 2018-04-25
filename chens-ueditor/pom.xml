@@ -44,4 +44,13 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+
 </project>

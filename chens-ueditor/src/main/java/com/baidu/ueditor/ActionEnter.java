@@ -19,13 +19,24 @@ public class ActionEnter {
 	
 	private String rootPath = null;
 	private String contextPath = null;
-	
+	private String projectPath = null;
+
 	private String actionType = null;
 	
 	private ConfigManager configManager = null;
 
-	public ActionEnter ( HttpServletRequest request, String rootPath ) {
-		
+	public ActionEnter ( HttpServletRequest request, String rootPath,String staticPath,String projectPath ) {
+
+		/*
+		this.request = request;
+		this.rootPath = rootPath;
+		this.contextPath = staticPath;
+		this.projectPath = projectPath;
+
+		this.actionType = request.getParameter( "action" );
+		this.configManager = ConfigManager.getInstance( this.rootPath,this.contextPath,this.projectPath);
+		*/
+
 		this.request = request;
 		this.rootPath = rootPath;
 		this.actionType = request.getParameter( "action" );

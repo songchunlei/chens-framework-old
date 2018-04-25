@@ -1,6 +1,8 @@
 package com.baidu.ueditor.upload;
 
 import com.baidu.ueditor.define.State;
+import com.chens.ueditor.constants.ConfigConstants;
+
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,12 +19,23 @@ public class Uploader {
 		String filedName = (String) this.conf.get("fieldName");
 		State state = null;
 
-		if ("true".equals(this.conf.get("isBase64"))) {
-			state = Base64Uploader.save(this.request.getParameter(filedName),
-					this.conf);
-		} else {
-			state = BinaryUploader.save(this.request, this.conf);
+		String uploadType = (String)this.conf.get(ConfigConstants.UPLOAD_TYPE);
+
+		//自定义配置
+		if(ConfigConstants.UPLOAD_TYPE_COMMON.equals(uploadType)){
+
 		}
+		else
+		{
+			if ("true".equals(this.conf.get("isBase64"))) {
+				state = Base64Uploader.save(this.request.getParameter(filedName),
+						this.conf);
+			} else {
+				state = BinaryUploader.save(this.request, this.conf);
+			}
+		}
+
+
 
 		return state;
 	}
