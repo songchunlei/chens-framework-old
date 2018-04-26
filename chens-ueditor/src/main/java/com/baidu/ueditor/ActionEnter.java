@@ -1,5 +1,6 @@
 package com.baidu.ueditor;
 
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,15 +35,14 @@ public class ActionEnter {
 
 		this.actionType = request.getParameter( "action" );
 		this.configManager = ConfigManager.getInstance( this.rootPath,this.contextPath,this.projectPath);
-
-			/*
-		this.request = request;
-		this.rootPath = rootPath;
-		this.actionType = request.getParameter( "action" );
-		this.contextPath = request.getContextPath();
-		this.configManager = ConfigManager.getInstance( this.rootPath, this.contextPath, request.getRequestURI() );
-		*/
 		
+	}
+
+	public ActionEnter (HttpServletRequest request, InputStream inputStream) {
+		this.request = request;
+		this.actionType = request.getParameter( "action" );
+		this.configManager = ConfigManager.getInstance( inputStream);
+
 	}
 	
 	public String exec () throws JSONException{

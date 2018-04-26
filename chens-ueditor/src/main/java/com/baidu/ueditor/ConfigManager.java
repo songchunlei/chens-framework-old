@@ -43,6 +43,22 @@ public final class ConfigManager {
 	}
 
 	/**
+	 * 通过一个给定的路径构建一个配置管理器， 该管理器要求地址路径所在目录下必须存在config.properties文件
+	 */
+	private ConfigManager(InputStream inputStream) throws IOException {
+		this.rootPath = "";
+		this.staticPath ="";
+		this.projectPath = "";
+		String configContent = this.readFile(inputStream);
+		try {
+			JSONObject jsonConfig = new JSONObject(configContent);
+			this.jsonConfig = jsonConfig;
+		} catch (Exception e) {
+			this.jsonConfig = null;
+		}
+	}
+
+	/**
 	 * 配置管理器构造工厂
 	 *
 	 *
@@ -54,6 +70,22 @@ public final class ConfigManager {
 	public static ConfigManager getInstance(String rootPath, String staticPath, String projectPath) {
 		try {
 			return new ConfigManager(rootPath,staticPath,projectPath);
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	/**
+	 * 配置管理器构造工厂
+	 *
+	 *
+	 * @param inputStream  配置文件流
+	 * @return 配置管理器实例或者null
+	 */
+	public static ConfigManager getInstance(InputStream inputStream) {
+		try {
+			return new ConfigManager(inputStream);
 		} catch (Exception e) {
 			return null;
 		}
@@ -170,12 +202,16 @@ public final class ConfigManager {
 	}
 
 	private String readFile(String path) throws IOException {
+		return readFile(new FileInputStream(path));
+	}
+
+	private String readFile(InputStream inputStream) throws IOException {
 
 		StringBuilder builder = new StringBuilder();
 
 		try {
 
-			InputStreamReader reader = new InputStreamReader(new FileInputStream(path), "UTF-8");
+			InputStreamReader reader = new InputStreamReader(inputStream, "UTF-8");
 			BufferedReader bfReader = new BufferedReader(reader);
 
 			String tmpContent = null;

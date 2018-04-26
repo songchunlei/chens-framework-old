@@ -2,16 +2,14 @@ package com.chens.ueditor.servlet;
 
 import com.baidu.ueditor.ActionEnter;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -25,25 +23,26 @@ import java.io.PrintWriter;
 public class UEditorServlet extends HttpServlet {
 
 
-    @Autowired
-    private Environment environment;
 
-    private final static String staticPath = "";
-
-    private Logger logger = LoggerFactory.getLogger(UEditorServlet.class);
-
-    private String rootPath;
-
-    private String projectPath = null;
+    @Value(value="classpath:config.json")
+    private Resource resource;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        /*资源服务方法（另一种解决思路）
+        File file = ResourceUtils.getFile("classpath:config.json");
+        File abFile = file.getAbsoluteFile();
+        String abPath = file.getAbsolutePath();
+        String parent = file.getParent();
+        File parentFile = file.getParentFile();*/
+
         resp.setCharacterEncoding( "utf-8" );
         resp.setHeader("Content-Type" , "text/html");
         PrintWriter out = resp.getWriter();
-
         try {
-            out.write( new ActionEnter( req, rootPath,staticPath,getProjectPath()).exec());
+            out.write( new ActionEnter( req, resource.getInputStream()).exec());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -54,40 +53,11 @@ public class UEditorServlet extends HttpServlet {
         resp.setCharacterEncoding( "utf-8" );
         resp.setHeader("Content-Type" , "text/html");
         PrintWriter out = resp.getWriter();
-
         try {
-            out.write( new ActionEnter( req, rootPath,staticPath,getProjectPath()).exec());
+            out.write( new ActionEnter( req, resource.getInputStream()).exec());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-    }
-
-
-    public UEditorServlet() {
-        String path  = UEditorServlet.class.getClassLoader().getResource("config.json").getPath();
-        logger.info("path->"+path);
-        File file =  new File(path);
-        if(file.getParentFile().isDirectory()) {
-            rootPath = new File(path).getParent()+"/";
-        }else{
-            rootPath = new File(path).getParentFile().getParent()+"/";
-            rootPath = rootPath.replace("file:","");
-        }
-    }
-
-    private String getProjectPath(){
-        if(null==projectPath) {
-            String val = environment.getProperty("server.context-path", "");
-            if ("".equals(val)) {
-                val = environment.getProperty("server.contextPath", "");
-                if ("".equals(val)) {
-                    projectPath = "";
-                    return projectPath;
-                }
-            }
-            projectPath = val.replace("/", "") + "/";
-        }
-        return projectPath;
     }
 }
