@@ -28,7 +28,7 @@ public class UEditorServlet extends HttpServlet {
     @Autowired
     private Environment environment;
 
-    private final static String staticPath = "static/";
+    private final static String staticPath = "";
 
     private Logger logger = LoggerFactory.getLogger(UEditorServlet.class);
 
