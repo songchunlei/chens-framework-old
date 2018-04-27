@@ -37,4 +37,10 @@ public interface ISysMenuService extends IService<SysMenu> {
      */
     List<MenuTree> getMenuTreeListByUserId(String userId);
 
+    /**
+     * 获取全量菜单
+     * @return
+     */
+    List<MenuTree> getAllMenuTreeList();
+
 }

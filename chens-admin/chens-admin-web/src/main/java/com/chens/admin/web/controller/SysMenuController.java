@@ -42,4 +42,14 @@ public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu
         return doSuccess(CommonConstants.QUERY_SUCCESS,service.getMenuTreeListByUserId(userId));
     }
 
+    /**
+     * 根据用户id获取菜单
+     * @return
+     */
+    @GetMapping("/getAllMenuTreeList")
+    public ResponseEntity<Result> getMenuListByUserId() {
+        return doSuccess(CommonConstants.QUERY_SUCCESS,service.getAllMenuTreeList());
+    }
+
+
 }

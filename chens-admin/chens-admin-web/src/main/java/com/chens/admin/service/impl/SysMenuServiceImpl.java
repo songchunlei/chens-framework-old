@@ -1,5 +1,6 @@
 package com.chens.admin.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.chens.core.constants.CommonConstants;
 import com.chens.admin.entity.SysMenu;
 import com.chens.admin.mapper.SysMenuMapper;
@@ -37,8 +38,26 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<MenuTree> getMenuTreeListByUserId(String userId) {
-        List<MenuTree> trees = new ArrayList<>();
         List<SysMenu> sysMenus =  this.getMenuListByUserId(userId);
+        List<MenuTree> trees = TreeUtil.buildByRecursive(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
+        return trees;
+    }
+
+    @Override
+    public List<MenuTree> getAllMenuTreeList() {
+        List<SysMenu> sysMenus =  this.selectList(new EntityWrapper<>(new SysMenu()));
+        List<MenuTree> trees = TreeUtil.buildByRecursive(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
+        return trees;
+    }
+
+    /**
+     * 树型转换
+     * @param sysMenus
+     * @return
+     */
+    private List<MenuTree> MenuListToMenuTreeList(List<SysMenu> sysMenus)
+    {
+        List<MenuTree> trees = new ArrayList<>();
         if(!CollectionUtils.isEmpty(sysMenus))
         {
             for (SysMenu menu:sysMenus) {
@@ -48,8 +67,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 trees.add(menuTree);
             }
         }
-        trees = TreeUtil.buildByRecursive(trees, CommonConstants.BASE_TREE_ROOT);
         return trees;
     }
+
 
 }
