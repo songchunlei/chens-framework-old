@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chens.tag.mapper.TagMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, comment, tag_name AS tagName, update_time AS updateTime, create_time AS createTime, update_by AS updateBy, create_by AS createBy, tenant_id AS tenantId, type, class_id AS classId, update_by_name AS updateByName, create_by_name AS createByName
+    </sql>
+
+</mapper>
