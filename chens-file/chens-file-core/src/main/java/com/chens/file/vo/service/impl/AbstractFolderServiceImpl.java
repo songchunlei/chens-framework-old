@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
-import com.chens.file.exception.FileException;
+import com.chens.core.exception.FileException;
 import com.chens.file.util.FolderUtil;
 import com.chens.core.util.StringUtils;
 import com.chens.file.vo.FolderFileInfo;
 import com.chens.file.constants.FileConstants;
-import com.chens.file.exception.FileExceptionEnum;
+import com.chens.file.exception.FolderExceptionEnum;
 import com.chens.file.vo.AbstractFolder;
 import com.chens.file.vo.mapper.AbstractFolderMapper;
 import com.chens.file.vo.service.IAbstractFolderService;
@@ -19,8 +19,6 @@ import org.springframework.util.CollectionUtils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.currentTimeMillis;
 
 /**
  * <p>
@@ -200,7 +198,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
             int count = this.selectCount(wrapper);
             if(count+1>FileConstants.MAX_FOLDER_COUNT)
             {
-                throw new FileException(FileExceptionEnum.FILE_MAX);
+                throw new FileException(FolderExceptionEnum.FOLDER_MAX);
             }
             //3.插入语意id
             entity.setCascadeId(parentCascadeId+"."+df.format(count+1));
@@ -210,7 +208,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         }
         else
         {
-            throw new BaseException(FileExceptionEnum.FOLDER_PARENT_ID_IS_NULL);
+            throw new BaseException(FolderExceptionEnum.FOLDER_PARENT_ID_IS_NULL);
         }
     }
 

@@ -1,33 +1,34 @@
-package com.chens.file.exception;
+package com.chens.coder.exception;
 
 import com.chens.core.enums.IBaseEnum;
 
 /**
- * 文件错误反馈
+ * 文件错误异常枚举
  *
  * @author songchunlei@qq.com
  * @create 2018/4/17
  */
-public class FileException extends RuntimeException {
+public enum CoderExceptionEnum implements IBaseEnum {
 
-	private Integer code;
+
+    QR_CREATE_ERROR(1601,"二维码创建失败");
+
+
+    private Integer code;
 
     private String message;
 
-    public FileException(Integer code, String message) {
+    CoderExceptionEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public FileException(IBaseEnum baseEnum) {
-        this.code = baseEnum.getCode();
-        this.message = baseEnum.getMessage();
-    }
-
+    @Override
     public Integer getCode() {
         return code;
     }
 
+    @Override
     public void setCode(Integer code) {
         this.code = code;
     }
@@ -37,7 +38,10 @@ public class FileException extends RuntimeException {
         return message;
     }
 
+    @Override
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 }

@@ -3,29 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>chens-parent</artifactId>
+        <artifactId>chens-coder</artifactId>
         <groupId>com.chens</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../chens-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>chens-common-buss</artifactId>
-    <packaging>pom</packaging>
-    <description>常用业务组件</description>
-    <modules>
-        <module>chens-tag</module>
-        <module>chens-tag-api</module>
-        <module>chens-share-api</module>
-        <module>chens-share</module>
-    </modules>
+    <description>google-ZXing编码生成器</description>
+    <artifactId>chens-zxing</artifactId>
 
     <dependencies>
-        <!--通用方法集-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>chens-core</artifactId>
+            <artifactId>chens-coder-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 </project>

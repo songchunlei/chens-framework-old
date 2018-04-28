@@ -1,53 +1,27 @@
 package com.chens.file.util;
 
 
+import com.chens.core.util.BaseFileUtil;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.UUIDUtil;
-import com.chens.file.exception.FileException;
-import com.chens.file.exception.FileExceptionEnum;
+import com.chens.core.exception.FileException;
+import com.chens.core.exception.FileExceptionEnum;
+import com.chens.file.exception.FolderExceptionEnum;
 import com.chens.file.vo.FileData;
-import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 文件服务常用工具类
+ * 文件服务工具类
  *
  * @author songchunlei@qq.com
  * @create 2018/3/14
  */
-public class FileUtil {
-
-    private static final Logger logger = Logger.getLogger(FileUtil.class);
-    private static final int BUFFER_SIZE = 16 * 1024;
-
-    /**
-     * 判断是否为图片
-     * @param tempFile
-     * @return
-     * @throws Exception
-     */
-    public static boolean isImage(File tempFile)
-            throws Exception {
-        ImageInputStream is= ImageIO.createImageInputStream(tempFile);
-        return is!=null;
-    }
-
-    /**
-     * 取得文件扩展名
-     * @param fileName 文件全名
-     * @return 文件扩展名(例如: .gif)
-     */
-    public static String getExtention(String fileName) {
-        int pos = fileName.lastIndexOf(".");
-        return fileName.substring(pos);
-    }
+public class FileUtil extends BaseFileUtil{
 
     /**
      * 根据文件创建md5
@@ -99,88 +73,6 @@ public class FileUtil {
         } catch (IOException e) {
             throw new FileException(FileExceptionEnum.FILE_READING_ERROR.getCode(),e.getMessage());
         }
-    }
-
-    /**
-     * 文件拷贝
-     * @param src
-     * @param dst
-     */
-    public static void copy(File src, File dst) {
-        mkDirs(dst.getPath());
-        try (InputStream in = new FileInputStream(src);
-             OutputStream out = new FileOutputStream(dst);) {
-            copy(in, out);
-        } catch (Exception e) {
-            logger.error(e);
-        }
-    }
-
-    /**
-     * 文件流拷贝
-     * @param in
-     * @param out
-     */
-    public static void copy(InputStream in, OutputStream out) {
-        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(in, BUFFER_SIZE);
-             BufferedOutputStream bufferedOutputStream =
-                     new BufferedOutputStream(out, BUFFER_SIZE)) {
-            byte[] buffer = new byte[BUFFER_SIZE];
-            while (bufferedInputStream.read(buffer) > 0) {
-                bufferedOutputStream.write(buffer);
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * 创建文件
-     * @param path
-     * @return
-     * @throws IOException
-     */
-    public static File createFile(String path) throws IOException {
-        File file;
-        file = new File(path);
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        return file;
-    }
-
-    /**
-     * 创建目录
-     * @param path
-     */
-    public static void mkDirs(String path) {
-        File file = new File(path);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
-    }
-
-
-
-    /**
-     * 删除指定文件夹
-     * @param folderPath 文件夹路径
-     * @return 是否删除成功
-     */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static boolean deleteFolder(@NotNull final String folderPath) {
-        File dir = new File(folderPath);
-        File[] files = dir.listFiles();
-        if(files!=null){
-            for (File file : files) {
-                try {
-                    file.delete();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return dir.delete();
     }
 
     /**
@@ -242,4 +134,5 @@ public class FileUtil {
             inputStream.close();
         }
     }
+
 }

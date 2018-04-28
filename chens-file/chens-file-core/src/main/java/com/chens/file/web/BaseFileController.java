@@ -1,11 +1,12 @@
 package com.chens.file.web;
 
 import com.chens.core.constants.CommonConstants;
+import com.chens.core.util.BaseFileUtil;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
 import com.chens.file.constants.FileConstants;
-import com.chens.file.exception.FileException;
-import com.chens.file.exception.FileExceptionEnum;
+import com.chens.core.exception.FileException;
+import com.chens.core.exception.FileExceptionEnum;
 import com.chens.file.service.IFileService;
 import com.chens.file.util.FileUtil;
 import com.chens.file.vo.FileData;
@@ -51,24 +52,8 @@ public abstract class BaseFileController extends BaseController {
         {
             throw new FileException(FileExceptionEnum.FILE_IS_NOT_FOUND);
         }
-        try (InputStream in = new ByteArrayInputStream(fileData.getData()); OutputStream out = response.getOutputStream();) {
-            response.setContentType(fileData.getType());
-            /*"UTF-8"*/
-            response.setCharacterEncoding(CommonConstants.CHARACTER_UTF8);
-            // 解决不同浏览器中文文件名乱码问题
-            if (request.getHeader("User-Agent").toLowerCase().indexOf("firefox") > 0) {
-                // firefox浏览器
-                response.setHeader("Content-disposition", "attachment; filename=" + new String(fileData.getOrgName().getBytes(CommonConstants.CHARACTER_UTF8), CommonConstants.CHARACTER_ISO88591));
-            } else {
-                response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileData.getOrgName(), CommonConstants.CHARACTER_UTF8));
-            }
-            FileUtil.copy(in, out);
-            out.flush();
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        } catch (FileException e) {
-            logger.error(e.getMessage(), e);
-        }
+        BaseFileUtil.printResponseOut(request,response,fileData.getData(),fileData.getOrgName(),fileData.getType(),CommonConstants.CHARACTER_UTF8);
+
     }
 
 

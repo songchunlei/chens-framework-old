@@ -32,6 +32,8 @@
         <module>../chens-ueditor</module>
         <!--流程引擎-->
         <module>../chens-bpm</module>
+        <!--二维码等编码生成器-->
+        <module>../chens-coder</module>
         <!--通用业务模块-->
         <module>../chens-common-buss</module>
         <!--注册中心-->
@@ -44,6 +46,7 @@
         <module>../chens-admin</module>
         <!--网关-->
         <module>../chens-gateway</module>
+
         <!--<module>../chens-lucene</module>-->
 
     </modules>
@@ -92,6 +95,8 @@
         <reflections.version>0.9.9-RC1</reflections.version>
 
         <lucene.version>7.3.0</lucene.version>
+
+        <zxing.version>3.3.2</zxing.version>
 
     </properties>
 
@@ -230,6 +235,13 @@
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-core</artifactId>
                 <version>${lucene.version}</version>
+            </dependency>
+
+            <!--谷歌二维码-->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
             </dependency>
 
             <!--<dependency>-->
