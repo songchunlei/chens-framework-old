@@ -66,7 +66,9 @@ zuul:
       path: /authController/register
       # 这里表示，这个路由的实例信息，是通过ribbon负载均衡器进行获取的。值就是对应服务名
       serviceId: chens-admin-web
-
+    share:
+      path: /shareController/share
+      serviceId: exam-wms
 
 ####################结束路由配置###################################
 
@@ -119,3 +121,4 @@ chens:
         - auth
         - register
         - parseToken
+        - share

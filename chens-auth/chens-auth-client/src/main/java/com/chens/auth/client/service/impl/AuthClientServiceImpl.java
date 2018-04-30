@@ -66,8 +66,16 @@ public class AuthClientServiceImpl implements IAuthClientService {
 
         //获取token
         String token = request.getHeader(this.getUserHeaderKey());
-        //获取用户信息
+        //获取用户id信息
         String userId = request.getHeader(AuthConstants.KEY_USER_ID);
+
+        //补偿逻辑，当没有用户id但是有token，继续拿token鉴权
+        if(StringUtils.isEmpty(userId) && StringUtils.isNotEmpty(token))
+        {
+            return getUserInfo(request);
+        }
+
+        //获取用户信息
         String userName = request.getHeader(AuthConstants.KEY_USER_NAME);
         String tenantId = request.getHeader(AuthConstants.KEY_TENANT_ID);
         //反编译用户名称
@@ -78,11 +86,7 @@ public class AuthClientServiceImpl implements IAuthClientService {
             throw new BaseException(BaseExceptionEnum.DATA_REQUEST_ERROR.getCode(),e.getMessage());
         }
 
-        //补偿逻辑，当没有用户id但是有token，继续拿token鉴权
-        if(StringUtils.isEmpty(userId) && StringUtils.isNotEmpty(token))
-        {
-            return getUserInfo(request);
-        }
+
 
         //当用户id为空，则报错
         if(StringUtils.isEmpty(userId))
