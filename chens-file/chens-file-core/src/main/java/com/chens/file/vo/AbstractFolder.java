@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.chens.core.annotation.InsertValid;
 import com.chens.core.annotation.UpdateValid;
-import com.chens.core.enums.FileType;
+import com.chens.core.enums.FileTypeEnum;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.vo.BaseEntity;
 
@@ -119,6 +119,6 @@ public abstract class AbstractFolder<T extends AbstractFolder> extends BaseEntit
 
 	public FolderFileInfo getFolderFileInfo()
 	{
-		return new FolderFileInfo(this.getId(),this.getParentId(), FileType.FOLDER.getCode(),this.getLvl(),this.getName(), this.getUpdateTime());
+		return new FolderFileInfo(this.getId(),this.getParentId(), FileTypeEnum.FOLDER.getCode(),this.getLvl(),this.getName(), this.getUpdateTime());
 	}
 }

@@ -1,6 +1,8 @@
 package com.chens.coder;
 
 
+import com.chens.core.util.StringUtils;
+
 /**
  * 配置
  *
@@ -17,12 +19,12 @@ public class QRConfig {
     /**
      * 二维码宽度
      */
-    private int width = 400;
+    private int width = 200;
 
     /**
      * 二维码高度
      */
-    private int height = 400;
+    private int height = 200;
 
     /**
      * 生成图片格式
@@ -47,7 +49,45 @@ public class QRConfig {
     public QRConfig() {
     }
 
+    /**
+     * 构建
+     * @param content
+     * @param width
+     * @param height
+     * @param format
+     * @param charCode
+     */
     public QRConfig(String content, int width, int height, String format, String charCode) {
+        this.setInit(content,width,height,format,charCode);
+    }
+
+    /**
+     * 构建
+     * @param content
+     * @param width
+     * @param height
+     * @param format
+     * @param charCode
+     * @param logo
+     * @param logoCent
+     */
+    public QRConfig(String content, int width, int height, String format, String charCode, byte[] logo, int logoCent) {
+        this.setInit(content,width,height,format,charCode);
+        this.logo = logo;
+        this.logoCent = logoCent;
+
+    }
+
+    /**
+     * 通用初始化
+     * @param content
+     * @param width
+     * @param height
+     * @param format
+     * @param charCode
+     */
+    private void setInit(String content, int width, int height, String format, String charCode)
+    {
         this.content = content;
         if(width>this.width)
         {
@@ -57,18 +97,14 @@ public class QRConfig {
         {
             this.height = height;
         }
-        this.format = format;
-        this.charCode = charCode;
-    }
-
-    public QRConfig(String content, int width, int height, String format, String charCode, byte[] logo, int logoCent) {
-        this.content = content;
-        this.width = width;
-        this.height = height;
-        this.format = format;
-        this.charCode = charCode;
-        this.logo = logo;
-        this.logoCent = logoCent;
+        if(StringUtils.isNotEmpty(format))
+        {
+            this.format = format;
+        }
+        if(StringUtils.isNotEmpty(charCode))
+        {
+            this.charCode = charCode;
+        }
     }
 
     public String getContent() {

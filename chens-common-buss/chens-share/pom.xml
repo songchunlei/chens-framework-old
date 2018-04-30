@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chens-tag</artifactId>
+    <artifactId>chens-share</artifactId>
 
     <dependencies>
-        <!--api-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>chens-tag-api</artifactId>
+            <artifactId>chens-share-api</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
