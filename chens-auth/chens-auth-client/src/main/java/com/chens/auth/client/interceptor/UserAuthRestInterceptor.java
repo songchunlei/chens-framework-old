@@ -2,6 +2,7 @@ package com.chens.auth.client.interceptor;
 
 import com.chens.auth.client.annotation.IgnoreUserToken;
 import com.chens.auth.client.service.IAuthClientService;
+import com.chens.auth.constants.AuthConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -12,10 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 用户权限拦截器
  * 引用自 https://gitee.com/geek_qi/ace-security,按现有框架做了调整
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/21
  */
 public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
+
+    /**
+     * 简单校验场景
+     * 是否使用request里的userKey(用户id)校验
+     */
+    private boolean isSimpleValidate = false;
+
+    public UserAuthRestInterceptor() {
+    }
+
+    public UserAuthRestInterceptor(boolean isSimpleValidate) {
+        this.isSimpleValidate = isSimpleValidate;
+    }
 
     @Autowired
     private IAuthClientService authClientService;
@@ -33,8 +47,17 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter{
             return super.preHandle(request, response, handler);
         }
 
-        //引用授权服务
-        authClientService.getUserInfo(request);
+        if(isSimpleValidate)
+        {
+            //简单校验
+            authClientService.getUserInfoBySimple(request);
+        }
+        else
+        {
+            //引用授权服务
+            authClientService.getUserInfo(request);
+        }
+
 
         return super.preHandle(request, response, handler);
     }

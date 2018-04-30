@@ -10,10 +10,8 @@ import com.chens.auth.mapper.SysTokenMapper;
 import com.chens.auth.service.ISysTokenService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.constants.CommonConstants;
-import com.chens.admin.entity.SysUser;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.exception.AuthException;
-import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.exception.TimeOutException;
 import com.chens.core.vo.AuthRequest;
@@ -84,8 +82,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     @Transactional
     @Override
     public UserInfo createToken(AuthRequest authRequest) {
-        SysUser sysUser = sysUserClient.findByUsername(authRequest);
-        return this.createToken(sysUser.getUserInfo());
+        return this.createToken(sysUserClient.findByUsername(authRequest));
     }
 
     @Override

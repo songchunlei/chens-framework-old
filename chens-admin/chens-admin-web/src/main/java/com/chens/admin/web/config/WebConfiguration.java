@@ -40,7 +40,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Bean
     UserAuthRestInterceptor getUserAuthRestInterceptor() {
-        return new UserAuthRestInterceptor();
+        return new UserAuthRestInterceptor(true);
     }
 
     /**

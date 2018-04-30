@@ -24,6 +24,7 @@ public enum BaseExceptionEnum implements IBaseEnum {
     AUTH_REQUEST_NO_USERNAME(201, "账号为空"),
     AUTH_REQUEST_NO_PASSWORD(202, "密码为空"),
     AUTH_REQUEST_NO_CODE(203, "验证码为空"),
+    AUTH_REQUEST_SIMPLE_ERROR(204, "账户校验异常"),
 
 
     /**
