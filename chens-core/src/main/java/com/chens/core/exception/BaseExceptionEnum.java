@@ -56,8 +56,12 @@ public enum BaseExceptionEnum implements IBaseEnum {
      * 注册异常
      */
     REGISTER_SYSTENANT_ERROR(700,"租户注册错误"),
-    REGISTER_SYSUSER_ERROR(701,"账户注册错误");
+    REGISTER_SYSUSER_ERROR(701,"账户注册错误"),
 
+    /**
+     * 业务异常
+     */
+    NO_TABLE_NAME(802,"业务实体@TableName表名未定义");
 
     private Integer code;
 

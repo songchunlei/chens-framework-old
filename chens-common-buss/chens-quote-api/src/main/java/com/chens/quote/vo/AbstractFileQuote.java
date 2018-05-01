@@ -23,20 +23,30 @@ public abstract class AbstractFileQuote<T extends AbstractFileQuote> extends Bas
      */
 	@TableField("data_id")
 	protected String dataId;
-    /**
-     * 排序
-     */
-	protected Integer seq;
+
+	/**
+	 * 文件类型
+	 */
+	@TableField("file_type")
+	protected String fileType;
+
     /**
      * 文件id
      */
 	@TableField("file_id")
 	protected String fileId;
-    /**
-     * 文件抽象类型
-     */
-	@TableField("file_type")
-	protected String fileType;
+
+	/**
+	 * 排序
+	 */
+	protected Integer seq;
+
+
+	/**
+	 * 备注
+	 */
+	protected String remark;
+
     /**
      * 文件真实类型(冗余字段)
      */
@@ -47,16 +57,15 @@ public abstract class AbstractFileQuote<T extends AbstractFileQuote> extends Bas
      */
 	@TableField("file_path")
 	protected String filePath;
-    /**
-     * 备注
-     */
-	protected String remark;
+
     /**
      * 逻辑删除
      */
 	@TableField("is_delete")
 	protected String isDelete;
 
+	public AbstractFileQuote() {
+	}
 
 	public String getType() {
 		return type;

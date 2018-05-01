@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 /**
  * 唯一性校验
- * @auther songchunlei
+ * @author songchunlei
  * @create 2018/3/28
  */
 @Target({ElementType.TYPE})

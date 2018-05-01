@@ -95,7 +95,6 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     public ResponseEntity<Result> save(@RequestBody @Validated T t) {
         if(t != null){
         	//校验当前操作人是不是数据创建人
-        	//校验当前操作人是不是数据创建人
         	if(!checkUser(t)){
         		return doError("只能提交本人创建的数据！");
         	}        	

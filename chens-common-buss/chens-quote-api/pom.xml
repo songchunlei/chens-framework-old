@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>文件引用服务</description>
+    <description>文件引用服务(多对多关系)</description>
     <artifactId>chens-quote-api</artifactId>
 
 

@@ -7,4 +7,20 @@
         id, tenant_id AS tenantId, type, data_id AS dataId, seq, file_id AS fileId, file_type AS fileType, file_ext AS fileExt, file_path AS filePath, remark, create_by AS createBy, create_time AS createTime, update_by AS updateBy, update_time AS updateTime, is_delete AS isDelete, update_by_name AS updateByName, create_by_name AS createByName
     </sql>
 
+    <!-- 查看文件被哪些数据引用（根据被引入文件的id获取数据列表） -->
+    <select id="getDataIdListByFileId" parameterType="java.lang.String"  resultType="java.lang.String" statementType="STATEMENT">
+        select data_id AS dataId
+        from ${table_name}
+        where file_id=${fileId}
+        and file_type = ${fileType}
+    </select>
+
+    <!-- 查看文件被哪些数据引用（根据被引入文件的id获取数据列表） -->
+    <select id="getFileIdListByDataId" parameterType="java.lang.String"  resultType="java.lang.String" statementType="STATEMENT">
+        select file_id AS fileId
+        from ${table_name}
+        where data_id=${dataId}
+        and type = ${dataType}
+    </select>
+
 </mapper>
