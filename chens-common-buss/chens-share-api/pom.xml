@@ -11,5 +11,13 @@
 
     <artifactId>chens-share-api</artifactId>
 
+    <dependencies>
+        <!--二维码集-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>chens-zxing</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

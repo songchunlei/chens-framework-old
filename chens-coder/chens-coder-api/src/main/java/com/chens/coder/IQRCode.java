@@ -21,7 +21,7 @@ public interface IQRCode {
     /**
      * 创建并保存
      * @param config 配置文件
-     * @param savePath 保存位置
+     * @param savePath 保存位置,如/opt/upload
      * @throws IOException
      * @return String 返回二URL地址
      */

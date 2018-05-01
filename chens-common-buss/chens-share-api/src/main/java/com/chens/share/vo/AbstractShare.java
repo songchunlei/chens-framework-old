@@ -1,12 +1,11 @@
-package com.chens.share.entity;
+package com.chens.share.vo;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.chens.core.enums.YesNoEnum;
 import com.chens.core.vo.BaseEntity;
+import com.chens.share.constants.ShareConstants;
 import com.chens.share.enums.ShareTypeEnum;
 
 import javax.validation.constraints.NotNull;
@@ -14,69 +13,74 @@ import javax.validation.constraints.NotNull;
 /**
  *
  * 站内分享 实体
- *
+ * @TableName("t_share")
  * @author chunlei.song@live.com
  * @create 2018-04-29
  */
-@TableName("t_share")
-public class Share extends BaseEntity<Share> {
+public abstract class AbstractShare<T extends AbstractShare> extends BaseEntity<T> {
 
     private static final long serialVersionUID = 1L;
 
 	@TableField("is_delete")
 	@TableLogic
-	private String isDelete;
+	protected String isDelete = YesNoEnum.NO.getCode();
     /**
      * 分享类型，组织分享，用户分享,密码分享
      */
     @NotNull
 	@TableField("share_type")
-	private String shareType;
+	protected String shareType;
     /**
      * 分享人id
      */
 	@NotNull
 	@TableField("share_by")
-	private String shareBy;
+	protected String shareBy;
     /**
      * 被分享人id
      */
 	@TableField("share_to_user")
-	private String shareToUser;
+	protected String shareToUser;
 
 	/**
 	 * 数据类型，自定义
 	 */
 	@TableField("data_type")
-	private String dataType;
+	protected String dataType;
 
     /**
      * 数据id
      */
     @NotNull
-	@TableField("data_id")
-	private String dataId;
+	@TableField(ShareConstants.SHARE_COLUMN_DATA_ID)
+	protected String dataId;
     /**
      * 被分享组织id
      */
 	@TableField("share_to_org")
-	private String shareToOrg;
+	protected String shareToOrg;
     /**
      * 密码分享
      */
 	@TableField("share_pwd")
-	private String sharePwd;
+	protected String sharePwd;
 
 	/**
 	 * 失效时间
 	 */
 	@TableField("invalid_time")
-	private Date invalidTime;
+	protected Date invalidTime;
 
-	public Share() {
+	/**
+	 * 二维码地址
+	 */
+	protected String url;
+
+	public AbstractShare() {
+
 	}
 
-	public Share(String shareType, String shareBy,String dataType, String dataId,String shareContent,Date invalidTime) {
+	public AbstractShare(String shareType, String shareBy, String dataType, String dataId, String shareContent, Date invalidTime) {
 		this.shareType = shareType;
 		this.shareBy = shareBy;
 		this.dataType = dataType;
@@ -103,7 +107,7 @@ public class Share extends BaseEntity<Share> {
 		}
 	}
 
-	public Share(String shareType, String shareBy,String dataType, String dataId) {
+	public AbstractShare(String shareType, String shareBy, String dataType, String dataId) {
 		this.shareType = shareType;
 		this.shareBy = shareBy;
 		this.dataType = dataType;
@@ -183,4 +187,13 @@ public class Share extends BaseEntity<Share> {
 	public void setInvalidTime(Date invalidTime) {
 		this.invalidTime = invalidTime;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 }
