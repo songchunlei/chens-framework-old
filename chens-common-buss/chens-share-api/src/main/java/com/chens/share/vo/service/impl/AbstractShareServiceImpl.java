@@ -30,16 +30,6 @@ public abstract class AbstractShareServiceImpl<M extends AbstractShareMapper<T>,
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean insert(T entity) {
-
-
-        super.insert(entity);
-
-        return true;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public T insertAndCreateQRCoder(T t,String url,String savePath)
     {
         //增加二维码生成(使用默认配置)
