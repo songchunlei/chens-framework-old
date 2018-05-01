@@ -18,6 +18,8 @@
         <module>chens-tag-api</module>
         <module>chens-share-api</module>
         <module>chens-share</module>
+        <module>chens-quote-api</module>
+        <module>chens-folder-api</module>
     </modules>
 
     <dependencies>

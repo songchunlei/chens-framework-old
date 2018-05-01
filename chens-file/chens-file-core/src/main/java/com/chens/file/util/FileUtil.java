@@ -6,7 +6,6 @@ import com.chens.core.util.StringUtils;
 import com.chens.core.util.UUIDUtil;
 import com.chens.core.exception.FileException;
 import com.chens.core.exception.FileExceptionEnum;
-import com.chens.file.exception.FolderExceptionEnum;
 import com.chens.file.vo.FileData;
 import org.springframework.web.multipart.MultipartFile;
 

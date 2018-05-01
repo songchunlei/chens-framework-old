@@ -5,7 +5,6 @@ import com.chens.core.util.StringUtils;
 import com.chens.file.entity.SysFile;
 import com.chens.core.exception.FileException;
 import com.chens.core.exception.FileExceptionEnum;
-import com.chens.file.exception.FolderExceptionEnum;
 import com.chens.file.service.IFileInfoService;
 import com.chens.file.service.IFilePathGenerator;
 import com.chens.file.service.IFileService;
