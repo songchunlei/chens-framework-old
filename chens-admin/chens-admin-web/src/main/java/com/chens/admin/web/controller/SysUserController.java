@@ -93,5 +93,17 @@ public class SysUserController extends BaseWebController<ISysUserService,SysUser
         }
     }
 
+    @PostMapping("/pageListInTenant")
+    public ResponseEntity<Result> pageListInTenant(@RequestBody QueryPageEntity<SysUser> spage) {
+        if(spage!=null)
+        {
+            spage.getPage().setTenant(true);
+            return super.pagelist(spage);
+        }
+        else {
+            throw new BaseException(BaseExceptionEnum.REQUEST_NULL);
+        }
+
+    }
 }
 

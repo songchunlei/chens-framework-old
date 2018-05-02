@@ -5,7 +5,6 @@ import com.chens.coder.IQRCode;
 import com.chens.coder.QRConfig;
 import com.chens.core.exception.FileException;
 import com.chens.core.exception.FileExceptionEnum;
-import com.chens.core.util.UUIDUtil;
 import com.chens.share.vo.AbstractShare;
 import com.chens.share.vo.mapper.AbstractShareMapper;
 import com.chens.share.vo.service.IAbstractShareService;

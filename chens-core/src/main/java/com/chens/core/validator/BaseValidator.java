@@ -2,6 +2,7 @@ package com.chens.core.validator;
 
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.util.StringUtils;
+import com.chens.core.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -31,7 +32,10 @@ public class BaseValidator <S extends IService<T>, T extends BaseEntity<T>> {
         //先置空
         t.setId(null);
         //根据特定字段查询是否存在
-        EntityWrapper<T> wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(t, false,true);
+        PageVo pageVo = new PageVo();
+        pageVo.setLike(false);
+        pageVo.setAnd(true);
+        EntityWrapper<T> wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(t, pageVo);
         if (StringUtils.isNotEmpty(id))
         {
             wrapper.ne(CommonConstants.BASE_COLUMN_ID,id);

@@ -97,6 +97,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
                             //获取路过的文件夹
                             EntityWrapper<T> wrapper = new EntityWrapper<>();
                             wrapper.orderBy(FolderConstants.FOLDER_FILE_COLUMN_LVL+" ASC");
+                            wrapper.orderBy(CommonConstants.BASE_COLUMN_UPDATE_TIME+" DESC");
                             wrapper.eq(FolderConstants.FOLDER_COLUMN_TYPE,initType());
                             wrapper.andNew();
                             int i = 0;
@@ -140,6 +141,7 @@ public abstract class AbstractFolderServiceImpl<M extends AbstractFolderMapper<T
         EntityWrapper<T> wrapper = new EntityWrapper<>();
         wrapper.eq(FolderConstants.FOLDER_COLUMN_PARENT_ID,id);
         wrapper.eq(FolderConstants.FOLDER_COLUMN_TYPE,initType());
+        wrapper.orderBy(CommonConstants.BASE_COLUMN_UPDATE_TIME+" DESC");
         List<T> childFolderTemps = this.selectList(wrapper);
         List<FolderFileInfo> childFolders = new ArrayList<>();
         for (T temp:childFolderTemps)

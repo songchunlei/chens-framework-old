@@ -49,14 +49,8 @@ public abstract class BaseWebController<S extends IService<T>, T extends BaseEnt
         PageVo pageVo = spage.getPage();
         //创建查询条件
         Page<T> page = this.createPage(spage);
-        //设置默认排序
-        if (StringUtils.isEmpty(spage.getPage().getOrderByField())) {
-            spage.getPage().setOrderByField(CommonConstants.BASE_ENTITY_UPDATE_TIME);
-        }
-        page.setOrderByField(spage.getPage().getOrderByField());
-        page.setAsc(pageVo.isAsc());
         //模糊查询各字段
-        EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),true,pageVo.isAnd());
+        EntityWrapper<T>  wrapper = EntityWrapperHelper.getQueryEntityWrapperByEntity(spage.getSearch(),pageVo);
         return  doSuccess(CommonConstants.QUERY_SUCCESS,service.selectPage(page,wrapper));
     }
 
