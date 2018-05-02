@@ -3,6 +3,7 @@ package com.chens.bpm.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.chens.bpm.vo.QueryFormVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -226,27 +227,27 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
     
     /**
      * 获取审批表单
-     * @param t
+     * @param queryFormVo
      * @return
      */
     @PostMapping("/getApproveFormData")
-    public ResponseEntity<Result> getApproveFormData(@RequestBody @Validated T t) {
-        if(t != null){
+    public ResponseEntity<Result> getApproveFormData(@RequestBody @Validated QueryFormVo queryFormVo) {
+        if(queryFormVo != null){
         	Map<String, Object> map = new HashMap<String, Object>();
         	//获取流程信息
         	ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
-        	processBussinessRel.setBusinessKey(t.getId());
+        	processBussinessRel.setBusinessKey(queryFormVo.getId());
         	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(processBussinessRel);
         	processBussinessRel = processBussinessRelService.selectOne(ew);
         	if(processBussinessRel != null){
-        		processBussinessRel.setTaskId(t.getTaskId());
-        		Map<String, Object> taskInfoMap = wfEngineService.getTaskInfoByTaskId(t.getTaskId());
+        		processBussinessRel.setTaskId(queryFormVo.getTaskId());
+        		Map<String, Object> taskInfoMap = wfEngineService.getTaskInfoByTaskId(queryFormVo.getTaskId());
         		processBussinessRel.setCurrentTaskDefinitionKey((String)taskInfoMap.get("taskDefinitionKey"));
         		processBussinessRel.setCurrentTaskDefinitionName((String)taskInfoMap.get("taskDefinitionName"));
         		map.put("processInfo", processBussinessRel);
         	}
         	//获取表单详情
-        	t = service.selectById(t.getId());
+        	T t = service.selectById(queryFormVo.getId());
         	map.put("businessData", t);
             return doSuccess("查询成功",map);
         } else {
