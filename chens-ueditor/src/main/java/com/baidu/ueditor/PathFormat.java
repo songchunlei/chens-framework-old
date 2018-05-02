@@ -24,7 +24,7 @@ public class PathFormat {
 	/**
 	 * 增加租户id
 	 */
-	private static final String TENANT_ID = "tenantId";
+	private static final String TENANT_ID = "tenantid";
 	
 	private static Date currentDate = null;
 	

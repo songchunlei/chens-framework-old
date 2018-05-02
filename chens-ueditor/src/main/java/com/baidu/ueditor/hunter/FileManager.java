@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 
@@ -14,6 +16,8 @@ import com.baidu.ueditor.define.MultiState;
 import com.baidu.ueditor.define.State;
 
 public class FileManager {
+
+	private static Pattern PATTERN_PATH = Pattern.compile( "\\{([^\\}]+)\\}",Pattern.CASE_INSENSITIVE);
 
 	private String dir = null;
 	private String rootPath = null;
@@ -30,8 +34,10 @@ public class FileManager {
 	}
 	
 	public State listFile ( int index ) {
-		
-		File dir = new File( this.dir );
+
+		this.dir = PathFormat.parse(this.dir, "");
+
+		File dir = new File( PathFormat.parse(this.dir, "") );
 		State state = null;
 
 		if ( !dir.exists() ) {
