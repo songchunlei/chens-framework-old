@@ -239,13 +239,17 @@ public abstract class BaseWfWebController<S extends IWfBaseService<T>, T extends
         	processBussinessRel.setBusinessKey(queryFormVo.getId());
         	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(processBussinessRel);
         	processBussinessRel = processBussinessRelService.selectOne(ew);
-        	if(processBussinessRel != null){
+        	if(processBussinessRel != null && StringUtils.isNotEmpty(queryFormVo.getTaskId())){
         		processBussinessRel.setTaskId(queryFormVo.getTaskId());
         		Map<String, Object> taskInfoMap = wfEngineService.getTaskInfoByTaskId(queryFormVo.getTaskId());
         		processBussinessRel.setCurrentTaskDefinitionKey((String)taskInfoMap.get("taskDefinitionKey"));
         		processBussinessRel.setCurrentTaskDefinitionName((String)taskInfoMap.get("taskDefinitionName"));
         		map.put("processInfo", processBussinessRel);
         	}
+        	else
+            {
+                map.put("processInfo", null);
+            }
         	//获取表单详情
         	T t = service.selectById(queryFormVo.getId());
         	map.put("businessData", t);
