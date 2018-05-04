@@ -3,7 +3,7 @@ package com.chens.bpm.activiti.mapper;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.chens.bpm.vo.MyDoneTask;
-import com.chens.bpm.vo.MyStartProcessInstance;
+import com.chens.bpm.vo.MyStartInstance;
 import com.chens.bpm.vo.MyTodoTask;
 
 import java.util.List;
@@ -42,6 +42,6 @@ public interface ActivitiMapper {
      * @param myStartProcessInstance
      * @return
      */
-    List<MyStartProcessInstance> getMyStartProcessInstancePage(Pagination page, MyStartProcessInstance myStartProcessInstance);
+    List<MyStartInstance> getMyStartProcessInstancePage(Pagination page, MyStartInstance myStartProcessInstance);
 
 }

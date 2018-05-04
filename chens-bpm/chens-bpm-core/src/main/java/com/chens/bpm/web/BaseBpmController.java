@@ -3,7 +3,7 @@ package com.chens.bpm.web;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.bpm.service.IWfEngineService;
 import com.chens.bpm.vo.MyDoneTask;
-import com.chens.bpm.vo.MyStartProcessInstance;
+import com.chens.bpm.vo.MyStartInstance;
 import com.chens.bpm.vo.MyTodoTask;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
@@ -13,10 +13,8 @@ import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 基础流程服务页
@@ -63,10 +61,10 @@ public abstract class BaseBpmController extends BaseController{
      * @return
      */
     @PostMapping("/getMyStartProcessInstancePage")
-    public ResponseEntity<Result> getMyStartProcessInstancePage(@RequestBody QueryPageEntity<MyStartProcessInstance> spage){
+    public ResponseEntity<Result> getMyStartProcessInstancePage(@RequestBody QueryPageEntity<MyStartInstance> spage){
         PageVo pageVo = spage.getPage();
-        Page<MyStartProcessInstance> page = new Page<MyStartProcessInstance>(pageVo.getCurrent(), pageVo.getSize());
-        MyStartProcessInstance myStartProcessInstance = spage.getSearch();
+        Page<MyStartInstance> page = new Page<MyStartInstance>(pageVo.getCurrent(), pageVo.getSize());
+        MyStartInstance myStartProcessInstance = spage.getSearch();
         myStartProcessInstance.setStartBy(BaseContextHandler.getUserId());
         return doSuccess(CommonConstants.QUERY_SUCCESS,wfEngineService.getMyStartProcessInstancePage(page, myStartProcessInstance));
     }

@@ -38,13 +38,6 @@ public enum BaseExceptionEnum implements IBaseEnum {
     VALIDATE_NOPASS(305, "校验不通过"),
     TIMEOUT(306, "请求超时"),
 
-
-    /**
-     * 流程请求
-     */
-    WORKFLOW_START_FAIL(501, "流程发起失败"),
-    WORKFLOW_COMPLETE_FAIL(502, "流程办理失败"),
-
     /**
      * 请求异常
      */

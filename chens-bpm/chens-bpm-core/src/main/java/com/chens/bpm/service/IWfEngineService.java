@@ -3,36 +3,32 @@ package com.chens.bpm.service;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chens.bpm.vo.MyDoneTask;
-import com.chens.bpm.vo.MyStartProcessInstance;
-import com.chens.bpm.vo.MyTodoTask;
-import com.chens.bpm.vo.WorkFlowRequestParam;
-import com.chens.bpm.vo.WorkFlowReturn;
+import com.chens.bpm.vo.*;
 
 /**
  * 调用流程引擎接口(暂时不走feign)
- * @auther songchunlei
+ * @author songchunlei
  * @create 2018/3/30
  */
 public interface IWfEngineService {
 
 
-	 /**
+    /**
      * 发起流程
-     * @param workFlowRequestParam
+     * @param businessKey 业务id
+     * @param startWfVo 发起流程变量
      * @return
      */
-	WorkFlowReturn startWorkflow(WorkFlowRequestParam<?> workFlowRequestParam);
+	WorkFlowReturn startWorkflow(String businessKey,StartWfVo startWfVo);
 	
     /**
      * 发起节点校验下一个节点是否是会签节点
      * @param processDefinitionKey
-     * @param field
-     * @param value
+     * @param nextNodeId
      * @return 参数描述
      * boolean 返回类型
      */
-    boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String field,String value);
+    boolean checkStartNextUserTaskIsHuiQian(String processDefinitionKey, String nextNodeId);
 
 
     /**
@@ -44,10 +40,10 @@ public interface IWfEngineService {
     
     /**
 	 * 提交处理任务
-	 * @param workFlowRequestParam
+	 * @param passVo
 	 * @return
 	 */
-	WorkFlowReturn completeTask(WorkFlowRequestParam<?> workFlowRequestParam);
+	WorkFlowReturn completeTask(PassWfVo passVo);
 	
 	/**
      * @Description: 判断用户任务节点是否为会签节点
@@ -55,11 +51,6 @@ public interface IWfEngineService {
      * @param taskkey
      */
     boolean checkUserTaskIsHuiQian(String taskId ,String taskkey);
-
-    /**
-     * 不同意当前任务
-     */
-    void unPassTask();
     
     /**
      * 通过任务Id获取流程的发起人
@@ -92,7 +83,7 @@ public interface IWfEngineService {
      * @param myStartProcessInstance
      * @return
      */
-    Page<MyStartProcessInstance> getMyStartProcessInstancePage(Page<MyStartProcessInstance> page, MyStartProcessInstance myStartProcessInstance);
+    Page<MyStartInstance> getMyStartProcessInstancePage(Page<MyStartInstance> page, MyStartInstance myStartProcessInstance);
 
 
     /**

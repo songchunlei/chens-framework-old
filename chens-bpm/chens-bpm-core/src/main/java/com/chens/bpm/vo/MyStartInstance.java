@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author WDP
  *
  */
-public class MyStartProcessInstance implements Serializable {
+public class MyStartInstance implements Serializable {
 
 
 	private static final long serialVersionUID = 1904470331012027160L;

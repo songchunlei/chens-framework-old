@@ -5,11 +5,15 @@ package com.chens.bpm.enums;
  * @version V1.0
  */
 public enum WorkFlowEnum {
+
 	START_NODE("发起人节点","startNode"),
 	START_USER_ID("流程发起人","startUserId"),
 	ASSIGNEE_USER_ID_LIST("流程会签节点的数组名称","assigneeUserIdList"),
 	NEXT_USER_ID("流程下一个节点的办理人流程变量名称","nextUserId"),
-	ASSIGNEE_USER_ID_LIST_TEMP("流程会签节点的暂存数组名称-- 会签节点的下一个节点也是会签的时候收集前台传过来的用户","assigneeUserIdListTemp");
+	ASSIGNEE_USER_ID_LIST_TEMP("流程会签节点的暂存数组名称-- 会签节点的下一个节点也是会签的时候收集前台传过来的用户","assigneeUserIdListTemp"),
+	//自定义常量，下一个流程节点id
+	BPM_ADVICE("下一个流程节点","bpm_advice");
+
 	private String name;
 	private String code;
 	private WorkFlowEnum(String name,String code){

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1525397921793" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="SIMPLE_APPROVE" isClosed="false" isExecutable="true" name="简单审批流程" processType="None">
+    <startEvent id="startevent1" name="Start"/>
+    <userTask activiti:assignee="${assigneeUserId}" activiti:exclusive="true" id="approveNode" name="审批">
+      <multiInstanceLoopCharacteristics activiti:collection="assigneeUserIdList" activiti:elementVariable="assigneeUserId" isSequential="false">
+        <completionCondition><![CDATA[${nrOfCompletedInstances/nrOfInstances == 1}]]></completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <userTask activiti:assignee="${nextUserId}" activiti:exclusive="true" id="startNode" name="发起人修改"/>
+    <endEvent id="endevent1" name="End"/>
+    <sequenceFlow id="flow8" name="提交审批" sourceRef="startevent1" targetRef="approveNode">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bpm_advice=="approveNode"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway gatewayDirection="Unspecified" id="exclusivegateway1" name="Exclusive Gateway"/>
+    <sequenceFlow id="flow9" sourceRef="approveNode" targetRef="exclusivegateway1"/>
+    <sequenceFlow id="flow10" name="通过" sourceRef="exclusivegateway1" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bpm_advice=="pass"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow11" name="驳回" sourceRef="exclusivegateway1" targetRef="startNode">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bpm_advice=="startNode"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" name="提交审批" sourceRef="startNode" targetRef="approveNode">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bpm_advice=="approveNode"}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="SIMPLE_APPROVE">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="Shape-startevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="100.0" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveNode" id="Shape-approveNode">
+        <omgdc:Bounds height="55.0" width="105.0" x="234.0" y="170.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startNode" id="Shape-startNode">
+        <omgdc:Bounds height="55.0" width="105.0" x="408.0" y="50.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="Shape-endevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="580.0" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="Shape-exclusivegateway1" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="440.0" y="177.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10" sourceElement="exclusivegateway1" targetElement="endevent1">
+        <omgdi:waypoint x="472.0" y="193.0"/>
+        <omgdi:waypoint x="580.0" y="196.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="499.0" y="180.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8" sourceElement="startevent1" targetElement="approveNode">
+        <omgdi:waypoint x="132.0" y="196.0"/>
+        <omgdi:waypoint x="234.0" y="197.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="149.0" y="180.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11" sourceElement="exclusivegateway1" targetElement="startNode">
+        <omgdi:waypoint x="456.0" y="177.0"/>
+        <omgdi:waypoint x="456.0" y="105.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="460.0" y="141.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9" sourceElement="approveNode" targetElement="exclusivegateway1">
+        <omgdi:waypoint x="339.0" y="197.5"/>
+        <omgdi:waypoint x="440.0" y="193.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12" sourceElement="startNode" targetElement="approveNode">
+        <omgdi:waypoint x="408.0" y="77.0"/>
+        <omgdi:waypoint x="286.0" y="77.0"/>
+        <omgdi:waypoint x="286.0" y="170.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="301.0" y="80.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

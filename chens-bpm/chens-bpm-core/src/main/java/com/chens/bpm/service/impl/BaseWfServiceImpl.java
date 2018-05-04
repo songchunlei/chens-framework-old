@@ -5,7 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.chens.bpm.exception.BpmException;
 import com.chens.bpm.exception.BpmExceptionEnum;
-import com.chens.bpm.vo.BaseWfEntity;
+import com.chens.bpm.vo.*;
 import com.chens.core.context.BaseContextHandler;
 import com.chens.core.util.StringUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -22,8 +22,6 @@ import com.chens.bpm.enums.WfStatus;
 import com.chens.bpm.service.IProcessBussinessRelService;
 import com.chens.bpm.service.IWfBaseService;
 import com.chens.bpm.service.IWfEngineService;
-import com.chens.bpm.vo.WorkFlowRequestParam;
-import com.chens.bpm.vo.WorkFlowReturn;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -58,103 +56,42 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String saveDraft(T t){
-    	//T t = workFlowRequestParam.getT();
-		//保存业务数据
-		if(StringUtils.isEmpty(t.getId())){
-			//默认状态为待提交
-			t.setStatus(WfStatus.WAITING.getCode());
-			//调用自定义保存方法
-			saveEntity(t);
-			//保存流程业务关联关系表
-			ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
-			//任务名称
-			processBussinessRel.setTaskName(t.getTaskName());
-			//草稿状态
-			processBussinessRel.setStatus(WfStatus.WAITING.getCode());
-			processBussinessRel.setProcessDefinitionKey(t.getProcessDefinitionKey());
-			//业务数据id
-			processBussinessRel.setBusinessKey(t.getId());
-			//逻辑删除
-			processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());
-			//发起人
-			processBussinessRel.setStartBy(BaseContextHandler.getUserId());
-			//发起人姓名
-			processBussinessRel.setStartByName(BaseContextHandler.getName());
-			//业务表名
-			TableName tableName = t.getClass().getAnnotation(TableName.class);
-			if(tableName!=null)
-			{
-				//从注解获取类名
-				processBussinessRel.setTableName(tableName.value());
-			}
-			processBussinessRelService.insert(processBussinessRel);
-		}else{
-			String taskName = t.getTaskName();
-			saveEntity(t);
-			ProcessBussinessRel processBussinessRel = new ProcessBussinessRel();
-			processBussinessRel.setBusinessKey(t.getId());
-			EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(processBussinessRel);
-			processBussinessRel = processBussinessRelService.selectOne(ew);
-			if(processBussinessRel != null){
-				processBussinessRel.setTaskName(taskName);
-				processBussinessRelService.updateById(processBussinessRel);
-			}
-			
-		}
+
+    	//设置状态-待提交
+    	t.setStatus(WfStatus.WAITING.getCode());
+
+    	//调用自定义保存业务实体
+    	this.saveEntity(t);
 		
         return t.getId();
     }
 
-	/**
-	 * 提交前方法
-	 * 注意：如果要保持事务一致性，请throw BaseException()
-	 * @param workFlowRequestParam
-	 * @return
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public abstract boolean beforeSubmit(WorkFlowRequestParam<T> workFlowRequestParam);
-
-	/**
-	 * 提交后方法
-	 * 注意：如果要保持事务一致性，请throw BaseException()
-	 * @param workFlowRequestParam
-	 * @return
-	 */
-	@Transactional(rollbackFor = Exception.class)
-    public abstract boolean afterSubmit(WorkFlowRequestParam<T> workFlowRequestParam);
-
 
     /**
      * 提交
-     * @param workFlowRequestParam
+     * @param startWfVo
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam) {
+    public boolean submitDraft(StartWfVo startWfVo) {
 
 		//获取业务数据
-		T t = workFlowRequestParam.getT();
+		T t = (T)startWfVo.getObject();
 		if (t == null)
 		{
 			throw new BaseException(BaseExceptionEnum.DATA_REQUEST_ERROR);
 		}
-
-		//提交前方法
-    	if(!beforeSubmit(workFlowRequestParam))
-		{
-			return false;
-		}
-
 		//提交状态变更为审批中
 		t.setStatus(WfStatus.CHECKING.getCode());
 		//调用保存业务实体
-		saveEntity(t);
+		this.saveEntity(t);
 
-        workFlowRequestParam.setBusinessKey(t.getId());
-        WorkFlowReturn workFlowReturn = wfEngineService.startWorkflow(workFlowRequestParam);
+		//调用流程引擎-发起
+        WorkFlowReturn workFlowReturn = wfEngineService.startWorkflow(t.getId(),startWfVo);
+
         if(!workFlowReturn.isStartSuccess()){
-        	throw new BaseException(BaseExceptionEnum.WORKFLOW_START_FAIL);
+        	throw new BpmException(BpmExceptionEnum.WORKFLOW_START_FAIL);
         }else{
         	JSONObject obj = workFlowReturn.getData();
         	ProcessBussinessRel query = new ProcessBussinessRel();
@@ -175,9 +112,9 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 				//流程实例id
         		processBussinessRel.setProcessInstanceId(obj.getString(BpmConstants.KEY_PROCESS_INSTANCE_ID));
 				//发起人id
-        		processBussinessRel.setStartBy(workFlowRequestParam.getStartUserId());
+        		processBussinessRel.setStartBy(startWfVo.getStartUserId());
 				//发起人姓名
-        		processBussinessRel.setStartByName(workFlowRequestParam.getStartUserName());
+        		processBussinessRel.setStartByName(startWfVo.getStartUserName());
 //        		processBussinessRel.setCurrentTaskDefinitionKey(currentTaskDefinitionKey);//当前任务节点key
 //        		processBussinessRel.setCurrentTaskDefinitionName(currentTaskDefinitionName);//当前任务节点名称
         		processBussinessRelService.updateById(processBussinessRel);
@@ -194,102 +131,83 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 				//流程实例id
         		processBussinessRel.setProcessInstanceId(obj.getString(BpmConstants.KEY_PROCESS_INSTANCE_ID));
 				//发起人id
-        		processBussinessRel.setStartBy(workFlowRequestParam.getStartUserId());
+        		processBussinessRel.setStartBy(startWfVo.getStartUserId());
 				//发起人姓名
-        		processBussinessRel.setStartByName(workFlowRequestParam.getStartUserName());
+        		processBussinessRel.setStartByName(startWfVo.getStartUserName());
 //        		processBussinessRel.setCurrentTaskDefinitionKey(currentTaskDefinitionKey);//当前任务节点key
 //        		processBussinessRel.setCurrentTaskDefinitionName(currentTaskDefinitionName);//当前任务节点名称
 				//任务名称
-        		processBussinessRel.setTaskName(workFlowRequestParam.getTaskName());
+        		processBussinessRel.setTaskName(BpmConstants.PROCESS_START_TASK_NAME);
 				//流程定义key
-    	        processBussinessRel.setProcessDefinitionKey(workFlowRequestParam.getProcessDefinitionKey());
+    	        processBussinessRel.setProcessDefinitionKey(startWfVo.getProcessDefinitionKey());
 				//业务数据id
     	        processBussinessRel.setBusinessKey(t.getId());
 				//逻辑删除
     	        processBussinessRel.setIsDelete(YesNoEnum.NO.getCode());
 				//业务表名
-    	        processBussinessRel.setTableName(workFlowRequestParam.getTableName());
+    	        processBussinessRel.setTableName(startWfVo.getTableName());
     	        processBussinessRelService.insert(processBussinessRel);
         	}
-
-			//提交后方法
-			if(!afterSubmit(workFlowRequestParam))
-			{
-				return false;
-			}
-
         	return true;
         }
         
     }
 
-    /**
-     * 审批通过（只读审批）
-     * @param workFlowRequestParam
-     * @return
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean pass(WorkFlowRequestParam<T> workFlowRequestParam)
+    public boolean pass(PassWfVo passWfVo)
     {
-        T t = workFlowRequestParam.getT();
-        workFlowRequestParam.setBusinessKey(t.getId());
-    	WorkFlowReturn workFlowReturn = wfEngineService.completeTask(workFlowRequestParam);
+    	//调用流程引擎-提交
+    	WorkFlowReturn workFlowReturn = wfEngineService.completeTask(passWfVo);
+
+    	//业务id
+    	String businessKey = passWfVo.getBusinessKey();
+
+    	//获取业务实例
+		T change;
+		if(passWfVo.getObject()!=null)
+		{
+			change = (T)passWfVo.getObject();
+		}
+		else {
+			change = this.selectById(businessKey);
+		}
+    	if(change==null)
+		{
+			throw new BaseException(BaseExceptionEnum.NO_DATA);
+		}
+
+		//待更新状态
+		String changeStatus;
+
     	if(workFlowReturn.isCompleteSuccess()){
     		ProcessBussinessRel query = new ProcessBussinessRel();
-        	query.setBusinessKey(t.getId());
+        	query.setBusinessKey(businessKey);
         	query.setIsDelete(YesNoEnum.NO.getCode());
         	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(query);
         	List<ProcessBussinessRel> processBussinessRelList = processBussinessRelService.selectList(ew);
     		if(workFlowReturn.isFinish()){
     			//流程已结束，更新状态
     			this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.PASS.getCode());
-    			//更新业务
-    			t.setStatus(WfStatus.PASS.getCode());
-    			this.updateById(t);
-    			return true;
+    			//变更状态
+				changeStatus = WfStatus.PASS.getCode();
     		}else{
     			//流程已结束，更新状态
     			this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.CHECKING.getCode());
-				//更新业务
-				t.setStatus(WfStatus.CHECKING.getCode());
-				this.updateById(t);
-    			return true;
+				//变更状态
+				changeStatus = WfStatus.CHECKING.getCode();
     		}
     	}else{
-    		return false;
+    		throw new BpmException(BpmExceptionEnum.COMPLETE_TASK_ERROR.getCode(), workFlowReturn.getMessage());
     	}
-    }
 
-	/**
-	 * 提交办理（非只读审批）
-	 * @param workFlowRequestParam
-	 * @return
-	 */
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public boolean passWithEdit(WorkFlowRequestParam<T> workFlowRequestParam)
-	{
-		//提交前方法
-		if(!beforeSubmit(workFlowRequestParam))
-		{
-			return false;
-		}
-
-		//流程方法
-		if(!pass(workFlowRequestParam))
-		{
-			return false;
-		}
-
-		//提交后方法
-		if(!afterSubmit(workFlowRequestParam))
-		{
-			return false;
-		}
+    	//保存信息
+		change.setStatus(changeStatus);
+		this.saveEntity(change);
 
 		return true;
-	}
+
+    }
 
 	/**
 	 * 更新流程关联关系
@@ -317,26 +235,46 @@ public abstract class BaseWfServiceImpl<M extends BaseMapper<T>, T extends BaseW
 
     /**
      * 审批不通过
-     * @param workFlowRequestParam
+     * @param passWfVo
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean noPass(WorkFlowRequestParam<T> workFlowRequestParam){
-        T t = workFlowRequestParam.getT();
-        workFlowRequestParam.setBusinessKey(t.getId());
-    	WorkFlowReturn workFlowReturn = wfEngineService.completeTask(workFlowRequestParam);
+    public boolean noPass(PassWfVo passWfVo){
+
+		//调用流程引擎-提交
+		WorkFlowReturn workFlowReturn = wfEngineService.completeTask(passWfVo);
+
+		//业务id
+		String businessKey = passWfVo.getBusinessKey();
+
+		//获取业务实例
+		T change;
+		if(passWfVo.getObject()!=null)
+		{
+			change = (T)passWfVo.getObject();
+		}
+		else {
+			change = this.selectById(businessKey);
+		}
+		if(change==null)
+		{
+			throw new BaseException(BaseExceptionEnum.NO_DATA);
+		}
+
     	if(workFlowReturn.isCompleteSuccess()){
     		ProcessBussinessRel query = new ProcessBussinessRel();
-        	query.setBusinessKey(t.getId());
+        	query.setBusinessKey(passWfVo.getBusinessKey());
         	query.setIsDelete(YesNoEnum.NO.getCode());
         	EntityWrapper<ProcessBussinessRel> ew = new EntityWrapper<ProcessBussinessRel>(query);
         	List<ProcessBussinessRel> processBussinessRelList = processBussinessRelService.selectList(ew);
     		//流程已结束，更新状态为未通过
     		this.updateProcessBussinessRelService(processBussinessRelList, WfStatus.UN_PASS.getCode());
+
     		//更新业务表单
-			t.setStatus(WfStatus.UN_PASS.getCode());
-			this.updateById(t);
+			change.setStatus(WfStatus.UN_PASS.getCode());
+
+			this.updateById(change);
     		return true;
     	}else{
     		return false;

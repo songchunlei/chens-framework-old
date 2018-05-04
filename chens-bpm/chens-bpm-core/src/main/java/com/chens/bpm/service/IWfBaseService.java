@@ -1,6 +1,8 @@
 package com.chens.bpm.service;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.chens.bpm.vo.PassWfVo;
+import com.chens.bpm.vo.StartWfVo;
 import com.chens.bpm.vo.WorkFlowRequestParam;
 
 /**
@@ -20,31 +22,24 @@ public interface IWfBaseService<T>  extends IService<T> {
 
     /**
      * 发起流程
-     * @param workFlowRequestParam
+     * @param startWfVo
      * @return
      */
-    boolean submitDraft(WorkFlowRequestParam<T> workFlowRequestParam);
+    boolean submitDraft(StartWfVo startWfVo);
 
     /**
-     * 提交办理（只读审批）
-     * @param workFlowRequestParam
+     * 审批通过
+     * @param passWfVo
      * @return
      */
-    boolean pass(WorkFlowRequestParam<T> workFlowRequestParam);
-
-    /**
-     * 提交办理（非只读审批）
-     * @param workFlowRequestParam
-     * @return
-     */
-    boolean passWithEdit(WorkFlowRequestParam<T> workFlowRequestParam);
+    boolean pass(PassWfVo passWfVo);
 
     /**
      * 审批不通过
-     * @param workFlowRequestParam
+     * @param passWfVo
      * @return
      */
-    boolean noPass(WorkFlowRequestParam<T> workFlowRequestParam);
+    boolean noPass(PassWfVo passWfVo);
 
     /**
      * 发布

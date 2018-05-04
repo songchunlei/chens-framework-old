@@ -7,7 +7,7 @@ import java.util.Map;
  * @author WDP
  *
  */
-public class WorkFlowRequestParam <T> implements Serializable{
+public class WorkFlowRequestParam<T> implements Serializable{
 
 	private static final long serialVersionUID = -7593268591473866547L;
 	private String processDefinitionKey;//流程定义Key

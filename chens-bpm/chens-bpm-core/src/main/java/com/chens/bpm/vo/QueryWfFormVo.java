@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author songchunlei@qq.com
  * @create 2018/5/2
  */
-public class QueryFormVo implements Serializable {
+public class QueryWfFormVo implements Serializable {
     /**
      * 业务id
      */
@@ -21,7 +21,7 @@ public class QueryFormVo implements Serializable {
      */
     private String taskId;
 
-    public QueryFormVo() {
+    public QueryWfFormVo() {
     }
 
     public String getId() {

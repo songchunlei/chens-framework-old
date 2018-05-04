@@ -42,7 +42,7 @@
 			order by endTime desc
  	 </select>
  	 
- 	  <select id="getMyStartProcessInstancePage" resultType="com.chens.bpm.vo.MyStartProcessInstance">
+ 	  <select id="getMyStartProcessInstancePage" resultType="com.chens.bpm.vo.MyStartInstance">
 		select hit.ID_ as processInstanceId, hit.START_TIME_ as createTime, hit.END_TIME_ as endTime, hit.DURATION_ as duraton,
 			rel.process_definition_id as processDefinitionId, rel.process_definition_name as processDefinitionName,
 			rel.process_definition_key as processDefinitionKey, rel.process_definition_version as processDefinitionVersion, 
