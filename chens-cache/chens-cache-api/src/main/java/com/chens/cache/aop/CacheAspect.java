@@ -1,6 +1,6 @@
 package com.chens.cache.aop;
 
-import com.chens.cache.ICacheService;
+import com.chens.cache.service.ICacheService;
 import com.chens.cache.annotation.CacheResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

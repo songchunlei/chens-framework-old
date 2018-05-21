@@ -34,12 +34,6 @@ public @interface CacheResult {
     String backupKey() default "";
 
     /**
-     * 是否用Bloom过滤器（防止缓存击穿）
-     * @return
-     */
-    boolean needBloomFilter() default false;
-
-    /**
      * 是否用分布式锁（事务）
      * @return
      */

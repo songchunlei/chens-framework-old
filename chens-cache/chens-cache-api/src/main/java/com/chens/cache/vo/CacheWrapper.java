@@ -70,4 +70,5 @@ public class CacheWrapper<T> implements Serializable, Cloneable  {
     public void setExpire(int expire) {
         this.expire = expire;
     }
+
 }

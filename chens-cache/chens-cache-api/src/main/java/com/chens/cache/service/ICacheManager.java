@@ -1,15 +1,15 @@
-package com.chens.cache;
+package com.chens.cache.service;
 
 import com.chens.cache.vo.CacheKeyWrapper;
 import com.chens.cache.vo.CacheWrapper;
 
 /**
- * 缓存接口
+ * 缓存管理器
  *
  * @author songchunlei@qq.com
- * @author 2018/5/9
+ * @create 2018/5/15
  */
-public interface ICacheService {
+public interface ICacheManager {
 
     /**
      * 写缓存
@@ -17,7 +17,7 @@ public interface ICacheService {
      * @param result
      * @return
      */
-    <T> void put(CacheKeyWrapper cacheKey, CacheWrapper<T> result);
+    <T> void set(CacheKeyWrapper cacheKey, CacheWrapper<T> result);
 
     /**
      * 取缓存
@@ -33,6 +33,4 @@ public interface ICacheService {
      * @return
      */
     void delete(final CacheKeyWrapper key);
-
-
 }
