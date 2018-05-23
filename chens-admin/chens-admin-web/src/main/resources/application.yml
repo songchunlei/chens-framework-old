@@ -16,6 +16,21 @@ spring:
   devtools:
     restart:
       enabled: false #是否开启开发者工具
+  redis:
+    database: 0
+    host: ${chens_redis_host:127.0.0.1}
+    port: ${chens_redis_port:6379}
+    password: ${chens_redis_password:}
+    timeout: 0
+    pool:
+      # 连接池最大连接数（使用负值表示没有限制）
+      max-active: 8
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      # 连接池中的最大空闲连接
+      min-idle: 8
+      # 连接池中的最小空闲连接
+      max-idle: 0
 
 #mybatis-plus
 mybatis-plus:
@@ -23,14 +38,14 @@ mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔
   #typeAliasesPackage: com.chens.core.entity
   #typeEnumsPackage: com.chens.core.enums
-  #global-config:
+  global-config:
     #刷新mapper 调试神器
-    #refresh-mapper: true
+    refresh-mapper: true
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
     #打印sql语句,调试用
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
   client:

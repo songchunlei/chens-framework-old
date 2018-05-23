@@ -15,6 +15,11 @@ public final class CommonConstants {
             "[sys_role][sys_tenant][sys_token][sys_log][sys_user_role][sys_role_menu]";
 
     /**
+     * MD5
+     */
+    public static final String MD5 = "MD5";
+
+    /**
      * utf-8
      */
     public static final String CHARACTER_UTF8 = "UTF-8";

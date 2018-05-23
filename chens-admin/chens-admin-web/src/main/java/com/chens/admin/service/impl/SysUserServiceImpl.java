@@ -6,20 +6,19 @@ import java.util.List;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.chens.admin.entity.SysUserRole;
 import com.chens.admin.exception.AdminExceptionEnum;
-import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserRoleService;
 import com.chens.admin.vo.RestPwd;
 import com.chens.admin.vo.RolesInUserVo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.enums.YesNoEnum;
-import com.chens.core.exception.BaseExceptionEnum;
+import com.chens.core.service.IPasswordCoder;
+import com.chens.core.service.impl.PasswordCoderByMd5;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
 import com.chens.core.vo.AuthRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -44,13 +43,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     protected Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
-    /** spring自带加密工具
-     * spring security中的BCryptPasswordEncoder方法采用SHA-256 +随机盐+密钥对密码进行加密。SHA系列是Hash算法，不是加密算法，使用加密算法意味着可以解密（这个与编码/解码一样），但是采用Hash处理，其过程是不可逆的。
-     （1）加密(encode)：注册用户时，使用SHA-256+随机盐+密钥把用户输入的密码进行hash处理，得到密码的hash值，然后将其存入数据库中。
-     （2）密码匹配(matches)：用户登录时，密码匹配阶段并没有进行密码解密（因为密码经过Hash处理，是不可逆的），而是使用相同的算法把用户输入的密码进行hash处理，得到密码的hash值，然后将其与从数据库中查询到的密码hash值进行比较。如果两者相同，说明用户输入的密码正确
-     */
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(CommonConstants.DEFAULT_PASSWORD_LENGTH);
-
+    private IPasswordCoder passwordCoder = new PasswordCoderByMd5();
 
     @Autowired
     private ISysUserRoleService sysUserRoleService;
@@ -70,7 +63,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             //设置默认密码
             password = CommonConstants.DEFAULT_PASSWORD;
         }
-        sysUser.setPassword(encoder.encode(password));
+        sysUser.setPassword(passwordCoder.encoder(password));
         sysUser.setIsDelete(YesNoEnum.NO.getCode());
         //创建用户
         super.insert(sysUser);
@@ -112,7 +105,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         if(StringUtils.isNotEmpty(sysUser.getPassword()))
         {
-            sysUser.setPassword(encoder.encode(sysUser.getPassword()));
+            sysUser.setPassword(passwordCoder.encoder(sysUser.getPassword()));
         }
         return super.updateById(sysUser);
     }
@@ -129,7 +122,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if(users!=null && users.size()>0)
         {
             for (SysUser user:users) {
-                if(encoder.matches(authRequest.getPassword(),user.getPassword()))
+                if(passwordCoder.matches(authRequest.getPassword(),user.getPassword()))
                 {
                     return user;
                 }
