@@ -12,6 +12,7 @@ import com.chens.admin.vo.RolesInUserVo;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.enums.YesNoEnum;
 import com.chens.core.service.IPasswordCoder;
+import com.chens.core.service.impl.PasswordCoderByBcrypt;
 import com.chens.core.service.impl.PasswordCoderByMd5;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.ToolUtil;
@@ -43,7 +44,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     protected Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
-    private IPasswordCoder passwordCoder = new PasswordCoderByMd5();
+    private IPasswordCoder passwordCoder = new PasswordCoderByBcrypt();
 
     @Autowired
     private ISysUserRoleService sysUserRoleService;

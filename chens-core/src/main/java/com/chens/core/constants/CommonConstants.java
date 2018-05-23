@@ -48,7 +48,7 @@ public final class CommonConstants {
     /**
      * 默认密码长度
      */
-    public static final int DEFAULT_PASSWORD_LENGTH = 16;
+    public static final int DEFAULT_PASSWORD_LENGTH = 8;
 
     /**
      * 系统操作默认用户id
