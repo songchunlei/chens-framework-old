@@ -29,7 +29,7 @@ public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu
      */
     @RequestMapping("/tree")
     public ResponseEntity<Result> tree() {
-        return doSuccess(CommonConstants.QUERY_SUCCESS,service.tree());
+        return doSuccess(CommonConstants.QUERY_SUCCESS,service.getAllMenuTreeList());
     }
 
     /**
@@ -40,15 +40,6 @@ public class SysMenuController extends BaseWebController<ISysMenuService,SysMenu
     @GetMapping("/getMenuList/{userId}")
     public ResponseEntity<Result> getMenuListByUserId(@PathVariable @NotNull String userId) {
         return doSuccess(CommonConstants.QUERY_SUCCESS,service.getMenuTreeListByUserId(userId));
-    }
-
-    /**
-     * 根据用户id获取菜单
-     * @return
-     */
-    @GetMapping("/getAllMenuTreeList")
-    public ResponseEntity<Result> getMenuListByUserId() {
-        return doSuccess(CommonConstants.QUERY_SUCCESS,service.getAllMenuTreeList());
     }
 
 

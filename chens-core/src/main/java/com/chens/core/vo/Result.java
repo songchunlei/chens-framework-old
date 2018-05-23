@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 反馈结果集
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/5
  */
 public class Result implements Serializable {

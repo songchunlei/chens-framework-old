@@ -138,9 +138,4 @@ public class SysUser extends BaseEntity<SysUser> {
         this.roleId = roleId;
     }
 
-    public UserInfo getUserInfo()
-    {
-        return new UserInfo(this.getId(),this.getName(),this.getUsername(),this.getTenantId(),"");
-    }
-
 }

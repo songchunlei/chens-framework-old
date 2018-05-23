@@ -3,7 +3,6 @@ package com.chens.admin.service;
 import com.chens.admin.entity.SysMenu;
 import com.baomidou.mybatisplus.service.IService;
 import com.chens.admin.vo.MenuTree;
-import com.chens.core.vo.ZTree;
 
 import java.util.List;
 
@@ -16,12 +15,6 @@ import java.util.List;
  * @since 2018-03-09
  */
 public interface ISysMenuService extends IService<SysMenu> {
-
-    /**
-     * 获取全量菜单树
-     * @return
-     */
-    List<ZTree> tree();
 
     /**
      * 根据用户id获取对应菜单(权限)

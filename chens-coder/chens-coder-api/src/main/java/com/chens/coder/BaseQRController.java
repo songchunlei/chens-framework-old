@@ -54,7 +54,7 @@ public abstract class BaseQRController extends BaseController{
         } catch (IOException e) {
             throw new FileException(FileExceptionEnum.FILE_READING_ERROR.getCode(),e.getMessage());
         }
-        BaseFileUtil.printResponseOut(request,response,image,"QRCode",qrConfig.getFormat(),qrConfig.getCharCode());
+        BaseFileUtil.printResponseOut(request,response,image,"QRCode",qrConfig.getFormat(),qrConfig.getCharCode(),false);
     }
 
 

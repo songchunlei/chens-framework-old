@@ -8,7 +8,7 @@ import com.chens.admin.service.ISysMenuService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.chens.core.util.TreeUtil;
 import com.chens.admin.vo.MenuTree;
-import com.chens.core.vo.ZTree;
+import com.chens.core.vo.TreeVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,11 +27,6 @@ import java.util.List;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
     @Override
-    public List<ZTree> tree() {
-        return baseMapper.tree();
-    }
-
-    @Override
     public List<SysMenu> getMenuListByUserId(String userId) {
         return baseMapper.getMenuListByUserId(userId);
     }
@@ -39,14 +34,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<MenuTree> getMenuTreeListByUserId(String userId) {
         List<SysMenu> sysMenus =  this.getMenuListByUserId(userId);
-        List<MenuTree> trees = TreeUtil.buildByRecursive(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
+        List<MenuTree> trees = TreeUtil.build(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
         return trees;
     }
 
     @Override
     public List<MenuTree> getAllMenuTreeList() {
         List<SysMenu> sysMenus =  this.selectList(new EntityWrapper<>(new SysMenu()));
-        List<MenuTree> trees = TreeUtil.buildByRecursive(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
+        List<MenuTree> trees = TreeUtil.build(MenuListToMenuTreeList(sysMenus), CommonConstants.BASE_TREE_ROOT);
         return trees;
     }
 
@@ -61,10 +56,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if(!CollectionUtils.isEmpty(sysMenus))
         {
             for (SysMenu menu:sysMenus) {
-                MenuTree menuTree;
-                menuTree = new MenuTree();
-                menuTree.getMenu(menu);
-                trees.add(menuTree);
+                trees.add(new MenuTree(menu));
             }
         }
         return trees;

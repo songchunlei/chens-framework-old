@@ -42,7 +42,7 @@ public abstract class BaseFileController extends BaseController {
 
 
     /**
-     * @Description: 文件下载
+     * 文件下载
      * @param name 文件名
      */
     @RequestMapping("/download")
@@ -52,8 +52,21 @@ public abstract class BaseFileController extends BaseController {
         {
             throw new FileException(FileExceptionEnum.FILE_IS_NOT_FOUND);
         }
-        BaseFileUtil.printResponseOut(request,response,fileData.getData(),fileData.getOrgName(),fileData.getType(),CommonConstants.CHARACTER_UTF8);
+        BaseFileUtil.printResponseOut(request,response,fileData.getData(),fileData.getOrgName(),fileData.getType(),CommonConstants.CHARACTER_UTF8,true);
+    }
 
+    /**
+     * 文件查看
+     * @param name 文件名
+     */
+    @RequestMapping("/show")
+    public void show(String name, HttpServletRequest request, HttpServletResponse response) {
+        FileData fileData = fileService.download(name);
+        if(fileData==null)
+        {
+            throw new FileException(FileExceptionEnum.FILE_IS_NOT_FOUND);
+        }
+        BaseFileUtil.printResponseOut(request,response,fileData.getData(),fileData.getOrgName(),fileData.getType(),CommonConstants.CHARACTER_UTF8,false);
     }
 
 

@@ -2,7 +2,6 @@ package com.chens.admin.mapper;
 
 import com.chens.admin.entity.SysMenu;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.chens.core.vo.ZTree;
 
 import java.util.List;
 
@@ -17,10 +16,9 @@ import java.util.List;
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
-     * 菜单树
+     * 用户对应菜单
+     * @param userId
      * @return
      */
-    List<ZTree> tree();
-
     List<SysMenu> getMenuListByUserId(String userId);
 }

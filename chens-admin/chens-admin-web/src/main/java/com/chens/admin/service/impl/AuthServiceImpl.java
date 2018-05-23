@@ -2,6 +2,7 @@ package com.chens.admin.service.impl;
 
 
 import com.chens.admin.enums.SysMenuEnum;
+import com.chens.admin.handler.UserHandler;
 import com.chens.admin.service.ISysMenuService;
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.core.vo.UserInfo;
@@ -57,14 +58,6 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     public SysUser findByUsernameAndPassword(AuthRequest authRequest) throws BaseException{
         SysUser sysUser = sysUserService.findByUsername(authRequest);
-
-        /* 登录先不查询角色
-        if(sysUser!=null)
-        {
-            sysUser.setRoles(sysRoleService.getRoleListByUserId(sysUser.getId()));
-        }
-        */
-
         return sysUser;
     }
 
@@ -78,7 +71,7 @@ public class AuthServiceImpl implements IAuthService{
             {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
             }
-            return this.parseToken(sysTokenClient.createTokenByUserInfo(sysUser.getUserInfo()));
+            return this.parseToken(sysTokenClient.createTokenByUserInfo(UserHandler.getUserInfoBySysUser(sysUser,null)));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -131,8 +124,7 @@ public class AuthServiceImpl implements IAuthService{
         //循环
         if (!CollectionUtils.isEmpty(sysMenus)) {
             for (SysMenu menu : sysMenus) {
-                MenuTree menuTree = new MenuTree();
-                menuTree.getMenu(menu);
+                MenuTree menuTree = new MenuTree(menu);
                 trees.add(menuTree);
                 //当菜单类型为页面时，放入子菜单（不克隆）
                 if(SysMenuEnum.PAGE.getCode().equals(menu.getType()))
@@ -147,7 +139,7 @@ public class AuthServiceImpl implements IAuthService{
             }
         }
         //构建树结构
-        List<MenuTree> menus = TreeUtil.buildByRecursive(trees, CommonConstants.BASE_TREE_ROOT);
+        List<MenuTree> menus = TreeUtil.build(trees, CommonConstants.BASE_TREE_ROOT);
         //返回JWTToken
         return new JWTToken(userInfo.getToken(), menus, all,userInfo );
     }

@@ -54,7 +54,8 @@ public enum BaseExceptionEnum implements IBaseEnum {
     /**
      * 业务异常
      */
-    NO_TABLE_NAME(802,"业务实体@TableName表名未定义");
+    NO_TABLE_NAME(802,"业务实体@TableName表名未定义"),
+    NO_ROOT_ID(803,"根目录id未定义");
 
     private Integer code;
 

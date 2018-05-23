@@ -49,7 +49,7 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
     private ISysUserClient sysUserClient;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo createToken(UAAClaims uaaClaims) {
        //logger.info("*******SysTokenService.createToken****************");
         if (uaaClaims != null)
@@ -65,8 +65,8 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
         return null;
     }
 
-    @Transactional
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo createToken(UserInfo userInfo) {
         if (userInfo != null) {
             return this.createToken(this.parseSysUserToClaims(userInfo));
@@ -79,8 +79,8 @@ public class SysTokenServiceImpl extends ServiceImpl<SysTokenMapper, SysToken> i
      * @param authRequest
      * @return
      */
-    @Transactional
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo createToken(AuthRequest authRequest) {
         return this.createToken(sysUserClient.findByUsername(authRequest));
     }

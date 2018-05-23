@@ -209,18 +209,22 @@ public class BaseFileUtil {
      * @param ext
      * @param characterEncoding
      */
-    public static void printResponseOut(HttpServletRequest request, HttpServletResponse response,byte[] fileBytes, String fileName, String ext, String characterEncoding)
+    public static void printResponseOut(HttpServletRequest request, HttpServletResponse response,byte[] fileBytes, String fileName, String ext, String characterEncoding,boolean isDownload)
     {
         try (InputStream in = new ByteArrayInputStream(fileBytes); OutputStream out = response.getOutputStream();) {
             response.setContentType(ext);
             /*"UTF-8"*/
             response.setCharacterEncoding(characterEncoding);
-            // 解决不同浏览器中文文件名乱码问题
-            if (request.getHeader("User-Agent").toLowerCase().indexOf("firefox") > 0) {
-                // firefox浏览器
-                response.setHeader("Content-disposition", "attachment; filename=" + new String(fileName.getBytes(CommonConstants.CHARACTER_UTF8), CommonConstants.CHARACTER_ISO88591));
-            } else {
-                response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, CommonConstants.CHARACTER_UTF8));
+            //当需要下载时
+            if(isDownload)
+            {
+                // 解决不同浏览器中文文件名乱码问题
+                if (request.getHeader("User-Agent").toLowerCase().indexOf("firefox") > 0) {
+                    // firefox浏览器
+                    response.setHeader("Content-disposition", "attachment; filename=" + new String(fileName.getBytes(CommonConstants.CHARACTER_UTF8), CommonConstants.CHARACTER_ISO88591));
+                } else {
+                    response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, CommonConstants.CHARACTER_UTF8));
+                }
             }
             copy(in, out);
             out.flush();

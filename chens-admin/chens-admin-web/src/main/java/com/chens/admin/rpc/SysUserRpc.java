@@ -1,6 +1,7 @@
 package com.chens.admin.rpc;
 
 import com.chens.admin.constants.AdminFeignName;
+import com.chens.admin.handler.UserHandler;
 import com.chens.admin.remote.ISysUserClient;
 import com.chens.admin.service.ISysUserService;
 import com.chens.admin.entity.SysUser;
@@ -29,25 +30,11 @@ public class SysUserRpc implements ISysUserClient{
     @Override
     @PostMapping(value = "/findByUsername")
     public @ResponseBody UserInfo findByUsername(@Validated @RequestBody AuthRequest authRequest) {
-        return this.getUserInfo(sysUserService.findByUsername(authRequest));
+        return UserHandler.getUserInfoBySysUser(sysUserService.findByUsername(authRequest),null);
     }
 
     @Override
     public UserInfo findByUserId(@Validated @NotNull(message = "{sysuser.id.null}") String id) {
-        return this.getUserInfo(sysUserService.selectById(id));
-    }
-
-    /**
-     * 转换
-     * @param sysUser
-     * @return
-     */
-    private UserInfo getUserInfo(SysUser sysUser)
-    {
-        if(sysUser!=null)
-        {
-            return sysUser.getUserInfo();
-        }
-        return null;
+        return UserHandler.getUserInfoBySysUser(sysUserService.selectById(id),null);
     }
 }

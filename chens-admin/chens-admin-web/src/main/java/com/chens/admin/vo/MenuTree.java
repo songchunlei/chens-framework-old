@@ -1,7 +1,7 @@
 package com.chens.admin.vo;
 
 import com.chens.admin.entity.SysMenu;
-import com.chens.core.vo.ZTree;
+import com.chens.core.vo.TreeVo;
 
 /**
  * 菜单树
@@ -9,7 +9,7 @@ import com.chens.core.vo.ZTree;
  * @auther songchunlei@qq.com
  * @create 2018/3/19
  */
-public class MenuTree extends ZTree {
+public class MenuTree extends TreeVo {
     private String icon;
     private String url;
     private String description;
@@ -39,7 +39,7 @@ public class MenuTree extends ZTree {
         this.description = description;
     }
 
-    public void getMenu(SysMenu sysMenu){
+    public MenuTree(SysMenu sysMenu){
         this.id = sysMenu.getId();
         this.name = sysMenu.getName();
         this.pId = sysMenu.getParentId();
@@ -50,13 +50,14 @@ public class MenuTree extends ZTree {
         this.code = sysMenu.getCode();
         if(sysMenu.getIsopen()!=null && sysMenu.getIsopen()==1)
         {
-            this.open = true;
+            this.checked = true;
         }
         else
         {
-            this.open = false;
+            this.checked = false;
         }
     }
+
     public MenuTree()
     {
 
@@ -85,6 +86,6 @@ public class MenuTree extends ZTree {
 
     @Override
     public MenuTree clone() {
-        return new MenuTree(this.id,this.pId,this.name,this.codeType,this.open,this.icon,this.url,this.description);
+        return new MenuTree(this.id,this.pId,this.name,this.codeType,this.checked,this.icon,this.url,this.description);
     }
 }
