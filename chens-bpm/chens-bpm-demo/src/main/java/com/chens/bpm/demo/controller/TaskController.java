@@ -3,7 +3,10 @@ package com.chens.bpm.demo.controller;
 import com.chens.bpm.demo.entity.DemoForm;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,12 @@ public class TaskController extends BaseController{
      */
     @Autowired
     private TaskService taskService;
+
+    /**
+     * 存储服务
+     */
+    @Autowired
+    private RepositoryService repositoryService;
 
     /**
      * 绑定候选任务组(存act_ru_identitylink中间表)
@@ -115,7 +124,35 @@ public class TaskController extends BaseController{
         return doSuccess("设置成功",demoForm1);
     }
 
-    //参数作用域
+    /**
+     * 参数作用域
+     * @param taskId
+     * @return
+     */
+    @GetMapping("/scope")
+    public ResponseEntity<Result> scope(String taskId){
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        //设置本地参数，这个参数向下流转就找不到了
+        taskService.setVariableLocal(taskId,"days",3);
+        //setVariable是全局
+        return doSuccess("设置成功",taskId);
+    }
+
+
+    /**
+     * 任务附件
+     * @param taskId 任务id
+     * @param prodInsId 流程实例id
+     * @return
+     */
+    @GetMapping("/file")
+    public ResponseEntity<Result> file(String taskId,String prodInsId){
+        Attachment attachment = taskService.createAttachment("png",taskId,prodInsId,"测试图片","测试图片描述","www.baidu.com");
+        taskService.saveAttachment(attachment);
+        //setVariable是全局
+        return doSuccess("保存成功");
+    }
+
 
 
 }
