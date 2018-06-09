@@ -3,29 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>chens-parent</artifactId>
+        <artifactId>chens-bpm</artifactId>
         <groupId>com.chens</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../chens-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chens-bpm</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>chens-bpm-core</module>
-        <module>chens-bpm-activiti</module>
-        <module>chens-bpm-web</module>
-        <module>chens-bpm-demo</module>
-    </modules>
+    <artifactId>chens-bpm-demo</artifactId>
 
     <dependencies>
-        <!--通用方法集-->
+
+        <!--activiti流程实现-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>chens-core</artifactId>
+            <artifactId>chens-bpm-activiti</artifactId>
             <version>${project.version}</version>
         </dependency>
-    </dependencies>
 
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!--database-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 </project>
