@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <signal id="SignalDefTest" name="SignalDefTest" activiti:scope="global"></signal>
+  <process id="signal" name="Signal" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <endEvent id="sid-3C84A126-A856-4BDA-904E-744F54D59F72"></endEvent>
+    <intermediateCatchEvent id="SignalTask" name="SignalTask">
+      <signalEventDefinition signalRef="SignalDefTest"></signalEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="sid-72194CE9-AF19-4713-A6FF-FD0943B06EDC" sourceRef="startEvent1" targetRef="SignalTask"></sequenceFlow>
+    <userTask id="TaskA" name="TaskA"></userTask>
+    <sequenceFlow id="sid-A68F667F-5329-4CFA-BCF8-E209CDA8BAC4" sourceRef="SignalTask" targetRef="TaskA"></sequenceFlow>
+    <sequenceFlow id="sid-BED4E068-39F6-446B-A5BD-E2DBC3A8119B" sourceRef="TaskA" targetRef="sid-3C84A126-A856-4BDA-904E-744F54D59F72"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_signal">
+    <bpmndi:BPMNPlane bpmnElement="signal" id="BPMNPlane_signal">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-3C84A126-A856-4BDA-904E-744F54D59F72" id="BPMNShape_sid-3C84A126-A856-4BDA-904E-744F54D59F72">
+        <omgdc:Bounds height="28.0" width="28.0" x="465.0" y="151.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="SignalTask" id="BPMNShape_SignalTask">
+        <omgdc:Bounds height="30.0" width="30.0" x="180.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskA" id="BPMNShape_TaskA">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="125.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-72194CE9-AF19-4713-A6FF-FD0943B06EDC" id="BPMNEdge_sid-72194CE9-AF19-4713-A6FF-FD0943B06EDC">
+        <omgdi:waypoint x="120.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A68F667F-5329-4CFA-BCF8-E209CDA8BAC4" id="BPMNEdge_sid-A68F667F-5329-4CFA-BCF8-E209CDA8BAC4">
+        <omgdi:waypoint x="210.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-BED4E068-39F6-446B-A5BD-E2DBC3A8119B" id="BPMNEdge_sid-BED4E068-39F6-446B-A5BD-E2DBC3A8119B">
+        <omgdi:waypoint x="355.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

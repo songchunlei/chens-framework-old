@@ -46,13 +46,6 @@ public class DemoController extends BaseController {
     @Autowired
     private TaskService taskService;
 
-
-    /**
-     * 流程引擎管理维护
-     */
-    @Autowired
-    private ManagementService managementService;
-
     /**
      * 历史数据
      */

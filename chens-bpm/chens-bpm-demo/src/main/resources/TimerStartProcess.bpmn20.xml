@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="TimerProcess" name="TimerProcess" isExecutable="true">
+    <startEvent id="TimerStart" name="TimerStart" activiti:isInterrupting="false">
+      <timerEventDefinition>
+        <timeCycle>0/5 * * * * ? *</timeCycle>
+      </timerEventDefinition>
+    </startEvent>
+    <userTask id="TaskA" name="TaskA"></userTask>
+    <endEvent id="EndTask" name="EndTask"></endEvent>
+    <sequenceFlow id="sid-940193CE-9C6F-4D34-BCC4-4468CE6795A9" sourceRef="TaskA" targetRef="EndTask"></sequenceFlow>
+    <sequenceFlow id="sid-BA22247E-17D0-41CD-84EE-B35B99CF3F72" sourceRef="TimerStart" targetRef="TaskA"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TimerProcess">
+    <bpmndi:BPMNPlane bpmnElement="TimerProcess" id="BPMNPlane_TimerProcess">
+      <bpmndi:BPMNShape bpmnElement="TimerStart" id="BPMNShape_TimerStart">
+        <omgdc:Bounds height="31.0" width="31.0" x="165.0" y="234.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskA" id="BPMNShape_TaskA">
+        <omgdc:Bounds height="80.0" width="100.0" x="300.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndTask" id="BPMNShape_EndTask">
+        <omgdc:Bounds height="28.0" width="28.0" x="525.0" y="236.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-BA22247E-17D0-41CD-84EE-B35B99CF3F72" id="BPMNEdge_sid-BA22247E-17D0-41CD-84EE-B35B99CF3F72">
+        <omgdi:waypoint x="196.99992997490037" y="250.45266292906834"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="250.14792899408283"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-940193CE-9C6F-4D34-BCC4-4468CE6795A9" id="BPMNEdge_sid-940193CE-9C6F-4D34-BCC4-4468CE6795A9">
+        <omgdi:waypoint x="400.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="525.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
