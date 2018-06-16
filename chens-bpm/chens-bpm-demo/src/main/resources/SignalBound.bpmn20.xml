@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <signal id="ChangeId" name="ChangeName" activiti:scope="global"></signal>
+  <process id="SignalBound" name="SignalBound" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <userTask id="TaskA" name="查看合同"></userTask>
+    <sequenceFlow id="sid-7A2D1290-9549-44CC-923D-80FB1F2AB150" sourceRef="startEvent1" targetRef="TaskA"></sequenceFlow>
+    <userTask id="TaskB" name="确认合同"></userTask>
+    <sequenceFlow id="sid-B2EF0E9C-02A7-475E-9157-3E9E76BA4D08" sourceRef="TaskA" targetRef="TaskB"></sequenceFlow>
+    <userTask id="TaskC" name="变更合同"></userTask>
+    <userTask id="sid-EB5726EA-2381-4399-A0F2-2D37407725CE" name="签订合同"></userTask>
+    <sequenceFlow id="sid-34BFA987-42D5-4923-8FA1-F1CB9F1FC6F8" sourceRef="sid-6EE27664-7F57-41C6-85A7-95FA6F826185" targetRef="TaskC"></sequenceFlow>
+    <sequenceFlow id="sid-D81A3934-C6AA-4C23-B884-A6A4170DEC55" sourceRef="TaskC" targetRef="TaskA"></sequenceFlow>
+    <sequenceFlow id="sid-C6944A5B-5224-45E1-882A-641BAAA28814" sourceRef="TaskB" targetRef="sid-EB5726EA-2381-4399-A0F2-2D37407725CE"></sequenceFlow>
+    <endEvent id="sid-D60C944D-5C8C-4409-B7BC-37A1517A901B"></endEvent>
+    <sequenceFlow id="sid-0D7D0BBF-1515-4553-A5DD-BCFB3F1B5021" sourceRef="sid-EB5726EA-2381-4399-A0F2-2D37407725CE" targetRef="sid-D60C944D-5C8C-4409-B7BC-37A1517A901B"></sequenceFlow>
+    <boundaryEvent id="sid-6EE27664-7F57-41C6-85A7-95FA6F826185" attachedToRef="TaskB" cancelActivity="true">
+      <signalEventDefinition signalRef="ChangeId"></signalEventDefinition>
+    </boundaryEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SignalBound">
+    <bpmndi:BPMNPlane bpmnElement="SignalBound" id="BPMNPlane_SignalBound">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskA" id="BPMNShape_TaskA">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskB" id="BPMNShape_TaskB">
+        <omgdc:Bounds height="80.0" width="100.0" x="450.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskC" id="BPMNShape_TaskC">
+        <omgdc:Bounds height="80.0" width="100.0" x="360.0" y="255.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EB5726EA-2381-4399-A0F2-2D37407725CE" id="BPMNShape_sid-EB5726EA-2381-4399-A0F2-2D37407725CE">
+        <omgdc:Bounds height="80.0" width="100.0" x="645.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D60C944D-5C8C-4409-B7BC-37A1517A901B" id="BPMNShape_sid-D60C944D-5C8C-4409-B7BC-37A1517A901B">
+        <omgdc:Bounds height="28.0" width="28.0" x="790.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6EE27664-7F57-41C6-85A7-95FA6F826185" id="BPMNShape_sid-6EE27664-7F57-41C6-85A7-95FA6F826185">
+        <omgdc:Bounds height="30.0" width="30.0" x="501.4795360532371" y="200.2212405367142"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-C6944A5B-5224-45E1-882A-641BAAA28814" id="BPMNEdge_sid-C6944A5B-5224-45E1-882A-641BAAA28814">
+        <omgdi:waypoint x="550.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="645.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-0D7D0BBF-1515-4553-A5DD-BCFB3F1B5021" id="BPMNEdge_sid-0D7D0BBF-1515-4553-A5DD-BCFB3F1B5021">
+        <omgdi:waypoint x="745.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D81A3934-C6AA-4C23-B884-A6A4170DEC55" id="BPMNEdge_sid-D81A3934-C6AA-4C23-B884-A6A4170DEC55">
+        <omgdi:waypoint x="375.0" y="255.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7A2D1290-9549-44CC-923D-80FB1F2AB150" id="BPMNEdge_sid-7A2D1290-9549-44CC-923D-80FB1F2AB150">
+        <omgdi:waypoint x="130.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-34BFA987-42D5-4923-8FA1-F1CB9F1FC6F8" id="BPMNEdge_sid-34BFA987-42D5-4923-8FA1-F1CB9F1FC6F8">
+        <omgdi:waypoint x="504.47516000095413" y="224.21540284319804"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="257.53798503432694"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B2EF0E9C-02A7-475E-9157-3E9E76BA4D08" id="BPMNEdge_sid-B2EF0E9C-02A7-475E-9157-3E9E76BA4D08">
+        <omgdi:waypoint x="355.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

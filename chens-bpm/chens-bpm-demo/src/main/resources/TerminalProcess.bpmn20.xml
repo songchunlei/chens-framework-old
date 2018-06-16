@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="TerminalProcess" name="TerminalProcess" isExecutable="true">
+    <startEvent id="StartTask" name="StartTask"></startEvent>
+    <userTask id="TaskA" name="TaskA"></userTask>
+    <userTask id="TaskB" name="TaskB"></userTask>
+    <parallelGateway id="sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D"></parallelGateway>
+    <endEvent id="TermTask" name="TermTask">
+      <terminateEventDefinition></terminateEventDefinition>
+    </endEvent>
+    <userTask id="TaskC" name="TaskC"></userTask>
+    <sequenceFlow id="sid-AFB67EFC-8698-4BE3-930B-595FF637CCAD" sourceRef="StartTask" targetRef="sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D"></sequenceFlow>
+    <sequenceFlow id="sid-DD86DAB1-669E-40E3-A68E-D0C1B1E9FBE7" sourceRef="sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D" targetRef="TaskA"></sequenceFlow>
+    <sequenceFlow id="sid-70E46B6B-C214-4E37-9914-5D02AD9ED197" sourceRef="TaskA" targetRef="TermTask"></sequenceFlow>
+    <sequenceFlow id="sid-2B30C826-BFDE-49A7-B00E-38D7CB76D260" sourceRef="TaskB" targetRef="TaskC"></sequenceFlow>
+    <endEvent id="EndTask" name="EndTask"></endEvent>
+    <sequenceFlow id="sid-8A4AC317-3AED-4AEB-B349-F2F3B5E6AAAE" sourceRef="TaskC" targetRef="EndTask"></sequenceFlow>
+    <sequenceFlow id="sid-2BF87605-E136-424E-A67A-29B3D8F96CF4" sourceRef="sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D" targetRef="TaskB"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TerminalProcess">
+    <bpmndi:BPMNPlane bpmnElement="TerminalProcess" id="BPMNPlane_TerminalProcess">
+      <bpmndi:BPMNShape bpmnElement="StartTask" id="BPMNShape_StartTask">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="156.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskA" id="BPMNShape_TaskA">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="59.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskB" id="BPMNShape_TaskB">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D" id="BPMNShape_sid-A4C6A9E5-40E9-48D1-8C1A-E6D51799986D">
+        <omgdc:Bounds height="40.0" width="40.0" x="205.75" y="151.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TermTask" id="BPMNShape_TermTask">
+        <omgdc:Bounds height="28.0" width="28.0" x="525.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TaskC" id="BPMNShape_TaskC">
+        <omgdc:Bounds height="80.0" width="100.0" x="480.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndTask" id="BPMNShape_EndTask">
+        <omgdc:Bounds height="28.0" width="28.0" x="690.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-2BF87605-E136-424E-A67A-29B3D8F96CF4" id="BPMNEdge_sid-2BF87605-E136-424E-A67A-29B3D8F96CF4">
+        <omgdi:waypoint x="226.25" y="190.5"></omgdi:waypoint>
+        <omgdi:waypoint x="226.25" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-8A4AC317-3AED-4AEB-B349-F2F3B5E6AAAE" id="BPMNEdge_sid-8A4AC317-3AED-4AEB-B349-F2F3B5E6AAAE">
+        <omgdi:waypoint x="580.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="690.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-AFB67EFC-8698-4BE3-930B-595FF637CCAD" id="BPMNEdge_sid-AFB67EFC-8698-4BE3-930B-595FF637CCAD">
+        <omgdi:waypoint x="120.0" y="171.0"></omgdi:waypoint>
+        <omgdi:waypoint x="205.75" y="171.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-DD86DAB1-669E-40E3-A68E-D0C1B1E9FBE7" id="BPMNEdge_sid-DD86DAB1-669E-40E3-A68E-D0C1B1E9FBE7">
+        <omgdi:waypoint x="226.25" y="151.5"></omgdi:waypoint>
+        <omgdi:waypoint x="226.25" y="99.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="99.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-70E46B6B-C214-4E37-9914-5D02AD9ED197" id="BPMNEdge_sid-70E46B6B-C214-4E37-9914-5D02AD9ED197">
+        <omgdi:waypoint x="370.0" y="99.0"></omgdi:waypoint>
+        <omgdi:waypoint x="525.0" y="99.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-2B30C826-BFDE-49A7-B00E-38D7CB76D260" id="BPMNEdge_sid-2B30C826-BFDE-49A7-B00E-38D7CB76D260">
+        <omgdi:waypoint x="370.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

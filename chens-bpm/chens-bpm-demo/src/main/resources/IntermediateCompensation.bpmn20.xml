@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="IntermediateCompensation" name="IntermediateCompensation" isExecutable="true">
+    <documentation>补偿中间事件</documentation>
+    <startEvent id="StartTask" name="StartTask"></startEvent>
+    <serviceTask id="sid-1E00809C-7F12-4CBA-8298-256E98F8EB88" name="工商银行扣款"></serviceTask>
+    <serviceTask id="sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2" name="农业银行加款"></serviceTask>
+    <boundaryEvent id="sid-2C7E7E01-F271-4CDD-B6F7-E7D002F671A8" attachedToRef="sid-1E00809C-7F12-4CBA-8298-256E98F8EB88" cancelActivity="false">
+      <compensateEventDefinition></compensateEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="sid-A0EDBBE2-5FED-4589-8832-DE2F36D8A597" attachedToRef="sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2" cancelActivity="false">
+      <compensateEventDefinition></compensateEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="sid-1B23E43E-C2CA-41A7-A9C6-61BDEC719D5A" name="工商银行扣款补偿"></serviceTask>
+    <serviceTask id="sid-EF901B10-CF55-49C2-9086-06D5A1E76F7F" name="农业银行扣款补偿"></serviceTask>
+    <endEvent id="sid-E4C13B13-D021-488F-828A-0F5BF0EE99D1"></endEvent>
+    <intermediateThrowEvent id="sid-E32EF82B-D48E-446C-9AAF-A479B37953C1">
+      <compensateEventDefinition></compensateEventDefinition>
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow1" name="flow1" sourceRef="StartTask" targetRef="sid-1E00809C-7F12-4CBA-8298-256E98F8EB88"></sequenceFlow>
+    <sequenceFlow id="flow2" name="flow2" sourceRef="sid-1E00809C-7F12-4CBA-8298-256E98F8EB88" targetRef="sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2"></sequenceFlow>
+    <sequenceFlow id="flow3" name="flow3" sourceRef="sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2" targetRef="sid-E32EF82B-D48E-446C-9AAF-A479B37953C1"></sequenceFlow>
+    <sequenceFlow id="flow4" name="flow4" sourceRef="sid-E32EF82B-D48E-446C-9AAF-A479B37953C1" targetRef="sid-E4C13B13-D021-488F-828A-0F5BF0EE99D1"></sequenceFlow>
+    <association id="flow6" sourceRef="sid-A0EDBBE2-5FED-4589-8832-DE2F36D8A597" targetRef="sid-EF901B10-CF55-49C2-9086-06D5A1E76F7F" associationDirection="None"></association>
+    <association id="flow5" sourceRef="sid-2C7E7E01-F271-4CDD-B6F7-E7D002F671A8" targetRef="sid-1B23E43E-C2CA-41A7-A9C6-61BDEC719D5A" associationDirection="None"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_IntermediateCompensation">
+    <bpmndi:BPMNPlane bpmnElement="IntermediateCompensation" id="BPMNPlane_IntermediateCompensation">
+      <bpmndi:BPMNShape bpmnElement="StartTask" id="BPMNShape_StartTask">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1E00809C-7F12-4CBA-8298-256E98F8EB88" id="BPMNShape_sid-1E00809C-7F12-4CBA-8298-256E98F8EB88">
+        <omgdc:Bounds height="80.0" width="100.0" x="210.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2" id="BPMNShape_sid-E813BB53-38F4-43FC-8EDB-23A289E8A9F2">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2C7E7E01-F271-4CDD-B6F7-E7D002F671A8" id="BPMNShape_sid-2C7E7E01-F271-4CDD-B6F7-E7D002F671A8">
+        <omgdc:Bounds height="30.0" width="30.0" x="285.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A0EDBBE2-5FED-4589-8832-DE2F36D8A597" id="BPMNShape_sid-A0EDBBE2-5FED-4589-8832-DE2F36D8A597">
+        <omgdc:Bounds height="30.0" width="30.0" x="474.7477762159456" y="205.0850382890836"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1B23E43E-C2CA-41A7-A9C6-61BDEC719D5A" id="BPMNShape_sid-1B23E43E-C2CA-41A7-A9C6-61BDEC719D5A">
+        <omgdc:Bounds height="80.0" width="100.0" x="285.0" y="285.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EF901B10-CF55-49C2-9086-06D5A1E76F7F" id="BPMNShape_sid-EF901B10-CF55-49C2-9086-06D5A1E76F7F">
+        <omgdc:Bounds height="80.0" width="100.0" x="540.0" y="285.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E4C13B13-D021-488F-828A-0F5BF0EE99D1" id="BPMNShape_sid-E4C13B13-D021-488F-828A-0F5BF0EE99D1">
+        <omgdc:Bounds height="28.0" width="28.0" x="675.0" y="166.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E32EF82B-D48E-446C-9AAF-A479B37953C1" id="BPMNShape_sid-E32EF82B-D48E-446C-9AAF-A479B37953C1">
+        <omgdc:Bounds height="30.0" width="30.0" x="570.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="flow6" id="BPMNShape_flow6">
+        <omgdc:Bounds height="53.47044491577276" width="51.094056768561416" x="500.6205010032159" y="231.46345426524107"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="flow5" id="BPMNShape_flow5">
+        <omgdc:Bounds height="60.07883973914227" width="18.284864268434603" x="304.3927241157827" y="224.43323638042887"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="130.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="210.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="310.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="520.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="600.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="675.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="304.3674242367404" y="224.35010820643288"></omgdi:waypoint>
+        <omgdi:waypoint x="322.82608695652175" y="285.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="500.1106508539805" y="230.92989094997176"></omgdi:waypoint>
+        <omgdi:waypoint x="551.7777208706266" y="285.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

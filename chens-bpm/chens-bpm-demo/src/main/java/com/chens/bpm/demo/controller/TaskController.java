@@ -1,11 +1,18 @@
 package com.chens.bpm.demo.controller;
 
 import com.chens.bpm.demo.entity.DemoForm;
+import com.chens.bpm.demo.sync.MyBean;
+import com.chens.bpm.demo.sync.MyJavaDelegate;
+import com.chens.bpm.demo.util.WfUtil;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +21,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 任务
@@ -40,6 +52,18 @@ public class TaskController extends BaseController{
      */
     @Autowired
     private RepositoryService repositoryService;
+
+    /**
+     * 运行时服务
+     */
+    @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private MyJavaDelegate myJavaDelegate;
+
+    @Autowired
+    private MyBean myBean;
 
     /**
      * 绑定候选任务组(存act_ru_identitylink中间表)
@@ -152,6 +176,122 @@ public class TaskController extends BaseController{
         //setVariable是全局
         return doSuccess("保存成功");
     }
+
+
+    /**
+     * Service Task使用 Delegate expression:${MyService}
+     * @return
+     */
+    @GetMapping("/delegateExpression")
+    public ResponseEntity<Result> delegateExpression(){
+
+
+        ProcessDefinition processDefinition = WfUtil.deploy(repositoryService,"ServiceDelegateExpressionProcess.bpmn20.xml");
+
+        Map<String,Object> vars = new HashMap<>();
+        vars.put("MyService",myJavaDelegate);
+
+        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId(),vars);
+
+        //setVariable是全局
+        return doSuccess("保存成功");
+    }
+
+    /**
+     * Service Task
+     * 使用 expression 直接调用自定义服务方法 $(myBean.print(execution))
+     * 使用 expression 直接调用自定义服务方法取值 ${execution.setVariable('myName',myBean.name)}
+     * @return
+     */
+    @GetMapping("/expression")
+    public ResponseEntity<Result> expression(){
+
+
+        ProcessDefinition processDefinition = WfUtil.deploy(repositoryService,"MyBeanTask.bpmn20.xml");
+
+        Map<String,Object> vars = new HashMap<>();
+        vars.put("myBean",myBean);
+
+
+        //测试流程引擎反射bean原理-获取实例对象
+        Object obj = vars.get("myBean");
+        //获取对象对应的class
+        Class clazz = obj.getClass();
+        try {
+            //反射调用
+            Method method = clazz.getDeclaredMethod("print",Execution.class);
+            method.invoke(obj,new ExecutionEntityImpl());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        //启动流程
+        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId(),vars);
+
+        System.out.println("已启动流程:"+processInstance.getId()+" var:"+runtimeService.getVariable(processInstance.getId(),"myName"));
+
+        //setVariable是全局
+        return doSuccess("发布成功");
+    }
+
+    /**
+     * Service Task使用 activiti:type="shell"()
+     * 定义Class Field
+     * @return
+     */
+    @GetMapping("/shell")
+    public ResponseEntity<Result> shell(){
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"ShellProcess.bpmn20.xml",null);
+
+        System.out.println("已启动流程:"+processInstance.getId()+" var:"+runtimeService.getVariable(processInstance.getId(),"reslist"));
+
+
+
+        return doSuccess("保存成功");
+    }
+
+    /**
+     * 手工任务，类似抛出，自动执行
+     * @return
+     */
+    @GetMapping("/manual")
+    public ResponseEntity<Result> manual(){
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"ShellProcess.bpmn20.xml",null);
+
+        System.out.println("已启动流程:"+processInstance.getId()+" var:"+runtimeService.getVariable(processInstance.getId(),"reslist"));
+
+
+
+        return doSuccess("保存成功");
+    }
+
+    /**
+     * 邮件任务
+     * 需要配置邮件服务器
+     * @return
+     */
+    @GetMapping("/mail")
+    public ResponseEntity<Result> mail(){
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"ShellProcess.bpmn20.xml",null);
+
+        System.out.println("已启动流程:"+processInstance.getId()+" var:"+runtimeService.getVariable(processInstance.getId(),"reslist"));
+
+
+
+        return doSuccess("保存成功");
+    }
+
+
 
 
 

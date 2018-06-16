@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="TimerBound" name="TimerBound" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <userTask id="FirstTask" name="初级工程师处理"></userTask>
+    <sequenceFlow id="sid-80B43928-9E97-4C44-A1F8-BBDA29888572" sourceRef="startEvent1" targetRef="FirstTask"></sequenceFlow>
+    <userTask id="SecTask" name="高级工程师处理"></userTask>
+    <endEvent id="sid-5443DCDC-95BF-4E03-9926-D278EE2B6AE1"></endEvent>
+    <sequenceFlow id="sid-760AFFF6-9B41-4E50-8523-67BA268E1C89" sourceRef="FirstTask" targetRef="sid-5443DCDC-95BF-4E03-9926-D278EE2B6AE1"></sequenceFlow>
+    <boundaryEvent id="sid-85953CFB-591A-49A6-8B08-BFE062C3BF12" attachedToRef="FirstTask" cancelActivity="true">
+      <timerEventDefinition>
+        <timeDuration>PT1M</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="sid-0EA85AAC-FA3C-4C35-A0DC-9F2AB6A3CF7C" sourceRef="sid-85953CFB-591A-49A6-8B08-BFE062C3BF12" targetRef="SecTask"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TimerBound">
+    <bpmndi:BPMNPlane bpmnElement="TimerBound" id="BPMNPlane_TimerBound">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="105.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="FirstTask" id="BPMNShape_FirstTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="SecTask" id="BPMNShape_SecTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="405.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5443DCDC-95BF-4E03-9926-D278EE2B6AE1" id="BPMNShape_sid-5443DCDC-95BF-4E03-9926-D278EE2B6AE1">
+        <omgdc:Bounds height="28.0" width="28.0" x="525.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-85953CFB-591A-49A6-8B08-BFE062C3BF12" id="BPMNShape_sid-85953CFB-591A-49A6-8B08-BFE062C3BF12">
+        <omgdc:Bounds height="31.0" width="31.0" x="274.4656490193491" y="199.59160261506904"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-760AFFF6-9B41-4E50-8523-67BA268E1C89" id="BPMNEdge_sid-760AFFF6-9B41-4E50-8523-67BA268E1C89">
+        <omgdi:waypoint x="355.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="525.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-80B43928-9E97-4C44-A1F8-BBDA29888572" id="BPMNEdge_sid-80B43928-9E97-4C44-A1F8-BBDA29888572">
+        <omgdi:waypoint x="135.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-0EA85AAC-FA3C-4C35-A0DC-9F2AB6A3CF7C" id="BPMNEdge_sid-0EA85AAC-FA3C-4C35-A0DC-9F2AB6A3CF7C">
+        <omgdi:waypoint x="305.36475314499233" y="221.42398602609757"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="260.4270667489656"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

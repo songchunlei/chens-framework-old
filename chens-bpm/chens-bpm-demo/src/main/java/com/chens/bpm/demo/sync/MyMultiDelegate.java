@@ -13,10 +13,10 @@ import java.io.Serializable;
  * @create 2018/1/6
  */
 @Component
-public class MyJavaDelegate implements JavaDelegate,Serializable {
+public class MyMultiDelegate implements JavaDelegate,Serializable {
 
     @Override
     public void execute(DelegateExecution execution) {
-        System.out.println("处理了一些事情:"+execution.getProcessInstanceId());
+        System.out.println("处理了一些事情:"+execution.getVariable("testData"));
     }
 }

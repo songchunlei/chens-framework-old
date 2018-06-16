@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 流程操作类测试
@@ -69,7 +72,7 @@ public class ProcessController extends BaseController{
     @GetMapping("/parallel")
     public ResponseEntity<Result> parallel(String msg) throws IOException {
 
-        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MyParallelProcess.bpmn20.xml");
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MyParallelProcess.bpmn20.xml",null);
         //处理task
         List<Task> taskList = taskService.createTaskQuery().processInstanceId(processInstance.getProcessInstanceId()).list();
         for (Task task:taskList) {
@@ -104,7 +107,7 @@ public class ProcessController extends BaseController{
     @GetMapping("/receiveTask")
     public ResponseEntity<Result> mailTask() throws IOException {
 
-        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MyReceive.bpmn20.xml");
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MyReceive.bpmn20.xml",null);
         //处理task
         List<Task> taskList = taskService.createTaskQuery().processInstanceId(processInstance.getProcessInstanceId()).list();
 
@@ -138,7 +141,7 @@ public class ProcessController extends BaseController{
     public ResponseEntity<Result> signalTask() throws IOException {
 
 
-        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"Signal.bpmn20.xml");
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"Signal.bpmn20.xml", null);
 
         //查询执行流(子执行流)
         Execution execution = WfUtil.queryExec(runtimeService,processInstance);
@@ -163,7 +166,7 @@ public class ProcessController extends BaseController{
     public ResponseEntity<Result> msgTask() throws IOException {
 
 
-        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MessageSignal.bpmn20.xml");
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MessageSignal.bpmn20.xml",null);
 
         //查询执行流(子执行流)
         Execution execution = WfUtil.queryExec(runtimeService,processInstance);
@@ -177,6 +180,93 @@ public class ProcessController extends BaseController{
         return doSuccess("发布");
     }
 
+    /**
+     * 测试exec监听流程
+     * @return
+     */
+    @GetMapping("/execListener")
+    public ResponseEntity<Result> execListener() {
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"ExecListenerProcess.bpmn20.xml",null);
+
+        Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+
+        //完成任务
+        taskService.complete(task.getId());
+
+        return doSuccess("发布");
+    }
+
+    /**
+     * 测试监听流程
+     * @return
+     */
+    @GetMapping("/listener")
+    public ResponseEntity<Result> listener() {
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"ListenerProcess.bpmn20.xml",null);
+
+        Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+
+        //指定代理人
+        taskService.setAssignee(task.getId(),"1");
+        System.out.println("已指定代理人：user:1");
+
+        //完成任务
+        taskService.complete(task.getId());
+        return doSuccess("发布");
+    }
+
+
+
+
+    /**
+     * 重复任务
+     * Multi-instance type  : 重复执行类型
+     * 1。 设置Cardinality就是循环次数
+     *
+     * 2。 Collection对应的是循环的数组，根据这个数组循环几次
+     *     Element variable:就是循环时取值
+     * @return
+     */
+    @GetMapping("/multi")
+    public ResponseEntity<Result> multi() {
+
+        List<String> testDataList = new ArrayList<>(2);
+        testDataList.add("a");
+        testDataList.add("b");
+        Map<String,Object> map = new HashMap<>(1);
+        map.put("testDataList",testDataList);
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MultiProcess.bpmn20.xml",map);
+
+
+
+        return doSuccess("发布");
+    }
+
+    /**
+     * 重复任务
+     * 测试内部参数(虽然定义了循环5次，但是循环完成条件设置成了2次就跳出循环)
+     * nrOfCompletedInstances 已完成的实例数
+     * nrOfInstances 实例总数
+     * nrOfActiveInstances 当前正在执行的实例数
+     * loopCounter 当前循环的索引
+     * 这些参数也可以在execution.getVariable("xxx")获取
+     * @return
+     */
+    @GetMapping("/multi2")
+    public ResponseEntity<Result> multi2() {
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"MultiProcess2.bpmn20.xml",null);
+
+
+
+        return doSuccess("发布");
+    }
 
 
 
