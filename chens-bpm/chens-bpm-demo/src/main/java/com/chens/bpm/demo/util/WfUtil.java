@@ -98,6 +98,23 @@ public class WfUtil {
     }
 
     /**
+     * 查询第一次任务并全部完成
+     * @param taskService
+     * @param processInstanceId
+     * @param maps
+     * @return
+     */
+    public static List<Task> queryTaskAndComplete(TaskService taskService,String processInstanceId,Map<String,Object> maps){
+        List<Task> taskList = taskService.createTaskQuery()
+                .processInstanceId(processInstanceId).list();
+        for (Task task:taskList) {
+            System.out.println("当前任务节点:"+task.getName());
+            taskService.complete(task.getId(),maps);
+        }
+        return taskList;
+    }
+
+    /**
      * 自动循环完成task(测试，生产不要用)
      * @param taskService
      * @param processInstanceId

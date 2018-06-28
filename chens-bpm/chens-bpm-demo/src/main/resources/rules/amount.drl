@@ -1,0 +1,26 @@
+package com.chens.bpm.demo.entity
+
+import java.math.BigDecimal;
+
+function void print(Member member){
+    System.out.println(member.getName()+",消费"+member.getAmount());
+}
+
+rule "Amount 100"
+    activation-group "Amount Group"
+    when
+        $m:Member(amount.compareTo(new BigDecimal(100))==1);
+    then
+        //print($m);
+        System.out.println($m.getName()+",消费"+$m.getAmount()+",组a");
+end
+
+rule "Amount 120"
+    activation-group "Amount Group"
+    salience 4
+    when
+        $m:Member(amount.compareTo(new BigDecimal(120))==1);
+    then
+        //print($m);
+        System.out.println($m.getName()+",消费"+$m.getAmount()+",组b");
+end

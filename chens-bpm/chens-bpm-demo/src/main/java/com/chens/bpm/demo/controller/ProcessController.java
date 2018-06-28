@@ -3,9 +3,18 @@ package com.chens.bpm.demo.controller;
 import com.chens.bpm.demo.util.WfUtil;
 import com.chens.core.vo.Result;
 import com.chens.core.web.BaseController;
+import org.activiti.bpmn.converter.BpmnXMLConverter;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.GraphicInfo;
+import org.activiti.bpmn.model.Process;
+import org.activiti.bpmn.model.UserTask;
+import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
@@ -52,6 +61,9 @@ public class ProcessController extends BaseController{
      */
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private FormService formService;
 
     /**
      * 用消息启动
@@ -267,6 +279,73 @@ public class ProcessController extends BaseController{
 
         return doSuccess("发布");
     }
+
+    /**
+     * 获取表单
+     * @return
+     */
+    @GetMapping("/form")
+    public ResponseEntity<Result> form() {
+
+
+        ProcessInstance processInstance = WfUtil.deployStart(repositoryService,runtimeService,"form.bpmn",null);
+
+        Task task = taskService.createTaskQuery().singleResult();
+
+        //设置formKey,可以动态获取表单
+        task.setFormKey("");
+        task.getFormKey();
+
+        //也可以通过formService获取流程xml定义的表单
+        TaskFormData formData = formService.getTaskFormData("taskI");
+        List<FormProperty> formProperties = formData.getFormProperties();
+
+        //获取开始节点表单
+        StartFormData startFormData = formService.getStartFormData("form.bpmn");
+        List<FormProperty> formProperties2 = startFormData.getFormProperties();
+
+
+
+        return doSuccess("发布");
+    }
+
+
+
+    /**
+     * 画流程图
+     * @return
+     */
+    @GetMapping("/draw")
+    public ResponseEntity<Result> draw() {
+
+        //创建bpm模型实例
+        BpmnModel model = new BpmnModel();
+        //创建流程
+        Process process = new Process();
+        process.setId("myDrawProcess");
+        model.getProcesses().add(process);
+        //创建任务
+        UserTask userTask = new UserTask();
+        userTask.setId("myDrawTask");
+        process.addFlowElement(userTask);
+        //设置任务图像
+        GraphicInfo g1 = new GraphicInfo();
+        g1.setHeight(100);
+        g1.setWidth(200);
+        g1.setX(110);
+        g1.setY(120);
+        model.addGraphicInfo("myDrawTask",g1);
+        BpmnXMLConverter converter = new BpmnXMLConverter();
+        System.out.println(new String(converter.convertToXML(model)));
+
+
+
+
+
+        return doSuccess("发布");
+    }
+
+
 
 
 

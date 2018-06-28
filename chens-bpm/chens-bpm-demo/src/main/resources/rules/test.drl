@@ -1,0 +1,22 @@
+package com.chens.bpm.demo.entity
+
+rule "discount 7"
+    when
+        Member(identity == Member.GOLD,memberName:name);
+    then
+        System.out.println(memberName+"7折");
+end
+
+rule "discount 8"
+    when
+        Member(identity == Member.SILVER,memberName:name);
+    then
+        System.out.println(memberName+"8折");
+end
+
+rule "discount 9"
+    when
+        Member(identity == Member.COOPER,memberName:name);
+    then
+        System.out.println(memberName+"9折");
+end

@@ -1,0 +1,11 @@
+package com.chens.bpm.demo.entity
+
+import java.math.BigDecimal;
+
+rule "disAmount 100"
+    when
+        $m:Member(amount.compareTo(new BigDecimal(100))==1);
+    then
+        $m.setDisAmount($m.getAmount().subtract(new BigDecimal(20)));
+        update($m);
+end
