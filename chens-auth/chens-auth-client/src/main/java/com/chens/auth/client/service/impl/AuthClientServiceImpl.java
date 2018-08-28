@@ -88,12 +88,10 @@ public class AuthClientServiceImpl implements IAuthClientService {
         }
 
         //存入缓存
-        BaseContextHandler.setUserName(userName);
-        BaseContextHandler.setName(name);
-        BaseContextHandler.setUserId(userId);
-        BaseContextHandler.setTenantId(tenantId);
-        BaseContextHandler.setToken(token);
-        return new UserInfo(userId, name, userName, tenantId, token);
+        UserInfo userInfo = new UserInfo(userId, name, userName, tenantId, token);
+        BaseContextHandler.setUserInfo(userInfo);
+
+        return userInfo;
     }
 
 

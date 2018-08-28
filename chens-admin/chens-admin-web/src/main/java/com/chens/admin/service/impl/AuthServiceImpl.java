@@ -4,6 +4,7 @@ package com.chens.admin.service.impl;
 import com.chens.admin.enums.SysMenuEnum;
 import com.chens.admin.handler.UserHandler;
 import com.chens.admin.service.ISysMenuService;
+import com.chens.admin.service.IUserTokenVoService;
 import com.chens.auth.client.feign.ISysTokenClient;
 import com.chens.core.vo.UserInfo;
 import com.chens.core.constants.CommonConstants;
@@ -12,14 +13,13 @@ import com.chens.admin.entity.SysMenu;
 import com.chens.core.exception.BaseExceptionEnum;
 import com.chens.core.util.StringUtils;
 import com.chens.core.util.TreeUtil;
-import com.chens.admin.vo.JWTToken;
+import com.chens.admin.vo.UserTokenVo;
 import com.chens.admin.vo.MenuTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import com.chens.admin.service.IAuthService;
-import com.chens.admin.service.ISysRoleService;
 import com.chens.admin.service.ISysUserService;
 import com.chens.admin.entity.SysUser;
 import com.chens.core.exception.BaseException;
@@ -50,28 +50,19 @@ public class AuthServiceImpl implements IAuthService {
     private ISysUserService sysUserService;
 
     @Autowired
-    private ISysRoleService sysRoleService;
-
-    @Autowired
-    private ISysMenuService sysMenuService;
-
-    @Override
-    public SysUser findByUsernameAndPassword(AuthRequest authRequest) {
-        SysUser sysUser = sysUserService.findByUsername(authRequest);
-        return sysUser;
-    }
-
+    private IUserTokenVoService userTokenVoService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public JWTToken login(AuthRequest authRequest) {
+    public UserTokenVo login(AuthRequest authRequest) {
         if (authRequest != null) {
             //logger.info("*******AuthService.login****************");
-            SysUser sysUser = this.findByUsernameAndPassword(authRequest);
+            SysUser sysUser = sysUserService.findByUsername(authRequest);
             if (sysUser == null) {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
             }
-            return this.parseToken(sysTokenClient.createTokenByUserInfo(UserHandler.getUserInfoBySysUser(sysUser, null)));
+            UserInfo userInfo = sysTokenClient.createTokenByUserInfo(UserHandler.getUserInfoBySysUser(sysUser, null));
+            return userTokenVoService.getUserTokenVo(userInfo);
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -89,10 +80,10 @@ public class AuthServiceImpl implements IAuthService {
 
 
     @Override
-    public JWTToken parseToken(String token) {
+    public UserTokenVo parseToken(String token) {
         //解析jwtInfo
         UserInfo userInfo = sysTokenClient.parseToken(token);
-        return this.parseToken(userInfo);
+        return userTokenVoService.getUserTokenVo(userInfo);
     }
 
 
@@ -104,36 +95,6 @@ public class AuthServiceImpl implements IAuthService {
         } else {
             return false;
         }
-    }
-
-    private JWTToken parseToken(UserInfo userInfo) {
-
-        //logger.info("*******AuthService.parseToken****************");
-
-        //获取菜单列表
-        List<SysMenu> sysMenus = sysMenuService.getMenuListByUserId(userInfo.getId());
-        //全量打平菜单树
-        Map<String, MenuTree> all = new HashMap<String, MenuTree>();
-        //菜单嵌套树
-        List<MenuTree> trees = new ArrayList<>();
-        //循环
-        if (!CollectionUtils.isEmpty(sysMenus)) {
-            for (SysMenu menu : sysMenus) {
-                MenuTree menuTree = new MenuTree(menu);
-                trees.add(menuTree);
-                //当菜单类型为页面时，放入子菜单（不克隆）
-                if (SysMenuEnum.PAGE.getCode().equals(menu.getType())) {
-                    all.put(menu.getCode(), menuTree);
-                } else {
-                    all.put(menu.getCode(), menuTree.clone());
-                }
-
-            }
-        }
-        //构建树结构
-        List<MenuTree> menus = TreeUtil.build(trees, CommonConstants.BASE_TREE_ROOT);
-        //返回JWTToken
-        return new JWTToken(userInfo.getToken(), menus, all, userInfo);
     }
 
 }

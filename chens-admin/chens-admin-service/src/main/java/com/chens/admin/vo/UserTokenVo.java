@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Admin-web自定义的JWT封装反馈
+ * 自定义带用户信息的JWT封装反馈
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/19
  */
-public class JWTToken implements Serializable {
+public class UserTokenVo implements Serializable {
     private String accessToken;
     private List<MenuTree> menus;
     private Map<String, MenuTree> all;
@@ -27,12 +27,12 @@ public class JWTToken implements Serializable {
         this.accessToken = accessToken;
     }
 
-    public JWTToken(String accessToken) {
+    public UserTokenVo(String accessToken) {
         super();
         this.accessToken = accessToken;
     }
 
-    public JWTToken(String accessToken, List<MenuTree> menus, Map<String, MenuTree> all, UserInfo user) {
+    public UserTokenVo(String accessToken, List<MenuTree> menus, Map<String, MenuTree> all, UserInfo user) {
         this.accessToken = accessToken;
         this.menus = menus;
         this.all = all;

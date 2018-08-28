@@ -1,7 +1,6 @@
 package com.chens.admin.service;
 
-import com.chens.admin.vo.JWTToken;
-import com.chens.admin.entity.SysUser;
+import com.chens.admin.vo.UserTokenVo;
 import com.chens.core.exception.BaseException;
 import com.chens.core.vo.AuthRequest;
 
@@ -12,13 +11,6 @@ import com.chens.core.vo.AuthRequest;
  * @create 2018/3/4
  */
 public interface IAuthService {
-    /**
-     * 根据账户获取用户-含账号密码，内部使用方法,不要往前端传
-     *
-     * @param authRequest 请求方法
-     * @return SysUser 返回系统用户
-     */
-    SysUser findByUsernameAndPassword(AuthRequest authRequest);
 
     /**
      * 简单密码校验
@@ -35,7 +27,7 @@ public interface IAuthService {
      * @return
      * @throws BaseException
      */
-    JWTToken login(AuthRequest authRequest);
+    UserTokenVo login(AuthRequest authRequest);
 
     /**
      * 退出，并使token失效
@@ -51,6 +43,6 @@ public interface IAuthService {
      * @param token
      * @return
      */
-    JWTToken parseToken(String token);
+    UserTokenVo parseToken(String token);
 
 }

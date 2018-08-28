@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 权限控制
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/5
  */
 @Controller
