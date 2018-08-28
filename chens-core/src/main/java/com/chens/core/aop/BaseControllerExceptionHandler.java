@@ -14,9 +14,6 @@ import com.chens.core.exception.TimeOutException;
 import com.chens.core.handler.MyExceptionHandler;
 import com.chens.core.util.AopTargetUtil;
 import com.chens.core.vo.Result;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
-
-import feign.FeignException;
 
 /**
  * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）

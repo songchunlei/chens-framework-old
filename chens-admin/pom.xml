@@ -16,7 +16,20 @@
         <!--管理后台模块-->
         <module>chens-admin-web</module>
         <module>chens-admin-feign</module>
+        <module>chens-admin-service</module>
+        <module>chens-admin-dto</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--通用方法集-->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>chens-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 </project>

@@ -35,13 +35,13 @@ import java.util.Map;
 /**
  * 权限控制实现
  *
- * @auther songchunlei@qq.com
+ * @author songchunlei@qq.com
  * @create 2018/3/4
  */
 @Service
-public class AuthServiceImpl implements IAuthService{
+public class AuthServiceImpl implements IAuthService {
 
-   //protected Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+    //protected Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private ISysTokenClient sysTokenClient;
@@ -56,22 +56,22 @@ public class AuthServiceImpl implements IAuthService{
     private ISysMenuService sysMenuService;
 
     @Override
-    public SysUser findByUsernameAndPassword(AuthRequest authRequest) throws BaseException{
+    public SysUser findByUsernameAndPassword(AuthRequest authRequest) {
         SysUser sysUser = sysUserService.findByUsername(authRequest);
         return sysUser;
     }
 
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public JWTToken login(AuthRequest authRequest) throws Exception {
-        if(authRequest!=null) {
+    public JWTToken login(AuthRequest authRequest) {
+        if (authRequest != null) {
             //logger.info("*******AuthService.login****************");
             SysUser sysUser = this.findByUsernameAndPassword(authRequest);
-            if(sysUser==null)
-            {
+            if (sysUser == null) {
                 throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
             }
-            return this.parseToken(sysTokenClient.createTokenByUserInfo(UserHandler.getUserInfoBySysUser(sysUser,null)));
+            return this.parseToken(sysTokenClient.createTokenByUserInfo(UserHandler.getUserInfoBySysUser(sysUser, null)));
         }
         throw new BaseException(BaseExceptionEnum.AUTH_REQUEST_ERROR);
     }
@@ -81,37 +81,32 @@ public class AuthServiceImpl implements IAuthService{
     public boolean logout() {
         //logger.info("*******AuthService.loginout:****************"+token);
         String token = BaseContextHandler.getToken();
-        if(StringUtils.isNotEmpty(token))
-        {
+        if (StringUtils.isNotEmpty(token)) {
             sysTokenClient.invalidToken(token);
         }
         return true;
     }
 
+
     @Override
-    public JWTToken parseToken(String token) throws Exception {
+    public JWTToken parseToken(String token) {
         //解析jwtInfo
         UserInfo userInfo = sysTokenClient.parseToken(token);
         return this.parseToken(userInfo);
     }
 
 
-
-
     @Override
-    public boolean validate(AuthRequest authRequest){
+    public boolean validate(AuthRequest authRequest) {
         SysUser sysUser = sysUserService.findByUsername(authRequest);
-        if(sysUser!=null)
-        {
+        if (sysUser != null) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    private JWTToken parseToken(UserInfo userInfo) throws Exception {
+    private JWTToken parseToken(UserInfo userInfo) {
 
         //logger.info("*******AuthService.parseToken****************");
 
@@ -127,13 +122,10 @@ public class AuthServiceImpl implements IAuthService{
                 MenuTree menuTree = new MenuTree(menu);
                 trees.add(menuTree);
                 //当菜单类型为页面时，放入子菜单（不克隆）
-                if(SysMenuEnum.PAGE.getCode().equals(menu.getType()))
-                {
-                    all.put(menu.getCode(),menuTree);
-                }
-                else
-                {
-                    all.put(menu.getCode(),menuTree.clone());
+                if (SysMenuEnum.PAGE.getCode().equals(menu.getType())) {
+                    all.put(menu.getCode(), menuTree);
+                } else {
+                    all.put(menu.getCode(), menuTree.clone());
                 }
 
             }
@@ -141,7 +133,7 @@ public class AuthServiceImpl implements IAuthService{
         //构建树结构
         List<MenuTree> menus = TreeUtil.build(trees, CommonConstants.BASE_TREE_ROOT);
         //返回JWTToken
-        return new JWTToken(userInfo.getToken(), menus, all,userInfo );
+        return new JWTToken(userInfo.getToken(), menus, all, userInfo);
     }
 
 }

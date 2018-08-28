@@ -17,12 +17,6 @@ import javax.validation.constraints.NotNull;
  * @author chunlei.song@live.com123
  * @since 2018-03-08
  */
-@MyValidator(
-        message = "{dict.type.unique}",
-        thisclass = SysDictType.class,
-        serviceClass = "com.chens.admin.validator.DictValidator",
-        methodName = "check",
-        groups = {InsertValid.class, UpdateValid.class})
 @TableName("sys_dict_type")
 public class SysDictType extends BaseEntity<SysDictType> {
 

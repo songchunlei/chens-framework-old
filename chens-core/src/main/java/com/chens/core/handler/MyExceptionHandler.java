@@ -1,6 +1,5 @@
 package com.chens.core.handler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chens.core.exception.AuthException;
 import com.chens.core.exception.BaseException;
 import com.chens.core.exception.BaseExceptionEnum;
@@ -8,8 +7,6 @@ import com.chens.core.exception.TimeOutException;
 import com.chens.core.util.ResultHelper;
 import com.chens.core.util.StringUtils;
 import com.chens.core.vo.Result;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
-import feign.FeignException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

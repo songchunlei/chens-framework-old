@@ -2,7 +2,9 @@ package com.chens.core.util;
 
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.exception.FileException;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,7 @@ import java.net.URLEncoder;
  */
 public class BaseFileUtil {
 
-    private static final Logger logger = Logger.getLogger(BaseFileUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseFileUtil.class);
     private static final int BUFFER_SIZE = 16 * 1024;
 
     /**
@@ -130,7 +132,7 @@ public class BaseFileUtil {
              OutputStream out = new FileOutputStream(dst);) {
             copy(in, out);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(),e);
         }
     }
 

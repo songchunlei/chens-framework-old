@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import com.chens.core.constants.CommonConstants;
 import com.chens.core.context.BaseContextHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
@@ -18,7 +18,7 @@ import java.util.Date;
 //@Component 交给BaseMyBatisPlusConfig启动
 public class MyMetaObjectHandler extends MetaObjectHandler {
 	
-	 private Logger logger = LogManager.getLogger(MyMetaObjectHandler.class);
+	 private Logger logger = LoggerFactory.getLogger(MyMetaObjectHandler.class);
 
 
 

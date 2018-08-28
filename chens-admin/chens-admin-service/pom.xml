@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chens-admin-feign</artifactId>
+    <artifactId>chens-admin-service</artifactId>
 
     <dependencies>
         <!--通用方法集-->
@@ -22,19 +22,5 @@
             <artifactId>chens-admin-dto</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--spring-cloud-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
-        </dependency>
     </dependencies>
-
 </project>

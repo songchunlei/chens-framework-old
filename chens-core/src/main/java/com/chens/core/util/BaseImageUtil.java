@@ -1,6 +1,7 @@
 package com.chens.core.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
@@ -19,7 +20,7 @@ import java.io.IOException;
  */
 public class BaseImageUtil {
 
-    private static final Logger logger = Logger.getLogger(BaseImageUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseImageUtil.class);
 
     /**
      * 判断是否为图片

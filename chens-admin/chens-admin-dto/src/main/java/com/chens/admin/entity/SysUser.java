@@ -22,12 +22,6 @@ import java.util.List;
  * @since 2018-03-04
  */
 @TableName("sys_user")
-@MyValidator(
-        message = "{sysuser.username.unique}",
-        thisclass = SysUser.class,
-        serviceClass = "com.chens.admin.validator.UserValidator",
-        methodName = "check",
-        groups = {InsertValid.class, UpdateValid.class})
 public class SysUser extends BaseEntity<SysUser> {
 
     private static final long serialVersionUID = 1L;

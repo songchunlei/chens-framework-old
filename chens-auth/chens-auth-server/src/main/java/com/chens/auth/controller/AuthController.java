@@ -27,7 +27,7 @@ public class AuthController extends BaseController{
     private ISysTokenService sysTokenService;
 
     /**
-     * 创建token-根据登录请求(依赖admin-web)
+     * 创建token-根据登录请求(依赖admin-web)-登陆
      * @param authRequest
      * @return
      */
@@ -37,7 +37,7 @@ public class AuthController extends BaseController{
     }
 
     /**
-     * 注销token
+     * 注销token-登出
      * @return
      */
     @DeleteMapping("/invalidToken")

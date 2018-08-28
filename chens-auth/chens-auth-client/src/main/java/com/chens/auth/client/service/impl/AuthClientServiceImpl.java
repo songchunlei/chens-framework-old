@@ -29,9 +29,6 @@ import java.net.URLDecoder;
 public class AuthClientServiceImpl implements IAuthClientService {
 
     @Autowired
-    private ISysUserClient sysUserClient;
-
-    @Autowired
     private ISysTokenClient sysTokenClient;
 
     @Override
@@ -41,8 +38,7 @@ public class AuthClientServiceImpl implements IAuthClientService {
         String token = this.getToken(request);
 
         //token为空报错
-        if(StringUtils.isEmpty(token))
-        {
+        if (StringUtils.isEmpty(token)) {
             throw new AuthException(BaseExceptionEnum.TOKEN_ERROR);
         }
 
@@ -70,8 +66,7 @@ public class AuthClientServiceImpl implements IAuthClientService {
         String userId = request.getHeader(AuthConstants.KEY_USER_ID);
 
         //补偿逻辑，当没有用户id但是有token，继续拿token鉴权
-        if(StringUtils.isEmpty(userId) && StringUtils.isNotEmpty(token))
-        {
+        if (StringUtils.isEmpty(userId) && StringUtils.isNotEmpty(token)) {
             return getUserInfo(request);
         }
 
@@ -83,14 +78,12 @@ public class AuthClientServiceImpl implements IAuthClientService {
         try {
             name = URLDecoder.decode(request.getHeader(AuthConstants.KEY_NAME), CommonConstants.CHARACTER_UTF8);
         } catch (UnsupportedEncodingException e) {
-            throw new BaseException(BaseExceptionEnum.DATA_REQUEST_ERROR.getCode(),e.getMessage());
+            throw new BaseException(BaseExceptionEnum.DATA_REQUEST_ERROR.getCode(), e.getMessage());
         }
 
 
-
         //当用户id为空，则报错
-        if(StringUtils.isEmpty(userId))
-        {
+        if (StringUtils.isEmpty(userId)) {
             throw new AuthException(BaseExceptionEnum.AUTH_REQUEST_SIMPLE_ERROR);
         }
 
@@ -100,7 +93,7 @@ public class AuthClientServiceImpl implements IAuthClientService {
         BaseContextHandler.setUserId(userId);
         BaseContextHandler.setTenantId(tenantId);
         BaseContextHandler.setToken(token);
-        return new UserInfo(userId, name, userName, tenantId ,token);
+        return new UserInfo(userId, name, userName, tenantId, token);
     }
 
 
@@ -121,7 +114,7 @@ public class AuthClientServiceImpl implements IAuthClientService {
         if (StringUtils.isEmpty(token)) {
             if (request.getCookies() != null) {
                 for (Cookie cookie : request.getCookies()) {
-                    if (cookie.getName().equals(tokenKey)){
+                    if (cookie.getName().equals(tokenKey)) {
                         token = cookie.getValue();
                     }
                 }
